@@ -11,6 +11,10 @@
 		A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80932A75AD7700DAC3DD /* ContentView.swift */; };
 		A36E80962A75AD7800DAC3DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36E80952A75AD7800DAC3DD /* Assets.xcassets */; };
 		A36E80992A75AD7800DAC3DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36E80982A75AD7800DAC3DD /* Preview Assets.xcassets */; };
+		A36E80C32A7C49CF00DAC3DD /* eina-03-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C02A7C49CF00DAC3DD /* eina-03-bold.ttf */; };
+		A36E80C42A7C49CF00DAC3DD /* eina-03-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C12A7C49CF00DAC3DD /* eina-03-regular.ttf */; };
+		A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */; };
+		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,11 @@
 		A36E80932A75AD7700DAC3DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A36E80952A75AD7800DAC3DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A36E80982A75AD7800DAC3DD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A36E80C02A7C49CF00DAC3DD /* eina-03-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "eina-03-bold.ttf"; sourceTree = "<group>"; };
+		A36E80C12A7C49CF00DAC3DD /* eina-03-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "eina-03-regular.ttf"; sourceTree = "<group>"; };
+		A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "eina-03-semibold.ttf"; sourceTree = "<group>"; };
+		A36E80C62A7C4A0500DAC3DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A36E80C92A7C724400DAC3DD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +60,13 @@
 		A36E80902A75AD7700DAC3DD /* unistay */ = {
 			isa = PBXGroup;
 			children = (
+				A36E80C62A7C4A0500DAC3DD /* Info.plist */,
+				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36E80912A75AD7700DAC3DD /* unistayApp.swift */,
 				A36E80932A75AD7700DAC3DD /* ContentView.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
+				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
 			);
 			path = unistay;
 			sourceTree = "<group>";
@@ -65,6 +77,16 @@
 				A36E80982A75AD7800DAC3DD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A36E80BF2A7C49B100DAC3DD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A36E80C02A7C49CF00DAC3DD /* eina-03-bold.ttf */,
+				A36E80C12A7C49CF00DAC3DD /* eina-03-regular.ttf */,
+				A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A36E80992A75AD7800DAC3DD /* Preview Assets.xcassets in Resources */,
+				A36E80C32A7C49CF00DAC3DD /* eina-03-bold.ttf in Resources */,
 				A36E80962A75AD7800DAC3DD /* Assets.xcassets in Resources */,
+				A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */,
+				A36E80C42A7C49CF00DAC3DD /* eina-03-regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +164,7 @@
 			files = (
 				A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */,
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
+				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +295,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"unistay/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = unistay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,6 +324,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"unistay/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = unistay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
