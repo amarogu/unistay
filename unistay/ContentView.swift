@@ -40,31 +40,18 @@ struct ContentView: View {
     @State private var isMenuOpen = false
     var viewOptions = ["Recommended", "Saved", "Connected"]
     @State private var selectedView: String = "Recommended"
-    enum Tab {
-        case home, chat, profile, menu
-    }
-    @State private var selectedTab: Tab = .home
     var views = ["Places", "Chats", "Profile", "Menu"]
+    @State private var selectedTab = "Places"
     
     var body: some View {
         VStack(alignment: .center) {
-            Places()
+            if(selectedTab == "Places") {
+                Places()
+            }
             HStack(alignment: .bottom) {
                 ForEach(views, id:\.self) {
                     option in
-                    VStack(alignment: .center) {
-                        if (option == "Places") {
-                            icon(name: "house", size: 22)
-                        } else if (option == "Chats") {
-                            icon(name: "bubble.left.and.bubble.right", size: 22)
-                        } else if (option == "Profile") {
-                            icon(name: "person.crop.circle", size: 22)
-                        } else {
-                            icon(name: "line.3.horizontal", size: 22)
-                        }
-                        styledText(type: "Regular", size: 14, content: option)
-                        
-                    }.frame(maxWidth: .infinity)
+                    unistay.tabItem(selectedTab: $selectedTab, option: option)
                 }
             }
         }
