@@ -49,17 +49,10 @@ struct Places: View {
                 text: $text
             ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
             Spacer()
-            HStack() {
-                ForEach(viewOptions, id: \.self) {
-                    option in
-                    Button(action: {
-                        selectedView = option
-                    }, label: {
-                        styledText(type: "Semibold", size: 18, content: option).foregroundColor(selectedView == option ? Color("BodyEmphasized") : Color("BodyEmphasized").opacity(0.7))
-                    })
-                }
-                Spacer()
-            }.frame(maxWidth: .infinity)
+            Selection()
+            Spacer()
+            Accomodations()
+        }.frame(maxWidth: .infinity).padding(.all, 14)
         }
     }
     
@@ -68,4 +61,4 @@ struct Places: View {
             Places()
         }
     }
-}
+

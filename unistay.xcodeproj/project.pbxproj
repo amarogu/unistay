@@ -17,6 +17,8 @@
 		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
 		A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539BC2A8198B300CEDFE7 /* Places.swift */; };
 		A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539BE2A828B2400CEDFE7 /* tabItem.swift */; };
+		A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C22A82E8CD00CEDFE7 /* Selection.swift */; };
+		A3F539C52A82EC2E00CEDFE7 /* Accomodations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C42A82EC2E00CEDFE7 /* Accomodations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		A36E80C92A7C724400DAC3DD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A3F539BC2A8198B300CEDFE7 /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
 		A3F539BE2A828B2400CEDFE7 /* tabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabItem.swift; sourceTree = "<group>"; };
+		A3F539C22A82E8CD00CEDFE7 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
+		A3F539C42A82EC2E00CEDFE7 /* Accomodations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accomodations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
 				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
 				A3F539BE2A828B2400CEDFE7 /* tabItem.swift */,
+				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
+				A3F539C42A82EC2E00CEDFE7 /* Accomodations.swift */,
 			);
 			path = unistay;
 			sourceTree = "<group>";
@@ -168,9 +174,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */,
 				A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */,
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
+				A3F539C52A82EC2E00CEDFE7 /* Accomodations.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
 			);
