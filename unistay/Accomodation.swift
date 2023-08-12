@@ -7,22 +7,23 @@
 
 import SwiftUI
 
-struct Accomodations: View {
+struct Accomodation: View {
+    var AccommodationData: AccommodationData
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: 150, height: 150).scaleEffect(1.25).clipped().cornerRadius(20)
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "location.circle.fill")
-                    styledText(type: "Regular", size: 14, content: "New York City, NY")
+                    styledText(type: "Regular", size: 14, content: AccommodationData.location)
                 }
                 HStack {
-                    styledText(type: "Regular", size: 14, content: "USD 1.100")
+                    styledText(type: "Regular", size: 14, content: "\(AccommodationData.currency) \(AccommodationData.rent)")
                     styledText(type: "Regular", size: 13, content: "/month").opacity(0.7)
                 }
                 HStack {
                     Image(systemName: "star.fill").resizable().aspectRatio(contentMode: .fit).frame(width: 14)
-                    styledText(type: "Regular", size: 14, content: "4.5")
+                    styledText(type: "Regular", size: 14, content: "\(AccommodationData.rating)")
                 }
 
             }
@@ -30,8 +31,3 @@ struct Accomodations: View {
     }
 }
 
-struct Accomodations_Previews: PreviewProvider {
-    static var previews: some View {
-        Accomodations()
-    }
-}

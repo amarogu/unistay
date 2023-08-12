@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Selection: View {
     var viewOptions = ["Recommended", "Saved", "Connected"]
-    @State private var selectedView: String = "Recommended"
+    @Binding var selectedView: String
     var body: some View {
         HStack() {
             ForEach(viewOptions, id: \.self) {
@@ -25,9 +25,5 @@ struct Selection: View {
         
     }
     
-    struct Selection_Previews: PreviewProvider {
-        static var previews: some View {
-            Selection()
-        }
-    }
+    
 }

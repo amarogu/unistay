@@ -49,9 +49,11 @@ struct Places: View {
                 text: $text
             ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
             Spacer()
-            Selection()
+            Selection(selectedView: $selectedView)
             Spacer()
-            Accomodations()
+            if(selectedView == "Saved") {
+                //Accomodation()
+            }
         }.frame(maxWidth: .infinity).padding(.all, 14)
         }
     }
