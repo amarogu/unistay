@@ -44,16 +44,20 @@ struct ContentView: View {
     @State private var selectedTab = "Places"
     
     var body: some View {
-        VStack(alignment: .center) {
-            if(selectedTab == "Places") {
-                Places()
-            }
-            HStack(alignment: .bottom) {
-                ForEach(views, id:\.self) {
-                    option in
-                    unistay.tabItem(selectedTab: $selectedTab, option: option)
+        GeometryReader {
+            geometry in
+            let size = geometry.size.width
+            VStack(alignment: .center) {
+                if(selectedTab == "Places") {
+                    Places(size: size)
                 }
-            }
+                HStack(alignment: .bottom) {
+                    ForEach(views, id:\.self) {
+                        option in
+                        unistay.tabItem(selectedTab: $selectedTab, option: option)
+                    }
+                }
+            }.frame(maxHeight: .infinity)
         }
         
     }

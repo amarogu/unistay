@@ -30,7 +30,7 @@ struct Accomodation: View {
                 }
 
             }
-        }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.top, padding)
+        }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.all, padding)
     }
 }
 

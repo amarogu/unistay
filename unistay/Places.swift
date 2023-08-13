@@ -16,8 +16,7 @@ struct Places: View {
     @State private var isMenuOpen = false
     var viewOptions = ["Recommended", "Saved", "Connected"]
     @State private var selectedView: String = "Recommended"
-    
-    
+    var size: CGFloat
     var body: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
@@ -53,19 +52,19 @@ struct Places: View {
             Spacer()
             if(selectedView == "Saved") {
                 //Accomodation()
-                AccomodationsGroup()
+                AccomodationsGroup(size: size)
             } else if(selectedView == "Recommended") {
-                AccomodationsGroup()
+                AccomodationsGroup(size: size)
             } else {
-                AccomodationsGroup()
+                AccomodationsGroup(size: size)
             }
         }.frame(maxWidth: .infinity).padding(.all, 14)
         }
     }
     
-    struct Places_Previews: PreviewProvider {
+    /*struct Places_Previews: PreviewProvider {
         static var previews: some View {
             Places()
         }
-    }
+    }*/
 

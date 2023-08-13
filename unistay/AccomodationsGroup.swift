@@ -26,26 +26,40 @@ struct AccomodationsGroup: View {
         AccommodationData(location: "Boston", rent: 2100, currency: "USD", rating: 4.6)
         ]
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    var size: CGFloat
     var body: some View {
-        GeometryReader {
-            geometry in
-            let size = geometry.size.width
+        
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(accommodations, id: \.self) { accommodation in
-                        Accomodation(AccommodationData: accommodation, size: size, padding: ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) ? 10 : 0 )
-                        }
+                HStack(alignment: .top) {
+                    
+                    VStack {
+                        ForEach(accommodations, id: \.self) { accommodation in
+                            if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 != 0) {
+                                Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
+                            }
+                            }
+                    }
+                    Spacer()
+                    VStack {
+                        ForEach(accommodations, id: \.self) { accommodation in
+                            if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) {
+                                Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
+                            }
+                            }
+                    }.padding(.top, 30)
+                    
+                }
                 }
             }
         }
         
-        }
-    }
 
 
-struct AccomodationsGroup_Previews: PreviewProvider {
+
+
+/*struct AccomodationsGroup_Previews: PreviewProvider {
     static var previews: some View {
         AccomodationsGroup()
         AccomodationsGroup().previewDevice("iPhone SE (3rd generation)")
     }
-}
+}*/
