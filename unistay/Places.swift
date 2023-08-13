@@ -53,6 +53,11 @@ struct Places: View {
             Spacer()
             if(selectedView == "Saved") {
                 //Accomodation()
+                AccomodationsGroup()
+            } else if(selectedView == "Recommended") {
+                AccomodationsGroup()
+            } else {
+                AccomodationsGroup()
             }
         }.frame(maxWidth: .infinity).padding(.all, 14)
         }

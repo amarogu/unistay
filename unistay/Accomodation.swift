@@ -9,10 +9,13 @@ import SwiftUI
 
 struct Accomodation: View {
     var AccommodationData: AccommodationData
+    var size: CGFloat
+    var padding: CGFloat
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: 150, height: 150).scaleEffect(1.25).clipped().cornerRadius(20)
+            Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
             VStack(alignment: .leading, spacing: 10) {
+                
                 HStack {
                     Image(systemName: "location.circle.fill")
                     styledText(type: "Regular", size: 14, content: AccommodationData.location)
@@ -27,7 +30,7 @@ struct Accomodation: View {
                 }
 
             }
-        }.padding(.all, 16).background(Color("Gray")).cornerRadius(20)
+        }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.top, padding)
     }
 }
 

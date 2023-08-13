@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AccommodationData {
+struct AccommodationData: Hashable {
     var location: String
     var rent: CGFloat
     var currency: String
@@ -25,13 +25,27 @@ struct AccomodationsGroup: View {
         AccommodationData(location: "Austin", rent: 1600, currency: "USD", rating: 4.1),
         AccommodationData(location: "Boston", rent: 2100, currency: "USD", rating: 4.6)
         ]
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
-        Accomodation(AccommodationData: accommodations[0])
+        GeometryReader {
+            geometry in
+            let size = geometry.size.width
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 0) {
+                    ForEach(accommodations, id: \.self) { accommodation in
+                        Accomodation(AccommodationData: accommodation, size: size, padding: ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) ? 10 : 0 )
+                        }
+                }
+            }
+        }
+        
+        }
     }
-}
+
 
 struct AccomodationsGroup_Previews: PreviewProvider {
     static var previews: some View {
         AccomodationsGroup()
+        AccomodationsGroup().previewDevice("iPhone SE (3rd generation)")
     }
 }
