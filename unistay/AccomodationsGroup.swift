@@ -24,20 +24,21 @@ struct AccomodationsGroup: View {
         AccommodationData(location: "Seattle", rent: 1900, currency: "USD", rating: 4.3),
         AccommodationData(location: "Austin", rent: 1600, currency: "USD", rating: 4.1),
         AccommodationData(location: "Boston", rent: 2100, currency: "USD", rating: 4.6)
-        ]
+    ]
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var size: CGFloat
+    var tabSize: CGFloat
     var body: some View {
         
             ScrollView {
                 HStack(alignment: .top) {
-                    
+
                     VStack {
                         ForEach(accommodations, id: \.self) { accommodation in
                             if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 != 0) {
                                 Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
                             }
-                            }
+                        }
                     }
                     Spacer()
                     VStack {
@@ -45,13 +46,14 @@ struct AccomodationsGroup: View {
                             if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) {
                                 Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
                             }
-                            }
+                        }
                     }.padding(.top, 30)
                     
-                }
-                }
+                }.padding(.bottom, tabSize)
             }
         }
+            }
+
         
 
 

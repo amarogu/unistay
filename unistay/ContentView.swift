@@ -42,23 +42,29 @@ struct ContentView: View {
     @State private var selectedView: String = "Recommended"
     var views = ["Places", "Chats", "Profile", "Menu"]
     @State private var selectedTab = "Places"
-    
+    @State private var tabSize: CGFloat = 0
     var body: some View {
         GeometryReader {
             geometry in
             let size = geometry.size.width
-            VStack(alignment: .center) {
+            ZStack(alignment: .bottom) {
                 if(selectedTab == "Places") {
-                    Places(size: size)
+                    Places(size: size, tabSize: tabSize)
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {
                         option in
                         unistay.tabItem(selectedTab: $selectedTab, option: option)
                     }
-                }
-            }.frame(maxHeight: .infinity)
-        }
+                }.padding(.all, 18).background(GeometryReader {
+                    geo in
+                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.74), endPoint: .top).onAppear {
+                        tabSize = geo.size.height
+                        //sizeCompute(size: tabSize)
+                    }
+                })
+            }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom)
+        }.background(Color("BackgroundColor"))
         
     }
     

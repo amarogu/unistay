@@ -17,6 +17,7 @@ struct Places: View {
     var viewOptions = ["Recommended", "Saved", "Connected"]
     @State private var selectedView: String = "Recommended"
     var size: CGFloat
+    var tabSize: CGFloat
     var body: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
@@ -40,23 +41,23 @@ struct Places: View {
                 } label: {
                     Label(title: {Text("")}, icon: {Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24)).foregroundColor(/*@START_MENU_TOKEN@*/Color("BodyEmphasized")/*@END_MENU_TOKEN@*/)})
                 }
-            }
+            }.padding(.bottom, 14)
             Spacer()
             /*SearchBar(searchText: $searchText).padding(.all, 10).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("SearchBar")/*@END_MENU_TOKEN@*/).cornerRadius(5)*/
             SearchBar(
                 placeholder: Text("Search accommodations, locations...").foregroundColor(Color(UIColor(named: "BodyEmphasized")!)).font(.custom("Eina03-Regular", size: 13)),
                 text: $text
-            ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+            ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 14)
             Spacer()
-            Selection(selectedView: $selectedView)
+            Selection(selectedView: $selectedView)//.padding(.bottom, 14)
             Spacer()
             if(selectedView == "Saved") {
                 //Accomodation()
-                AccomodationsGroup(size: size)
+                AccomodationsGroup(size: size, tabSize: tabSize)
             } else if(selectedView == "Recommended") {
-                AccomodationsGroup(size: size)
+                AccomodationsGroup(size: size, tabSize: tabSize)
             } else {
-                AccomodationsGroup(size: size)
+                AccomodationsGroup(size: size, tabSize: tabSize)
             }
         }.frame(maxWidth: .infinity).padding(.all, 14)
         }
