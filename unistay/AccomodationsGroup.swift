@@ -28,6 +28,7 @@ struct AccomodationsGroup: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var size: CGFloat
     var tabSize: CGFloat
+    var selectionSize: CGFloat
     var body: some View {
         
             ScrollView {
@@ -49,7 +50,7 @@ struct AccomodationsGroup: View {
                         }
                     }.padding(.top, 30)
                     
-                }.padding(.bottom, tabSize)
+                }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
             }
         }
             }

@@ -18,6 +18,7 @@ struct Places: View {
     @State private var selectedView: String = "Recommended"
     var size: CGFloat
     var tabSize: CGFloat
+    @State private var selectionSize: CGFloat = 0
     var body: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
@@ -49,15 +50,24 @@ struct Places: View {
                 text: $text
             ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 14)
             Spacer()
-            Selection(selectedView: $selectedView)//.padding(.bottom, 14)
-            Spacer()
-            if(selectedView == "Saved") {
-                //Accomodation()
-                AccomodationsGroup(size: size, tabSize: tabSize)
-            } else if(selectedView == "Recommended") {
-                AccomodationsGroup(size: size, tabSize: tabSize)
-            } else {
-                AccomodationsGroup(size: size, tabSize: tabSize)
+            ZStack(alignment: .top) {
+                
+                if(selectedView == "Saved") {
+                    //Accomodation()
+                    AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize)
+                } else if(selectedView == "Recommended") {
+                    AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize)
+                } else {
+                    AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize)
+                }
+                
+                Selection(selectedView: $selectedView).padding(.bottom, 44).background(GeometryReader {
+                    geo in
+                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
+                        selectionSize = geo.size.height
+                    }
+                })
+                
             }
         }.frame(maxWidth: .infinity).padding(.all, 14)
         }
