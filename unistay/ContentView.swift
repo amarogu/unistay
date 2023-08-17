@@ -50,6 +50,8 @@ struct ContentView: View {
             ZStack(alignment: .bottom) {
                 if(selectedTab == "Places") {
                     Places(size: size, tabSize: tabSize)
+                } else if (selectedTab == "Menu") {
+                    MenuView()
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {

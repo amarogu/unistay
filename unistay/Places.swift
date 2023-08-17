@@ -42,13 +42,13 @@ struct Places: View {
                 } label: {
                     Label(title: {Text("")}, icon: {Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24)).foregroundColor(/*@START_MENU_TOKEN@*/Color("BodyEmphasized")/*@END_MENU_TOKEN@*/)})
                 }
-            }.padding(.bottom, 14)
+            }.padding(.bottom, 14).padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
             Spacer()
             /*SearchBar(searchText: $searchText).padding(.all, 10).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("SearchBar")/*@END_MENU_TOKEN@*/).cornerRadius(5)*/
             SearchBar(
                 placeholder: Text("Search accommodations, locations...").foregroundColor(Color(UIColor(named: "BodyEmphasized")!)).font(.custom("Eina03-Regular", size: 13)),
                 text: $text
-            ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 14)
+            ).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 14).padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
             Spacer()
             ZStack(alignment: .top) {
                 
@@ -66,10 +66,10 @@ struct Places: View {
                     LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
                         selectionSize = geo.size.height
                     }
-                })
+                }).padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
                 
             }
-        }.frame(maxWidth: .infinity).padding(.all, 14)
+        }.frame(maxWidth: .infinity)
         }
     }
     
