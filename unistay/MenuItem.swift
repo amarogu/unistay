@@ -17,8 +17,9 @@ struct MenuItem: View {
                 Image(systemName: menuItemData.titleIcon)
             }.padding(.bottom, 10)
             HStack(alignment: .center) {
-                styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
+                
                 if (menuItemData.options.count == 1) {
+                    styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
                     Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                 } else {
                     Menu {
@@ -31,6 +32,7 @@ struct MenuItem: View {
                             }
                         }
                     } label: {
+                        styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
                         Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                     }
                 }

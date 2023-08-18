@@ -57,7 +57,7 @@ struct MenuItemData: Identifiable {
 struct MenuView: View {
     var size: CGFloat
     var tabSize: CGFloat
-    @State var generalMenu: [MenuItemData] = [.init(title: "Password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line", options: ["Change your password"], selectedItem: 0), .init(title: "Theme", titleIcon: "moon.circle", descIcon: "chevron.down", options: ["System theme", "Light", "Dark"], selectedItem: 0), .init(title: "Two-factor authentication", titleIcon: "lock.shield", descIcon: "chevron.down", options: ["Disabled", "Enabled"], selectedItem: 0)]
+    @State var generalMenu: [MenuItemData] = [.init(title: "Password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line", options: ["Change your password"], selectedItem: 0), .init(title: "Theme", titleIcon: "moon.circle", descIcon: "chevron.down", options: ["System theme", "Light", "Dark"], selectedItem: 0), .init(title: "Two-factor authentication", titleIcon: "lock.shield", descIcon: "chevron.down", options: ["Disabled", "Enabled"], selectedItem: 0), .init(title: "Language", titleIcon: "globe", descIcon: "chevron.down", options: ["System language", "English", "Portuguese", "French"], selectedItem: 0)]
     @State var accountMenu: [MenuItemData] = [.init(title: "Deletion", titleIcon: "delete.backward", descIcon: "hand.tap", options: ["Click here to delete your account"], selectedItem: 0), .init(title: "Reset all preferences", titleIcon: "clock.arrow.circlepath", descIcon: "hand.tap", options: ["Click here to reset all your preferences"], selectedItem: 0), .init(title: "Preferred currency", titleIcon: "dollarsign.circle", descIcon: "chevron.down", options: ["USD", "BRL", "EUR", "GBP"], selectedItem: 0)]
     var body: some View {
         ScrollView {
