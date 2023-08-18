@@ -15,56 +15,67 @@ func menuTitle(title: String, icon: String) -> some View {
     }.padding(.bottom, 25)
 }
 
-func menuItem(title: String, desc: String, titleIcon: String, descIcon: String, options: Array<String>, selecedtedItem: Binding<String>) -> some View {
+/*func menuItem(title: String, titleIcon: String, descIcon: String, options: [String]) -> some View {
+    @State var selectedItem = options[0]
     return VStack(alignment: .leading) {
         HStack(alignment: .center) {
             styledText(type: "Regular", size: 16, content: title)
             Image(systemName: titleIcon)
         }.padding(.bottom, 10)
         HStack(alignment: .center) {
-            styledText(type: "Regular", size: 16, content: desc).foregroundColor(Color("Body")).underline()
-            if (options == []) {
+            styledText(type: "Regular", size: 16, content: selectedItem).foregroundColor(Color("Body")).underline()
+            if (options.count == 1) {
                 Image(systemName: descIcon).foregroundColor(Color("Body"))
             } else {
                 Menu {
                     ForEach(options, id: \.self) {
                         option in
                         Button(action: {
-                            // if (selecte)
+                            selectedItem = option
                         }) {
-                            Label(option, systemImage: "")
+                            Label(option, systemImage: selectedItem == option ? "checkmark" : "")
                         }
                     }
+                } label: {
+                    Image(systemName: descIcon).foregroundColor(Color("Body"))
                 }
             }
         }
     }.padding(.bottom, 45)
+}*/
+
+struct MenuItemData: Identifiable {
+    var id: UUID = UUID()
+    
+    var title: String
+    var titleIcon: String
+    var descIcon: String
+    var options: [String]
+    var selectedItem: Int
 }
 
 struct MenuView: View {
-    @State private var password: String = ""
-    @State private var themeIndex: Int = 0
-    @State private var twoFAEnabled: Bool = false
     var size: CGFloat
     var tabSize: CGFloat
-    @State private var selectedItem: String
-    
+    @State var generalMenu: [MenuItemData] = [.init(title: "Password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line", options: ["Change your password"], selectedItem: 0), .init(title: "Theme", titleIcon: "moon.circle", descIcon: "chevron.down", options: ["System theme", "Light", "Dark"], selectedItem: 0), .init(title: "Two-factor authentication", titleIcon: "lock.shield", descIcon: "chevron.down", options: ["Disabled", "Enabled"], selectedItem: 0)]
+    @State var accountMenu: [MenuItemData] = [.init(title: "Deletion", titleIcon: "delete.backward", descIcon: "hand.tap", options: ["Click here to delete your account"], selectedItem: 0), .init(title: "Reset all preferences", titleIcon: "clock.arrow.circlepath", descIcon: "hand.tap", options: ["Click here to reset all your preferences"], selectedItem: 0), .init(title: "Preferred currency", titleIcon: "dollarsign.circle", descIcon: "chevron.down", options: ["USD", "BRL", "EUR", "GBP"], selectedItem: 0)]
     var body: some View {
         ScrollView {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         menuTitle(title: "General settings", icon: "gear")
-                        menuItem(title: "Password", desc: "Change your password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line")
-                        menuItem(title: "Theme", desc: "Change your password", titleIcon: "moon.circle", descIcon: "chevron.down")
-                        menuItem(title: "Password", desc: "Change your password", titleIcon: "ellipsis.rectangle", descIcon: "chevron.down")
+                        ForEach($generalMenu) { menu in
+                            MenuItem(menuItemData: menu)
+                        }
                         Spacer()
                     }.padding(.bottom, 25).padding(.top, 10)
                     VStack(alignment: .leading) {
                         menuTitle(title: "Account settings", icon: "person.2.badge.gearshape")
-                        menuItem(title: "Deletion", desc: "Click here to delete your account", titleIcon: "delete.backward", descIcon: "hand.tap")
-                        menuItem(title: "Reset all preferences", desc: "Click here to reset all your preferences", titleIcon: "clock.arrow.circlepath", descIcon: "hand.tap")
-                        menuItem(title: "Preferred currency", desc: "USD", titleIcon: "dollarsign.circle", descIcon: "chevron.down")
+                        ForEach($accountMenu) {
+                            menu in
+                            MenuItem(menuItemData: menu)
+                        }
                         Spacer()
                     }//.padding(.bottom, 25)
                 }
