@@ -51,7 +51,7 @@ struct ContentView: View {
                 if(selectedTab == "Places") {
                     Places(size: size, tabSize: tabSize)
                 } else if (selectedTab == "Menu") {
-                    MenuView()
+                    MenuView(size: size, tabSize: tabSize)
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {
