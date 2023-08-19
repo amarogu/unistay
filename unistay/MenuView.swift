@@ -44,7 +44,7 @@ func menuTitle(title: String, icon: String) -> some View {
     }.padding(.bottom, 45)
 }*/
 
-struct MenuItemData: Identifiable {
+struct MenuItemData: Identifiable, Hashable {
     var id: UUID = UUID()
     
     var title: String
