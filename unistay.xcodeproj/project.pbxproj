@@ -78,7 +78,7 @@
 		A36E80902A75AD7700DAC3DD /* unistay */ = {
 			isa = PBXGroup;
 			children = (
-				A3F539BC2A8198B300CEDFE7 /* Places.swift */,
+				A3E245A02A93F9A000BC7E37 /* MainPages */,
 				A36E80C62A7C4A0500DAC3DD /* Info.plist */,
 				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36E80912A75AD7700DAC3DD /* unistayApp.swift */,
@@ -86,14 +86,8 @@
 				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
-				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
 				A3F539BE2A828B2400CEDFE7 /* tabItem.swift */,
-				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
-				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
-				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
-				A3DA35482A8CED3A005EAAC9 /* MenuView.swift */,
-				A3E245982A90197100BC7E37 /* MenuItem.swift */,
-				A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */,
+				A3E2459F2A93F97800BC7E37 /* Accommodations */,
 			);
 			path = unistay;
 			sourceTree = "<group>";
@@ -114,6 +108,44 @@
 				A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		A3E2459E2A93F93600BC7E37 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				A3DA35482A8CED3A005EAAC9 /* MenuView.swift */,
+				A3E245982A90197100BC7E37 /* MenuItem.swift */,
+				A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		A3E2459F2A93F97800BC7E37 /* Accommodations */ = {
+			isa = PBXGroup;
+			children = (
+				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
+				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
+			);
+			path = Accommodations;
+			sourceTree = "<group>";
+		};
+		A3E245A02A93F9A000BC7E37 /* MainPages */ = {
+			isa = PBXGroup;
+			children = (
+				A3E245A12A93F9D400BC7E37 /* Places */,
+				A3E2459E2A93F93600BC7E37 /* Menu */,
+			);
+			path = MainPages;
+			sourceTree = "<group>";
+		};
+		A3E245A12A93F9D400BC7E37 /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
+				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
+				A3F539BC2A8198B300CEDFE7 /* Places.swift */,
+			);
+			path = Places;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

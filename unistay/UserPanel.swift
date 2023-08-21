@@ -35,7 +35,7 @@ struct UserPanel: View {
                     }).offset(.init(width: imageSize / 2, height: imageSize / 2))
                     
                 }.frame(maxWidth: .infinity).background(Color("BackgroundColor"))
-                Spacer()
+                //Spacer()
                 HStack (alignment: .center) {
                     VStack(alignment: .leading, spacing: 15) {
                         VStack(alignment: .leading, spacing: 2) {
@@ -55,10 +55,10 @@ struct UserPanel: View {
                             styledText(type: "Semibold", size: 14, content: "\(user.amountOfConnections)")
                             styledText(type: "Regular", size: 14, content: "Connections")
                         }
-                    }
+                    }.padding(.top, imageSize / 1.2)
                     Spacer()
-                    
                 }.frame(maxWidth: .infinity)
+                Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor"))
     }
