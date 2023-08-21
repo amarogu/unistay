@@ -12,7 +12,7 @@ struct Places: View {
     // @State private var searchText3 = "a"
     @State var text: String = ""
     @State private var selectedFilters: [String] = []
-    var filterOptions = ["option", "option 1", "option 2", "option 3"]
+    var filterOptions = ["Bedrooms", "Bathrooms", "Guests", "Price range"]
     @State private var isMenuOpen = false
     var viewOptions = ["Recommended", "Saved", "Connected"]
     @State private var selectedView: String = "Recommended"

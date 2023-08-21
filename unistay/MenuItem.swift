@@ -30,19 +30,6 @@ struct FullScreenModifier<V: View>: ViewModifier {
     }
 }*/
 
-struct FullScreenModalView: View {
-    var body: some View {
-        VStack {
-            Text("I'm a Full Screen Modal")
-            Button("Dismiss") {
-                UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true)
-            }
-        }
-    }
-}
-
-
-
 /*struct FullScreenModal: View {
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -59,10 +46,19 @@ struct FullScreenModalView: View {
     }
 }*/
 
+/*struct MenuSheetItem: View {
+    var body: some View {
+        VStack {
+            styledText(type: "regular", size: 16, content: "Done").foregroundColor(Color("BodyEmphasized"))
+        }
+    }
+}*/
+
 struct MenuItem: View {
-    //@Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @Binding var menuItemData: MenuItemData
     @State private var showingData: Bool = false
+    var itemFields: [Any] = []
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -71,17 +67,17 @@ struct MenuItem: View {
                 Image(systemName: menuItemData.titleIcon)
             }.padding(.bottom, 10)
             HStack(alignment: .center) {
-                
                 if (menuItemData.options.count == 1) {
+                    //menuItemData.
+                    
                     Button(action: {
-                        let viewController = UIHostingController(rootView: FullScreenModalView())
-                                    viewController.modalPresentationStyle = .fullScreen
-                                    UIApplication.shared.windows.first?.rootViewController?.present(viewController, animated: true)
+                        showingData.toggle()
                     }) {
                         styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
                         Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
-                    }
-                
+                    }.sheet(isPresented: $showingData) {
+                        MenuItemSheet(showingData: $showingData, titleIcon: menuItemData.descIcon, sheetTitle: menuItemData.sheetTitle ?? "", description: menuItemData.sheetDescription ?? "", action: menuItemData.action ?? "", fields: menuItemData.sheetFields ?? [], states: menuItemData.sheetStates ?? [])
+                    }.presentationBackground(Color("BackgroundColorLighter"))
                 } else {
                     Menu {
                         ForEach(menuItemData.options, id: \.self) {
@@ -101,6 +97,7 @@ struct MenuItem: View {
         }.padding(.bottom, 45)
     }
 }
+
 
 /*struct MenuItem_Previews: PreviewProvider {
     static var previews: some View {

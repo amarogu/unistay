@@ -46,19 +46,23 @@ func menuTitle(title: String, icon: String) -> some View {
 
 struct MenuItemData: Identifiable, Hashable {
     var id: UUID = UUID()
-    
     var title: String
     var titleIcon: String
     var descIcon: String
     var options: [String]
     var selectedItem: Int
+    var sheetTitle: String?
+    var sheetFields: [String]?
+    var sheetStates: [String]?
+    var action: String?
+    var sheetDescription: String?
 }
 
 struct MenuView: View {
     var size: CGFloat
     var tabSize: CGFloat
-    @State var generalMenu: [MenuItemData] = [.init(title: "Password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line", options: ["Change your password"], selectedItem: 0), .init(title: "Theme", titleIcon: "moon.circle", descIcon: "chevron.down", options: ["System theme", "Light", "Dark"], selectedItem: 0), .init(title: "Two-factor authentication", titleIcon: "lock.shield", descIcon: "chevron.down", options: ["Disabled", "Enabled"], selectedItem: 0), .init(title: "Language", titleIcon: "globe", descIcon: "chevron.down", options: ["System language", "English", "Portuguese", "French"], selectedItem: 0)]
-    @State var accountMenu: [MenuItemData] = [.init(title: "Deletion", titleIcon: "delete.backward", descIcon: "hand.tap", options: ["Click here to delete your account"], selectedItem: 0), .init(title: "Reset all preferences", titleIcon: "clock.arrow.circlepath", descIcon: "hand.tap", options: ["Click here to reset all your preferences"], selectedItem: 0), .init(title: "Preferred currency", titleIcon: "dollarsign.circle", descIcon: "chevron.down", options: ["USD", "BRL", "EUR", "GBP"], selectedItem: 0)]
+    @State var generalMenu: [MenuItemData] = [.init(title: "Password", titleIcon: "ellipsis.rectangle", descIcon: "pencil.line", options: ["Change your password"], selectedItem: 0, sheetTitle: "Changing your password", sheetFields: ["Current password", "New password", "Confirm new password"], sheetStates: ["", "", ""], action: "Change your password"), .init(title: "Theme", titleIcon: "moon.circle", descIcon: "chevron.down", options: ["System theme", "Light", "Dark"], selectedItem: 0), .init(title: "Two-factor authentication", titleIcon: "lock.shield", descIcon: "chevron.down", options: ["Disabled", "Enabled"], selectedItem: 0), .init(title: "Language", titleIcon: "globe", descIcon: "chevron.down", options: ["System language", "English", "Portuguese", "French"], selectedItem: 0)]
+    @State var accountMenu: [MenuItemData] = [.init(title: "Deletion", titleIcon: "delete.backward", descIcon: "hand.tap", options: ["Click here to delete your account"], selectedItem: 0, sheetTitle: "Deleting your account", action: "Click here to permanently delete your account", sheetDescription: "By clicking the below button you are making an irreversable action."), .init(title: "Reset all preferences", titleIcon: "clock.arrow.circlepath", descIcon: "hand.tap", options: ["Click here to reset all your preferences"], selectedItem: 0, sheetTitle: "Resetting all your preferences", action: "Click here to reset all your preferences", sheetDescription: "By clicking the below button you will reset all of your preferences."), .init(title: "Preferred currency", titleIcon: "dollarsign.circle", descIcon: "chevron.down", options: ["USD", "BRL", "EUR", "GBP"], selectedItem: 0)]
     var body: some View {
         ScrollView {
             HStack(alignment: .top) {
