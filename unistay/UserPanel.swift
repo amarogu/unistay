@@ -60,17 +60,24 @@ struct UserPanel: View {
                         }
                     }.padding(.top, imageSize / 1.2)
                     Spacer()
-                }.frame(maxWidth: .infinity)
-                Selection(viewOptions: viewOptions, selectedView: $selectedView).background(GeometryReader {
-                    geo in
-                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
-                        selectionSize = geo.size.height
-                    }
-                    
-                }).padding(.vertical, 14)
+                }.frame(maxWidth: .infinity).padding(.bottom, 10)
+                
                 //Spacer()
-                Suggestion(width: width)
-                Spacer()
+                ZStack(alignment: .top) {
+                    ScrollView {
+                        Rectangle().frame(width: .infinity, height: selectionSize + 10).foregroundColor(.clear)
+                        Suggestion(width: width)
+                    }//.padding(.top, selectionSize)
+                    Selection(viewOptions: viewOptions, selectedView: $selectedView).background(GeometryReader {
+                        geo in
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
+                            selectionSize = geo.size.height
+                        }
+                        
+                    })//.padding(.top, 10)
+                    
+                }
+                //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
         }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor"))
