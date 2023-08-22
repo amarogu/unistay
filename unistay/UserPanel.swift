@@ -19,14 +19,17 @@ struct UserPanel: View {
     @State private var offset: CGSize = .zero
     @State private var scale: CGFloat = 1.0
     @State private var imageSize: CGFloat = 0
+    @State private var selectedView: String = "Universities"
+    var viewOptions = ["Universities", "Location", "Roommates"]
     var user: User = .init(name: "Lucca", surname: "Gray", username: "luccagray", bio: "Adventurous soul with a love for books and food. Let's connect and share our stories! 🌍📚🍽️", amountOfConnections: 14)
+    @State private var selectionSize: CGFloat = 0
     var body: some View {
         GeometryReader {
             geo in
             var width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
-                    Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(20)
+                    Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
                     Image("ProfilePicture").resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                         geo in
                         Color.clear.onAppear {
@@ -58,8 +61,18 @@ struct UserPanel: View {
                     }.padding(.top, imageSize / 1.2)
                     Spacer()
                 }.frame(maxWidth: .infinity)
+                Selection(viewOptions: viewOptions, selectedView: $selectedView).background(GeometryReader {
+                    geo in
+                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
+                        selectionSize = geo.size.height
+                    }
+                    
+                }).padding(.vertical, 14)
+                //Spacer()
+                Suggestion(width: width)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            
         }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor"))
     }
 }

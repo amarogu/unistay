@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Selection: View {
-    var viewOptions = ["Recommended", "Saved", "Connected"]
+    var viewOptions: [String]
     @Binding var selectedView: String
     var body: some View {
         HStack() {

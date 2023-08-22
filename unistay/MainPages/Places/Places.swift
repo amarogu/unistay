@@ -61,7 +61,7 @@ struct Places: View {
                     AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize)
                 }
                 
-                Selection(selectedView: $selectedView).padding(.bottom, 44).background(GeometryReader {
+                Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 44).background(GeometryReader {
                     geo in
                     LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
                         selectionSize = geo.size.height
