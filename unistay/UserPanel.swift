@@ -65,12 +65,12 @@ struct UserPanel: View {
                 //Spacer()
                 ZStack(alignment: .top) {
                     ScrollView {
-                        Rectangle().frame(width: .infinity, height: selectionSize + 10).foregroundColor(.clear)
+                        Rectangle().frame(width: .infinity, height: selectionSize + 20).foregroundColor(.clear)
                         Suggestion(width: width)
                     }//.padding(.top, selectionSize)
                     Selection(viewOptions: viewOptions, selectedView: $selectedView).background(GeometryReader {
                         geo in
-                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .top, endPoint: .bottom).onAppear {
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {
                             selectionSize = geo.size.height
                         }
                         
