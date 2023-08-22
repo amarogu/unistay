@@ -52,6 +52,8 @@ struct ContentView: View {
                     Places(size: size, tabSize: tabSize)
                 } else if (selectedTab == "Menu") {
                     MenuView(size: size, tabSize: tabSize)
+                } else if(selectedTab == "Profile") {
+                    UserPanel()
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {

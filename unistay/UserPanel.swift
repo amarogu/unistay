@@ -22,7 +22,8 @@ struct UserPanel: View {
     @State private var selectedView: String = "Universities"
     var viewOptions = ["Universities", "Location", "Roommates"]
     var user: User = .init(name: "Lucca", surname: "Gray", username: "luccagray", bio: "Adventurous soul with a love for books and food. Let's connect and share our stories! 🌍📚🍽️", amountOfConnections: 14)
-    @State private var selectionSize: CGFloat = 0
+    @State private var selectionHeight: CGFloat = 0
+    @State private var selectionWidth: CGFloat = 0
     var body: some View {
         GeometryReader {
             geo in
@@ -65,13 +66,15 @@ struct UserPanel: View {
                 //Spacer()
                 ZStack(alignment: .top) {
                     ScrollView {
-                        Rectangle().frame(width: .infinity, height: selectionSize + 20).foregroundColor(.clear)
-                        Suggestion(width: width)
+                        Rectangle().frame(width: .infinity, height: selectionHeight).foregroundColor(.clear)
+                        Suggestion(width: width).padding(.bottom, 20)
+                        Universities(size: width, selectionSize: selectionHeight)
                     }//.padding(.top, selectionSize)
-                    Selection(viewOptions: viewOptions, selectedView: $selectedView).background(GeometryReader {
+                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
                         geo in
                         LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {
-                            selectionSize = geo.size.height
+                            selectionHeight = geo.size.height
+                            selectionWidth = geo.size.width
                         }
                         
                     })//.padding(.top, 10)
@@ -80,7 +83,7 @@ struct UserPanel: View {
                 //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor"))
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor")).edgesIgnoringSafeArea(.bottom)
     }
 }
     
