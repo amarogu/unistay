@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct MenuItemSheet: View {
     @Binding var showingData: Bool
     var titleIcon: String
@@ -19,7 +21,9 @@ struct MenuItemSheet: View {
     //@State private var states: []
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
+    
     var body: some View {
+        
         VStack {
             VStack {
                 HStack {
@@ -40,7 +44,7 @@ struct MenuItemSheet: View {
                         Spacer()
                     }.padding(.top, 2)
                 }
-            }.padding(.top, 32).padding(.horizontal, 20)
+            }.padding(.top, 32).padding(.horizontal, 20).background(Color("BackgroundColor"))
             Form {
                 
                 if(!fields.isEmpty) {
@@ -58,7 +62,7 @@ struct MenuItemSheet: View {
                             styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized"))
                         }
                         
-                    }
+                    }.listRowBackground(Color("SearchBar"))
                 }
                 
                 Section {
@@ -67,8 +71,8 @@ struct MenuItemSheet: View {
                     }) {
                         styledText(type: "Semibold", size: 14, content: action).foregroundColor(Color("BodyEmphasized"))
                     }
-                }
-            }.scrollContentBackground(.hidden)
+                }.listRowBackground(Color("SearchBar"))
+            }.scrollContentBackground(.hidden).foregroundColor(.blue).background(Color("BackgroundColor"))
 
         }
     }
