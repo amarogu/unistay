@@ -41,7 +41,7 @@ struct UserPanel: View {
                 }.frame(maxWidth: .infinity).background(Color("BackgroundColor"))
                 //Spacer()
                 HStack (alignment: .center) {
-                    VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 20) {
                         VStack(alignment: .leading, spacing: 2) {
                             styledText(type: "Semibold", size: 16, content: "\(user.name) \(user.surname)")
                             styledText(type: "Regular", size: 14, content: "@\(user.username)").foregroundColor(Color("Body"))

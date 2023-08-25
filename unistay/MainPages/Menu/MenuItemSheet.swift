@@ -21,30 +21,10 @@ struct MenuItemSheet: View {
     //@State private var states: []
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
-    
+    @State private var upper: CGFloat = 0
     var body: some View {
         
-        VStack {
-            VStack {
-                HStack {
-                    HStack {
-                        styledText(type: "Semibold", size: 20, content: sheetTitle)
-                        Image(systemName: titleIcon)
-                    }
-                    Spacer()
-                    Button(action: {
-                        showingData.toggle()
-                    }) {
-                        styledText(type: "Semibold", size: 16, content: "Done").foregroundColor(.accentColor)
-                    }
-                }
-                if(!description.isEmpty) {
-                    HStack {
-                        styledText(type: "Regular", size: 14, content: description)
-                        Spacer()
-                    }.padding(.top, 2)
-                }
-            }.padding(.top, 32).padding(.horizontal, 20).background(Color("BackgroundColor"))
+        ZStack(alignment: .top) {
             Form {
                 
                 if(!fields.isEmpty) {
@@ -72,8 +52,33 @@ struct MenuItemSheet: View {
                         styledText(type: "Semibold", size: 14, content: action).foregroundColor(Color("BodyEmphasized"))
                     }
                 }.listRowBackground(Color("SearchBar"))
-            }.scrollContentBackground(.hidden).foregroundColor(.blue).background(Color("BackgroundColor"))
-
+            }.padding(.top, upper).scrollContentBackground(.hidden).foregroundColor(.blue).background(Color("BackgroundColor"))
+            VStack {
+                HStack {
+                    HStack {
+                        styledText(type: "Semibold", size: 20, content: sheetTitle)
+                        Image(systemName: titleIcon)
+                    }
+                    Spacer()
+                    Button(action: {
+                        showingData.toggle()
+                    }) {
+                        styledText(type: "Semibold", size: 16, content: "Done").foregroundColor(.accentColor)
+                    }
+                }
+                if(!description.isEmpty) {
+                    HStack {
+                        styledText(type: "Regular", size: 14, content: description)
+                        Spacer()
+                    }.padding(.top, 2)
+                }
+            }.padding(.top, 32).padding(.horizontal, 20).background(GeometryReader {
+                geo in
+                Color("BackgroundColor").onAppear {
+                    upper = geo.size.height
+                }
+            })
+            
         }
     }
     

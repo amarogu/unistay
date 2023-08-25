@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A338556F2A969FF500CAF86F /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338556E2A969FF500CAF86F /* LaunchView.swift */; };
+		A33855732A97C6ED00CAF86F /* TestLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* TestLaunchView.swift */; };
 		A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80912A75AD7700DAC3DD /* unistayApp.swift */; };
 		A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80932A75AD7700DAC3DD /* ContentView.swift */; };
 		A36E80962A75AD7800DAC3DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36E80952A75AD7800DAC3DD /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A338556E2A969FF500CAF86F /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		A33855722A97C6ED00CAF86F /* TestLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLaunchView.swift; sourceTree = "<group>"; };
 		A36E808E2A75AD7700DAC3DD /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unistay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36E80912A75AD7700DAC3DD /* unistayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unistayApp.swift; sourceTree = "<group>"; };
 		A36E80932A75AD7700DAC3DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,6 +69,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A33855702A96DEEA00CAF86F /* Universities */ = {
+			isa = PBXGroup;
+			children = (
+				A3E245A42A94DDF000BC7E37 /* University.swift */,
+				A3E245A62A94DEBC00BC7E37 /* Universities.swift */,
+			);
+			path = Universities;
+			sourceTree = "<group>";
+		};
+		A33855712A96DF0800CAF86F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
+				A33855702A96DEEA00CAF86F /* Universities */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		A36E80852A75AD7700DAC3DD = {
 			isa = PBXGroup;
 			children = (
@@ -89,14 +111,13 @@
 				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36E80912A75AD7700DAC3DD /* unistayApp.swift */,
 				A36E80932A75AD7700DAC3DD /* ContentView.swift */,
-				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
+				A338556E2A969FF500CAF86F /* LaunchView.swift */,
+				A33855722A97C6ED00CAF86F /* TestLaunchView.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
 				A3F539BE2A828B2400CEDFE7 /* tabItem.swift */,
 				A3E2459F2A93F97800BC7E37 /* Accommodations */,
 				A3E245A22A9401B100BC7E37 /* Suggestion.swift */,
-				A3E245A42A94DDF000BC7E37 /* University.swift */,
-				A3E245A62A94DEBC00BC7E37 /* Universities.swift */,
 			);
 			path = unistay;
 			sourceTree = "<group>";
@@ -141,6 +162,7 @@
 		A3E245A02A93F9A000BC7E37 /* MainPages */ = {
 			isa = PBXGroup;
 			children = (
+				A33855712A96DF0800CAF86F /* Profile */,
 				A3E245A12A93F9D400BC7E37 /* Places */,
 				A3E2459E2A93F93600BC7E37 /* Menu */,
 			);
@@ -231,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */,
+				A338556F2A969FF500CAF86F /* LaunchView.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */,
@@ -240,6 +263,7 @@
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */,
+				A33855732A97C6ED00CAF86F /* TestLaunchView.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
