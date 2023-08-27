@@ -11,12 +11,16 @@ import SwiftUI
 
 
 struct TestLaunchView: View {
+    
     @State private var text: [String] = ["", ""]
     var fields: [String] = ["E-mail address", "Password"]
     var icons: [String] = ["envelope", "key"]
     @State var titleHeight: CGFloat = 0
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
+    //@State private var responseData = "a"
+    
+
     var body: some View {
         GeometryReader {
             geo in
@@ -53,13 +57,13 @@ struct TestLaunchView: View {
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
-                            NavigationLink(destination: Text("hey")) {
+                            NavigationLink(destination: ForgotYourPassword()) {
                                 HStack {
                                     styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
                                 }
                             }
                             
-                            NavigationLink(destination: Text("hey")) {
+                            NavigationLink(destination: SignUpView()) {
                                 HStack {
                                     styledText(type: "Regular", size: 14, content: "Create an account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
                                     Image(systemName: "person.badge.plus").foregroundColor(Color("BodyEmphasized"))
@@ -72,8 +76,11 @@ struct TestLaunchView: View {
                 }
             }.tint(Color("BodyEmphasized"))
         }
+        
+        }
+
     }
-}
+
 
 struct TestLaunchView_Previews: PreviewProvider {
     static var previews: some View {
