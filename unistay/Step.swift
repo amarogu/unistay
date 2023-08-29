@@ -10,17 +10,101 @@ import SwiftUI
 
 
 
-struct TestLaunchView: View {
-    
-    @State private var text: [String] = ["", ""]
-    var fields: [String] = ["E-mail address", "Password"]
-    var icons: [String] = ["envelope", "key"]
+struct Step: View {
+    @State private var fieldsInput: [String: [String: [String: String]]] = [
+        "Login": [
+            "login": [
+                "email": "",
+                "password": ""
+            ]
+        ],
+        "SignUp": [
+            "credentials": [
+                "username": "",
+                "email": "",
+                "emailVerification": "",
+                "password": "",
+                "passwordVerification": ""
+            ],
+            "profile": [
+                "profilePicture": "",
+                "bio": ""
+            ],
+            "preferences": [
+                "locations": "",
+                "currency": ""
+            ]
+        ]
+    ]
+    var fields: [String: [String: [String: String]]] = [
+        "Login": [
+            "login": [
+                "email": "E-mail address",
+                "password": "Password"
+            ]
+        ],
+        "SignUp": [
+            "credentials": [
+                "username": "Username",
+                "email": "E-mail address",
+                "emailVerification": "Confirm your e-mail address",
+                "password": "Password",
+                "passwordVerification": "Confirm your password"
+            ],
+            "profile": [
+                "profilePicture": "Upload a profile picture",
+                "bio": "Insert a user bio"
+            ],
+            "preferences": [
+                "locations": "Preferred locations",
+                "currency": "Preferred currency"
+            ]
+        ]
+    ]
+    var icons: [String: [String: [String: String]]] = [
+        "Login": [
+            "login": [
+                "email": "envelope",
+                "password": "key"
+            ]
+        ],
+        "SignUp": [
+            "credentials": [
+                "username": "person.crop.circle",
+                "email": "envelope",
+                "emailVerification": "checkmark.circle",
+                "password": "key",
+                "passwordVerification": "checkmark.circle"
+            ],
+            "profile": [
+                "profilePicture": "person.crop.circle",
+                "bio": "bubble.circle"
+            ],
+            "preferences": [
+                "locations": "location.circle",
+                "currency": "dollarsign.circle"
+            ]
+        ]
+    ]
     @State var titleHeight: CGFloat = 0
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
     //@State private var responseData = "a"
+    @State private var loginSteps: String = "login"
+    @State private var signUpSteps: String
+    func validateLogin() {
+        switch steps {
+            case "login": do {
+                let email = fieldsInput["Login"]!["login"]!["email"]
+                let password = fieldsInput["Login"]!["login"]!["password"]
+            }
+            default: return
+        }
+    }
     
-
+    func validateSignUp() {
+        switch
+    }
     var body: some View {
         GeometryReader {
             geo in
@@ -47,7 +131,7 @@ struct TestLaunchView: View {
                             }).frame(height: titleHeight).padding(.bottom, 12)
                             ForEach(fields, id: \.self) {
                                 field in
-                                LaunchView(placeholder: styledText(type: "Regular", size: 14, content: field).foregroundColor(Color("BodyEmphasized")), text: $text[fields.firstIndex(of: field)!], icon: icons[fields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                Field(placeholder: styledText(type: "Regular", size: 14, content: field).foregroundColor(Color("BodyEmphasized")), text: $text[fields.firstIndex(of: field)!], icon: icons[fields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                             }
                             Button(action: {
                                 
@@ -80,10 +164,3 @@ struct TestLaunchView: View {
         }
 
     }
-
-
-struct TestLaunchView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestLaunchView()
-    }
-}

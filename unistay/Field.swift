@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LaunchView: View {
+struct Field: View {
     var placeholder: Text
     @Binding var text: String
     var editingChanged: (Bool)->() = { _ in }

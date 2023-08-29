@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A338556F2A969FF500CAF86F /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338556E2A969FF500CAF86F /* Fields.swift */; };
+		A338556F2A969FF500CAF86F /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338556E2A969FF500CAF86F /* Field.swift */; };
 		A33855732A97C6ED00CAF86F /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* Step.swift */; };
 		A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */; };
 		A33A3D5D2A996D5500A84269 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5C2A996D5500A84269 /* SignUpView.swift */; };
@@ -35,7 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A338556E2A969FF500CAF86F /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
+		A338556E2A969FF500CAF86F /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		A33855722A97C6ED00CAF86F /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36E80912A75AD7700DAC3DD /* unistayApp.swift */,
 				A36E80932A75AD7700DAC3DD /* ContentView.swift */,
-				A338556E2A969FF500CAF86F /* Fields.swift */,
+				A338556E2A969FF500CAF86F /* Field.swift */,
 				A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */,
 				A33855722A97C6ED00CAF86F /* Step.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpView.swift */,
@@ -264,7 +264,7 @@
 				A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */,
 				A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */,
 				A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */,
-				A338556F2A969FF500CAF86F /* Fields.swift in Sources */,
+				A338556F2A969FF500CAF86F /* Field.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpView.swift in Sources */,
