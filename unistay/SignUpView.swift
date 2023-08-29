@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-func signUp() {
+func signUp(inputs: [[String]]) {
     // Prepare the JSON data
-    let json: [String: Any] = ["user": ["username": "helnhaaaalo",
-                                        "email": "ahjh@aaaaaaa",
+    let json: [String: Any] = ["user": ["username": inputs[0][0],
+                                        "email": inputs[0][1],
                                         "language": "English",
                                         "accountType": "normal",
-                                        "password": "hyadhshjah7883792Juh",
+                                        "password": inputs[0][3],
                                         "private": true,
-                                        "currency": "USD"] as [String : Any]]
+                                        "currency": inputs[2][1],
+                                        "preferredLocations": inputs[2][0]] as [String : Any]]
     let jsonData = try? JSONSerialization.data(withJSONObject: json)
     
     // Create the request
@@ -35,17 +36,64 @@ func signUp() {
 
 struct SignUpView: View {
     //@Binding var responseData: String
-   
+    @State var signupInputs: [[String]] = [["", "", "", "", ""], ["", ""], ["", ""]]
+    var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
+    var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
+    @State var step: Int = 0
+    func validate() -> String {
+        switch step {
+        case 0:
+            let username = signupInputs[0][0]
+            let email = signupInputs[0][1]
+            let emailConfirm = signupInputs[0][2]
+            let password = signupInputs[0][3]
+            let passwordConfirm = signupInputs[0][4]
+            if username.count < 3 || username.count > 20 {
+                return "The username needs to be 3 to 20 characters long"
+            }
+            if email != emailConfirm {
+                return "The e-mail addresses do not match"
+            }
+            if password != passwordConfirm {
+                return "The passwords do not match"
+            }
+            if email.count < 5 || email.count > 50 || !email.contains("@") {
+                return "The e-mail address is not valid"
+            }
+            if password.count < 8 || password.count > 50 {
+                return "The password does not fit the criteria"
+            }
+        case 1:
+            let bio = signupInputs[1][1]
+            if bio.isEmpty || bio.count > 325 {
+                return "Please insert a valid bio"
+            }
+        case 2:
+            let preferredLocations = signupFields[2][0]
+            let preferredCurrency = signupFields[2][1]
+            if preferredLocations.isEmpty {
+                return "Please insert at least one location"
+            }
+            if preferredCurrency.isEmpty {
+                return "Please insert at least one currency"
+            }
+        default: return "Internal error"
+        }
+        step += 1
+        return ""
+    }
     var body: some View {
         ZStack {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             
-            Button(action: {
-                signUp()
-            }) {
-                
-            }
+            Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validate, error: "", call: {signUp(inputs: signupInputs)}, links: false)
         }
+    }
+}
+
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView()
     }
 }
 

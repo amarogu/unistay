@@ -7,104 +7,18 @@
 
 import SwiftUI
 
-
-
-
 struct Step: View {
-    @State private var fieldsInput: [String: [String: [String: String]]] = [
-        "Login": [
-            "login": [
-                "email": "",
-                "password": ""
-            ]
-        ],
-        "SignUp": [
-            "credentials": [
-                "username": "",
-                "email": "",
-                "emailVerification": "",
-                "password": "",
-                "passwordVerification": ""
-            ],
-            "profile": [
-                "profilePicture": "",
-                "bio": ""
-            ],
-            "preferences": [
-                "locations": "",
-                "currency": ""
-            ]
-        ]
-    ]
-    var fields: [String: [String: [String: String]]] = [
-        "Login": [
-            "login": [
-                "email": "E-mail address",
-                "password": "Password"
-            ]
-        ],
-        "SignUp": [
-            "credentials": [
-                "username": "Username",
-                "email": "E-mail address",
-                "emailVerification": "Confirm your e-mail address",
-                "password": "Password",
-                "passwordVerification": "Confirm your password"
-            ],
-            "profile": [
-                "profilePicture": "Upload a profile picture",
-                "bio": "Insert a user bio"
-            ],
-            "preferences": [
-                "locations": "Preferred locations",
-                "currency": "Preferred currency"
-            ]
-        ]
-    ]
-    var icons: [String: [String: [String: String]]] = [
-        "Login": [
-            "login": [
-                "email": "envelope",
-                "password": "key"
-            ]
-        ],
-        "SignUp": [
-            "credentials": [
-                "username": "person.crop.circle",
-                "email": "envelope",
-                "emailVerification": "checkmark.circle",
-                "password": "key",
-                "passwordVerification": "checkmark.circle"
-            ],
-            "profile": [
-                "profilePicture": "person.crop.circle",
-                "bio": "bubble.circle"
-            ],
-            "preferences": [
-                "locations": "location.circle",
-                "currency": "dollarsign.circle"
-            ]
-        ]
-    ]
+    @Binding var inputs: [[String]]
+    var fields: [[String]]
+    var icons: [[String]]
     @State var titleHeight: CGFloat = 0
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
-    //@State private var responseData = "a"
-    @State private var loginSteps: String = "login"
-    @State private var signUpSteps: String
-    func validateLogin() {
-        switch steps {
-            case "login": do {
-                let email = fieldsInput["Login"]!["login"]!["email"]
-                let password = fieldsInput["Login"]!["login"]!["password"]
-            }
-            default: return
-        }
-    }
-    
-    func validateSignUp() {
-        switch
-    }
+    @Binding var currentStep: Int
+    var validate: () -> String
+    @State var error: String
+    var call: () -> Void
+    var links: Bool
     var body: some View {
         GeometryReader {
             geo in
@@ -129,32 +43,47 @@ struct Step: View {
                                 }
                                 
                             }).frame(height: titleHeight).padding(.bottom, 12)
-                            ForEach(fields, id: \.self) {
+                            let currentStepFields = fields[currentStep]
+                            ForEach(currentStepFields, id: \.self) {
                                 field in
-                                Field(placeholder: styledText(type: "Regular", size: 14, content: field).foregroundColor(Color("BodyEmphasized")), text: $text[fields.firstIndex(of: field)!], icon: icons[fields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!])
                             }
                             Button(action: {
-                                
+                                let validate = validate()
+                                if validate.isEmpty && currentStep == 2 {
+                                    call()
+                                } else {
+                                    error = validate
+                                }
                             }) {
                                 HStack(alignment: .center) {
                                     styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
-                            NavigationLink(destination: ForgotYourPassword()) {
-                                HStack {
-                                    styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                            if links {
+                                NavigationLink(destination: ForgotYourPassword()) {
+                                    HStack {
+                                        styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: SignUpView()) {
+                                    HStack {
+                                        styledText(type: "Regular", size: 14, content: "Create an account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                                        Image(systemName: "person.badge.plus").foregroundColor(Color("BodyEmphasized"))
+                                    }
                                 }
                             }
-                            
-                            NavigationLink(destination: SignUpView()) {
-                                HStack {
-                                    styledText(type: "Regular", size: 14, content: "Create an account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
-                                    Image(systemName: "person.badge.plus").foregroundColor(Color("BodyEmphasized"))
-                                }
+                            if(!error.isEmpty) {
+                                styledText(type: "regular", size: 13, content: error)
                             }
-
+                            ForEach(inputs[0], id: \.self) {
+                                user in
+                                Text(user)
+                            }
                             Spacer()
+                            
                         }.frame(maxWidth: width * 0.8)
                     }.frame(maxWidth: .infinity)
                 }

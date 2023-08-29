@@ -17,7 +17,7 @@ struct Field: View {
         VStack {
             
             HStack {
-                Image(systemName: icon).font(.system(size: 12))
+                Image(systemName: icon).font(.system(size: 13)).foregroundColor(Color("BodyEmphasized"))
                 ZStack(alignment: .leading) {
                     if text.isEmpty { placeholder }
                     TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13))
