@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A338556F2A969FF500CAF86F /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338556E2A969FF500CAF86F /* LaunchView.swift */; };
-		A33855732A97C6ED00CAF86F /* TestLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* TestLaunchView.swift */; };
+		A338556F2A969FF500CAF86F /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338556E2A969FF500CAF86F /* Fields.swift */; };
+		A33855732A97C6ED00CAF86F /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* Step.swift */; };
 		A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */; };
 		A33A3D5D2A996D5500A84269 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5C2A996D5500A84269 /* SignUpView.swift */; };
 		A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80912A75AD7700DAC3DD /* unistayApp.swift */; };
@@ -19,6 +19,7 @@
 		A36E80C42A7C49CF00DAC3DD /* eina-03-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C12A7C49CF00DAC3DD /* eina-03-regular.ttf */; };
 		A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */; };
 		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
+		A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */; };
 		A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DA35482A8CED3A005EAAC9 /* MenuView.swift */; };
 		A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E245982A90197100BC7E37 /* MenuItem.swift */; };
 		A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */; };
@@ -34,8 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A338556E2A969FF500CAF86F /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
-		A33855722A97C6ED00CAF86F /* TestLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLaunchView.swift; sourceTree = "<group>"; };
+		A338556E2A969FF500CAF86F /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
+		A33855722A97C6ED00CAF86F /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A36E808E2A75AD7700DAC3DD /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unistay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +49,7 @@
 		A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "eina-03-semibold.ttf"; sourceTree = "<group>"; };
 		A36E80C62A7C4A0500DAC3DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A36E80C92A7C724400DAC3DD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		A3DA35482A8CED3A005EAAC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A3E245982A90197100BC7E37 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemSheet.swift; sourceTree = "<group>"; };
@@ -115,8 +117,9 @@
 				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36E80912A75AD7700DAC3DD /* unistayApp.swift */,
 				A36E80932A75AD7700DAC3DD /* ContentView.swift */,
-				A338556E2A969FF500CAF86F /* LaunchView.swift */,
-				A33855722A97C6ED00CAF86F /* TestLaunchView.swift */,
+				A338556E2A969FF500CAF86F /* Fields.swift */,
+				A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */,
+				A33855722A97C6ED00CAF86F /* Step.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpView.swift */,
 				A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
@@ -259,8 +262,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */,
+				A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */,
 				A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */,
-				A338556F2A969FF500CAF86F /* LaunchView.swift in Sources */,
+				A338556F2A969FF500CAF86F /* Fields.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpView.swift in Sources */,
@@ -271,7 +275,7 @@
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */,
-				A33855732A97C6ED00CAF86F /* TestLaunchView.swift in Sources */,
+				A33855732A97C6ED00CAF86F /* Step.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
