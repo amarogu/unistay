@@ -22,6 +22,8 @@ struct Step: View {
     var title: String
     var languages: [String] = ["System language", "English", "Portuguese", "French"]
     @State private var selectedLanguage: String = "System language"
+    var postStep: Int
+    var serverResponse: String?
     var body: some View {
         GeometryReader {
             geo in
@@ -72,7 +74,7 @@ struct Step: View {
                             }
                             Button(action: {
                                 let validate = validate()
-                                if validate.isEmpty && currentStep == 2 {
+                                if validate.isEmpty && currentStep == postStep {
                                     call()
                                 } else {
                                     error = validate
@@ -100,6 +102,7 @@ struct Step: View {
                             if(!error.isEmpty) {
                                 styledText(type: "regular", size: 13, content: error).foregroundColor(.red)
                             }
+                            Text(serverResponse ?? "Hey")
                             ForEach(inputs[0], id: \.self) {
                                 user in
                                 Text(user)

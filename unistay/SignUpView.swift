@@ -79,18 +79,32 @@ struct SignUpView: View {
             }
         default: return "Internal error"
         }
+        if step == 2 {
+            return ""
+        }
         step += 1
         return ""
     }
     
     var body: some View {
        
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {signUp(inputs: signupInputs)}, links: false, title: "Sign up").onChange(of: signupInputs, perform: {
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2).onChange(of: signupInputs, perform: {
             newValue in
-            if (signupInputs[0][1] == signupInputs[0][2] && !signupInputs[0][1].isEmpty) {
+            let username = signupInputs[0][0]
+            let email = signupInputs[0][1]
+            let emailConfirm = signupInputs[0][2]
+            let password = signupInputs[0][3]
+            let passwordConfirm = signupInputs[0][4]
+            
+            if (email == emailConfirm && !email.isEmpty) {
                 signupIcons[0][2] = "checkmark.circle.fill"
             } else {
                 signupIcons[0][2] = "checkmark.circle"
+            }
+            if (password == passwordConfirm && !password.isEmpty) {
+                signupIcons[0][4] = "checkmark.circle.fill"
+            } else {
+                signupIcons[0][4] = "checkmark.circle"
             }
         })
         
