@@ -19,6 +19,9 @@ struct Step: View {
     @State var error: String
     var call: () -> Void
     var links: Bool
+    var title: String
+    var languages: [String] = ["System language", "English", "Portuguese", "French"]
+    @State private var selectedLanguage: String = "System language"
     var body: some View {
         GeometryReader {
             geo in
@@ -36,17 +39,36 @@ struct Step: View {
                                 }
                                 
                             }).frame(height: 0).padding(.bottom, 4)
-                            styledText(type: "Bold", size: 34, content: "Log In").background(GeometryReader {
-                                geo in
-                                Color.clear.onAppear {
-                                    titleHeight = geo.size.height
+                            HStack {
+                                styledText(type: "Bold", size: 34, content: title).background(GeometryReader {
+                                    geo in
+                                    Color.clear.onAppear {
+                                        titleHeight = geo.size.height
+                                    }
+                                    
+                                })
+                                Spacer()
+                                Menu {
+                                    ForEach(languages, id: \.self) {
+                                        language in
+                                        Button(action: {
+                                            selectedLanguage = language
+                                        }) {
+                                            Label(language, systemImage: selectedLanguage == language ? "checkmark" : "")
+                                        }
+                                    }
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "globe").foregroundColor(Color("Body"))
+                                        Image(systemName: "chevron.down").foregroundColor(Color("Body"))
+                                    }
                                 }
-                                
-                            }).frame(height: titleHeight).padding(.bottom, 12)
+                            }.frame(height: titleHeight).padding(.bottom, 10)
+                            
                             let currentStepFields = fields[currentStep]
                             ForEach(currentStepFields, id: \.self) {
                                 field in
-                                Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!])
+                                Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                             }
                             Button(action: {
                                 let validate = validate()
@@ -76,7 +98,7 @@ struct Step: View {
                                 }
                             }
                             if(!error.isEmpty) {
-                                styledText(type: "regular", size: 13, content: error)
+                                styledText(type: "regular", size: 13, content: error).foregroundColor(.red)
                             }
                             ForEach(inputs[0], id: \.self) {
                                 user in

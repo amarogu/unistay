@@ -38,9 +38,9 @@ struct SignUpView: View {
     //@Binding var responseData: String
     @State var signupInputs: [[String]] = [["", "", "", "", ""], ["", ""], ["", ""]]
     var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
-    var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
+    @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
     @State var step: Int = 0
-    func validate() -> String {
+    func validateSignUp() -> String {
         switch step {
         case 0:
             let username = signupInputs[0][0]
@@ -82,12 +82,18 @@ struct SignUpView: View {
         step += 1
         return ""
     }
+    
     var body: some View {
-        ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
-            
-            Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validate, error: "", call: {signUp(inputs: signupInputs)}, links: false)
-        }
+       
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {signUp(inputs: signupInputs)}, links: false, title: "Sign up").onChange(of: signupInputs, perform: {
+            newValue in
+            if (signupInputs[0][1] == signupInputs[0][2] && !signupInputs[0][1].isEmpty) {
+                signupIcons[0][2] = "checkmark.circle.fill"
+            } else {
+                signupIcons[0][2] = "checkmark.circle"
+            }
+        })
+        
     }
 }
 
