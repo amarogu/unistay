@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import PhotosUI
+import PhotoSelectAndCrop
 
 struct Step: View {
     @Binding var inputs: [[String]]
@@ -24,6 +26,9 @@ struct Step: View {
     @State private var selectedLanguage: String = "System language"
     var postStep: Int
     var serverResponse: String?
+    @State var presented: Bool = false
+    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var image: Image?
     var body: some View {
         GeometryReader {
             geo in
@@ -70,7 +75,23 @@ struct Step: View {
                             let currentStepFields = fields[currentStep]
                             ForEach(currentStepFields, id: \.self) {
                                 field in
-                                Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                if field == "Upload a profile picture" {
+                                    
+                                    PhotosPicker(selection: $selectedPhoto) {
+                                        HStack {
+                                            Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
+                                            styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
+                                            Spacer()
+                                        }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                    }.task(id: selectedPhoto) {
+                                        image = try? await selectedPhoto?.loadTransferable(type: Image.self)
+                                        
+                                    }
+                                    
+                                } else {
+                                    Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                }
+                                
                             }
                             Button(action: {
                                 let validate = validate()

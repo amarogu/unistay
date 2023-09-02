@@ -6,6 +6,48 @@
 //
 
 import SwiftUI
+import Combine
+
+struct ServerResponseSignup: Codable {
+    let responseMessage: String
+}
+
+class SignUpViewModel: ObservableObject {
+    @Published var serverResponse: String = ""
+    var cancellables = Set<AnyCancellable>()
+
+    func signUp(inputs: [[String]]) {
+        let url = URL(string: "http://localhost:3000/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let bodyData: [String: Any] = ["user": ["username": inputs[0][0], "email": inputs[0][1], "language": "English", "accountType": "normal", "password": inputs[0][3], "private": true, "currency": inputs[2][1], "preferredLocations": inputs[2][0]] as [String : Any]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
+        request.httpBody = jsonData
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { output in
+                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
+                    throw URLError(.badServerResponse)
+                }
+                return output.data
+            }
+            .decode(type: ServerResponseSignup.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.serverResponse = response.responseMessage
+            })
+            .store(in: &cancellables)
+    }
+}
 
 func signUp(inputs: [[String]]) {
     // Prepare the JSON data
@@ -41,7 +83,7 @@ struct SignUpView: View {
     @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
     @State var step: Int = 0
     func validateSignUp() -> String {
-        switch step {
+        /*switch step {
         case 0:
             let username = signupInputs[0][0]
             let email = signupInputs[0][1]
@@ -81,14 +123,14 @@ struct SignUpView: View {
         }
         if step == 2 {
             return ""
-        }
+        }*/
         step += 1
         return ""
     }
-    
+    @StateObject private var viewModel = SignUpViewModel()
     var body: some View {
        
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2).onChange(of: signupInputs, perform: {
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {viewModel.signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2, serverResponse: viewModel.serverResponse).onChange(of: signupInputs, perform: {
             newValue in
             let username = signupInputs[0][0]
             let email = signupInputs[0][1]
