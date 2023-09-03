@@ -153,7 +153,7 @@ struct SignUpView: View {
     }
 }
 
-struct MyPreviewProvider_Previews: PreviewProvider {
+struct Provider_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView()
     }

@@ -7,7 +7,8 @@
 
 import SwiftUI
 import PhotosUI
-import PhotoSelectAndCrop
+
+
 
 struct Step: View {
     @Binding var inputs: [[String]]
@@ -29,6 +30,7 @@ struct Step: View {
     @State var presented: Bool = false
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
+    @State private var croppedImage: UIImage?
     var body: some View {
         GeometryReader {
             geo in
@@ -77,16 +79,15 @@ struct Step: View {
                                 field in
                                 if field == "Upload a profile picture" {
                                     
-                                    PhotosPicker(selection: $selectedPhoto) {
+                                    Button(action: {
+                                        presented.toggle()
+                                    }) {
                                         HStack {
                                             Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
                                             styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
                                             Spacer()
                                         }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
-                                    }.task(id: selectedPhoto) {
-                                        image = try? await selectedPhoto?.loadTransferable(type: Image.self)
-                                        
-                                    }
+                                    }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                     
                                 } else {
                                     Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)

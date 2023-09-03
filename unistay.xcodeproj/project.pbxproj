@@ -20,7 +20,6 @@
 		A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */; };
 		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
 		A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */; };
-		A379DD992AA3777F00952C43 /* PhotoSelectAndCrop in Frameworks */ = {isa = PBXBuildFile; productRef = A379DD982AA3777F00952C43 /* PhotoSelectAndCrop */; };
 		A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */; };
 		A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A385ECC52A9E5B1B00B1A44D /* LoginView.swift */; };
 		A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DA35482A8CED3A005EAAC9 /* MenuView.swift */; };
@@ -35,6 +34,7 @@
 		A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C22A82E8CD00CEDFE7 /* Selection.swift */; };
 		A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */; };
 		A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */; };
+		A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F636502AA3C7AB0076E164 /* Crop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +42,7 @@
 		A33855722A97C6ED00CAF86F /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		A36E808E2A75AD7700DAC3DD /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unistay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A36E808E2A75AD7700DAC3DD /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = unistay.app; path = "/Users/gustavoamaro/Documents/xcodeprojectstest/unistay/build/Debug-iphoneos/unistay.app"; sourceTree = "<absolute>"; };
 		A36E80912A75AD7700DAC3DD /* unistayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unistayApp.swift; sourceTree = "<group>"; };
 		A36E80932A75AD7700DAC3DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A36E80952A75AD7800DAC3DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +67,7 @@
 		A3F539C22A82E8CD00CEDFE7 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accomodation.swift; sourceTree = "<group>"; };
 		A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomodationsGroup.swift; sourceTree = "<group>"; };
+		A3F636502AA3C7AB0076E164 /* Crop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A379DD992AA3777F00952C43 /* PhotoSelectAndCrop in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,16 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				A36E80902A75AD7700DAC3DD /* unistay */,
-				A36E808F2A75AD7700DAC3DD /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		A36E808F2A75AD7700DAC3DD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A36E808E2A75AD7700DAC3DD /* unistay.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A36E80902A75AD7700DAC3DD /* unistay */ = {
@@ -127,6 +118,7 @@
 				A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */,
 				A33855722A97C6ED00CAF86F /* Step.swift */,
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
+				A3F636502AA3C7AB0076E164 /* Crop.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpView.swift */,
 				A385ECC52A9E5B1B00B1A44D /* LoginView.swift */,
 				A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */,
@@ -213,7 +205,6 @@
 			);
 			name = unistay;
 			packageProductDependencies = (
-				A379DD982AA3777F00952C43 /* PhotoSelectAndCrop */,
 			);
 			productName = unistay;
 			productReference = A36E808E2A75AD7700DAC3DD /* unistay.app */;
@@ -244,9 +235,8 @@
 			);
 			mainGroup = A36E80852A75AD7700DAC3DD;
 			packageReferences = (
-				A379DD972AA3777F00952C43 /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */,
 			);
-			productRefGroup = A36E808F2A75AD7700DAC3DD /* Products */;
+			productRefGroup = A36E80852A75AD7700DAC3DD;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -294,6 +284,7 @@
 				A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
+				A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
 				A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */,
 				A3E245A52A94DDF000BC7E37 /* University.swift in Sources */,
@@ -497,25 +488,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		A379DD972AA3777F00952C43 /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Rillieux/PhotoSelectAndCrop.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A379DD982AA3777F00952C43 /* PhotoSelectAndCrop */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A379DD972AA3777F00952C43 /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */;
-			productName = PhotoSelectAndCrop;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A36E80862A75AD7700DAC3DD /* Project object */;
 }
