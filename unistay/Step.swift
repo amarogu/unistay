@@ -3,7 +3,7 @@
 //  unistay
 //
 //  Created by Gustavo Amaro on 24/08/23.
-//
+// a
 
 import SwiftUI
 import PhotosUI
@@ -41,21 +41,12 @@ struct Step: View {
                     VStack(alignment: .center) {
                         VStack(alignment: .leading) {
                             Spacer()
-                            styledText(type: "Bold", size: 22, content: "UniStay").background(GeometryReader {
-                                geo in
-                                Color.clear.onAppear {
-                                    subtitleHeight = geo.size.height
-                                }
-                                
-                            }).frame(height: 0).padding(.bottom, 4)
                             HStack {
-                                styledText(type: "Bold", size: 34, content: title).background(GeometryReader {
-                                    geo in
-                                    Color.clear.onAppear {
-                                        titleHeight = geo.size.height
-                                    }
-                                    
-                                })
+                                Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)
+                                styledText(type: "Bold", size: 22, content: "UniStay")
+                            }.padding(.bottom, -10)
+                            HStack {
+                                styledText(type: "Bold", size: 34, content: title)
                                 Spacer()
                                 Menu {
                                     ForEach(languages, id: \.self) {
@@ -72,7 +63,7 @@ struct Step: View {
                                         Image(systemName: "chevron.down").foregroundColor(Color("Body"))
                                     }
                                 }
-                            }.frame(height: titleHeight).padding(.bottom, 10)
+                            }.padding(.bottom, 10)
                             
                             let currentStepFields = fields[currentStep]
                             ForEach(currentStepFields, id: \.self) {

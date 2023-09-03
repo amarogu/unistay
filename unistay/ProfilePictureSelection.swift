@@ -113,9 +113,9 @@ struct CropView: View {
                     }) {
                         Image(systemName: "checkmark.circle")
                     }.foregroundColor(Color("BodyEmphasized"))
-                }.frame(maxWidth: .infinity).padding(.vertical, height * 0.02).padding(.horizontal, 20).background(Color("BackgroundColor"))
-                ImageView().frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor").opacity(0.8).blur(radius: 5)).edgesIgnoringSafeArea(.all)
-            }
+                }.frame(maxWidth: .infinity).padding(.vertical, height * 0.02).padding(.horizontal, 20).background(Color("BackgroundColor")).zIndex(10)
+                ImageView().frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))//.edgesIgnoringSafeArea(.all)
+            }.background(Color("BackgroundColor"))
         }
     }
     
