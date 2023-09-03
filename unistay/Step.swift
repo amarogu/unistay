@@ -82,11 +82,15 @@ struct Step: View {
                                     Button(action: {
                                         presented.toggle()
                                     }) {
-                                        HStack {
-                                            Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
-                                            styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
-                                            Spacer()
-                                        }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                            if let croppedImage {
+                                                Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
+                                            } else {
+                                                HStack {
+                                                    Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
+                                                    styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
+                                                    Spacer()
+                                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                            }
                                     }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                     
                                 } else {
