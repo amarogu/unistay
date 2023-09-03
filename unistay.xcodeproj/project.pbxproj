@@ -42,7 +42,7 @@
 		A33855722A97C6ED00CAF86F /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		A3450F4E2AA4F2AE009792EF /* UniStay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniStay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3450F4E2AA4F2AE009792EF /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unistay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36E80912A75AD7700DAC3DD /* unistayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unistayApp.swift; sourceTree = "<group>"; };
 		A36E80932A75AD7700DAC3DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A36E80952A75AD7800DAC3DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				A36E80902A75AD7700DAC3DD /* unistay */,
-				A3450F4E2AA4F2AE009792EF /* UniStay.app */,
+				A3450F4E2AA4F2AE009792EF /* unistay.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,9 +192,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A36E808D2A75AD7700DAC3DD /* UniStay */ = {
+		A36E808D2A75AD7700DAC3DD /* unistay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A36E809C2A75AD7800DAC3DD /* Build configuration list for PBXNativeTarget "UniStay" */;
+			buildConfigurationList = A36E809C2A75AD7800DAC3DD /* Build configuration list for PBXNativeTarget "unistay" */;
 			buildPhases = (
 				A36E808A2A75AD7700DAC3DD /* Sources */,
 				A36E808B2A75AD7700DAC3DD /* Frameworks */,
@@ -204,11 +204,11 @@
 			);
 			dependencies = (
 			);
-			name = UniStay;
+			name = unistay;
 			packageProductDependencies = (
 			);
 			productName = unistay;
-			productReference = A3450F4E2AA4F2AE009792EF /* UniStay.app */;
+			productReference = A3450F4E2AA4F2AE009792EF /* unistay.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -226,7 +226,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A36E80892A75AD7700DAC3DD /* Build configuration list for PBXProject "UniStay" */;
+			buildConfigurationList = A36E80892A75AD7700DAC3DD /* Build configuration list for PBXProject "unistay" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -241,7 +241,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A36E808D2A75AD7700DAC3DD /* UniStay */,
+				A36E808D2A75AD7700DAC3DD /* unistay */,
 			);
 		};
 /* End PBXProject section */
@@ -476,7 +476,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A36E80892A75AD7700DAC3DD /* Build configuration list for PBXProject "UniStay" */ = {
+		A36E80892A75AD7700DAC3DD /* Build configuration list for PBXProject "unistay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A36E809A2A75AD7800DAC3DD /* Debug */,
@@ -485,7 +485,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A36E809C2A75AD7800DAC3DD /* Build configuration list for PBXNativeTarget "UniStay" */ = {
+		A36E809C2A75AD7800DAC3DD /* Build configuration list for PBXNativeTarget "unistay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A36E809D2A75AD7800DAC3DD /* Debug */,
