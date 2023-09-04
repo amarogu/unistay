@@ -9,10 +9,15 @@ import SwiftUI
 
 @main
 struct unistayApp: App {
+    @State var isLoggedIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
-            //ContentView()
+            if isLoggedIn {
+                            ContentView()
+                        } else {
+                            LoginView(isLoggedIn: $isLoggedIn)
+                        }
         }
     }
 }

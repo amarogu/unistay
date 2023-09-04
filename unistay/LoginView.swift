@@ -95,17 +95,17 @@ struct LoginView: View {
         //step += 1
         return ""
     }
-    
+    @Binding var isLoggedIn: Bool
     //@State var serverResponse: String = "AA"
     var body: some View {
-        Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, validate: validateLogin, error: "", call: {viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: viewModel.serverResponse)
+        Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, validate: validateLogin, error: "", call: {viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: viewModel.serverResponse).onReceive(viewModel.$serverResponse) {
+            response in
+            if response == "Login successful!" {
+                self.isLoggedIn = true
+            }
+        }
         //Text("Hello")
     }
     
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
