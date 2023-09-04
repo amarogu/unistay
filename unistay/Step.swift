@@ -66,7 +66,7 @@ struct Step: View {
                             }.padding(.bottom, 10)
                             
                             let currentStepFields = fields[currentStep]
-                            if currentStep == 1 && croppedImage != nil {
+                            if currentStep == 1 && croppedImage != nil && !links {
                                 HStack { // Wrap ForEach in a ZStack
                                                                 ForEach(currentStepFields, id: \.self) { field in
                                                                     if field == "Upload a profile picture" {
@@ -109,7 +109,7 @@ struct Step: View {
                                                         }
                             Button(action: {
                                 let validate = validate()
-                                if validate.isEmpty && currentStep == postStep {
+                                if (validate.isEmpty && currentStep == postStep) {
                                     call()
                                 } else {
                                     error = validate

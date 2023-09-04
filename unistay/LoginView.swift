@@ -73,11 +73,11 @@ class LoginViewModel: ObservableObject {
 
 
 struct LoginView: View {
-    @State var loginInputs: [[String]] = [["", ""], [""]]
-    var loginFields: [[String]] = [["E-mail address", "Password"], [""]]
-    var loginIcons: [[String]] = [["envelope", "key"], [""]]
+    @State var loginInputs: [[String]] = [["", ""]]
+    var loginFields: [[String]] = [["E-mail address", "Password"]]
+    var loginIcons: [[String]] = [["envelope", "key"]]
     @State var step: Int = 0
-    @StateObject private var viewModel = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel()
     //var errorVar: any Error
     func validateLogin() -> String {
         
@@ -92,15 +92,16 @@ struct LoginView: View {
         if step == 1 {
             return ""
         }
-        step += 1
+        //step += 1
         return ""
     }
     
     //@State var serverResponse: String = "AA"
     var body: some View {
-        Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, validate: validateLogin, error: "", call: {viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 1, serverResponse: viewModel.serverResponse)
+        Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, validate: validateLogin, error: "", call: {viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: viewModel.serverResponse)
         //Text("Hello")
     }
+    
 }
 
 struct LoginView_Previews: PreviewProvider {
