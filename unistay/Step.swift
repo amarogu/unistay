@@ -74,7 +74,7 @@ struct Step: View {
                                                                             presented.toggle()
                                                                         }) {
                                                                             if let croppedImage {
-                                                                                Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
+                                                                                Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 40)
                                                                             } else {
                                                                                 HStack {
                                                                                     Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
@@ -87,22 +87,20 @@ struct Step: View {
                                                                         Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                                                     }
                                                                 }
-                                }.padding(.bottom, 4)
+                                }.padding(.bottom, 6)
                                                         } else {
                                                             ForEach(currentStepFields, id: \.self) { field in
                                                                 if field == "Upload a profile picture" {
                                                                     Button(action: {
                                                                         presented.toggle()
                                                                     }) {
-                                                                        if let croppedImage {
-                                                                            Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
-                                                                        } else {
+                                                                        
                                                                             HStack {
                                                                                 Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
                                                                                 styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
                                                                                 Spacer()
                                                                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
-                                                                        }
+                                                                        
                                                                     }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                                                 } else {
                                                                     Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
@@ -139,11 +137,7 @@ struct Step: View {
                             if(!error.isEmpty) {
                                 styledText(type: "regular", size: 13, content: error).foregroundColor(.red)
                             }
-                            Text(serverResponse ?? "Hey")
-                            ForEach(inputs[0], id: \.self) {
-                                user in
-                                Text(user)
-                            }
+                            Text(serverResponse ?? "An error occurred")
                             Spacer()
                             
                         }.frame(maxWidth: width * 0.8)

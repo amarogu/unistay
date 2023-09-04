@@ -18,7 +18,7 @@ class LoginViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
 
     func login(email: String, password: String) {
-        let url = URL(string: "http://192.168.1.17:3000/login")!
+        let url = URL(string: "http://localhost:3000/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
