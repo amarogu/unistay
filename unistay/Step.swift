@@ -66,29 +66,49 @@ struct Step: View {
                             }.padding(.bottom, 10)
                             
                             let currentStepFields = fields[currentStep]
-                            ForEach(currentStepFields, id: \.self) {
-                                field in
-                                if field == "Upload a profile picture" {
-                                    
-                                    Button(action: {
-                                        presented.toggle()
-                                    }) {
-                                            if let croppedImage {
-                                                Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
-                                            } else {
-                                                HStack {
-                                                    Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
-                                                    styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
-                                                    Spacer()
-                                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
-                                            }
-                                    }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
-                                    
-                                } else {
-                                    Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
-                                }
-                                
-                            }
+                            if currentStep == 1 && croppedImage != nil {
+                                HStack { // Wrap ForEach in a ZStack
+                                                                ForEach(currentStepFields, id: \.self) { field in
+                                                                    if field == "Upload a profile picture" {
+                                                                        Button(action: {
+                                                                            presented.toggle()
+                                                                        }) {
+                                                                            if let croppedImage {
+                                                                                Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
+                                                                            } else {
+                                                                                HStack {
+                                                                                    Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
+                                                                                    styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
+                                                                                    Spacer()
+                                                                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                                                            }
+                                                                        }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                                                                    } else {
+                                                                        Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                                                    }
+                                                                }
+                                }.padding(.bottom, 4)
+                                                        } else {
+                                                            ForEach(currentStepFields, id: \.self) { field in
+                                                                if field == "Upload a profile picture" {
+                                                                    Button(action: {
+                                                                        presented.toggle()
+                                                                    }) {
+                                                                        if let croppedImage {
+                                                                            Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 50)
+                                                                        } else {
+                                                                            HStack {
+                                                                                Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
+                                                                                styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
+                                                                                Spacer()
+                                                                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                                                        }
+                                                                    }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                                                                } else {
+                                                                    Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                                                }
+                                                            }
+                                                        }
                             Button(action: {
                                 let validate = validate()
                                 if validate.isEmpty && currentStep == postStep {
