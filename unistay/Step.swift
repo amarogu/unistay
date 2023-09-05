@@ -130,9 +130,9 @@ struct Step: View {
                                 }
                             }
                             if !error.isEmpty {
-                                        Text(error).foregroundColor(.red)
+                                styledText(type: "Regular", size: 13, content: error).foregroundColor(.red)
                                     } else if let serverResponse = serverResponse, !serverResponse.isEmpty {
-                                        Text(serverResponse).foregroundColor(.red)
+                                        styledText(type: "Regular", size: 13, content: serverResponse).foregroundColor(.red)
                                     }
                             //Text(serverResponse ?? "An error occurred")
                             Spacer()

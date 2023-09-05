@@ -16,8 +16,8 @@ class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
-    func signUp(inputs: [[String]]) {
-        if !validationError.isEmpty {
+    func signUp(inputs: [[String]], step: Int) {
+        if !validateSignUp(inputs: inputs, step: step) {
             return
         }
         let url = URL(string: "http://localhost:3000/")!
@@ -161,7 +161,7 @@ struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     var body: some View {
        
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2, serverResponse: $viewModel.serverResponse).onChange(of: signupInputs, perform: {
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: step)}, links: false, title: "Sign up", postStep: 2, serverResponse: $viewModel.serverResponse).onChange(of: signupInputs, perform: {
                     newValue in
                     let username = signupInputs[0][0]
                     let email = signupInputs[0][1]
