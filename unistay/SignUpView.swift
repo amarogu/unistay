@@ -13,10 +13,13 @@ struct ServerResponseSignup: Codable {
 }
 
 class SignUpViewModel: ObservableObject {
-    @Published var serverResponse: String = ""
+    @Published var serverResponse: String? = nil
+    @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
-
     func signUp(inputs: [[String]]) {
+        if !validationError.isEmpty {
+            return
+        }
         let url = URL(string: "http://localhost:3000/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -47,33 +50,61 @@ class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    func validateSignUp(inputs: [[String]], step: Int) -> Bool {
+            switch step {
+            case 0:
+                let username = inputs[0][0]
+                let email = inputs[0][1]
+                let emailConfirm = inputs[0][2]
+                let password = inputs[0][3]
+                let passwordConfirm = inputs[0][4]
+                if username.count < 3 || username.count > 20 {
+                    validationError = "The username needs to be 3 to 20 characters long"
+                    return false
+                }
+                if email != emailConfirm {
+                    validationError = "The e-mail addresses do not match"
+                    return false
+                }
+                if password != passwordConfirm {
+                    validationError = "The passwords do not match"
+                    return false
+                }
+                if email.count < 5 || email.count > 50 || !email.contains("@") {
+                    validationError = "The e-mail address is not valid"
+                    return false
+                }
+                if password.count < 8 || password.count > 50 {
+                    validationError = "The password does not fit the criteria"
+                    return false
+                }
+            case 1:
+                let bio = inputs[1][1]
+                if bio.isEmpty || bio.count > 325 {
+                    validationError = "Please insert a valid bio"
+                    return false
+                }
+            case 2:
+                let preferredLocations = inputs[2][0]
+                let preferredCurrency = inputs[2][1]
+                if preferredLocations.isEmpty {
+                    validationError = "Please insert at least one location"
+                    return false
+                }
+                if preferredCurrency.isEmpty {
+                    validationError = "Please insert at least one currency"
+                    return false
+                }
+            default:
+                validationError = "Internal error"
+                return false
+            }
+            validationError = ""
+            return true
+        }
 }
 
-func signUp(inputs: [[String]]) {
-    // Prepare the JSON data
-    let json: [String: Any] = ["user": ["username": inputs[0][0],
-                                        "email": inputs[0][1],
-                                        "language": "English",
-                                        "accountType": "normal",
-                                        "password": inputs[0][3],
-                                        "private": true,
-                                        "currency": inputs[2][1],
-                                        "preferredLocations": inputs[2][0]] as [String : Any]]
-    let jsonData = try? JSONSerialization.data(withJSONObject: json)
-    
-    // Create the request
-    let url = URL(string: "http://localhost:3000/")!
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.httpBody = jsonData
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    // Send the request
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        
-    }
-    task.resume()
-}
+
 
 
 struct SignUpView: View {
@@ -83,7 +114,7 @@ struct SignUpView: View {
     @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
     @State var step: Int = 0
     func validateSignUp() -> String {
-        /*switch step {
+        switch step {
         case 0:
             let username = signupInputs[0][0]
             let email = signupInputs[0][1]
@@ -123,32 +154,32 @@ struct SignUpView: View {
         }
         if step == 2 {
             return ""
-        }*/
+        }
         step += 1
         return ""
     }
     @StateObject private var viewModel = SignUpViewModel()
     var body: some View {
        
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, validate: validateSignUp, error: "", call: {viewModel.signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2, serverResponse: viewModel.serverResponse).onChange(of: signupInputs, perform: {
-            newValue in
-            let username = signupInputs[0][0]
-            let email = signupInputs[0][1]
-            let emailConfirm = signupInputs[0][2]
-            let password = signupInputs[0][3]
-            let passwordConfirm = signupInputs[0][4]
-            
-            if (email == emailConfirm && !email.isEmpty) {
-                signupIcons[0][2] = "checkmark.circle.fill"
-            } else {
-                signupIcons[0][2] = "checkmark.circle"
-            }
-            if (password == passwordConfirm && !password.isEmpty) {
-                signupIcons[0][4] = "checkmark.circle.fill"
-            } else {
-                signupIcons[0][4] = "checkmark.circle"
-            }
-        })
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs)}, links: false, title: "Sign up", postStep: 2, serverResponse: $viewModel.serverResponse).onChange(of: signupInputs, perform: {
+                    newValue in
+                    let username = signupInputs[0][0]
+                    let email = signupInputs[0][1]
+                    let emailConfirm = signupInputs[0][2]
+                    let password = signupInputs[0][3]
+                    let passwordConfirm = signupInputs[0][4]
+                    
+                    if (email == emailConfirm && !email.isEmpty) {
+                        signupIcons[0][2] = "checkmark.circle.fill"
+                    } else {
+                        signupIcons[0][2] = "checkmark.circle"
+                    }
+                    if (password == passwordConfirm && !password.isEmpty) {
+                        signupIcons[0][4] = "checkmark.circle.fill"
+                    } else {
+                        signupIcons[0][4] = "checkmark.circle"
+                    }
+                })
         
     }
 }

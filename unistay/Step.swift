@@ -18,15 +18,15 @@ struct Step: View {
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
     @Binding var currentStep: Int
-    var validate: () -> String
-    @State var error: String
+    //var validate: () -> String
+    @Binding var error: String
     var call: () -> Void
     var links: Bool
     var title: String
     var languages: [String] = ["System language", "English", "Portuguese", "French"]
     @State private var selectedLanguage: String = "System language"
     var postStep: Int
-    var serverResponse: String?
+    @Binding var serverResponse: String?
     @State var presented: Bool = false
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
@@ -108,12 +108,7 @@ struct Step: View {
                                                             }
                                                         }
                             Button(action: {
-                                let validate = validate()
-                                if (validate.isEmpty && currentStep == postStep) {
-                                    call()
-                                } else {
-                                    error = validate
-                                }
+                                call()
                             }) {
                                 HStack(alignment: .center) {
                                     styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
@@ -134,10 +129,12 @@ struct Step: View {
                                     }
                                 }
                             }
-                            if(!error.isEmpty) {
-                                styledText(type: "regular", size: 13, content: error).foregroundColor(.red)
-                            }
-                            Text(serverResponse ?? "An error occurred")
+                            if !error.isEmpty {
+                                        Text(error).foregroundColor(.red)
+                                    } else if let serverResponse = serverResponse, !serverResponse.isEmpty {
+                                        Text(serverResponse).foregroundColor(.red)
+                                    }
+                            //Text(serverResponse ?? "An error occurred")
                             Spacer()
                             
                         }.frame(maxWidth: width * 0.8)
