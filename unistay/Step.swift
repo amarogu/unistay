@@ -35,7 +35,7 @@ struct Step: View {
         GeometryReader {
             geo in
             let width = geo.size.width
-            NavigationView {
+            
                 ZStack {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)
                     VStack(alignment: .center) {
@@ -151,8 +151,6 @@ struct Step: View {
                     }.frame(maxWidth: .infinity)
                 }
             }.tint(Color("BodyEmphasized"))
-        }
-        
         }
 
     }
