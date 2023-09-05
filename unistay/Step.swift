@@ -116,9 +116,12 @@ struct Step: View {
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
                             if links {
-                                NavigationLink(destination: ForgotYourPassword()) {
+                                
+                                
+                                NavigationLink(destination: PublisherSignUp()) {
                                     HStack {
-                                        styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                                        styledText(type: "Regular", size: 14, content: "Create a publisher account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                                        Image(systemName: "person.line.dotted.person").foregroundColor(Color("BodyEmphasized"))
                                     }
                                 }
                                 
@@ -128,6 +131,13 @@ struct Step: View {
                                         Image(systemName: "person.badge.plus").foregroundColor(Color("BodyEmphasized"))
                                     }
                                 }
+                                
+                                NavigationLink(destination: ForgotYourPassword()) {
+                                    HStack {
+                                        styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
+                                    }
+                                }
+                                
                             }
                             if !error.isEmpty {
                                 styledText(type: "Regular", size: 13, content: error).foregroundColor(.red)

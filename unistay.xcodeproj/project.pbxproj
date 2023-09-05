@@ -22,6 +22,7 @@
 		A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */; };
 		A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */; };
 		A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A385ECC52A9E5B1B00B1A44D /* LoginView.swift */; };
+		A38EDCF92AA7A6A4000FD421 /* PublisherSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */; };
 		A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DA35482A8CED3A005EAAC9 /* MenuView.swift */; };
 		A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E245982A90197100BC7E37 /* MenuItem.swift */; };
 		A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */; };
@@ -55,6 +56,7 @@
 		A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelection.swift; sourceTree = "<group>"; };
 		A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		A385ECC52A9E5B1B00B1A44D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherSignUp.swift; sourceTree = "<group>"; };
 		A3DA35482A8CED3A005EAAC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A3E245982A90197100BC7E37 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemSheet.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				A338556E2A969FF500CAF86F /* Field.swift */,
 				A385ECC32A9E3BEA00B1A44D /* LaunchView.swift */,
 				A33855722A97C6ED00CAF86F /* Step.swift */,
+				A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */,
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
 				A3F636502AA3C7AB0076E164 /* Crop.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpView.swift */,
@@ -268,6 +271,7 @@
 			files = (
 				A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */,
 				A385ECC42A9E3BEA00B1A44D /* LaunchView.swift in Sources */,
+				A38EDCF92AA7A6A4000FD421 /* PublisherSignUp.swift in Sources */,
 				A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */,
 				A338556F2A969FF500CAF86F /* Field.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
