@@ -59,6 +59,7 @@ struct MenuItem: View {
     @Binding var menuItemData: MenuItemData
     @State private var showingData: Bool = false
     var itemFields: [Any] = []
+    @Binding var isLoggedIn: Bool
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -67,9 +68,8 @@ struct MenuItem: View {
                 Image(systemName: menuItemData.titleIcon)
             }.padding(.bottom, 10)
             HStack(alignment: .center) {
-                if (menuItemData.options.count == 1) {
+                if (menuItemData.options.count == 1 && !menuItemData.singleAction) {
                     //menuItemData.
-                    
                     Button(action: {
                         showingData.toggle()
                     }) {
@@ -78,7 +78,7 @@ struct MenuItem: View {
                     }.sheet(isPresented: $showingData) {
                         MenuItemSheet(showingData: $showingData, titleIcon: menuItemData.descIcon, sheetTitle: menuItemData.sheetTitle ?? "", description: menuItemData.sheetDescription ?? "", action: menuItemData.action ?? "", fields: menuItemData.sheetFields ?? [], states: menuItemData.sheetStates ?? [])
                     }.presentationBackground(Color("BackgroundColorLighter"))
-                } else {
+                } else if !menuItemData.singleAction {
                     Menu {
                         ForEach(menuItemData.options, id: \.self) {
                             option in
@@ -91,6 +91,13 @@ struct MenuItem: View {
                     } label: {
                         styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
                         Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
+                    }
+                } else {
+                    Button(action: {
+                        SessionManager.shared.isLoggedIn = false
+                        self.isLoggedIn = false
+                    }) {
+                        styledText(type: "Regular", size: 16, content: menuItemData.options[0]).foregroundColor(Color("Body")).underline()
                     }
                 }
             }

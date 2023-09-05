@@ -43,6 +43,7 @@ struct ContentView: View {
     var views = ["Places", "Chats", "Profile", "Menu"]
     @State private var selectedTab = "Places"
     @State private var tabSize: CGFloat = 0
+    @Binding var isLoggedIn: Bool
     var body: some View {
         GeometryReader {
             geometry in
@@ -51,7 +52,7 @@ struct ContentView: View {
                 if(selectedTab == "Places") {
                     Places(size: size, tabSize: tabSize)
                 } else if (selectedTab == "Menu") {
-                    MenuView(size: size, tabSize: tabSize)
+                    MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                 } else if(selectedTab == "Profile") {
                     UserPanel()
                 }
@@ -71,14 +72,7 @@ struct ContentView: View {
         }.background(Color("BackgroundColor"))
         
     }
+}
     
     
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView().previewDevice("iPhone 14 Plus")
-            ContentView().previewDevice("iPhone SE (3rd generation)")
-            ContentView()
-                .previewDevice("iPad (10th generation)")
-        }
-    }}

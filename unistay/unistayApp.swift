@@ -33,7 +33,7 @@ struct unistayApp: App {
     var body: some Scene {
         WindowGroup {
             if isLoggedIn {
-                            ContentView()
+                ContentView(isLoggedIn: $isLoggedIn)
                         } else {
                             LoginView(isLoggedIn: $isLoggedIn)
                         }
