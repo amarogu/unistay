@@ -179,7 +179,7 @@ struct SignUpView: View {
                     } else {
                         signupIcons[0][4] = "checkmark.circle"
                     }
-                })
+        }).removeFocusOnTap()
         
     }
 }

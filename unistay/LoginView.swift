@@ -100,8 +100,8 @@ struct LoginView: View {
                     if response == "Login successful!" {
                         self.isLoggedIn = true
                     }
-                }
-        }
+        }.removeFocusOnTap()
+    }
         //Text("Hello")
     }
     
