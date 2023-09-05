@@ -98,6 +98,7 @@ struct LoginView: View {
         Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: $viewModel.serverResponse).onReceive(viewModel.$serverResponse) {
                     response in
                     if response == "Login successful!" {
+                        SessionManager.shared.isLoggedIn = true
                         self.isLoggedIn = true
                     }
         }.removeFocusOnTap()

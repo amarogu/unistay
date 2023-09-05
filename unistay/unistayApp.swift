@@ -7,9 +7,28 @@
 
 import SwiftUI
 
+import Foundation
+
+class SessionManager {
+    static let shared = SessionManager()
+    
+    private let isLoggedInKey = "isLoggedIn"
+    
+    var isLoggedIn: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: isLoggedInKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: isLoggedInKey)
+        }
+    }
+    
+    private init() {}
+}
+
 @main
 struct unistayApp: App {
-    @State var isLoggedIn: Bool = false
+    @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
     
     var body: some Scene {
         WindowGroup {
