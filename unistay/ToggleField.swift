@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ToggleField: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @Binding var isToggleOn: Bool
+    var field: String
 
-struct ToggleField_Previews: PreviewProvider {
-    static var previews: some View {
-        ToggleField()
+    var body: some View {
+        Toggle(isOn: $isToggleOn) {
+            HStack {
+                Image(systemName: "arrow.up.doc")
+                styledText(type: "Regular", size: 13, content: field)
+            }
+        }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4).onTapGesture {
+            isToggleOn.toggle()
+        }
     }
 }
