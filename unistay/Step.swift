@@ -67,11 +67,13 @@ struct Step: View {
                             }.padding(.bottom, 10)
                             
                             let currentStepFields = fields[currentStep]
+                            // in case there is an image on prof pic
                             if currentStep == 1 && croppedImage != nil && !links {
                                 HStack { // Wrap ForEach in a ZStack
                                     ForEach(currentStepFields, id: \.self) {
                                         field in
                                         if field == "Upload a profile picture" {
+                                            // !nil prof pic
                                             Button(action: {
                                                 presented.toggle()
                                             }) {
@@ -86,13 +88,16 @@ struct Step: View {
                                                 }
                                             }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                         } else {
+                                            // general fields on step of index 1
                                             Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                         }
                                     }
                                 }.padding(.bottom, 6)
                             } else {
+                                // in case there is no prof pic
                                 ForEach(currentStepFields, id: \.self) {
                                     field in
+                                    // in case the field of prof pic is empty and it needs to be displayed
                                     if field == "Upload a profile picture" {
                                         Button(action: {
                                             presented.toggle()
@@ -104,6 +109,7 @@ struct Step: View {
                                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                         }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                     } else if field == "Sign up as a publisher account" {
+                                        // in case the field is a publisher toggle
                                         Toggle(isOn: $isToggleOn) {
                                             HStack {
                                                 Image(systemName: "arrow.up.doc")
@@ -113,6 +119,7 @@ struct Step: View {
                                             isToggleOn.toggle()
                                         }
                                     } else {
+                                        // general fields
                                         Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                     }
                                 }
