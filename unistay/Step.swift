@@ -32,40 +32,39 @@ struct Step: View {
     @State private var image: Image?
     @State private var croppedImage: UIImage?
     @Binding var isToggleOn: Bool
+    var fieldTypes: [String] = ["text", "emptyImg", "selectedImg", "menu"]
     var body: some View {
         GeometryReader {
             geo in
             let width = geo.size.width
-            
-                ZStack {
-                    Color("BackgroundColor").edgesIgnoringSafeArea(.all)
-                    VStack(alignment: .center) {
-                        VStack(alignment: .leading) {
+            ZStack {
+                Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+                VStack(alignment: .center) {
+                    VStack(alignment: .leading) {
+                        Spacer()
+                        HStack {
+                            Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)
+                            styledText(type: "Bold", size: 22, content: "UniStay")
+                        }.padding(.bottom, -10)
+                        HStack {
+                            styledText(type: "Bold", size: 34, content: title)
                             Spacer()
-                            HStack {
-                                Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)
-                                styledText(type: "Bold", size: 22, content: "UniStay")
-                            }.padding(.bottom, -10)
-                            HStack {
-                                styledText(type: "Bold", size: 34, content: title)
-                                Spacer()
-                                Menu {
-                                    ForEach(languages, id: \.self) {
-                                        language in
-                                        Button(action: {
-                                            selectedLanguage = language
-                                        }) {
-                                            Label(language, systemImage: selectedLanguage == language ? "checkmark" : "")
-                                        }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "globe").foregroundColor(Color("Body"))
-                                        Image(systemName: "chevron.down").foregroundColor(Color("Body"))
+                            Menu {
+                                ForEach(languages, id: \.self) {
+                                    language in
+                                    Button(action: {
+                                        selectedLanguage = language
+                                    }) {
+                                        Label(language, systemImage: selectedLanguage == language ? "checkmark" : "")
                                     }
                                 }
-                            }.padding(.bottom, 10)
-                            
+                            } label: {
+                                HStack {
+                                    Image(systemName: "globe").foregroundColor(Color("Body"))
+                                    Image(systemName: "chevron.down").foregroundColor(Color("Body"))
+                                }
+                            }
+                        }.padding(.bottom, 10)
                             let currentStepFields = fields[currentStep]
                             // in case there is an image on prof pic
                             if currentStep == 1 && croppedImage != nil && !links {
@@ -74,19 +73,7 @@ struct Step: View {
                                         field in
                                         if field == "Upload a profile picture" {
                                             // !nil prof pic
-                                            Button(action: {
-                                                presented.toggle()
-                                            }) {
-                                                if let croppedImage {
-                                                    Image(uiImage: croppedImage).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 40)
-                                                } else {
-                                                    HStack {
-                                                        Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
-                                                        styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
-                                                        Spacer()
-                                                    }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
-                                                }
-                                            }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                                            Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], fieldType: "selectedImg", presented: $presented, croppedImage: $croppedImage, menuContent: [""], menuSelection: fieldTypes[2])
                                         } else {
                                             // general fields on step of index 1
                                             Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
