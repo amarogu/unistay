@@ -27,7 +27,7 @@ struct Step: View {
     @State private var selectedLanguage: String = "System language"
     var postStep: Int
     @Binding var serverResponse: String?
-    @State var presented: Bool = false
+    @State var presented: Bool? = false
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
     @State private var croppedImage: UIImage?
@@ -70,13 +70,12 @@ struct Step: View {
                             if currentStep == 1 && croppedImage != nil && !links {
                                 HStack { // Wrap ForEach in a ZStack
                                     ForEach(currentStepFields, id: \.self) {
-                                        field in
+                                        (field: String) in
                                         if field == "Upload a profile picture" {
                                             // !nil prof pic
-                                            Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], fieldType: "selectedImg", presented: $presented, croppedImage: $croppedImage, menuContent: [""], menuSelection: fieldTypes[2])
                                         } else {
                                             // general fields on step of index 1
-                                            Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                           
                                         }
                                     }
                                 }.padding(.bottom, 6)
@@ -86,28 +85,13 @@ struct Step: View {
                                     field in
                                     // in case the field of prof pic is empty and it needs to be displayed
                                     if field == "Upload a profile picture" {
-                                        Button(action: {
-                                            presented.toggle()
-                                        }) {
-                                            HStack {
-                                                Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
-                                                styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
-                                                Spacer()
-                                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
-                                        }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                                        
                                     } else if field == "Sign up as a publisher account" {
                                         // in case the field is a publisher toggle
-                                        Toggle(isOn: $isToggleOn) {
-                                            HStack {
-                                                Image(systemName: "arrow.up.doc")
-                                                styledText(type: "Regular", size: 13, content: field)
-                                            }
-                                        }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4).onTapGesture {
-                                            isToggleOn.toggle()
-                                        }
+                                        
                                     } else {
                                         // general fields
-                                        Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                        
                                     }
                                 }
                             }
@@ -120,33 +104,27 @@ struct Step: View {
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
                             if links {
-                                
                                 NavigationLink(destination: SignUpView()) {
                                     HStack {
                                         styledText(type: "Regular", size: 14, content: "Create an account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
                                         Image(systemName: "person.badge.plus").foregroundColor(Color("BodyEmphasized"))
                                     }
                                 }
-                                
                                 NavigationLink(destination: ForgotYourPassword()) {
                                     HStack {
                                         styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
                                     }
                                 }
-                                
                             }
                             if !error.isEmpty {
                                 styledText(type: "Regular", size: 13, content: error).foregroundColor(.red)
                                     } else if let serverResponse = serverResponse, !serverResponse.isEmpty {
                                         styledText(type: "Regular", size: 13, content: serverResponse).foregroundColor(.red)
                                     }
-                            //Text(serverResponse ?? "An error occurred")
                             Spacer()
-                            
                         }.frame(maxWidth: width * 0.8)
                     }.frame(maxWidth: .infinity)
                 }
             }.tint(Color("BodyEmphasized"))
         }
-
     }
