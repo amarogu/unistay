@@ -71,8 +71,8 @@ class LoginViewModel: ObservableObject {
 
 struct LoginView: View {
     @State var loginInputs: [[String]] = [["", ""]]
-    @State var loginFields: [[String]] = [["E-mail address", "Password"]]
-    @State var loginIcons: [[String]] = [["envelope", "key"]]
+    var loginFields: [[String]] = [["E-mail address", "Password"]]
+    var loginIcons: [[String]] = [["envelope", "key"]]
     @State var step: Int = 0
     @StateObject var viewModel = LoginViewModel()
     //var errorVar: any Error
@@ -97,7 +97,7 @@ struct LoginView: View {
     //@State var serverResponse: String = "AA"
     var body: some View {
         NavigationView {
-            Step(inputs: $loginInputs, fields: $loginFields, icons: $loginIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onReceive(viewModel.$serverResponse) {
+            Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onReceive(viewModel.$serverResponse) {
                         response in
                         if response == "Login successful!" {
                             SessionManager.shared.isLoggedIn = true

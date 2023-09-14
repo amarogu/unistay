@@ -12,8 +12,8 @@ import PhotosUI
 
 struct Step: View {
     @Binding var inputs: [[String]]
-    @Binding var fields: [[String]]
-    @Binding var icons: [[String]]
+    var fields: [[String]]
+    var icons: [[String]]
     @State var titleHeight: CGFloat = 0
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
@@ -106,7 +106,7 @@ struct Step: View {
                                                 Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 14))
                                                 styledText(type: "Regular", size: 13, content: "Click here to insert a profile picture")
                                                 Spacer()
-                                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                         }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
                                     } else if field == "Sign up as a publisher account" {
                                         // in case the field is a publisher toggle

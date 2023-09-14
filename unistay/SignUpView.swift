@@ -117,7 +117,7 @@ struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     @State var isToggleOn: Bool = false
     var body: some View {
-        Step(inputs: $signupInputs, fields: $signupFields, icons: $signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: $step, isToggleOn: $isToggleOn)}, links: false, title: "Sign up", postStep: 4, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onChange(of: signupInputs, perform: {
+        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: $step, isToggleOn: $isToggleOn)}, links: false, title: "Sign up", postStep: 4, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onChange(of: signupInputs, perform: {
                     newValue in
                     let email = signupInputs[0][1]
                     let emailConfirm = signupInputs[0][2]
@@ -145,7 +145,7 @@ struct SignUpView: View {
                 signupFields.append(["Publication title", "Publication description", "Rent", "Currency", "Type"])
                 signupFields.append(["Publication visibility", "Publication location", "Publication images"])
                 signupIcons.append(["character.cursor.ibeam", "doc.richtext", "calendar.badge.plus", "dollarsign.circle", "house.and.flag"])
-                signupIcons.append(["eye.circle", "location.circle", "photo.badge.plus"])
+                signupIcons.append(["eye.circle", "location.circle", "photo.on.rectangle.angled"])
             } else {
                 signupInputs.removeLast(2)
                 signupFields[1] = ["Upload a profile picture", "Insert a user bio"]
