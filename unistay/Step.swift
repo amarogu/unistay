@@ -12,8 +12,8 @@ import PhotosUI
 
 struct Step: View {
     @Binding var inputs: [[String]]
-    var fields: [[String]]
-    var icons: [[String]]
+    @Binding var fields: [[String]]
+    @Binding var icons: [[String]]
     @State var titleHeight: CGFloat = 0
     @State var subtitleHeight: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
@@ -31,7 +31,7 @@ struct Step: View {
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
     @State private var croppedImage: UIImage?
-    @State private var isToggleOn: Bool = false
+    @Binding var isToggleOn: Bool
     var body: some View {
         GeometryReader {
             geo in

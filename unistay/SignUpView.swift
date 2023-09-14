@@ -16,8 +16,8 @@ class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
-    func signUp(inputs: [[String]], step: Int) {
-        if !validateSignUp(inputs: inputs, step: step) {
+    func signUp(inputs: [[String]], step: Binding<Int>, isToggleOn: Binding<Bool>) {
+        if !validateSignUp(inputs: inputs, step: step, isToggleOn: isToggleOn) {
             return
         }
         let url = URL(string: "http://localhost:3000/")!
@@ -50,8 +50,8 @@ class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    func validateSignUp(inputs: [[String]], step: Int) -> Bool {
-            switch step {
+    func validateSignUp(inputs: [[String]], step: Binding<Int>, isToggleOn: Binding<Bool>) -> Bool {
+        /*switch step.wrappedValue {
             case 0:
                 let username = inputs[0][0]
                 let email = inputs[0][1]
@@ -98,72 +98,27 @@ class SignUpViewModel: ObservableObject {
             default:
                 validationError = "Internal error"
                 return false
-            }
-            validationError = ""
+            }*/
+        if step.wrappedValue == 4 {
             return true
         }
+        step.wrappedValue+=1
+        validationError = ""
+        return true
+        }
 }
-
-
-
 
 struct SignUpView: View {
     //@Binding var responseData: String
     @State var signupInputs: [[String]] = [["", "", "", "", "", ""], ["", ""], ["", ""]]
-    var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password", "Sign up as a publisher account"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
+    @State var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password", "Sign up as a publisher account"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
     @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle", "arrow.up.doc"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
     @State var step: Int = 0
-    func validateSignUp() -> String {
-        switch step {
-        case 0:
-            let username = signupInputs[0][0]
-            let email = signupInputs[0][1]
-            let emailConfirm = signupInputs[0][2]
-            let password = signupInputs[0][3]
-            let passwordConfirm = signupInputs[0][4]
-            if username.count < 3 || username.count > 20 {
-                return "The username needs to be 3 to 20 characters long"
-            }
-            if email != emailConfirm {
-                return "The e-mail addresses do not match"
-            }
-            if password != passwordConfirm {
-                return "The passwords do not match"
-            }
-            if email.count < 5 || email.count > 50 || !email.contains("@") {
-                return "The e-mail address is not valid"
-            }
-            if password.count < 8 || password.count > 50 {
-                return "The password does not fit the criteria"
-            }
-        case 1:
-            let bio = signupInputs[1][1]
-            if bio.isEmpty || bio.count > 325 {
-                return "Please insert a valid bio"
-            }
-        case 2:
-            let preferredLocations = signupFields[2][0]
-            let preferredCurrency = signupFields[2][1]
-            if preferredLocations.isEmpty {
-                return "Please insert at least one location"
-            }
-            if preferredCurrency.isEmpty {
-                return "Please insert at least one currency"
-            }
-        default: return "Internal error"
-        }
-        if step == 2 {
-            return ""
-        }
-        step += 1
-        return ""
-    }
     @StateObject private var viewModel = SignUpViewModel()
+    @State var isToggleOn: Bool = false
     var body: some View {
-       
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: step)}, links: false, title: "Sign up", postStep: 2, serverResponse: $viewModel.serverResponse).onChange(of: signupInputs, perform: {
+        Step(inputs: $signupInputs, fields: $signupFields, icons: $signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: $step, isToggleOn: $isToggleOn)}, links: false, title: "Sign up", postStep: 4, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onChange(of: signupInputs, perform: {
                     newValue in
-                    let username = signupInputs[0][0]
                     let email = signupInputs[0][1]
                     let emailConfirm = signupInputs[0][2]
                     let password = signupInputs[0][3]
@@ -179,8 +134,25 @@ struct SignUpView: View {
                     } else {
                         signupIcons[0][4] = "checkmark.circle"
                     }
+        }).onChange(of: isToggleOn, perform: {
+            newValue in
+            if newValue {
+                //signupFields[0][5] = "hello"
+                signupInputs.append(["", "", "", "", ""])
+                signupInputs.append(["", "", ""])
+                signupFields[1] = ["Upload a profile picture", "Insert your publisher bio"]
+                signupFields[2] = ["Your location", "Currency"]
+                signupFields.append(["Publication title", "Publication description", "Rent", "Currency", "Type"])
+                signupFields.append(["Publication visibility", "Publication location", "Publication images"])
+                signupIcons.append(["character.cursor.ibeam", "doc.richtext", "calendar.badge.plus", "dollarsign.circle", "house.and.flag"])
+                signupIcons.append(["eye.circle", "location.circle", "photo.badge.plus"])
+            } else {
+                signupInputs.removeLast(2)
+                signupFields[1] = ["Upload a profile picture", "Insert a user bio"]
+                signupFields[2] = ["Preferred locations", "Preferred currency"]
+                signupIcons.removeLast(2)
+            }
         }).removeFocusOnTap()
-        
     }
 }
 
