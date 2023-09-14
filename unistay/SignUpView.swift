@@ -109,9 +109,9 @@ class SignUpViewModel: ObservableObject {
 
 struct SignUpView: View {
     //@Binding var responseData: String
-    @State var signupInputs: [[String]] = [["", "", "", "", ""], ["", ""], ["", ""]]
-    var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
-    @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
+    @State var signupInputs: [[String]] = [["", "", "", "", "", ""], ["", ""], ["", ""]]
+    var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password", "Sign up as a publisher account"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
+    @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle", "arrow.up.doc"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
     @State var step: Int = 0
     func validateSignUp() -> String {
         switch step {

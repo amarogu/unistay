@@ -31,6 +31,7 @@ struct Step: View {
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
     @State private var croppedImage: UIImage?
+    @State private var isToggleOn: Bool = false
     var body: some View {
         GeometryReader {
             geo in
@@ -102,6 +103,15 @@ struct Step: View {
                                                                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                                                         
                                                                     }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                                                                } else if field == "Sign up as a publisher account" {
+                                                                    Toggle(isOn: $isToggleOn) {
+                                                                        HStack {
+                                                                            Image(systemName: "arrow.up.doc")
+                                                                            styledText(type: "Regular", size: 13, content: field)
+                                                                        }
+                                                                    }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4).onTapGesture {
+                                                                        isToggleOn.toggle()
+                                                                    }
                                                                 } else {
                                                                     Field(placeholder: styledText(type: "Regular", size: 13, content: field), text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                                                 }
@@ -116,14 +126,6 @@ struct Step: View {
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
                             if links {
-                                
-                                
-                                NavigationLink(destination: PublisherSignUp()) {
-                                    HStack {
-                                        styledText(type: "Regular", size: 14, content: "Create a publisher account").foregroundColor(Color("BodyEmphasized")).underline().padding(.vertical, 4)
-                                        Image(systemName: "person.line.dotted.person").foregroundColor(Color("BodyEmphasized"))
-                                    }
-                                }
                                 
                                 NavigationLink(destination: SignUpView()) {
                                     HStack {
