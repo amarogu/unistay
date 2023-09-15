@@ -73,19 +73,23 @@ struct Step: View {
                                     if field == "Upload a profile picture" {
                                         SelectedPicField(presented: $presented, croppedImage: $croppedImage)
                                     } else {
-                                        TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                        TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                     }
                                 }
-                            }.padding(.bottom, 6)
+                            }//.padding(.bottom, 6)
                         } else {
                             ForEach(currentStepFields, id: \.self) {
                                 field in
                                 if field == "Upload a profile picture" {
-                                    EmptyPicField(presented: $presented, croppedImage: $croppedImage)
+                                    EmptyPicField(presented: $presented, croppedImage: $croppedImage).padding(.bottom, 4)
                                 } else if field == "Sign up as a publisher account" {
-                                    ToggleField(isToggleOn: $isToggleOn, field: field)
+                                    ToggleField(isToggleOn: $isToggleOn, field: field).padding(.bottom, 4)
+                                } else if field == "Type" {
+                                    MenuField(items: ["On-campus", "Off-campus", "Homestay"], menuSelection: "On-campus", icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field))
+                                } else if field == "Publication visibility" {
+                                    MenuField(items: ["Public", "Private"], menuSelection: "Public", icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field))
                                 } else {
-                                    TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                                    TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                 }
                             }
                         }
@@ -96,7 +100,7 @@ struct Step: View {
                                 styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
-                            }
+                        }
                             if links {
                                 NavigationLink(destination: SignUpView()) {
                                     HStack {

@@ -28,7 +28,7 @@ struct MenuField: View {
                 placeholder
                 Spacer()
                 Image(systemName: "chevron.down").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-            }
+            }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
         }
     }
 }

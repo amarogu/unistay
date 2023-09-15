@@ -17,7 +17,7 @@ struct ToggleField: View {
                 Image(systemName: "arrow.up.doc")
                 styledText(type: "Regular", size: 13, content: field)
             }
-        }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4).onTapGesture {
+        }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
             isToggleOn.toggle()
         }
     }
