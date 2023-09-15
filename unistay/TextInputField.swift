@@ -30,10 +30,10 @@ extension View {
     }
 }
 
-struct Field: View {
+struct TextInputField: View {
     @Binding var text: String
     var placeholder: Text
-    @Binding var textValue: String
+    //@Binding var textValue: String
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
     var icon: String
