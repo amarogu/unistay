@@ -31,6 +31,8 @@ struct Step: View {
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var image: Image?
     @State private var croppedImage: UIImage?
+    @State var presentedPublication: Bool = false
+    @State private var croppedImagePublication: UIImage?
     @Binding var isToggleOn: Bool
     var fieldTypes: [String] = ["text", "emptyImg", "selectedImg", "menu"]
     var body: some View {
@@ -77,6 +79,17 @@ struct Step: View {
                                     }
                                 }
                             }//.padding(.bottom, 6)
+                        } else if currentStep == 4 && croppedImagePublication != nil && !links {
+                            HStack {
+                                ForEach(currentStepFields, id: \.self) {
+                                    (field: String) in
+                                    if field == "Publication images" {
+                                        SelectedPicField(presented: $presentedPublication, croppedImage: $croppedImagePublication)
+                                    } else {
+                                        TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
+                                    }
+                                }
+                            }
                         } else {
                             ForEach(currentStepFields, id: \.self) {
                                 field in
@@ -88,6 +101,8 @@ struct Step: View {
                                     MenuField(items: ["On-campus", "Off-campus", "Homestay"], menuSelection: "On-campus", icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field))
                                 } else if field == "Publication visibility" {
                                     MenuField(items: ["Public", "Private"], menuSelection: "Public", icon: icons[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field))
+                                } else if field == "Publication images" {
+                                    EmptyPicField(presented: $presentedPublication, croppedImage: $croppedImagePublication).padding(.bottom, 4)
                                 } else {
                                     TextInputField(text: $inputs[currentStep][currentStepFields.firstIndex(of: field)!], placeholder: styledText(type: "Regular", size: 13, content: field), icon: icons[currentStep][currentStepFields.firstIndex(of: field)!]).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.bottom, 4)
                                 }
