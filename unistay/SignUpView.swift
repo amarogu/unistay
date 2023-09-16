@@ -99,8 +99,14 @@ class SignUpViewModel: ObservableObject {
                 validationError = "Internal error"
                 return false
             }*/
-        if step.wrappedValue == 4 {
-            return true
+        if isToggleOn.wrappedValue {
+            if step.wrappedValue == 4 {
+                return true
+            }
+        } else {
+            if step.wrappedValue == 2 {
+                return true
+            }
         }
         step.wrappedValue+=1
         validationError = ""
@@ -142,23 +148,20 @@ struct SignUpView: View {
                 signupInputs.append(["", "", ""])
                 signupFields[1] = ["Upload a profile picture", "Insert your publisher bio"]
                 signupFields[2] = ["Your location", "Currency"]
-                signupFields.append(["Publication title", "Publication description", "Rent", "Currency", "Type"])
+                signupFields.append(["Publication title", "Publication description", "Rent", "Publication currency", "Type"])
                 signupFields.append(["Publication visibility", "Publication location", "Publication images"])
                 signupIcons.append(["character.cursor.ibeam", "doc.richtext", "calendar.badge.plus", "dollarsign.circle", "house.and.flag"])
                 signupIcons.append(["eye.circle", "location.circle", "photo.on.rectangle.angled"])
+                print(signupFields)
             } else {
                 signupInputs.removeLast(2)
                 signupFields[1] = ["Upload a profile picture", "Insert a user bio"]
                 signupFields[2] = ["Preferred locations", "Preferred currency"]
                 signupIcons.removeLast(2)
+                signupFields.removeLast(2)
+                print(signupFields)
             }
         }).removeFocusOnTap()
-    }
-}
-
-struct Provider_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView()
     }
 }
 
