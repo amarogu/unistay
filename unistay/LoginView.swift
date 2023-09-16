@@ -96,15 +96,7 @@ struct LoginView: View {
     @State var isToggleOn: Bool = false
     //@State var serverResponse: String = "AA"
     var body: some View {
-        NavigationView {
-            Step(inputs: $loginInputs, fields: loginFields, icons: loginIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.login(email: loginInputs[0][0], password: loginInputs[0][1])}, links: true, title: "Log in", postStep: 0, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onReceive(viewModel.$serverResponse) {
-                        response in
-                        if response == "Login successful!" {
-                            SessionManager.shared.isLoggedIn = true
-                            self.isLoggedIn = true
-                        }
-            }.removeFocusOnTap()
-        }
+        Text("h")
     }
         //Text("Hello")
     }

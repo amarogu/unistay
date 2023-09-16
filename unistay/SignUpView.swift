@@ -16,8 +16,8 @@ class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
-    func signUp(inputs: [[String]], step: Binding<Int>, isToggleOn: Binding<Bool>) {
-        if !validateSignUp(inputs: inputs, step: step, isToggleOn: isToggleOn) {
+    func signUp(inputs: [String], isToggled: Binding<Bool>) {
+        if !validateSignUp(inputs: inputs, isToggled: isToggled) {
             return
         }
         let url = URL(string: "http://localhost:3000/")!
@@ -25,7 +25,7 @@ class SignUpViewModel: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let bodyData: [String: Any] = ["user": ["username": inputs[0][0], "email": inputs[0][1], "language": "English", "accountType": "normal", "password": inputs[0][3], "private": true, "currency": inputs[2][1], "preferredLocations": inputs[2][0]] as [String : Any]]
+        let bodyData: [String: Any] = ["user": ["username": inputs[0], "email": inputs[1], "language": "English", "accountType": "normal", "password": inputs[3]] as [String : Any]]
         let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
         request.httpBody = jsonData
 
@@ -50,118 +50,182 @@ class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    func validateSignUp(inputs: [[String]], step: Binding<Int>, isToggleOn: Binding<Bool>) -> Bool {
-        /*switch step.wrappedValue {
-            case 0:
-                let username = inputs[0][0]
-                let email = inputs[0][1]
-                let emailConfirm = inputs[0][2]
-                let password = inputs[0][3]
-                let passwordConfirm = inputs[0][4]
-                if username.count < 3 || username.count > 20 {
-                    validationError = "The username needs to be 3 to 20 characters long"
-                    return false
-                }
-                if email != emailConfirm {
-                    validationError = "The e-mail addresses do not match"
-                    return false
-                }
-                if password != passwordConfirm {
-                    validationError = "The passwords do not match"
-                    return false
-                }
-                if email.count < 5 || email.count > 50 || !email.contains("@") {
-                    validationError = "The e-mail address is not valid"
-                    return false
-                }
-                if password.count < 8 || password.count > 50 {
-                    validationError = "The password does not fit the criteria"
-                    return false
-                }
-            case 1:
-                let bio = inputs[1][1]
-                if bio.isEmpty || bio.count > 325 {
-                    validationError = "Please insert a valid bio"
-                    return false
-                }
-            case 2:
-                let preferredLocations = inputs[2][0]
-                let preferredCurrency = inputs[2][1]
-                if preferredLocations.isEmpty {
-                    validationError = "Please insert at least one location"
-                    return false
-                }
-                if preferredCurrency.isEmpty {
-                    validationError = "Please insert at least one currency"
-                    return false
-                }
-            default:
-                validationError = "Internal error"
-                return false
-            }*/
-        if isToggleOn.wrappedValue {
-            if step.wrappedValue == 4 {
-                return true
-            }
-        } else {
-            if step.wrappedValue == 2 {
-                return true
-            }
+    func validateSignUp(inputs: [String], isToggled: Binding<Bool>) -> Bool {
+        let username = inputs[0]
+        let email = inputs[1]
+        let emailConfirm = inputs[2]
+        let password = inputs[3]
+        let passwordConfirm = inputs[4]
+        if username.count < 3 || username.count > 20 {
+            validationError = "The username needs to be 3 to 20 characters long"
+            return false
         }
-        step.wrappedValue+=1
+        if email != emailConfirm {
+            validationError = "The e-mail addresses do not match"
+            return false
+        }
+        if password != passwordConfirm {
+            validationError = "The passwords do not match"
+            return false
+        }
+        if email.count < 5 || email.count > 50 || !email.contains("@") {
+            validationError = "The e-mail address is not valid"
+            return false
+        }
+        if password.count < 8 || password.count > 50 {
+            validationError = "The password does not fit the criteria"
+            return false
+        }
+            
         validationError = ""
         return true
-        }
+    }
 }
 
-struct SignUpView: View {
-    //@Binding var responseData: String
-    @State var signupInputs: [[String]] = [["", "", "", "", "", ""], ["", ""], ["", ""]]
-    @State var signupFields: [[String]] = [["Username", "E-mail address", "Confirm your e-mail address", "Password", "Confirm your password", "Sign up as a publisher account"], ["Upload a profile picture", "Insert a user bio"], ["Preferred locations", "Preferred currency"]]
-    @State var signupIcons: [[String]] = [["person.crop.circle", "envelope", "checkmark.circle", "key", "checkmark.circle", "arrow.up.doc"], ["camera.circle", "bubble.right.circle"], ["location.circle", "dollarsign.circle"]]
-    @State var step: Int = 0
-    @StateObject private var viewModel = SignUpViewModel()
-    @State var isToggleOn: Bool = false
-    var body: some View {
-        Step(inputs: $signupInputs, fields: signupFields, icons: signupIcons, currentStep: $step, error: $viewModel.validationError, call: { viewModel.signUp(inputs: signupInputs, step: $step, isToggleOn: $isToggleOn)}, links: false, title: "Sign up", postStep: 4, serverResponse: $viewModel.serverResponse, isToggleOn: $isToggleOn).onChange(of: signupInputs, perform: {
-                    newValue in
-                    let email = signupInputs[0][1]
-                    let emailConfirm = signupInputs[0][2]
-                    let password = signupInputs[0][3]
-                    let passwordConfirm = signupInputs[0][4]
-                    
-                    if (email == emailConfirm && !email.isEmpty) {
-                        signupIcons[0][2] = "checkmark.circle.fill"
-                    } else {
-                        signupIcons[0][2] = "checkmark.circle"
-                    }
-                    if (password == passwordConfirm && !password.isEmpty) {
-                        signupIcons[0][4] = "checkmark.circle.fill"
-                    } else {
-                        signupIcons[0][4] = "checkmark.circle"
-                    }
-        }).onChange(of: isToggleOn, perform: {
-            newValue in
-            if newValue {
-                //signupFields[0][5] = "hello"
-                signupInputs.append(["", "", "", "", ""])
-                signupInputs.append(["", "", ""])
-                signupFields[1] = ["Upload a profile picture", "Insert your publisher bio"]
-                signupFields[2] = ["Your location", "Currency"]
-                signupFields.append(["Publication title", "Publication description", "Rent", "Publication currency", "Type"])
-                signupFields.append(["Publication visibility", "Publication location", "Publication images"])
-                signupIcons.append(["character.cursor.ibeam", "doc.richtext", "calendar.badge.plus", "dollarsign.circle", "house.and.flag"])
-                signupIcons.append(["eye.circle", "location.circle", "photo.on.rectangle.angled"])
-                print(signupFields)
-            } else {
-                signupInputs.removeLast(2)
-                signupFields[1] = ["Upload a profile picture", "Insert a user bio"]
-                signupFields[2] = ["Preferred locations", "Preferred currency"]
-                signupIcons.removeLast(2)
-                signupFields.removeLast(2)
-                print(signupFields)
+public struct RemoveFocusOnTapModifier: ViewModifier {
+    public func body(content: Content) -> some View {
+        content
+#if os (iOS)
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
-        }).removeFocusOnTap()
+#elseif os(macOS)
+            .onTapGesture {
+                DispatchQueue.main.async {
+                    NSApp.keyWindow?.makeFirstResponder(nil)
+                }
+            }
+#endif
+    }
+}
+
+extension View {
+    public func removeFocusOnTap() -> some View {
+        modifier(RemoveFocusOnTapModifier())
+    }
+}
+
+struct Field: View {
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var confirmEmail: String = ""
+    @State var password: String = ""
+    @State var confirmPass: String = ""
+    var body: some View {
+        
+    }
+}
+
+struct SignUp: View {
+    //@Binding var responseData: String
+    @StateObject private var viewModel = SignUpViewModel()
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var confirmEmail: String = ""
+    @State var password: String = ""
+    @State var confirmPass: String = ""
+    @State var isToggled: Bool = false
+    
+    var editingChanged: (Bool)->() = { _ in }
+    var commit: ()->() = { }
+    @FocusState private var isFocused: Bool
+    
+    var body: some View {
+        GeometryReader {
+            geo in
+            let width = geo.size.width
+            ZStack {
+                Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+                VStack(alignment: .center) {
+                    VStack(alignment: .leading) {
+                        Spacer()
+                        FormHeader()
+                        VStack {
+                            HStack {
+                                Image(systemName: "person.crop.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                ZStack(alignment: .leading) {
+                                    if username.isEmpty { styledText(type: "regular", size: 13, content: "Username") }
+                                    TextField("", text: $username, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                }
+                            }
+                        }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                            isFocused = true
+                        }
+                        VStack {
+                            HStack {
+                                Image(systemName: "envelope").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                ZStack(alignment: .leading) {
+                                    if email.isEmpty { styledText(type: "regular", size: 13, content: "Email address") }
+                                    TextField("", text: $email, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                }
+                            }
+                        }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                            isFocused = true
+                        }
+                        VStack {
+                            HStack {
+                                Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                ZStack(alignment: .leading) {
+                                    if confirmEmail.isEmpty { styledText(type: "regular", size: 13, content: "Confirm your email address") }
+                                    TextField("", text: $confirmEmail, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                }
+                            }
+                        }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                            isFocused = true
+                        }
+                        VStack {
+                            HStack {
+                                Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                ZStack(alignment: .leading) {
+                                    if password.isEmpty { styledText(type: "regular", size: 13, content: "Password") }
+                                    TextField("", text: $password, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                }
+                            }
+                        }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                            isFocused = true
+                        }
+                        VStack {
+                            HStack {
+                                Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                ZStack(alignment: .leading) {
+                                    if confirmPass.isEmpty { styledText(type: "regular", size: 13, content: "Confirm your password") }
+                                    TextField("", text: $confirmPass, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                }
+                            }
+                        }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                            isFocused = true
+                        }
+                        Toggle(isOn: $isToggled) {
+                            HStack {
+                                Image(systemName: "rectangle.stack.badge.person.crop").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                styledText(type: "Regular", size: 13, content: "Sign up as a publisher account")
+                            }
+                        }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
+                            isToggled.toggle()
+                        }.padding(.vertical, 1)
+                        Button(action: {
+                            viewModel.signUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
+                        }) {
+                            HStack(alignment: .center) {
+                                styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                    Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
+                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
+                        }
+                        if !viewModel.validationError.isEmpty {
+                            styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                            let _ = print("hey")
+                        }
+                        Spacer()
+                    }.frame(maxWidth: width * 0.8)
+                }.frame(maxWidth: .infinity)
+            }
+        }.tint(Color("BodyEmphasized")).removeFocusOnTap()
+    }
+}
+
+struct Stteh_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUp()
     }
 }
 
