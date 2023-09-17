@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* FormStruct.swift */; };
+		A339593C2AB77376006BFB26 /* SignUpPublisherThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */; };
+		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
+		A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */; };
+		A33959422AB77A36006BFB26 /* SignUpPublisherFifth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */; };
 		A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */; };
 		A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */; };
 		A33F42632AB3AF7800A8BD58 /* ToggleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42622AB3AF7800A8BD58 /* ToggleField.swift */; };
@@ -44,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		A33855722A97C6ED00CAF86F /* FormStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormStruct.swift; sourceTree = "<group>"; };
+		A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherThird.swift; sourceTree = "<group>"; };
+		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
+		A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherFourth.swift; sourceTree = "<group>"; };
+		A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherFifth.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBasic.swift; sourceTree = "<group>"; };
 		A33F42622AB3AF7800A8BD58 /* ToggleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleField.swift; sourceTree = "<group>"; };
@@ -132,10 +140,14 @@
 				A33855722A97C6ED00CAF86F /* FormStruct.swift */,
 				A33F426E2AB61A6200A8BD58 /* FormHeader.swift */,
 				A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */,
+				A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */,
+				A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */,
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
 				A3F636502AA3C7AB0076E164 /* Crop.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */,
+				A339593D2AB77594006BFB26 /* TextInputField.swift */,
 				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
+				A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */,
 				A385ECC52A9E5B1B00B1A44D /* LoginView.swift */,
 				A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
@@ -291,8 +303,11 @@
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */,
+				A33959422AB77A36006BFB26 /* SignUpPublisherFifth.swift in Sources */,
+				A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */,
 				A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */,
 				A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */,
+				A339593C2AB77376006BFB26 /* SignUpPublisherThird.swift in Sources */,
 				A3E245A32A9401B100BC7E37 /* Suggestion.swift in Sources */,
 				A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */,
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
@@ -302,6 +317,7 @@
 				A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */,
 				A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
+				A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A33F42752AB6375900A8BD58 /* SignUpPublisherSecond.swift in Sources */,
 				A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */,

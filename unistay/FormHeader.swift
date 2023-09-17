@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FormHeader: View {
     var languages: [String] = ["System language", "English", "Portuguese", "French"]
-    @State var selectedLanguage: String = "System Language"
+    @State var selectedLanguage: String = "System language"
     var body: some View {
         HStack {
             Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MenuField: View {
     var items: [String]
-    @State var menuSelection: String
+    @Binding var menuSelection: String
     var icon: String
     var placeholder: Text
 
