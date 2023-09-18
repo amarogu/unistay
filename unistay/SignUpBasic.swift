@@ -125,7 +125,7 @@ struct SignUpBasic: View {
     
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             GeometryReader {
                 geo in
                 let width = geo.size.width
