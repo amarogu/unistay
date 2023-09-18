@@ -12,6 +12,7 @@
 		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
 		A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */; };
 		A33959422AB77A36006BFB26 /* SignUpPublisherFifth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */; };
+		A33959462AB788CB006BFB26 /* MultiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33959452AB788CB006BFB26 /* MultiSelection.swift */; };
 		A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */; };
 		A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */; };
 		A33F42632AB3AF7800A8BD58 /* ToggleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42622AB3AF7800A8BD58 /* ToggleField.swift */; };
@@ -52,6 +53,7 @@
 		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
 		A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherFourth.swift; sourceTree = "<group>"; };
 		A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherFifth.swift; sourceTree = "<group>"; };
+		A33959452AB788CB006BFB26 /* MultiSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelection.swift; sourceTree = "<group>"; };
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBasic.swift; sourceTree = "<group>"; };
 		A33F42622AB3AF7800A8BD58 /* ToggleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleField.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				A339593D2AB77594006BFB26 /* TextInputField.swift */,
 				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
 				A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */,
+				A33959452AB788CB006BFB26 /* MultiSelection.swift */,
 				A385ECC52A9E5B1B00B1A44D /* LoginView.swift */,
 				A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
@@ -314,6 +317,7 @@
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */,
 				A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */,
+				A33959462AB788CB006BFB26 /* MultiSelection.swift in Sources */,
 				A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */,
 				A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
