@@ -20,11 +20,12 @@ struct SignUpPublisherSecond: View {
     var commit: ()->() = { }
     @FocusState private var isFocused: Bool
     
+    @Environment (\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         GeometryReader {
             geo in
             let width = geo.size.width
-            let height = geo.size.height
             NavigationStack {
                 ZStack {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)

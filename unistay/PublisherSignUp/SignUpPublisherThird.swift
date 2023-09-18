@@ -1,5 +1,5 @@
 //
-//  SignUpPublisherFourth.swift
+//  SignUpPublisherThird.swift
 //  unistay
 //
 //  Created by Gustavo Amaro on 17/09/23.
@@ -7,17 +7,10 @@
 
 import SwiftUI
 
-struct SignUpPublisherFourth: View {
-    
+struct SignUpPublisherThird: View {
     @StateObject private var viewModel = SignUpViewModel()
     
-    @State var publicationTitle: String = ""
-    @State var publicationDescription: String = ""
-    @State var rent: String = ""
-    var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
-    @State var publicationCurrencySelection: String = "USD"
-    @State var typeSelection: String = "On-campus"
-    var typeItems = ["On-campus", "Off-campus", "Homestay"]
+    @State var yourLocation: String = ""
     @State var isToggled: Bool = true
     
     var items = ["USD", "EUR", "GBP", "CAD"]
@@ -31,7 +24,6 @@ struct SignUpPublisherFourth: View {
         GeometryReader {
             geo in
             let width = geo.size.width
-            let height = geo.size.height
             NavigationStack {
                 ZStack {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)
@@ -40,14 +32,11 @@ struct SignUpPublisherFourth: View {
                             Spacer()
                             FormHeader()
                             Group {
-                                TextInputField(input: $publicationTitle, placeholderText: "Publication title", placeholderIcon: "character.cursor.ibeam")
-                                TextInputField(input: $publicationDescription, placeholderText: "Publication description", placeholderIcon: "text.below.photo")
-                                TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard")
-                                MenuField(items: publicationCurrencyItems, menuSelection: $publicationCurrencySelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: "Publication currency"))
-                                MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: styledText(type: "Regular", size: 13, content: "Type"))
+                                TextInputField(input: $yourLocation, placeholderText: "Your location", placeholderIcon: "location.circle")
+                                MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: "Currency"))
                             }
                             Button(action: {
-                                viewModel.signUp(inputs: [publicationTitle, publicationDescription, rent, publicationCurrencySelection, typeSelection], isToggled: $isToggled)
+                                viewModel.signUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
                             }) {
                                 HStack(alignment: .center) {
                                     styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
@@ -68,8 +57,8 @@ struct SignUpPublisherFourth: View {
     }
 }
 
-struct SignUpPublisherFourth_Previews: PreviewProvider {
+struct SignUpPublisherThird_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpPublisherFourth()
+        SignUpPublisherThird()
     }
 }

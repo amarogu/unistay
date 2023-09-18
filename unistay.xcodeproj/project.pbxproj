@@ -119,6 +119,17 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		A33959472AB87527006BFB26 /* PublisherSignUp */ = {
+			isa = PBXGroup;
+			children = (
+				A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */,
+				A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */,
+				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
+				A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */,
+			);
+			path = PublisherSignUp;
+			sourceTree = "<group>";
+		};
 		A36E80852A75AD7700DAC3DD = {
 			isa = PBXGroup;
 			children = (
@@ -142,14 +153,11 @@
 				A33855722A97C6ED00CAF86F /* FormStruct.swift */,
 				A33F426E2AB61A6200A8BD58 /* FormHeader.swift */,
 				A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */,
-				A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */,
-				A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */,
+				A33959472AB87527006BFB26 /* PublisherSignUp */,
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
 				A3F636502AA3C7AB0076E164 /* Crop.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */,
 				A339593D2AB77594006BFB26 /* TextInputField.swift */,
-				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
-				A33959412AB77A36006BFB26 /* SignUpPublisherFifth.swift */,
 				A33959452AB788CB006BFB26 /* MultiSelection.swift */,
 				A385ECC52A9E5B1B00B1A44D /* LoginView.swift */,
 				A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */,
