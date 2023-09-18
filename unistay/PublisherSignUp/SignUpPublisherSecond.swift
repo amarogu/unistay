@@ -72,6 +72,9 @@ struct SignUpPublisherSecond: View {
                                 }
                                 Button(action: {
                                     viewModel.signUp(inputs: [publisherBio], isToggled: $isToggled)
+                                    if viewModel.validationError.isEmpty {
+                                        shouldNavigate.toggle()
+                                    }
                                 }) {
                                     HStack(alignment: .center) {
                                         styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
@@ -82,6 +85,9 @@ struct SignUpPublisherSecond: View {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
                                     let _ = print("hey")
                                     
+                                }
+                                NavigationLink(destination: SignUpPublisherThird(), isActive: $shouldNavigate) {
+                                    EmptyView()
                                 }
                                 Spacer()
                             }.frame(maxWidth: width * 0.8)

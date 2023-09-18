@@ -20,7 +20,7 @@ class SignUpViewModel: ObservableObject {
         if !validateSignUp(inputs: inputs, isToggled: isToggled) {
             return
         }
-        let url = URL(string: "http://localhost:3000/")!
+        /*let url = URL(string: "http://localhost:3000/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -48,7 +48,7 @@ class SignUpViewModel: ObservableObject {
             }, receiveValue: { [weak self] response in
                 self?.serverResponse = response.responseMessage
             })
-            .store(in: &cancellables)
+            .store(in: &cancellables)*/
     }
     func validateSignUp(inputs: [String], isToggled: Binding<Bool>) -> Bool {
         /*let username = inputs[0]
