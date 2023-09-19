@@ -129,6 +129,7 @@ struct SignUpBasic: View {
     
     @State var navigator: Int = 1
     @State var shouldNavigate: Bool = false
+    @State var shouldNavigateToPublisher: Bool = false
     
     
     
@@ -211,7 +212,11 @@ struct SignUpBasic: View {
                                 Button(action: {
                                     viewModel.signUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
                                     if viewModel.validationError.isEmpty {
-                                        shouldNavigate.toggle()
+                                        if isToggled {
+                                            shouldNavigateToPublisher.toggle()
+                                        } else {
+                                            shouldNavigate.toggle()
+                                        }
                                     }
                                 }) {
                                     HStack(alignment: .center) {
@@ -219,7 +224,10 @@ struct SignUpBasic: View {
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
-                                NavigationLink(destination: SignUpPublisherSecond(), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpSecond(), isActive: $shouldNavigate) {
+                                    EmptyView()
+                                }
+                                NavigationLink(destination: SignUpPublisherSecond(), isActive: $shouldNavigateToPublisher) {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {

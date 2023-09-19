@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3362FEA2AB9296A001FCB34 /* SignUpSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */; };
+		A3362FEC2AB92A0F001FCB34 /* SignUpThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FEB2AB92A0F001FCB34 /* SignUpThird.swift */; };
 		A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* FormStruct.swift */; };
 		A339593C2AB77376006BFB26 /* SignUpPublisherThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */; };
 		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecond.swift; sourceTree = "<group>"; };
+		A3362FEB2AB92A0F001FCB34 /* SignUpThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpThird.swift; sourceTree = "<group>"; };
 		A33855722A97C6ED00CAF86F /* FormStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormStruct.swift; sourceTree = "<group>"; };
 		A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherThird.swift; sourceTree = "<group>"; };
 		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				A33F426E2AB61A6200A8BD58 /* FormHeader.swift */,
 				A364E35D2AB8ED0300C7AB8B /* LoginHeader.swift */,
 				A38EDCF82AA7A6A4000FD421 /* PublisherSignUp.swift */,
+				A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */,
+				A3362FEB2AB92A0F001FCB34 /* SignUpThird.swift */,
 				A33959472AB87527006BFB26 /* PublisherSignUp */,
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
 				A3F636502AA3C7AB0076E164 /* Crop.swift */,
@@ -325,6 +331,7 @@
 				A33959422AB77A36006BFB26 /* SignUpPublisherFifth.swift in Sources */,
 				A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */,
 				A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */,
+				A3362FEA2AB9296A001FCB34 /* SignUpSecond.swift in Sources */,
 				A36E80942A75AD7700DAC3DD /* ContentView.swift in Sources */,
 				A339593C2AB77376006BFB26 /* SignUpPublisherThird.swift in Sources */,
 				A3E245A32A9401B100BC7E37 /* Suggestion.swift in Sources */,
@@ -337,6 +344,7 @@
 				A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */,
 				A385ECC62A9E5B1B00B1A44D /* LoginView.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
+				A3362FEC2AB92A0F001FCB34 /* SignUpThird.swift in Sources */,
 				A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A33F42752AB6375900A8BD58 /* SignUpPublisherSecond.swift in Sources */,
