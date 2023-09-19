@@ -104,6 +104,14 @@ extension View {
         modifier(RemoveFocusOnTapModifier())
     }
 }
+
+enum Field {
+    case username
+    case email
+    case confirmEmail
+    case password
+    case confirmPass
+}
     
 struct SignUpBasic: View {
     //@Binding var responseData: String
@@ -117,7 +125,7 @@ struct SignUpBasic: View {
     
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
-    @FocusState private var isFocused: Bool
+    @FocusState private var focusedField: Field?
     
     @State var navigator: Int = 1
     @State var shouldNavigate: Bool = false
@@ -141,55 +149,55 @@ struct SignUpBasic: View {
                                             Image(systemName: "person.crop.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if username.isEmpty { styledText(type: "Regular", size: 13, content: "Username") }
-                                                TextField("", text: $username, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                TextField("", text: $username, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .username)
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
+                                        focusedField = .username
                                     }
                                     VStack {
                                         HStack {
                                             Image(systemName: "envelope").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if email.isEmpty { styledText(type: "Regular", size: 13, content: "Email address") }
-                                                TextField("", text: $email, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                TextField("", text: $email, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .email)
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
+                                        focusedField = .email
                                     }
                                     VStack {
                                         HStack {
                                             Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if confirmEmail.isEmpty { styledText(type: "regular", size: 13, content: "Confirm your email address") }
-                                                TextField("", text: $confirmEmail, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                TextField("", text: $confirmEmail, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .confirmEmail)
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
+                                        focusedField = .confirmEmail
                                     }
                                     VStack {
                                         HStack {
                                             Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if password.isEmpty { styledText(type: "Regular", size: 13, content: "Password") }
-                                                TextField("", text: $password, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                TextField("", text: $password, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .password)
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
+                                        focusedField = .password
                                     }
                                     VStack {
                                         HStack {
                                             Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if confirmPass.isEmpty { styledText(type: "Regular", size: 13, content: "Confirm your password") }
-                                                TextField("", text: $confirmPass, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                TextField("", text: $confirmPass, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .confirmPass)
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
+                                        focusedField = .confirmPass
                                     }
                                     Toggle(isOn: $isToggled) {
                                         HStack {
@@ -225,7 +233,7 @@ struct SignUpBasic: View {
             }.tint(Color("BodyEmphasized")).onAppear{
                 shouldNavigate = false
             }.removeFocusOnTap()
-        }.navigationBarHidden(true)
+        }//.navigationBarHidden(true)
     }
 }
     
