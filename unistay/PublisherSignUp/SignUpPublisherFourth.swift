@@ -51,11 +51,13 @@ struct SignUpPublisherFourth: View {
                                     MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: styledText(type: "Regular", size: 13, content: typeSelection))
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [publicationTitle, publicationDescription, rent, publicationCurrencySelection, typeSelection], isToggled: $isToggled)
-                                    userData.append(publicationTitle)
-                                    userData.append(publicationDescription)
-                                    userData.append(publicationCurrencySelection)
-                                    userData.append(typeSelection)
+                                    let error = viewModel.validateSignUp(inputs: [publicationTitle, publicationDescription, rent, publicationCurrencySelection, typeSelection], isToggled: $isToggled)
+                                    if !error {
+                                        userData.append(publicationTitle)
+                                        userData.append(publicationDescription)
+                                        userData.append(publicationCurrencySelection)
+                                        userData.append(typeSelection)
+                                    }
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }

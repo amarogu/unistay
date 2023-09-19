@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A3362FEA2AB9296A001FCB34 /* SignUpSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */; };
 		A3362FEC2AB92A0F001FCB34 /* SignUpThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FEB2AB92A0F001FCB34 /* SignUpThird.swift */; };
+		A3362FEE2ABA03A0001FCB34 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FED2ABA03A0001FCB34 /* RequestModel.swift */; };
 		A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33855722A97C6ED00CAF86F /* FormStruct.swift */; };
 		A339593C2AB77376006BFB26 /* SignUpPublisherThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */; };
 		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecond.swift; sourceTree = "<group>"; };
 		A3362FEB2AB92A0F001FCB34 /* SignUpThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpThird.swift; sourceTree = "<group>"; };
+		A3362FED2ABA03A0001FCB34 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		A33855722A97C6ED00CAF86F /* FormStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormStruct.swift; sourceTree = "<group>"; };
 		A339593B2AB77376006BFB26 /* SignUpPublisherThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherThird.swift; sourceTree = "<group>"; };
 		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */,
 				A3F636502AA3C7AB0076E164 /* Crop.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */,
+				A3362FED2ABA03A0001FCB34 /* RequestModel.swift */,
 				A364E35B2AB8EA8200C7AB8B /* Login.swift */,
 				A339593D2AB77594006BFB26 /* TextInputField.swift */,
 				A33959452AB788CB006BFB26 /* MultiSelection.swift */,
@@ -339,6 +342,7 @@
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */,
+				A3362FEE2ABA03A0001FCB34 /* RequestModel.swift in Sources */,
 				A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */,
 				A33959462AB788CB006BFB26 /* MultiSelection.swift in Sources */,
 				A33855732A97C6ED00CAF86F /* FormStruct.swift in Sources */,

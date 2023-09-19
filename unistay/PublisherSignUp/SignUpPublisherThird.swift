@@ -41,9 +41,11 @@ struct SignUpPublisherThird: View {
                                     MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
-                                    userData.append(yourLocation)
-                                    userData.append(menuSelection)
+                                    let error = viewModel.validateSignUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
+                                    if !error {
+                                        userData.append(yourLocation)
+                                        userData.append(menuSelection)
+                                    }
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }

@@ -8,79 +8,7 @@
 import SwiftUI
 import Combine
 
-struct ServerResponseSignup: Codable {
-    let responseMessage: String
-}
 
-class SignUpViewModel: ObservableObject {
-    @Published var serverResponse: String? = nil
-    @Published var validationError: String = ""
-    var cancellables = Set<AnyCancellable>()
-    func signUp(inputs: [String], isToggled: Binding<Bool>) {
-        if !validateSignUp(inputs: inputs, isToggled: isToggled) {
-            return
-        }
-        let url = URL(string: "http://localhost:3000/")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let bodyData: [String: Any] = ["user": ["username": inputs[0], "email": inputs[1], "language": "English", "accountType": "normal", "password": inputs[3]] as [String : Any]]
-        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
-        request.httpBody = jsonData
-
-        URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap { output in
-                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
-                    throw URLError(.badServerResponse)
-                }
-                return output.data
-            }
-            .decode(type: ServerResponseSignup.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] response in
-                self?.serverResponse = response.responseMessage
-            })
-            .store(in: &cancellables)
-    }
-    func validateSignUp(inputs: [String], isToggled: Binding<Bool>) -> Bool {
-        /*let username = inputs[0]
-        let email = inputs[1]
-        let emailConfirm = inputs[2]
-        let password = inputs[3]
-        let passwordConfirm = inputs[4]
-        if username.count < 3 || username.count > 20 {
-            validationError = "The username needs to be 3 to 20 characters long"
-            return false
-        }
-        if email != emailConfirm {
-            validationError = "The e-mail addresses do not match"
-            return false
-        }
-        if password != passwordConfirm {
-            validationError = "The passwords do not match"
-            return false
-        }
-        if email.count < 5 || email.count > 50 || !email.contains("@") {
-            validationError = "The e-mail address is not valid"
-            return false
-        }
-        if password.count < 8 || password.count > 50 {
-            validationError = "The password does not fit the criteria"
-            return false
-        }*/
-            
-        validationError = ""
-        return true
-    }
-}
 
 public struct RemoveFocusOnTapModifier: ViewModifier {
     public func body(content: Content) -> some View {
@@ -131,7 +59,7 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    @State var userData: [Any] = []
+    @State var userData: [Any] = ["", "", "", "", "", "", "", ""]
     
     var body: some View {
         NavigationStack {
@@ -212,7 +140,9 @@ struct SignUpBasic: View {
                                 Button(action: {
                                     let error = viewModel.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
                                     if !error {
-                                        userData = [username, email, password, isToggled]
+                                        userData[0] = username
+                                        userData[1] = email
+                                        userData[3] = password
                                     }
                                     print("\(userData)")
                                     if viewModel.validationError.isEmpty {

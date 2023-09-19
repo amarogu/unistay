@@ -103,10 +103,12 @@ struct SignUpPublisherFifth: View {
                                 
                             }
                             Button(action: {
-                                viewModel.signUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
-                                userData.append(yourLocation)
-                                userData.append(menuSelection)
-                                userData.append(array)
+                                let error = viewModel.validateSignUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
+                                if !error {
+                                    userData.append(yourLocation)
+                                    userData.append(menuSelection)
+                                    userData.append(array)
+                                }
                             }) {
                                 HStack(alignment: .center) {
                                     styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))

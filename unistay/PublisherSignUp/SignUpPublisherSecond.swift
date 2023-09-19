@@ -73,9 +73,11 @@ struct SignUpPublisherSecond: View {
                                     }
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [publisherBio], isToggled: $isToggled)
-                                    userData.append(croppedImage as Any)
-                                    userData.append(publisherBio as Any)
+                                    let error = viewModel.validateSignUp(inputs: [publisherBio, croppedImage as Any], isToggled: $isToggled)
+                                    if !error {
+                                        userData.append(croppedImage as Any)
+                                        userData.append(publisherBio as Any)
+                                    }
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }

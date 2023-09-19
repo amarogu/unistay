@@ -43,7 +43,7 @@ struct SignUpSecond: View {
                                         HStack() {
                                             Image(uiImage: image).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 40).padding(.trailing, 4)
                                             VStack(alignment: .leading) {
-                                                styledText(type: "Regular", size: 12, content: "Update you profile picture").foregroundColor(Color("BodyEmphasized"))
+                                                styledText(type: "Regular", size: 12, content: "Update your profile picture").foregroundColor(Color("BodyEmphasized"))
                                                 styledText(type: "Regular", size: 12, content: "Click here to change the profile picture you have selected").foregroundColor(Color("Body")).opacity(0.8).multilineTextAlignment(.leading)
                                             }
                                             Spacer()
@@ -69,7 +69,10 @@ struct SignUpSecond: View {
                                 }
                             }
                             Button(action: {
-                                viewModel.signUp(inputs: [publisherBio], isToggled: $isToggled)
+                                let error = viewModel.validateSignUp(inputs: [croppedImage, publisherBio], isToggled: $isToggled)
+                                if !error {
+                                    
+                                }
                                 if viewModel.validationError.isEmpty {
                                     shouldNavigate.toggle()
                                 }
