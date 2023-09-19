@@ -29,6 +29,8 @@ struct SignUpPublisherFourth: View {
     
     @State var shouldNavigate: Bool = false
     
+    @State var userData: [Any]
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -50,6 +52,10 @@ struct SignUpPublisherFourth: View {
                                 }
                                 Button(action: {
                                     viewModel.signUp(inputs: [publicationTitle, publicationDescription, rent, publicationCurrencySelection, typeSelection], isToggled: $isToggled)
+                                    userData.append(publicationTitle)
+                                    userData.append(publicationDescription)
+                                    userData.append(publicationCurrencySelection)
+                                    userData.append(typeSelection)
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
@@ -64,7 +70,7 @@ struct SignUpPublisherFourth: View {
                                     let _ = print("hey")
                                     
                                 }
-                                NavigationLink(destination: SignUpPublisherFifth(), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpPublisherFifth(userData: userData), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()
@@ -74,11 +80,5 @@ struct SignUpPublisherFourth: View {
                 
             }.tint(Color("BodyEmphasized")).removeFocusOnTap()
         }
-    }
-}
-
-struct SignUpPublisherFourth_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpPublisherFourth()
     }
 }

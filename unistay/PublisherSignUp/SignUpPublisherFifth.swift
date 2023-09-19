@@ -29,6 +29,8 @@ struct SignUpPublisherFifth: View {
     @State private var photosPickerItem = [PhotosPickerItem]()
     @State private var array = [UIImage]()
     
+    @State var userData: [Any]
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -41,7 +43,7 @@ struct SignUpPublisherFifth: View {
                             Spacer()
                             FormHeader()
                             Group {
-                                TextInputField(input: $yourLocation, placeholderText: "Your location", placeholderIcon: "location.circle")
+                                TextInputField(input: $yourLocation, placeholderText: "Publication location", placeholderIcon: "location.circle")
                                 MenuField(items: visibility, menuSelection: $menuSelection, icon: menuSelection == "Visible" ? "eye" : "eye.slash", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 Button(action: {
                                     show.toggle()
@@ -72,7 +74,7 @@ struct SignUpPublisherFifth: View {
                                                 }
                                             }.padding(.trailing, 10)
                                             VStack(alignment: .leading) {
-                                                styledText(type: "Regular", size: 12, content: "Update you publication images").foregroundColor(Color("BodyEmphasized"))
+                                                styledText(type: "Regular", size: 12, content: "Update your publication images").foregroundColor(Color("BodyEmphasized"))
                                                 styledText(type: "Regular", size: 12, content: "Click here to change the images you have selected").foregroundColor(Color("Body")).opacity(0.8).multilineTextAlignment(.leading)
                                             }
                                             Spacer()
@@ -102,6 +104,9 @@ struct SignUpPublisherFifth: View {
                             }
                             Button(action: {
                                 viewModel.signUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
+                                userData.append(yourLocation)
+                                userData.append(menuSelection)
+                                userData.append(array)
                             }) {
                                 HStack(alignment: .center) {
                                     styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
@@ -120,11 +125,5 @@ struct SignUpPublisherFifth: View {
             }
         }.tint(Color("BodyEmphasized")).removeFocusOnTap()
 
-    }
-}
-
-struct SignUpPublisherFifth_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpPublisherFifth()
     }
 }

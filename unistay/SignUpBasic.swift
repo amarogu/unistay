@@ -20,7 +20,7 @@ class SignUpViewModel: ObservableObject {
         if !validateSignUp(inputs: inputs, isToggled: isToggled) {
             return
         }
-        /*let url = URL(string: "http://localhost:3000/")!
+        let url = URL(string: "http://localhost:3000/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -48,7 +48,7 @@ class SignUpViewModel: ObservableObject {
             }, receiveValue: { [weak self] response in
                 self?.serverResponse = response.responseMessage
             })
-            .store(in: &cancellables)*/
+            .store(in: &cancellables)
     }
     func validateSignUp(inputs: [String], isToggled: Binding<Bool>) -> Bool {
         /*let username = inputs[0]
@@ -131,7 +131,7 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    
+    @State var userData: [Any] = []
     
     var body: some View {
         NavigationStack {
@@ -210,7 +210,11 @@ struct SignUpBasic: View {
                                     }.padding(.vertical, 1)
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
+                                    let error = viewModel.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
+                                    if !error {
+                                        userData = [username, email, password, isToggled]
+                                    }
+                                    print("\(userData)")
                                     if viewModel.validationError.isEmpty {
                                         if isToggled {
                                             shouldNavigateToPublisher.toggle()
@@ -227,7 +231,7 @@ struct SignUpBasic: View {
                                 NavigationLink(destination: SignUpSecond(), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
-                                NavigationLink(destination: SignUpPublisherSecond(), isActive: $shouldNavigateToPublisher) {
+                                NavigationLink(destination: SignUpPublisherSecond(userData: userData), isActive: $shouldNavigateToPublisher) {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {
