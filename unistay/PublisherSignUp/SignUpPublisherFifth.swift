@@ -22,7 +22,6 @@ struct SignUpPublisherFifth: View {
     var commit: ()->() = { }
     @FocusState private var isFocused: Bool
     
-    @State var croppedImage: UIImage?
     @State var presented: Bool = false
     
     @State var show: Bool = false
@@ -30,6 +29,10 @@ struct SignUpPublisherFifth: View {
     @State private var array = [UIImage]()
     
     @State var userData: [Any]
+    
+    @State var publicationData: [String]
+    @State var croppedImage: UIImage?
+    @State var publisherBio: String
     
     var body: some View {
         GeometryReader {
@@ -52,13 +55,10 @@ struct SignUpPublisherFifth: View {
                                         for item in photosPickerItem {
                                             if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                                                 DispatchQueue.main.async {
-                                                    
                                                         self.array.append(image)
-                                                    
                                                 }
                                             }
                                         }
-                                        
                                     }
                                 }) {
                                     if !array.isEmpty {
@@ -96,18 +96,21 @@ struct SignUpPublisherFifth: View {
                                                 }
                                             }
                                         }
-                                        
                                     }
-                                    
                                 }
-                                
                             }
                             Button(action: {
-                                let error = viewModel.validateSignUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
-                                if !error {
-                                    userData.append(yourLocation)
-                                    userData.append(menuSelection)
-                                    userData.append(array)
+                                let _ = viewModel.hasMultipleImages(images: array)
+                                if !yourLocation.isEmpty {
+                                    publicationData.append(yourLocation)
+                                } else {
+                                    viewModel.validationError = "You need to tell users where your accommodation is located"
+                                }
+                                if viewModel.validationError.isEmpty {
+                                    viewModel.register(isToggled: $isToggled, userData: userData)
+                                    viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
+                                    viewModel.uploadImage(image: croppedImage!)
+                                    viewModel.uploadImages(images: array)
                                 }
                             }) {
                                 HStack(alignment: .center) {

@@ -120,7 +120,7 @@ struct Login: View {
                                     
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
+                                    //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }

@@ -73,11 +73,10 @@ struct SignUpPublisherSecond: View {
                                     }
                                 }
                                 Button(action: {
-                                    let error = viewModel.validateSignUp(inputs: [publisherBio, croppedImage as Any], isToggled: $isToggled)
-                                    if !error {
-                                        userData.append(croppedImage as Any)
-                                        userData.append(publisherBio as Any)
-                                    }
+                                    let _ = viewModel.validateBio(bio: publisherBio)
+                                    let _ = viewModel.hasProfileImage(profileImage: croppedImage)
+                                    let _ = print(croppedImage)
+                                    let _ = print(publisherBio)
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
@@ -92,7 +91,7 @@ struct SignUpPublisherSecond: View {
                                     let _ = print("hey")
                                     
                                 }
-                                NavigationLink(destination: SignUpPublisherThird(userData: userData), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpPublisherThird(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

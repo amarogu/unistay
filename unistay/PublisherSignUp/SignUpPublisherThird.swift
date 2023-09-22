@@ -24,6 +24,9 @@ struct SignUpPublisherThird: View {
     
     @State var userData: [Any]
     
+    @State var croppedImage: UIImage?
+    @State var publisherBio: String
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -41,11 +44,11 @@ struct SignUpPublisherThird: View {
                                     MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 }
                                 Button(action: {
-                                    let error = viewModel.validateSignUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
+                                    let error = viewModel.validateLocation(loc: yourLocation)
                                     if !error {
-                                        userData.append(yourLocation)
-                                        userData.append(menuSelection)
+                                        userData[7] = yourLocation
                                     }
+                                    userData[6] = menuSelection
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
@@ -60,7 +63,7 @@ struct SignUpPublisherThird: View {
                                     let _ = print("hey")
                                     
                                 }
-                                NavigationLink(destination: SignUpPublisherFourth(userData: userData), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpPublisherFourth(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio, yourLocation: yourLocation), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

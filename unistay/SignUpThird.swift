@@ -22,8 +22,14 @@ struct SignUpThird: View {
     
     @State var shouldNavigate: Bool = false
     
+    @Binding var croppedImage: UIImage?
+    @Binding var publisherBio: String
+    
+    @Binding var userData: [Any]
+    
     var body: some View {
         NavigationStack {
+            let _ = print(croppedImage)
             GeometryReader {
                 geo in
                 let width = geo.size.width
@@ -39,9 +45,22 @@ struct SignUpThird: View {
                                     MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 }
                                 Button(action: {
-                                    viewModel.signUp(inputs: [menuSelection, yourLocation], isToggled: $isToggled)
-                                    if viewModel.validationError.isEmpty {
+                                    if yourLocation.isEmpty {
+                                        viewModel.validationError = "You need to select at least one location"
+                                    } else {
+                                        viewModel.validationError = ""
+                                        userData[4] = yourLocation
+                                    }
+                                    if !yourLocation.isEmpty && viewModel.validationError.isEmpty {
+                                        viewModel.register(isToggled: $isToggled, userData: userData)
+                                        viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
                                         shouldNavigate.toggle()
+                                    }
+                                    if let image = croppedImage {
+                                        viewModel.uploadImage(image: image)
+                                    }
+                                    if !publisherBio.isEmpty {
+                                        viewModel.updateBio(bio: publisherBio)
                                     }
                                 }) {
                                     HStack(alignment: .center) {
@@ -66,10 +85,4 @@ struct SignUpThird: View {
         }
     }
 
-}
-
-struct SignUpThird_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpThird()
-    }
 }

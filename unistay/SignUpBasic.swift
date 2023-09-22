@@ -44,11 +44,11 @@ enum Field {
 struct SignUpBasic: View {
     //@Binding var responseData: String
     @StateObject private var viewModel = SignUpViewModel()
-    @State var username: String = ""
-    @State var email: String = ""
-    @State var confirmEmail: String = ""
-    @State var password: String = ""
-    @State var confirmPass: String = ""
+    @State var username: String = "testing"
+    @State var email: String = "test@test"
+    @State var confirmEmail: String = "test@test"
+    @State var password: String = "12345678"
+    @State var confirmPass: String = "12345678"
     @State var isToggled: Bool = false
     
     var editingChanged: (Bool)->() = { _ in }
@@ -59,7 +59,10 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    @State var userData: [Any] = ["", "", "", "", "", "", "", ""]
+    @State var userData: [Any] = ["", "", "a", "", "", "", "", ""]
+    
+    @State var passChecked: Bool = false
+    @State var emailchecked: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -119,7 +122,7 @@ struct SignUpBasic: View {
                                     }
                                     VStack {
                                         HStack {
-                                            Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                            Image(systemName: passChecked ? "checkmark.circle" : "gear").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if confirmPass.isEmpty { styledText(type: "Regular", size: 13, content: "Confirm your password") }
                                                 TextField("", text: $confirmPass, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .confirmPass)
@@ -139,7 +142,7 @@ struct SignUpBasic: View {
                                 }
                                 Button(action: {
                                     let error = viewModel.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
-                                    if !error {
+                                    if error {
                                         userData[0] = username
                                         userData[1] = email
                                         userData[3] = password
@@ -158,7 +161,7 @@ struct SignUpBasic: View {
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
-                                NavigationLink(destination: SignUpSecond(), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpSecond(userData: $userData), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 NavigationLink(destination: SignUpPublisherSecond(userData: userData), isActive: $shouldNavigateToPublisher) {

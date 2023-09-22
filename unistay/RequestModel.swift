@@ -9,15 +9,54 @@ import SwiftUI
 import Combine
 
 struct ServerResponseSignup: Codable {
-    let responseMessage: String
+    let message: String
+}
+
+class ServerResponseLogin: Codable {
+    var message: String
 }
 
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
-    func register(inputs: [String], isToggled: Binding<Bool>, userData: [Any]) {
-        let url = URL(string: "http://localhost:3000/")!
+    
+    func login(email: String, password: String) {
+        let url = URL(string: "http://localhost:3000/login")! // Update with your login endpoint
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyData: [String: Any] = [
+            "email": email,
+            "password": password
+        ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
+        request.httpBody = jsonData
+        URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { output in
+                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
+                    throw URLError(.badServerResponse)
+                }
+                return output.data
+            }
+            .decode(type: ServerResponseLogin.self, decoder: JSONDecoder()) // Update with your login response type
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.serverResponse = response.message
+            })
+            .store(in: &cancellables)
+    }
+
+    
+    func register(isToggled: Binding<Bool>, userData: [Any]) {
+        let url = URL(string: "http://localhost:3000/register")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -28,7 +67,7 @@ class SignUpViewModel: ObservableObject {
                 "accountType": userData[2] as? Bool == true ? "publisher" : "normal",
                 "password": userData[3],
                 "preferredLocations": userData[4],
-                "private": userData[5],
+                "private": false,
                 "currency": userData[6],
                 "savedPublications": [String](),
                 "connectedPublications": [String](),
@@ -56,7 +95,7 @@ class SignUpViewModel: ObservableObject {
                     break
                 }
             }, receiveValue: { [weak self] response in
-                self?.serverResponse = response.responseMessage
+                self?.serverResponse = response.message
             })
             .store(in: &cancellables)
     }
@@ -225,5 +264,53 @@ class SignUpViewModel: ObservableObject {
             validationError = "You need to insert at least three images"
             return false
         }
+    }
+    
+    func validateLocation(loc: String) -> Bool {
+        if loc.isEmpty {
+            validationError = "You need to insert a location"
+            return false
+        } else {
+            validationError = ""
+            return true
+        }
+    }
+    
+    func validatePublication(data: [String]) -> Bool {
+        let title = data[0]
+        let desc = data[1]
+        let rent = data[2]
+        if title.count <= 5 {
+            validationError = "You need to isnert a title that is bigger than 5 characters"
+            return false
+        }
+        
+        if title.count >= 25 {
+            validationError = "Your title cannot be longer than 25 characters"
+            return false
+        }
+        
+        if desc.count <= 60 {
+            validationError = "Your publication description needs to be at least 60 characters long"
+            return false
+        }
+        
+        if desc.count >= 600 {
+            validationError = "Your description cannot be longer than 600 characters"
+            return false
+        }
+        
+        if Int(rent)! <= 200 {
+            validationError = "Your rent value seems too low."
+            return false
+        }
+        
+        if Int(rent)! >= 10000 {
+            validationError = "Your rent value seems too big"
+            return false
+        }
+        
+        validationError = ""
+        return true
     }
 }

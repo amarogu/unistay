@@ -31,6 +31,10 @@ struct SignUpPublisherFourth: View {
     
     @State var userData: [Any]
     
+    @State var croppedImage: UIImage?
+    @State var publisherBio: String
+    @State var yourLocation: String
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -51,13 +55,8 @@ struct SignUpPublisherFourth: View {
                                     MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: styledText(type: "Regular", size: 13, content: typeSelection))
                                 }
                                 Button(action: {
-                                    let error = viewModel.validateSignUp(inputs: [publicationTitle, publicationDescription, rent, publicationCurrencySelection, typeSelection], isToggled: $isToggled)
-                                    if !error {
-                                        userData.append(publicationTitle)
-                                        userData.append(publicationDescription)
-                                        userData.append(publicationCurrencySelection)
-                                        userData.append(typeSelection)
-                                    }
+                                    let data = [publicationTitle, publicationDescription, rent]
+                                    let _ = viewModel.validatePublication(data: data)
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
@@ -72,7 +71,7 @@ struct SignUpPublisherFourth: View {
                                     let _ = print("hey")
                                     
                                 }
-                                NavigationLink(destination: SignUpPublisherFifth(userData: userData), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpPublisherFifth(userData: userData, publicationData: [publicationTitle, publicationDescription, rent], croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

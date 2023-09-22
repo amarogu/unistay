@@ -22,7 +22,7 @@ struct TextInputField: View {
                 Image(systemName: placeholderIcon).font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                 ZStack(alignment: .topLeading) {
                     if input.isEmpty { styledText(type: "Regular", size: 13, content: placeholderText) }
-                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized"))
+                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default)
                 }
             }
         }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {

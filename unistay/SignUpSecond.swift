@@ -23,6 +23,8 @@ struct SignUpSecond: View {
     
     @State var shouldNavigate: Bool = false
     
+    @Binding var userData: [Any]
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -69,9 +71,9 @@ struct SignUpSecond: View {
                                 }
                             }
                             Button(action: {
-                                let error = viewModel.validateSignUp(inputs: [croppedImage, publisherBio], isToggled: $isToggled)
-                                if !error {
-                                    
+                                print(userData)
+                                if !publisherBio.isEmpty {
+                                    let _ = viewModel.validateBio(bio: publisherBio)
                                 }
                                 if viewModel.validationError.isEmpty {
                                     shouldNavigate.toggle()
@@ -87,7 +89,7 @@ struct SignUpSecond: View {
                                 let _ = print("hey")
                                 
                             }
-                            NavigationLink(destination: SignUpThird(), isActive: $shouldNavigate) {
+                            NavigationLink(destination: SignUpThird(croppedImage: $croppedImage, publisherBio: $publisherBio, userData: $userData), isActive: $shouldNavigate) {
                                 EmptyView()
                             }
                             Spacer()
@@ -96,12 +98,6 @@ struct SignUpSecond: View {
                 }
                 
             }.tint(Color("BodyEmphasized")).removeFocusOnTap()
-        }
-    }
-    
-    struct SignUpSecond_Previews: PreviewProvider {
-        static var previews: some View {
-            SignUpSecond()
         }
     }
 }
