@@ -35,7 +35,7 @@ struct unistayApp: App {
             if isLoggedIn {
                 ContentView(isLoggedIn: $isLoggedIn)
                         } else {
-                            LoginView(isLoggedIn: $isLoggedIn)
+                            //LoginView(isLoggedIn: $isLoggedIn)
                         }
         }
     }
@@ -44,6 +44,6 @@ struct unistayApp: App {
 struct AppProvider_Previews: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = false
-        LoginView(isLoggedIn: $isLoggedIn)
+        //LoginView(isLoggedIn: $isLoggedIn)
     }
 }
