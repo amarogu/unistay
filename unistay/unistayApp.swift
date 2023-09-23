@@ -31,12 +31,15 @@ struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
     
     var body: some Scene {
-        WindowGroup {
+        /*WindowGroup {
             if isLoggedIn {
                 ContentView(isLoggedIn: $isLoggedIn)
                         } else {
                             //LoginView(isLoggedIn: $isLoggedIn)
                         }
+        }*/
+        WindowGroup {
+            MapSearchBar()
         }
     }
 }

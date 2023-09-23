@@ -27,6 +27,8 @@ struct SignUpThird: View {
     
     @Binding var userData: [Any]
     
+    @State var locActive: Bool = false
+    
     var body: some View {
         NavigationStack {
             let _ = print(croppedImage)
@@ -41,7 +43,7 @@ struct SignUpThird: View {
                                 Spacer()
                                 FormHeader()
                                 Group {
-                                    TextInputField(input: $yourLocation, placeholderText: "Preferred locations", placeholderIcon: "location.circle")
+                                    MapSearchBar()
                                     MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 }
                                 Button(action: {
