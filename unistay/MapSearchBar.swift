@@ -33,6 +33,7 @@ struct MapSearchBar: View {
     
     @State var pickedLocNames: [String] = []
     @State var pickedLocLocs: [String] = []
+    @State var pickedLocCoordinates: [CLLocationDegrees?] = []
     
     var body: some View {
         NavigationView {
@@ -139,7 +140,7 @@ struct MapSearchBar: View {
                         }
                     }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
-                            MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs).environmentObject(locationManager).toolbarBackground(.visible, for: .automatic)
+                            MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).toolbarBackground(.visible, for: .automatic)
                         } label: {}.labelsHidden()
                     }.padding(.all, 30).zIndex(10)
                     /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
@@ -161,6 +162,7 @@ struct MapSearchBar_Previews: PreviewProvider {
 struct MapViewSelection: View {
     @Binding var pickedLocNames: [String]
     @Binding var pickedLocLocs: [String]
+    @Binding var pickedLocCoordinates: [CLLocationDegrees?]
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
@@ -180,7 +182,9 @@ struct MapViewSelection: View {
                             if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
                                 pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
                                 pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
+                                pickedLocCoordinates = [locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude]
                             }
+                            print(pickedLocCoordinates)
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized")).underline()
