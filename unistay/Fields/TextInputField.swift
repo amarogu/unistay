@@ -23,6 +23,7 @@ struct TextInputField: View {
                 ZStack(alignment: .topLeading) {
                     if input.isEmpty { styledText(type: "Regular", size: 13, content: placeholderText) }
                     TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default)
+                    styledText(type: "Regular", size: 13, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }
         }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {

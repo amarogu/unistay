@@ -35,6 +35,7 @@ struct SignUpThird: View {
             GeometryReader {
                 geo in
                 let width = geo.size.width
+                let height = geo.size.height
                 
                     ZStack {
                         Color("BackgroundColor").edgesIgnoringSafeArea(.all)
@@ -43,7 +44,7 @@ struct SignUpThird: View {
                                 Spacer()
                                 FormHeader()
                                 Group {
-                                    MapSearchBar()
+                                    //MapSearchBar()
                                     MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                 }
                                 Button(action: {
@@ -88,3 +89,4 @@ struct SignUpThird: View {
     }
 
 }
+

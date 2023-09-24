@@ -39,7 +39,7 @@ struct unistayApp: App {
                         }
         }*/
         WindowGroup {
-            MapSearchBar()
+            //MapSearchBar()
         }
     }
 }
