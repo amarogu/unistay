@@ -162,6 +162,7 @@ struct MapViewSelection: View {
     @Binding var pickedLocNames: [String]
     @Binding var pickedLocLocs: [String]
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack(alignment: .bottom) {
             MapViewHelper().environmentObject(locationManager).edgesIgnoringSafeArea(.all)
@@ -176,20 +177,19 @@ struct MapViewSelection: View {
                             styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
                         }
                         Button(action: {
-                            
+                            if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
+                                pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
+                                pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
+                            }
+                            presentationMode.wrappedValue.dismiss()
                         }) {
                             styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized")).underline()
                         }
-                        
                     }
                     Spacer()
                 }.frame(maxWidth: .infinity).padding(.vertical, 14).padding(.horizontal, 24).background(Color("SearchBar")).cornerRadius(8).padding(.horizontal, 24).padding(.bottom, 38).padding(.top, 24)
             }
         }.onDisappear {
-            if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
-                pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
-                pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
-            }
             locationManager.pickedLocation = nil
             locationManager.pickedPlacemark = nil
         }
