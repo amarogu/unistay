@@ -33,7 +33,7 @@ struct MapSearchBar: View {
     
     @State var pickedLocNames: [String] = []
     @State var pickedLocLocs: [String] = []
-    @State var pickedLocCoordinates: [CLLocationDegrees?] = []
+    @State var pickedLocCoordinates: [[CLLocationDegrees?]] = []
     
     var body: some View {
         NavigationView {
@@ -103,6 +103,15 @@ struct MapSearchBar: View {
                                                         HStack {
                                                             styledText(type: "Regular", size: 13, content: loc)
                                                             styledText(type: "Regular", size: 13, content: pickedLocLocs[pickedLocNames.firstIndex(of: loc)!]).foregroundColor(Color("Body").opacity(0.8))
+                                                            Spacer()
+                                                            Button(action: {
+                                                                pickedLocNames.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
+                                                                pickedLocLocs.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
+                                                                pickedLocCoordinates.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
+                                                                print(pickedLocCoordinates)
+                                                            }) {
+                                                                Image(systemName: "minus.circle").font(.system(size: 13)).foregroundColor(.red)
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -140,7 +149,7 @@ struct MapSearchBar: View {
                         }
                     }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
-                            MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).toolbarBackground(.visible, for: .automatic)
+                            MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
                         } label: {}.labelsHidden()
                     }.padding(.all, 30).zIndex(10)
                     /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
@@ -162,7 +171,7 @@ struct MapSearchBar_Previews: PreviewProvider {
 struct MapViewSelection: View {
     @Binding var pickedLocNames: [String]
     @Binding var pickedLocLocs: [String]
-    @Binding var pickedLocCoordinates: [CLLocationDegrees?]
+    @Binding var pickedLocCoordinates: [[CLLocationDegrees?]]
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
@@ -173,7 +182,10 @@ struct MapViewSelection: View {
                 HStack() {
                     VStack(alignment: .leading, spacing: 8) {
                         
-                        styledText(type: "Regular", size: 13, content: "Confirm your location")
+                        HStack {
+                            styledText(type: "Regular", size: 13, content: "Confirm your location")
+                            Image(systemName: "checkmark.circle").font(.system(size: 13))
+                        }
                         HStack {
                             styledText(type: "Regular", size: 13, content: place.name ?? "").foregroundColor(Color("BodyEmphasized"))
                             styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
@@ -182,18 +194,27 @@ struct MapViewSelection: View {
                             if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
                                 pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
                                 pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
-                                pickedLocCoordinates = [locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude]
+                                pickedLocCoordinates.append([locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude])
                             }
                             print(pickedLocCoordinates)
                             presentationMode.wrappedValue.dismiss()
                         }) {
-                            styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized")).underline()
+                            HStack {
+                                styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized"))
+                                Image(systemName: "arrow.forward").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                            }.padding(.horizontal, 10).padding(.vertical, 4).background(Color.green.opacity(0.4)).cornerRadius(5).padding(.top, 8)
                         }
                     }
                     Spacer()
-                }.frame(maxWidth: .infinity).padding(.vertical, 14).padding(.horizontal, 24).background(Color("SearchBar")).cornerRadius(8).padding(.horizontal, 24).padding(.bottom, 38).padding(.top, 24)
+                }.frame(maxWidth: .infinity).padding(.vertical, 14).padding(.horizontal, 24).background(Color("SearchBar")).cornerRadius(14).padding(.horizontal, 24).padding(.bottom, 44).padding(.top, 24)
             }
-        }.onDisappear {
+        }.toolbar(content: {
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "x.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+            }
+        }).onDisappear {
             locationManager.pickedLocation = nil
             locationManager.pickedPlacemark = nil
         }
