@@ -16,14 +16,22 @@ struct TextInputField: View {
     var placeholderText: String
     var placeholderIcon: String
     
+    var required: Bool
+    
     var body: some View {
         VStack {
-            HStack(alignment: .center) {
+            ZStack(alignment: .leading) {
                 Image(systemName: placeholderIcon).font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                 ZStack(alignment: .topLeading) {
-                    if input.isEmpty { styledText(type: "Regular", size: 13, content: placeholderText) }
-                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default)
-                    styledText(type: "Regular", size: 13, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
+                    if input.isEmpty { HStack {
+                        styledText(type: "Regular", size: 13, content: placeholderText).padding(.leading, 28)
+                        Spacer()
+                        if required {
+                            Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)
+                        }
+                    } }
+                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, 28)
+                    //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }
         }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {

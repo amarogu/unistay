@@ -71,11 +71,18 @@ struct SignUpSecond: View {
                                 }
                             }
                             Button(action: {
-                                print(userData)
+                                
                                 if !publisherBio.isEmpty {
                                     let _ = viewModel.validateBio(bio: publisherBio)
                                 }
+                                if let image = croppedImage {
+                                    userData.append(croppedImage as Any)
+                                }
+                                print(userData)
                                 if viewModel.validationError.isEmpty {
+                                    if !publisherBio.isEmpty {
+                                        userData[2] = publisherBio
+                                    }
                                     shouldNavigate.toggle()
                                 }
                             }) {
@@ -85,7 +92,7 @@ struct SignUpSecond: View {
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                             }
                             if !viewModel.validationError.isEmpty {
-                                styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                                styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                             }
                             NavigationLink(destination: MapSearchBar(croppedImage: croppedImage, publisherBio: publisherBio, userData: userData), isActive: $shouldNavigate) {
                                 EmptyView()

@@ -48,9 +48,9 @@ struct SignUpPublisherFourth: View {
                                 Spacer()
                                 FormHeader()
                                 Group {
-                                    TextInputField(input: $publicationTitle, placeholderText: "Publication title", placeholderIcon: "character.cursor.ibeam")
-                                    TextInputField(input: $publicationDescription, placeholderText: "Publication description", placeholderIcon: "text.below.photo")
-                                    TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard")
+                                    TextInputField(input: $publicationTitle, placeholderText: "Publication title", placeholderIcon: "character.cursor.ibeam", required: true)
+                                    TextInputField(input: $publicationDescription, placeholderText: "Publication description", placeholderIcon: "text.below.photo", required: true)
+                                    TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard", required: true)
                                     MenuField(items: publicationCurrencyItems, menuSelection: $publicationCurrencySelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: publicationCurrencySelection))
                                     MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: styledText(type: "Regular", size: 13, content: typeSelection))
                                 }

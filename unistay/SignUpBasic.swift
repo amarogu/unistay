@@ -59,7 +59,7 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    @State var userData: [Any] = ["", "", "a", "", "", "", "", ""]
+    @State var userData: [Any] = ["", "", "", ""]
     
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false
@@ -76,61 +76,11 @@ struct SignUpBasic: View {
                                 Spacer()
                                 FormHeader()
                                 Group {
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "person.crop.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if username.isEmpty { styledText(type: "Regular", size: 13, content: "Username") }
-                                                TextField("", text: $username, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .username)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        focusedField = .username
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "envelope").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if email.isEmpty { styledText(type: "Regular", size: 13, content: "Email address") }
-                                                TextField("", text: $email, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .email)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        focusedField = .email
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "checkmark.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if confirmEmail.isEmpty { styledText(type: "regular", size: 13, content: "Confirm your email address") }
-                                                TextField("", text: $confirmEmail, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .confirmEmail)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        focusedField = .confirmEmail
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if password.isEmpty { styledText(type: "Regular", size: 13, content: "Password") }
-                                                TextField("", text: $password, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .password)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        focusedField = .password
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: passChecked ? "checkmark.circle" : "gear").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if confirmPass.isEmpty { styledText(type: "Regular", size: 13, content: "Confirm your password") }
-                                                TextField("", text: $confirmPass, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($focusedField, equals: .confirmPass)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        focusedField = .confirmPass
-                                    }
+                                    TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true)
+                                    TextInputField(input: $email, placeholderText: "Email address", placeholderIcon: "envelope", required: true)
+                                    TextInputField(input: $confirmEmail, placeholderText: "Confirm your email address", placeholderIcon: "checkmark.circle", required: true)
+                                    TextInputField(input: $password, placeholderText: "Password", placeholderIcon: "key", required: true)
+                                    TextInputField(input: $confirmPass, placeholderText: "Confirm your password", placeholderIcon: "checkmark.circle", required: true)
                                     Toggle(isOn: $isToggled) {
                                         HStack {
                                             Image(systemName: "rectangle.stack.badge.person.crop").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
@@ -168,7 +118,7 @@ struct SignUpBasic: View {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                                     //let _ = print("hey")
                                 }
                                 Spacer()
