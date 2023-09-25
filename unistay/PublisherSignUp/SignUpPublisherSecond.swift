@@ -88,10 +88,8 @@ struct SignUpPublisherSecond: View {
                                 }
                                 if !viewModel.validationError.isEmpty {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
-                                    let _ = print("hey")
-                                    
                                 }
-                                NavigationLink(destination: SignUpPublisherThird(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUp(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

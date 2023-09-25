@@ -1,5 +1,5 @@
 //
-//  MapSearchBarSignUp.swift
+//  MapSearchBarSignUpFifth.swift
 //  unistay
 //
 //  Created by Gustavo Amaro on 25/09/23.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 import MapKit
+import PhotosUI
 
-struct MapSearchBarSignUp: View {
-    @StateObject private var viewModel = SignUpViewModel()
+struct MapSearchBarSignUpFifth: View {
     
     @State var yourLocation: String = ""
     @State var isToggled: Bool = true
@@ -23,10 +23,10 @@ struct MapSearchBarSignUp: View {
     
     @State var shouldNavigate: Bool = false
     
-    @Binding var croppedImage: UIImage?
-    @Binding var publisherBio: String
+    @State var croppedImage: UIImage?
+    @State var publisherBio: String
     
-    @Binding var userData: [Any]
+    @State var userData: [Any]
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -34,6 +34,18 @@ struct MapSearchBarSignUp: View {
     @State var pickedLocNames: String = ""
     @State var pickedLocLocs: String = ""
     @State var pickedLocCoordinates: [CLLocationDegrees?] = []
+    
+    @StateObject private var viewModel = SignUpViewModel()
+    
+    var visibility: [String] = ["Visible", "Invisible"]
+    
+    @State var presented: Bool = false
+    
+    @State var show: Bool = false
+    @State private var photosPickerItem = [PhotosPickerItem]()
+    @State private var array = [UIImage]()
+    
+    @State var publicationData: [String]
     
     var body: some View {
         NavigationView {
@@ -118,33 +130,77 @@ struct MapSearchBarSignUp: View {
                                     }
                                 }
                             }
-                        }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 2.5)).padding(.bottom, 3)
-                        MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection)).tint(Color("BodyEmphasized"))
+                        }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
+                        MenuField(items: visibility, menuSelection: $menuSelection, icon: menuSelection == "Visible" ? "eye" : "eye.slash", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                         Button(action: {
-                            if yourLocation.isEmpty {
-                                viewModel.validationError = "You need to select at least one location"
-                            } else {
-                                viewModel.validationError = ""
-                                userData[4] = yourLocation
-                            }
-                            if !yourLocation.isEmpty && viewModel.validationError.isEmpty {
-                                viewModel.register(isToggled: $isToggled, userData: userData)
-                                viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
-                                shouldNavigate.toggle()
-                            }
-                            if let image = croppedImage {
-                                viewModel.uploadImage(image: image)
-                            }
-                            if !publisherBio.isEmpty {
-                                viewModel.updateBio(bio: publisherBio)
+                            show.toggle()
+                            array = []
+                            Task {
+                                for item in photosPickerItem {
+                                    if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                                        DispatchQueue.main.async {
+                                                self.array.append(image)
+                                        }
+                                    }
+                                }
                             }
                         }) {
-                            HStack(alignment: .center) {
-                                styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
-                                Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
-                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
+                            if !array.isEmpty {
+                                HStack() {
+                                    let _ = print("loaded")
+                                    ZStack {
+                                        Image(uiImage: array[0]).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4)
+                                        if array.count > 1 {
+                                            Image(uiImage: array[1] ).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4).zIndex(-1).opacity(0.6).offset(x: 6, y: 3)
+                                            if array.count > 2 {
+                                                Image(uiImage: array[2] ).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4).zIndex(-1).opacity(0.4).offset(x: 10, y: 5)
+                                            }
+                                        }
+                                    }.padding(.trailing, 10)
+                                    VStack(alignment: .leading) {
+                                        styledText(type: "Regular", size: 12, content: "Update your publication images").foregroundColor(Color("BodyEmphasized"))
+                                        styledText(type: "Regular", size: 12, content: "Click here to change the images you have selected").foregroundColor(Color("Body")).opacity(0.8).multilineTextAlignment(.leading)
+                                    }
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
+                            } else {
+                                HStack {
+                                    Image(systemName: "camera").font(.system(size: 14))
+                                    styledText(type: "Regular", size: 13, content: "Upload publication images")
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
+                            }
+                        }.photosPicker(isPresented: $show, selection: $photosPickerItem).onChange(of: photosPickerItem) { newValue in
+                            array = []
+                            Task {
+                                for item in newValue {
+                                    if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                                        DispatchQueue.main.async {
+                                            self.array.append(image)
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }.background {
+                    }
+                    Button(action: {
+                        let _ = viewModel.hasMultipleImages(images: array)
+                        if pickedLocCoordinates.isEmpty {
+                            viewModel.validationError = "You need to tell users where your accommodation is located"
+                        }
+                        if viewModel.validationError.isEmpty {
+                            viewModel.register(isToggled: $isToggled, userData: userData)
+                            viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
+                            viewModel.uploadImage(image: croppedImage!)
+                            viewModel.uploadImages(images: array)
+                        }
+                    }) {
+                        HStack(alignment: .center) {
+                            styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                            Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
+                        }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
+                    }
+                }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
                             MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
                         } label: {}.labelsHidden()
@@ -154,64 +210,4 @@ struct MapSearchBarSignUp: View {
             }
         }
     }
-}
 
-struct MapViewSignUpSelection: View {
-    @Binding var pickedLocNames: String
-    @Binding var pickedLocLocs: String
-    @Binding var pickedLocCoordinates: [CLLocationDegrees?]
-    @EnvironmentObject var locationManager: LocationManager
-    @Environment(\.presentationMode) var presentationMode
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            MapViewHelper().environmentObject(locationManager).edgesIgnoringSafeArea(.all)
-            
-            if let place = locationManager.pickedPlacemark {
-                HStack() {
-                    VStack(alignment: .leading, spacing: 8) {
-                        
-                        HStack {
-                            styledText(type: "Regular", size: 13, content: "Confirm your location")
-                            Image(systemName: "checkmark.circle").font(.system(size: 13))
-                        }
-                        HStack {
-                            styledText(type: "Regular", size: 13, content: place.name ?? "").foregroundColor(Color("BodyEmphasized"))
-                            styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
-                        }
-                        Button(action: {
-                            pickedLocLocs = place.locality ?? ""
-                            pickedLocNames = place.name ?? ""
-                            pickedLocCoordinates = [locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude]
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized"))
-                                Image(systemName: "arrow.forward").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                            }.padding(.horizontal, 10).padding(.vertical, 4).background(Color.green.opacity(0.4)).cornerRadius(5).padding(.top, 8)
-                        }
-                    }
-                    Spacer()
-                }.frame(maxWidth: .infinity).padding(.vertical, 14).padding(.horizontal, 24).background(Color("SearchBar")).cornerRadius(14).padding(.horizontal, 24).padding(.bottom, 44).padding(.top, 24)
-            }
-        }.toolbar(content: {
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "x.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-            }
-        }).onDisappear {
-            locationManager.pickedLocation = nil
-            locationManager.pickedPlacemark = nil
-            locationManager.mapView.removeAnnotations(locationManager.mapView.annotations)
-        }
-    }
-}
-
-struct MapSearchBarSignUp_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userData: [Any] = ["h"]
-        @State var crop: UIImage?
-        @State var bio: String = ""
-        MapSearchBarSignUp(croppedImage: $crop, publisherBio: $bio, userData: $userData)
-    }
-}

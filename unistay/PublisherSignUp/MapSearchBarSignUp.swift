@@ -1,14 +1,14 @@
 //
-//  SearchBar.swift
+//  MapSearchBarSignUp.swift
 //  unistay
 //
-//  Created by Gustavo Amaro on 22/09/23.
+//  Created by Gustavo Amaro on 25/09/23.
 //
 
 import SwiftUI
 import MapKit
 
-struct MapSearchBar: View {
+struct MapSearchBarSignUp: View {
     @StateObject private var viewModel = SignUpViewModel()
     
     @State var yourLocation: String = ""
@@ -23,17 +23,17 @@ struct MapSearchBar: View {
     
     @State var shouldNavigate: Bool = false
     
-    @Binding var croppedImage: UIImage?
-    @Binding var publisherBio: String
-    
-    @Binding var userData: [Any]
+    @State var userData: [Any]
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
     
-    @State var pickedLocNames: [String] = []
-    @State var pickedLocLocs: [String] = []
-    @State var pickedLocCoordinates: [[CLLocationDegrees?]] = []
+    @State var pickedLocNames: String = ""
+    @State var pickedLocLocs: String = ""
+    @State var pickedLocCoordinates: [CLLocationDegrees?] = []
+    
+    @State var croppedImage: UIImage?
+    @State var publisherBio: String
     
     var body: some View {
         NavigationView {
@@ -45,7 +45,7 @@ struct MapSearchBar: View {
                     VStack(alignment: .leading) {
                         FormHeader()
                         VStack(alignment: .leading) {
-                            SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Find a place"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Set your location"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
@@ -98,20 +98,17 @@ struct MapSearchBar: View {
                                             VStack(alignment: .leading) {
                                                 styledText(type: "regular", size: 13, content: "Currently selected").padding(.bottom, 10)
                                                 VStack(alignment: .leading, spacing: 10) {
-                                                    ForEach(pickedLocNames, id:\.self) {
-                                                        loc in
-                                                        HStack {
-                                                            styledText(type: "Regular", size: 13, content: loc)
-                                                            styledText(type: "Regular", size: 13, content: pickedLocLocs[pickedLocNames.firstIndex(of: loc)!]).foregroundColor(Color("Body").opacity(0.8))
-                                                            Spacer()
-                                                            Button(action: {
-                                                                pickedLocNames.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
-                                                                pickedLocLocs.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
-                                                                pickedLocCoordinates.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
-                                                                print(pickedLocCoordinates)
-                                                            }) {
-                                                                Image(systemName: "minus.circle").font(.system(size: 13)).foregroundColor(.red)
-                                                            }
+                                                    HStack {
+                                                        styledText(type: "Regular", size: 13, content: pickedLocNames)
+                                                        styledText(type: "Regular", size: 13, content: pickedLocLocs).foregroundColor(Color("Body").opacity(0.8))
+                                                        Spacer()
+                                                        Button(action: {
+                                                            pickedLocNames = ""
+                                                            pickedLocLocs = ""
+                                                            pickedLocCoordinates = []
+                                                            print(pickedLocCoordinates)
+                                                        }) {
+                                                            Image(systemName: "minus.circle").font(.system(size: 13)).foregroundColor(.red)
                                                         }
                                                     }
                                                 }
@@ -121,25 +118,17 @@ struct MapSearchBar: View {
                                     }
                                 }
                             }
-                        }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 2.5)).padding(.bottom, 3)
+                        }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
                         MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection)).tint(Color("BodyEmphasized"))
                         Button(action: {
-                            if yourLocation.isEmpty {
+                            if pickedLocNames == "" {
                                 viewModel.validationError = "You need to select at least one location"
                             } else {
                                 viewModel.validationError = ""
                                 userData[4] = yourLocation
                             }
-                            if !yourLocation.isEmpty && viewModel.validationError.isEmpty {
-                                viewModel.register(isToggled: $isToggled, userData: userData)
-                                viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
+                            if !pickedLocNames.isEmpty && viewModel.validationError.isEmpty {
                                 shouldNavigate.toggle()
-                            }
-                            if let image = croppedImage {
-                                viewModel.uploadImage(image: image)
-                            }
-                            if !publisherBio.isEmpty {
-                                viewModel.updateBio(bio: publisherBio)
                             }
                         }) {
                             HStack(alignment: .center) {
@@ -147,9 +136,15 @@ struct MapSearchBar: View {
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
+                        NavigationLink(destination: SignUpPublisherFourth(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio, yourLocation: yourLocation), isActive: $shouldNavigate) {
+                            EmptyView()
+                        }
+                        if !viewModel.validationError.isEmpty {
+                            styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4)
+                        }
                     }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
-                            MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
+                            MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
                         } label: {}.labelsHidden()
                     }.padding(.all, 30).zIndex(10)
                     /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
@@ -159,19 +154,10 @@ struct MapSearchBar: View {
     }
 }
 
-struct MapSearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userData: [Any] = ["h"]
-        @State var crop: UIImage?
-        @State var bio: String = ""
-        MapSearchBar(croppedImage: $crop, publisherBio: $bio, userData: $userData)
-    }
-}
-
-struct MapViewSelection: View {
-    @Binding var pickedLocNames: [String]
-    @Binding var pickedLocLocs: [String]
-    @Binding var pickedLocCoordinates: [[CLLocationDegrees?]]
+struct MapViewSignUpSelection: View {
+    @Binding var pickedLocNames: String
+    @Binding var pickedLocLocs: String
+    @Binding var pickedLocCoordinates: [CLLocationDegrees?]
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
@@ -191,12 +177,9 @@ struct MapViewSelection: View {
                             styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
                         }
                         Button(action: {
-                            if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
-                                pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
-                                pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
-                                pickedLocCoordinates.append([locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude])
-                            }
-                            print(pickedLocCoordinates)
+                            pickedLocLocs = place.locality ?? ""
+                            pickedLocNames = place.name ?? ""
+                            pickedLocCoordinates = [locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude]
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             HStack {
@@ -217,15 +200,7 @@ struct MapViewSelection: View {
         }).onDisappear {
             locationManager.pickedLocation = nil
             locationManager.pickedPlacemark = nil
+            locationManager.mapView.removeAnnotations(locationManager.mapView.annotations)
         }
     }
-}
-
-struct MapViewHelper: UIViewRepresentable {
-    @EnvironmentObject var locationManager: LocationManager
-    func makeUIView(context: Context) -> MKMapView {
-        return locationManager.mapView
-    }
-    
-    func updateUIView(_ uiView: MKMapView, context: Context) {}
 }

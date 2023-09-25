@@ -29,7 +29,6 @@ class SessionManager {
 @main
 struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
-    
     var body: some Scene {
         /*WindowGroup {
             if isLoggedIn {
@@ -39,7 +38,7 @@ struct unistayApp: App {
                         }
         }*/
         WindowGroup {
-            //MapSearchBar()
+            SignUpBasic()
         }
     }
 }

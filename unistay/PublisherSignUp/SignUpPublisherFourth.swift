@@ -68,10 +68,8 @@ struct SignUpPublisherFourth: View {
                                 }
                                 if !viewModel.validationError.isEmpty {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
-                                    let _ = print("hey")
-                                    
                                 }
-                                NavigationLink(destination: SignUpPublisherFifth(userData: userData, publicationData: [publicationTitle, publicationDescription, rent], croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUpFifth(croppedImage: croppedImage, publisherBio: publisherBio, userData: userData, publicationData: [publicationTitle, publicationDescription, rent]), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()
