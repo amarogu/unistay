@@ -184,6 +184,7 @@ struct MapViewSelection: View {
                             if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
                                 pickedLocNames.append(locationManager.pickedPlacemark?.name ?? "")
                                 pickedLocLocs.append(locationManager.pickedPlacemark?.locality ?? "")
+                                // TODO: FIX WHEN USER LOCATION IS USED PICKEDCOORDINATES = [[NIL, NIL]]
                                 pickedLocCoordinates.append([locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude])
                             }
                             print(pickedLocCoordinates)
