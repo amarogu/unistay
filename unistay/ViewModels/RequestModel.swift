@@ -10,7 +10,7 @@ import Combine
 import Alamofire
 
 struct ServerResponseSignup: Decodable {
-    let message2: String
+    let message: String
 }
 
 class ServerResponseLogin: Codable {
