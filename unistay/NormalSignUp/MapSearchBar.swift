@@ -128,12 +128,13 @@ struct MapSearchBar: View {
                                 viewModel.validationError = "You need to select at least one location"
                             } else {
                                 viewModel.validationError = ""
-                                userData.append(pickedLocCoordinates)
+                                userData[5] = pickedLocCoordinates
                             }
-                            
                             if !pickedLocCoordinates.isEmpty && viewModel.validationError.isEmpty {
-                                viewModel.register(isToggled: $isToggled, userData: userData)
-                                shouldNavigate.toggle()
+                                //viewModel.register(isToggled: $isToggled, userData: userData)
+                                userData[6] = menuSelection
+                                print(userData)
+                                //shouldNavigate.toggle()
                             }
                             
                         }) {
@@ -154,14 +155,6 @@ struct MapSearchBar: View {
                 }
             }
         }
-    }
-}
-
-struct MapSearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var userData: [Any] = ["h"]
-        @State var crop: UIImage?
-        @State var bio: String = ""
     }
 }
 

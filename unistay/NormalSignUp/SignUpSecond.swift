@@ -75,14 +75,15 @@ struct SignUpSecond: View {
                                 if !publisherBio.isEmpty {
                                     let _ = viewModel.validateBio(bio: publisherBio)
                                 }
-                                if let image = croppedImage {
-                                    userData.append(croppedImage as Any)
-                                }
-                                print(userData)
+                                
                                 if viewModel.validationError.isEmpty {
                                     if !publisherBio.isEmpty {
                                         userData[2] = publisherBio
                                     }
+                                    if let image = croppedImage {
+                                        userData[4] = croppedImage as Any
+                                    }
+                                    print(userData)
                                     shouldNavigate.toggle()
                                 }
                             }) {

@@ -59,7 +59,7 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    @State var userData: [Any] = ["", "", "", ""]
+    @State var userData: [Any] = ["", "", "", "", UIImage(named: "ProfilePlaceholder") as Any, [], ""] // [username, email, password, bio, profImage, [locCoordinates], currency] -> normal user
     
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false

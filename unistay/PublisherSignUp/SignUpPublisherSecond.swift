@@ -75,9 +75,10 @@ struct SignUpPublisherSecond: View {
                                 Button(action: {
                                     let _ = viewModel.validateBio(bio: publisherBio)
                                     let _ = viewModel.hasProfileImage(profileImage: croppedImage)
-                                    let _ = print(croppedImage)
-                                    let _ = print(publisherBio)
+                                    
                                     if viewModel.validationError.isEmpty {
+                                        userData[4] = croppedImage as Any
+                                        userData[3] = publisherBio
                                         shouldNavigate.toggle()
                                     }
                                 }) {
@@ -87,7 +88,7 @@ struct SignUpPublisherSecond: View {
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                                 }
                                 NavigationLink(destination: MapSearchBarSignUp(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()
