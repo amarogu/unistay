@@ -10,7 +10,7 @@ import Combine
 import Alamofire
 
 struct ServerResponseSignup: Decodable {
-    let message: String
+    let message2: String
 }
 
 class ServerResponseLogin: Codable {
@@ -41,8 +41,7 @@ class SignUpViewModel: ObservableObject {
             "savedPublications": [],
             "connectedPublications": [],
             "twofactorAuthentication": false,
-            "owns": [],
-            "locatedAt": ""
+            "owns": []
         ]
         
         let locationData: [String: Any] = [
@@ -53,10 +52,11 @@ class SignUpViewModel: ObservableObject {
         AF.upload(multipartFormData: { multipartFormData in
             if let userData = try? JSONSerialization.data(withJSONObject: userData),
                let locationData = try? JSONSerialization.data(withJSONObject: locationData),
-               let profilePicture = profilePicture?.jpegData(compressionQuality: 0.5) {
+               let profilePicture = profilePicture?.pngData() {
                 multipartFormData.append(userData, withName: "userData")
                 multipartFormData.append(locationData, withName: "locData")
-                multipartFormData.append(profilePicture, withName: "profilePicture")
+                print(profilePicture)
+                multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
             }
         }, to: "http://localhost:3000/register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in

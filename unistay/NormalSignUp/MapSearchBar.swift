@@ -142,6 +142,7 @@ struct MapSearchBar: View {
                                         }
                                     }
                                 }
+                                print(profilePicture)
                                 viewModel.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates)
                                 //shouldNavigate.toggle()
                                 //viewModel.testRequest()
