@@ -98,6 +98,7 @@ struct SignUpBasic: View {
                                         userData[3] = password
                                     }
                                     print("\(userData)")
+                                    viewModel.testRequest()
                                     if viewModel.validationError.isEmpty {
                                         if isToggled {
                                             shouldNavigateToPublisher.toggle()

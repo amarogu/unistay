@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Alamofire
 
 struct ServerResponseSignup: Codable {
     let message: String
@@ -20,6 +21,59 @@ class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
+    
+    func testRequest() {
+        AF.request("http://localhost:3000/testrequest").response {
+            response in
+            debugPrint(response)
+        }
+    }
+    
+    func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
+        let url = "http://localhost:3000/register"
+        
+        let headers: HTTPHeaders = [
+            "Content-type": "multipart/form-data"
+        ]
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            // Add JSON data
+            let bodyData: [String: Any] = [
+                "username": userData[0],
+                "email": userData[1],
+                "language": "en",
+                "accountType": "normal",
+                "password": userData[2],
+                "preferredLocations": userData[5],
+                "private": false,
+                "currency": userData[6],
+                "savedPublications": [],
+                "connectedPublications": [],
+                "twoFactorAuthentication": false,
+                "profilePicture": "",
+                "owns": [],
+                "locatedAt": userData[7]
+            ]
+            if let jsonData = try? JSONSerialization.data(withJSONObject: bodyData) {
+                multipartFormData.append(jsonData, withName: "userData", mimeType: "application/json")
+            }
+            
+            // Add image data
+            if let imageData = image.jpegData(compressionQuality: 0.8) {
+                multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
+            }
+        }, to: url, method: .post, headers: headers)
+        .responseDecodable(of: ServerResponseSignup.self) { response in
+            switch response.result {
+            case .success(let value):
+                self.serverResponse = value.message
+                debugPrint(response)
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+    }
+
     
     func login(email: String, password: String) {
         let url = URL(string: "http://localhost:3000/login")! // Update with your login endpoint
@@ -53,9 +107,66 @@ class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    
+    /*func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
+            let url = URL(string: "http://localhost:3000/register")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let multipart = MultipartFormData()
+            
+            // Add JSON data
+            let bodyData: [String: Any] = [
+                    "username": userData[0],
+                    "email": userData[1],
+                    "language": "en",
+                    "accountType": "normal",
+                    "password": userData[2],
+                    "preferredLocations": userData[5],
+                    "private": false,
+                    "currency": userData[6],
+                    "savedPublications": [String](),
+                    "connectedPublications": [String](),
+                    "twoFactorAuthentication": false,
+                    "profilePicture": "",
+                    "owns": [String](),
+                    "locatedAt": userData[7]
+            ] as [String : Any]
+            let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
+            multipart.append(jsonData, withName: "userData", mimeType: "application/json")
+            
+            // Add image data
+            let imageData = image.jpegData(compressionQuality: 0.8)!
+            multipart.append(imageData, withName: "profilePicture", fileName: "image.jpg", mimeType: "image/jpeg")
+            
+            request.setValue(multipart.contentType, forHTTPHeaderField: "Content-Type")
+            
+            request.httpBody = multipart.data
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap { output in
+                    guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
+                        throw URLError(.badServerResponse)
+                    }
+                    return output.data
+                }
+                .decode(type: ServerResponseSignup.self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("Error: \(error)")
+                    case .finished:
+                        break
+                    }
+                }, receiveValue: { [weak self] response in
+                    self?.serverResponse = response.message
+                })
+                .store(in: &cancellables)
+        }*/
 
     
-    func register(isToggled: Binding<Bool>, userData: [Any]) {
+    /*func register(isToggled: Binding<Bool>, userData: [Any]) {
         let url = URL(string: "http://localhost:3000/register")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -64,9 +175,9 @@ class SignUpViewModel: ObservableObject {
                 "username": userData[0],
                 "email": userData[1],
                 "language": "en",
-                "accountType": userData[2] as? Bool == true ? "publisher" : "normal",
-                "password": userData[3],
-                "preferredLocations": userData[4],
+                "accountType": "normal",
+                "password": userData[2],
+                "preferredLocations": userData[5],
                 "private": false,
                 "currency": userData[6],
                 "savedPublications": [String](),
@@ -98,7 +209,7 @@ class SignUpViewModel: ObservableObject {
                 self?.serverResponse = response.message
             })
             .store(in: &cancellables)
-    }
+    }*/
     
     func uploadImage(image: UIImage) {
         let url = URL(string: "http://localhost:3000/user/images")!

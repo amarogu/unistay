@@ -133,6 +133,7 @@ struct MapSearchBar: View {
                             if !pickedLocCoordinates.isEmpty && viewModel.validationError.isEmpty {
                                 //viewModel.register(isToggled: $isToggled, userData: userData)
                                 userData[6] = menuSelection
+                                //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
                                 print(userData)
                                 //shouldNavigate.toggle()
                             }
