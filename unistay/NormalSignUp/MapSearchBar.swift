@@ -135,6 +135,15 @@ struct MapSearchBar: View {
                                 userData[6] = menuSelection
                                 //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
                                 print(userData)
+                                if let coordinates = userData[5] as? [[Optional<Double>]] {
+                                    for coordinate in coordinates {
+                                        if let latitude = coordinate[0].flatMap({ $0 }),
+                                           let longitude = coordinate[1].flatMap({ $0 }) {
+                                            print("Latitude: \(latitude), Longitude: \(longitude)")
+                                            userData[5] = [latitude, longitude]
+                                        }
+                                    }
+                                }
                                 //shouldNavigate.toggle()
                             }
                             

@@ -44,19 +44,33 @@ class SignUpViewModel: ObservableObject {
                 "language": "en",
                 "accountType": "normal",
                 "password": userData[2],
-                "preferredLocations": userData[5],
                 "private": false,
                 "currency": userData[6],
                 "savedPublications": [],
                 "connectedPublications": [],
                 "twoFactorAuthentication": false,
-                "profilePicture": "",
                 "owns": [],
                 "locatedAt": userData[7]
             ]
             if let jsonData = try? JSONSerialization.data(withJSONObject: bodyData) {
                 multipartFormData.append(jsonData, withName: "userData", mimeType: "application/json")
             }
+            
+            if let locationData = userData[5] as? [Double] {
+                let latitude = locationData[0]
+                let longitude = locationData[1]
+                
+                let location: [String: Any] = [
+                    "latitude": latitude,
+                    "longitude": longitude
+                ]
+                // use location
+                if let locJsonData = try? JSONSerialization.data(withJSONObject: location) {
+                    multipartFormData.append(locJsonData, withName: "locData", mimeType: "application/json")
+                }
+            }
+            
+            
             
             // Add image data
             if let imageData = image.jpegData(compressionQuality: 0.8) {
