@@ -189,7 +189,7 @@ struct MapSearchBarSignUpFifth: View {
                             viewModel.validationError = "You need to tell users where your accommodation is located"
                         }
                         if viewModel.validationError.isEmpty {
-                            viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
+                            //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
                             viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
                             viewModel.uploadImage(image: croppedImage!)
                             viewModel.uploadImages(images: array)

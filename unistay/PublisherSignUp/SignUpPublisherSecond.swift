@@ -24,7 +24,9 @@ struct SignUpPublisherSecond: View {
     
     @State var shouldNavigate: Bool = false
     
-    @State var userData: [Any]
+    @State var username: String
+    @State var email: String
+    @State var password: String
     
     var body: some View {
         NavigationStack {
@@ -77,8 +79,7 @@ struct SignUpPublisherSecond: View {
                                     let _ = viewModel.hasProfileImage(profileImage: croppedImage)
                                     
                                     if viewModel.validationError.isEmpty {
-                                        userData[4] = croppedImage as Any
-                                        userData[3] = publisherBio
+                                        
                                         shouldNavigate.toggle()
                                     }
                                 }) {
@@ -90,7 +91,7 @@ struct SignUpPublisherSecond: View {
                                 if !viewModel.validationError.isEmpty {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                                 }
-                                NavigationLink(destination: MapSearchBarSignUp(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio), isActive: $shouldNavigate) {
+                                NavigationLink(destination: EmptyView(), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

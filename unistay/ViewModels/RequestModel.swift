@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import Alamofire
 
-struct ServerResponseSignup: Codable {
+struct ServerResponseSignup: Decodable {
     let message: String
 }
 
@@ -29,12 +29,44 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
-        let url = "http://localhost:3000/register"
-        
-        let headers: HTTPHeaders = [
-            "Content-type": "multipart/form-data"
+    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [Double]) {
+        let userData: [String: Any] = [
+            "username": username,
+            "email": email,
+            "password": password,
+            "language": "en",
+            "accountType": "normal",
+            "private": false,
+            "currency": "USD",
+            "savedPublications": [],
+            "connectedPublications": [],
+            "twofactorAuthentication": false,
+            "owns": [],
+            "locatedAt": ""
         ]
+        
+        let locationData: [String: Any] = [
+            "latitude": doubleLocCoordinates[0],
+            "longitude": doubleLocCoordinates[1]
+        ]
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            if let userData = try? JSONSerialization.data(withJSONObject: userData),
+               let locationData = try? JSONSerialization.data(withJSONObject: locationData),
+               let profilePicture = profilePicture?.jpegData(compressionQuality: 0.5) {
+                multipartFormData.append(userData, withName: "userData")
+                multipartFormData.append(locationData, withName: "locData")
+                multipartFormData.append(profilePicture, withName: "profilePicture")
+            }
+        }, to: "http://localhost:3000/register", method: .post)
+        .responseDecodable(of: ServerResponseSignup.self) { response in
+            debugPrint(response)
+        }
+    }
+
+    
+    /*func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
+        let url = "http://localhost:3000/register"
         
         AF.upload(multipartFormData: { multipartFormData in
             // Add JSON data
@@ -56,10 +88,9 @@ class SignUpViewModel: ObservableObject {
                 multipartFormData.append(jsonData, withName: "userData", mimeType: "application/json")
             }
             
-            if let locationData = userData[5] as? [Double] {
+            /*if let locationData = userData[5] as? [Double] {
                 let latitude = locationData[0]
                 let longitude = locationData[1]
-                
                 let location: [String: Any] = [
                     "latitude": latitude,
                     "longitude": longitude
@@ -68,25 +99,19 @@ class SignUpViewModel: ObservableObject {
                 if let locJsonData = try? JSONSerialization.data(withJSONObject: location) {
                     multipartFormData.append(locJsonData, withName: "locData", mimeType: "application/json")
                 }
-            }
+            }*/
             
             
             
             // Add image data
             if let imageData = image.jpegData(compressionQuality: 0.8) {
-                multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
+                multipartFormData.append(imageData, withName: "image", mimeType: "image/jpeg")
             }
-        }, to: url, method: .post, headers: headers)
+        }, to: url)
         .responseDecodable(of: ServerResponseSignup.self) { response in
-            switch response.result {
-            case .success(let value):
-                self.serverResponse = value.message
-                debugPrint(response)
-            case .failure(let error):
-                print("Error: \(error)")
-            }
+            debugPrint(response)
         }
-    }
+    }*/
 
     
     func login(email: String, password: String) {

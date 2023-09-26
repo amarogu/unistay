@@ -23,10 +23,12 @@ struct MapSearchBar: View {
     
     @State var shouldNavigate: Bool = false
     
-    @State var croppedImage: UIImage?
+    @State var profilePicture: UIImage?
     @State var publisherBio: String
-    
-    @State var userData: [Any]
+    @State var username: String
+    @State var email: String
+    @State var password: String
+    @State var doubleLocCoordinates: [Double] = []
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -128,24 +130,23 @@ struct MapSearchBar: View {
                                 viewModel.validationError = "You need to select at least one location"
                             } else {
                                 viewModel.validationError = ""
-                                userData[5] = pickedLocCoordinates
                             }
                             if !pickedLocCoordinates.isEmpty && viewModel.validationError.isEmpty {
                                 //viewModel.register(isToggled: $isToggled, userData: userData)
-                                userData[6] = menuSelection
-                                //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                                print(userData)
-                                if let coordinates = userData[5] as? [[Optional<Double>]] {
+                                if let coordinates = pickedLocCoordinates as? [[Optional<Double>]] {
                                     for coordinate in coordinates {
                                         if let latitude = coordinate[0].flatMap({ $0 }),
                                            let longitude = coordinate[1].flatMap({ $0 }) {
                                             print("Latitude: \(latitude), Longitude: \(longitude)")
-                                            userData[5] = [latitude, longitude]
+                                            doubleLocCoordinates = [latitude, longitude]
                                         }
                                     }
                                 }
+                                viewModel.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates)
                                 //shouldNavigate.toggle()
+                                //viewModel.testRequest()
                             }
+                            //viewModel.testRequest()
                             
                         }) {
                             HStack(alignment: .center) {

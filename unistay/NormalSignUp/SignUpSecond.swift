@@ -23,7 +23,10 @@ struct SignUpSecond: View {
     
     @State var shouldNavigate: Bool = false
     
-    @Binding var userData: [Any]
+    @State var username: String
+    @State var email: String
+    @State var password: String
+    @State var profilePicture: UIImage? = UIImage(named: "ProfilePlaceholder")
     
     var body: some View {
         NavigationStack {
@@ -71,19 +74,13 @@ struct SignUpSecond: View {
                                 }
                             }
                             Button(action: {
-                                
                                 if !publisherBio.isEmpty {
                                     let _ = viewModel.validateBio(bio: publisherBio)
                                 }
-                                
+                                if let image = croppedImage {
+                                    profilePicture = croppedImage
+                                }
                                 if viewModel.validationError.isEmpty {
-                                    if !publisherBio.isEmpty {
-                                        userData[2] = publisherBio
-                                    }
-                                    if let image = croppedImage {
-                                        userData[4] = croppedImage as Any
-                                    }
-                                    print(userData)
                                     shouldNavigate.toggle()
                                 }
                             }) {
@@ -95,7 +92,7 @@ struct SignUpSecond: View {
                             if !viewModel.validationError.isEmpty {
                                 styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                             }
-                            NavigationLink(destination: MapSearchBar(croppedImage: croppedImage, publisherBio: publisherBio, userData: userData), isActive: $shouldNavigate) {
+                            NavigationLink(destination: MapSearchBar(profilePicture: profilePicture, publisherBio: publisherBio, username: username, email: email, password: password), isActive: $shouldNavigate) {
                                 EmptyView()
                             }
                             Spacer()

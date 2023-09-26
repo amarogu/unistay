@@ -59,7 +59,7 @@ struct SignUpBasic: View {
     @State var shouldNavigate: Bool = false
     @State var shouldNavigateToPublisher: Bool = false
     
-    @State var userData: [Any] = ["", "", "", "", UIImage(named: "ProfilePlaceholder") as Any, [], ""] // [username, email, password, bio, profImage, [locCoordinates], currency] -> normal user
+    //@State var userData: [Any] = ["", "", "", "", UIImage(named: "ProfilePlaceholder") as Any, [], ""] // [username, email, password, bio, profImage, [locCoordinates], currency] -> normal user
     
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false
@@ -92,12 +92,7 @@ struct SignUpBasic: View {
                                 }
                                 Button(action: {
                                     let error = viewModel.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
-                                    if error {
-                                        userData[0] = username
-                                        userData[1] = email
-                                        userData[3] = password
-                                    }
-                                    print("\(userData)")
+                                    print("\(username)\(email)\(password)")
                                     viewModel.testRequest()
                                     if viewModel.validationError.isEmpty {
                                         if isToggled {
@@ -112,10 +107,10 @@ struct SignUpBasic: View {
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
-                                NavigationLink(destination: SignUpSecond(userData: $userData), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpSecond(username: username, email: email, password: password), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
-                                NavigationLink(destination: SignUpPublisherSecond(userData: userData), isActive: $shouldNavigateToPublisher) {
+                                NavigationLink(destination: SignUpPublisherSecond(username: username, email: email, password: password), isActive: $shouldNavigateToPublisher) {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {
