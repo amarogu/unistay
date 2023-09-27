@@ -29,7 +29,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [[Double]], currency: String, completion: @escaping (ServerResponseSignup?, Error?) -> Void) {
+    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [[Double]], currency: String, completion: @escaping (String?, Error?) -> Void) {
         let userData: [String: Any] = [
             "username": username,
             "email": email,
@@ -68,7 +68,7 @@ class SignUpViewModel: ObservableObject {
             debugPrint(response)
             switch response.result {
             case .success(let value):
-                completion(value, nil)
+                completion(value.message, nil)
             case .failure(let error):
                 completion(nil, error)
             }
