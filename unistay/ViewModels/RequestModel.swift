@@ -29,7 +29,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [Double], currency: String) {
+    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [[Double]], currency: String) {
         let userData: [String: Any] = [
             "username": username,
             "email": email,
@@ -44,19 +44,24 @@ class SignUpViewModel: ObservableObject {
             "owns": []
         ]
         
-        let locationData: [String: Any] = [
-            "latitude": doubleLocCoordinates[0],
-            "longitude": doubleLocCoordinates[1]
-        ]
+        var locationData: [[String: Any]] = []
+        for coord in doubleLocCoordinates {
+            locationData.append(["latitude": coord[0], "longitude": coord[1]])
+        }
         
         AF.upload(multipartFormData: { multipartFormData in
             if let userData = try? JSONSerialization.data(withJSONObject: userData),
-               let locationData = try? JSONSerialization.data(withJSONObject: locationData),
+               let locData = try? JSONSerialization.data(withJSONObject: locationData),
                let profilePicture = profilePicture?.pngData() {
                 multipartFormData.append(userData, withName: "userData")
-                multipartFormData.append(locationData, withName: "locData")
+                /*for coord in locationData {
+                    if let jsonLoc = try? JSONSerialization.data(withJSONObject: coord) {
+                        multipartFormData.append(jsonLoc, withName: "locData")
+                    }
+                }*/
+                multipartFormData.append(locData, withName: "locData")
                 print(profilePicture)
-                multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
+                multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
             }
         }, to: "http://localhost:3000/register/normal", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in

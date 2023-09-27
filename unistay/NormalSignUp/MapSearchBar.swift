@@ -28,7 +28,7 @@ struct MapSearchBar: View {
     @State var username: String
     @State var email: String
     @State var password: String
-    @State var doubleLocCoordinates: [Double] = []
+    @State var doubleLocCoordinates: [[Double]] = []
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -138,7 +138,7 @@ struct MapSearchBar: View {
                                         if let latitude = coordinate[0].flatMap({ $0 }),
                                            let longitude = coordinate[1].flatMap({ $0 }) {
                                             print("Latitude: \(latitude), Longitude: \(longitude)")
-                                            doubleLocCoordinates = [latitude, longitude]
+                                            doubleLocCoordinates.append([latitude, longitude])
                                         }
                                     }
                                 }
