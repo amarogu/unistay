@@ -46,9 +46,9 @@ struct MapSearchBarSignUp: View {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)
                     VStack(alignment: .leading) {
                         FormHeader()
+                        
                         VStack(alignment: .leading) {
                             SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Set your location"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
-                            
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
                                     Section {
@@ -120,7 +120,12 @@ struct MapSearchBarSignUp: View {
                                     }
                                 }
                             }
+                            styledText(type: "Regular", size: 13, content: "You need to provide your location").foregroundStyle(Color("Body")).padding(.horizontal, 14).padding(.vertical, 1)
+                            NavigationLink(destination: EmptyView()) {
+                                styledText(type: "Regular", size: 13, content: "Understand why we need your location").foregroundColor(Color("Body")).padding(.horizontal, 14).padding(.vertical, 1).underline()
+                            }
                         }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
+                        styledText(type: "Regular", size: 13, content: "Set a currency you will see on other accommodations").foregroundColor(Color("Body")).padding(.top, 4)
                         MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection)).tint(Color("BodyEmphasized"))
                         Button(action: {
                             if pickedLocNames == "" {

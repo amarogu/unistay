@@ -45,6 +45,7 @@ struct SignUpPublisherFourth: View {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 FormHeader()
+                                styledText(type: "Regular", size: 13, content: "Get started by creating your first publication").foregroundColor(Color("Body")).padding(.top, 4)
                                 Group {
                                     TextInputField(input: $publicationTitle, placeholderText: "Publication title", placeholderIcon: "character.cursor.ibeam", required: true)
                                     TextInputField(input: $publicationDescription, placeholderText: "Publication description", placeholderIcon: "text.below.photo", required: true)

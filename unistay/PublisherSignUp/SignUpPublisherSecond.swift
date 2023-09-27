@@ -40,7 +40,6 @@ struct SignUpPublisherSecond: View {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 FormHeader()
-                                styledText(type: "Regular", size: 13, content: "Get started by creating your first publication").foregroundColor(Color("Body"))
                                 Group {
                                     Button(action: {
                                         presented.toggle()

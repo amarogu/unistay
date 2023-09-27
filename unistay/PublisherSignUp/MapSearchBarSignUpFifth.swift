@@ -62,7 +62,7 @@ struct MapSearchBarSignUpFifth: View {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)
                     VStack(alignment: .leading) {
                         FormHeader()
-                        VStack {
+                        VStack(alignment: .leading) {
                             SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Set your location"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
