@@ -92,7 +92,7 @@ class SignUpViewModel: ObservableObject {
             "longitude": locatedAtCoordinates[1]
         ]
         
-        var imagesPng: [Data?] = []
+        //var imagesPng: [Data?] = []
         
         AF.upload(multipartFormData: { multipartFormData in
             if let accProviderData = try? JSONSerialization.data(withJSONObject: accProviderData),
@@ -104,7 +104,7 @@ class SignUpViewModel: ObservableObject {
                 multipartFormData.append(publicationData, withName: "publicationData")
                 multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
                 
-                for (index, image) in images.enumerated() {
+                for (_, image) in images.enumerated() {
                            if let imageData = image.pngData() {
                                multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                            }

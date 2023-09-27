@@ -77,7 +77,7 @@ struct SignUpSecond: View {
                                 if !publisherBio.isEmpty {
                                     let _ = viewModel.validateBio(bio: publisherBio)
                                 }
-                                if let image = croppedImage {
+                                if croppedImage != nil {
                                     profilePicture = croppedImage
                                 }
                                 if viewModel.validationError.isEmpty {

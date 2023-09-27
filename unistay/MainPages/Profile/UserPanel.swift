@@ -27,7 +27,7 @@ struct UserPanel: View {
     var body: some View {
         GeometryReader {
             geo in
-            var width = geo.size.width
+            let width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
