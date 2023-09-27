@@ -145,7 +145,7 @@ struct MapSearchBarSignUp: View {
                             if !pickedLocNames.isEmpty && viewModel.validationError.isEmpty {
                                 shouldNavigate.toggle()
                             }
-                            //if serverrespon
+                            
                         }) {
                             HStack(alignment: .center) {
                                 styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))

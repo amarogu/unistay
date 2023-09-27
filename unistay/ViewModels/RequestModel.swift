@@ -29,7 +29,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [[Double]], currency: String) {
+    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [[Double]], currency: String, completion: @escaping (ServerResponseSignup?, Error?) -> Void) {
         let userData: [String: Any] = [
             "username": username,
             "email": email,
@@ -66,7 +66,14 @@ class SignUpViewModel: ObservableObject {
         }, to: "http://localhost:3000/register/normal", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
+            switch response.result {
+            case .success(let value):
+                completion(value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
+        
     }
     
     func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage, locatedAtCoordinates: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage]) {

@@ -142,7 +142,15 @@ struct MapSearchBar: View {
                                         }
                                     }
                                 }
-                                viewModel.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection)
+                                viewModel.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection) { response, error in
+                                    if let error = error {
+                                        // Handle error
+                                        print("Error: \(error)")
+                                    } else if let response = response {
+                                        // Use the response
+                                        print("Response: \(response)")
+                                    }
+                                }
                                 //shouldNavigate.toggle()
                                 //viewModel.testRequest()
                             }
