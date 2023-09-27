@@ -8,20 +8,11 @@
 import SwiftUI
 
 struct SignUpPublisherFourth: View {
-    
     @StateObject private var viewModel = SignUpViewModel()
     
-    @State var publicationTitle: String = ""
-    @State var publicationDescription: String = ""
-    @State var rent: String = ""
     var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
-    @State var publicationCurrencySelection: String = "USD"
-    @State var typeSelection: String = "On-campus"
     var typeItems = ["On-campus", "Off-campus", "Homestay"]
     @State var isToggled: Bool = true
-    
-    var items = ["USD", "EUR", "GBP", "CAD"]
-    @State var menuSelection = "USD"
     
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
@@ -29,11 +20,18 @@ struct SignUpPublisherFourth: View {
     
     @State var shouldNavigate: Bool = false
     
-    @State var userData: [Any]
-    
-    @State var croppedImage: UIImage?
-    @State var publisherBio: String
-    @State var yourLocation: String
+    @State var username: String
+    @State var email: String
+    @State var password: String
+    @State var profilePicture: UIImage?
+    @State var bio: String
+    @State var locatedAt: [Double]
+    @State var currency: String
+    @State var publicationTitle: String = ""
+    @State var publicationDescription: String = ""
+    @State var rent: String = ""
+    @State var menuSelection = "USD"
+    @State var typeSelection: String = "On-campus"
     
     var body: some View {
         NavigationStack {
@@ -51,12 +49,11 @@ struct SignUpPublisherFourth: View {
                                     TextInputField(input: $publicationTitle, placeholderText: "Publication title", placeholderIcon: "character.cursor.ibeam", required: true)
                                     TextInputField(input: $publicationDescription, placeholderText: "Publication description", placeholderIcon: "text.below.photo", required: true)
                                     TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard", required: true)
-                                    MenuField(items: publicationCurrencyItems, menuSelection: $publicationCurrencySelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: publicationCurrencySelection))
+                                    MenuField(items: publicationCurrencyItems, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
                                     MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: styledText(type: "Regular", size: 13, content: typeSelection))
                                 }
                                 Button(action: {
-                                    let data = [publicationTitle, publicationDescription, rent]
-                                    let _ = viewModel.validatePublication(data: data)
+                                    let _ = viewModel.validatePublication(title: publicationTitle, desc: publicationDescription, rent: rent)
                                     if viewModel.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
@@ -69,7 +66,7 @@ struct SignUpPublisherFourth: View {
                                 if !viewModel.validationError.isEmpty {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
                                 }
-                                NavigationLink(destination: MapSearchBarSignUpFifth(croppedImage: croppedImage, publisherBio: publisherBio, userData: userData, publicationData: [publicationTitle, publicationDescription, rent]), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

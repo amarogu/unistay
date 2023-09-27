@@ -23,7 +23,12 @@ struct MapSearchBarSignUp: View {
     
     @State var shouldNavigate: Bool = false
     
-    @State var userData: [Any]
+    @State var username: String
+    @State var email: String
+    @State var password: String
+    @State var profilePicture: UIImage?
+    @State var bio: String
+    @State var locatedAt: [Double]?
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -31,9 +36,6 @@ struct MapSearchBarSignUp: View {
     @State var pickedLocNames: String = ""
     @State var pickedLocLocs: String = ""
     @State var pickedLocCoordinates: [CLLocationDegrees?] = []
-    
-    @State var croppedImage: UIImage?
-    @State var publisherBio: String
     
     var body: some View {
         NavigationView {
@@ -125,7 +127,15 @@ struct MapSearchBarSignUp: View {
                                 viewModel.validationError = "You need to select at least one location"
                             } else {
                                 viewModel.validationError = ""
-                                userData[4] = yourLocation
+                                if let coordinates = pickedLocCoordinates as? [[Optional<Double>]] {
+                                    for coordinate in coordinates {
+                                        if let latitude = coordinate[0].flatMap({ $0 }),
+                                           let longitude = coordinate[1].flatMap({ $0 }) {
+                                            print("Latitude: \(latitude), Longitude: \(longitude)")
+                                            locatedAt = [latitude, longitude]
+                                        }
+                                    }
+                                }
                             }
                             if !pickedLocNames.isEmpty && viewModel.validationError.isEmpty {
                                 shouldNavigate.toggle()
@@ -136,7 +146,7 @@ struct MapSearchBarSignUp: View {
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
-                        NavigationLink(destination: SignUpPublisherFourth(userData: userData, croppedImage: croppedImage, publisherBio: publisherBio, yourLocation: yourLocation), isActive: $shouldNavigate) {
+                        NavigationLink(destination: SignUpPublisherFourth(username: username, email: email, password: password, profilePicture: profilePicture, bio: bio, locatedAt: locatedAt ?? [], currency: menuSelection), isActive: $shouldNavigate) {
                             EmptyView()
                         }
                         if !viewModel.validationError.isEmpty {

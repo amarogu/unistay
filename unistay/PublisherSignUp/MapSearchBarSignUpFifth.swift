@@ -14,9 +14,6 @@ struct MapSearchBarSignUpFifth: View {
     @State var yourLocation: String = ""
     @State var isToggled: Bool = true
     
-    var items = ["USD", "EUR", "GBP", "CAD"]
-    @State var menuSelection = "USD"
-    
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
     @FocusState private var isFocused: Bool
@@ -26,7 +23,20 @@ struct MapSearchBarSignUpFifth: View {
     @State var croppedImage: UIImage?
     @State var publisherBio: String
     
-    @State var userData: [Any]
+    @State var username: String
+    @State var email: String
+    @State var password: String
+    @State var profilePicture: UIImage?
+    @State var bio: String
+    @State var locatedAt: [Double]
+    @State var currency: String
+    @State var publicationTitle: String
+    @State var publicationDescription: String
+    @State var rent: String
+    @State var publicationCurrency: String
+    @State var typeSelection: String
+    @State var publicationVisibility: String = "Visible"
+    @State var visibility: [String] = ["Visible", "Invisible"]
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -37,15 +47,11 @@ struct MapSearchBarSignUpFifth: View {
     
     @StateObject private var viewModel = SignUpViewModel()
     
-    var visibility: [String] = ["Visible", "Invisible"]
-    
     @State var presented: Bool = false
     
     @State var show: Bool = false
     @State private var photosPickerItem = [PhotosPickerItem]()
     @State private var array = [UIImage]()
-    
-    @State var publicationData: [String]
     
     var body: some View {
         NavigationView {
@@ -56,7 +62,7 @@ struct MapSearchBarSignUpFifth: View {
                     Color("BackgroundColor").edgesIgnoringSafeArea(.all)
                     VStack(alignment: .leading) {
                         FormHeader()
-                        VStack(alignment: .leading) {
+                        VStack {
                             SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Set your location"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
@@ -131,7 +137,7 @@ struct MapSearchBarSignUpFifth: View {
                                 }
                             }
                         }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
-                        MenuField(items: visibility, menuSelection: $menuSelection, icon: menuSelection == "Visible" ? "eye" : "eye.slash", placeholder: styledText(type: "Regular", size: 13, content: menuSelection))
+                        MenuField(items: visibility, menuSelection: $publicationVisibility, icon: publicationVisibility == "Visible" ? "eye" : "eye.slash", placeholder: styledText(type: "Regular", size: 13, content: publicationVisibility)).tint(Color("BodyEmphasized"))
                         Button(action: {
                             show.toggle()
                             array = []
@@ -139,7 +145,7 @@ struct MapSearchBarSignUpFifth: View {
                                 for item in photosPickerItem {
                                     if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                                         DispatchQueue.main.async {
-                                                self.array.append(image)
+                                            self.array.append(image)
                                         }
                                     }
                                 }
@@ -170,7 +176,7 @@ struct MapSearchBarSignUpFifth: View {
                                     Spacer()
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
                             }
-                        }.photosPicker(isPresented: $show, selection: $photosPickerItem).onChange(of: photosPickerItem) { newValue in
+                        }.tint(Color("BodyEmphasized")).photosPicker(isPresented: $show, selection: $photosPickerItem).onChange(of: photosPickerItem) { newValue in
                             array = []
                             Task {
                                 for item in newValue {
@@ -182,32 +188,30 @@ struct MapSearchBarSignUpFifth: View {
                                 }
                             }
                         }
-                    }
-                    Button(action: {
-                        let _ = viewModel.hasMultipleImages(images: array)
-                        if pickedLocCoordinates.isEmpty {
-                            viewModel.validationError = "You need to tell users where your accommodation is located"
+                        Button(action: {
+                            let _ = viewModel.hasMultipleImages(images: array)
+                            if pickedLocCoordinates.isEmpty {
+                                viewModel.validationError = "You need to tell users where your accommodation is located"
+                            }
+                            if viewModel.validationError.isEmpty {
+                                //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
+                                
+                            }
+                        }) {
+                            HStack(alignment: .center) {
+                                styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
+                            }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
-                        if viewModel.validationError.isEmpty {
-                            //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                            viewModel.login(email: userData[1] as! String, password: userData[3] as! String)
-                            viewModel.uploadImage(image: croppedImage!)
-                            viewModel.uploadImages(images: array)
-                        }
-                    }) {
-                        HStack(alignment: .center) {
-                            styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
-                            Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
-                        }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
-                    }
+                    }.padding(.all, 30)
+                    
                 }.background {
-                        NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
-                            MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
-                        } label: {}.labelsHidden()
-                    }.padding(.all, 30).zIndex(10)
-                    /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
-                }
+                    NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
+                        MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
+                    } label: {}.labelsHidden()
+                }//.padding(.all, 30).zIndex(10)
+                /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
             }
         }
     }
-
+}

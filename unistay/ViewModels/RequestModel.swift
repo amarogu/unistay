@@ -29,15 +29,15 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [Double]) {
+    func register(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, doubleLocCoordinates: [Double], currency: String) {
         let userData: [String: Any] = [
             "username": username,
             "email": email,
             "password": password,
             "language": "en",
-            "accountType": "normal",
+            "accountType": "publisher",
             "private": false,
-            "currency": "USD",
+            "currency": currency,
             "savedPublications": [],
             "connectedPublications": [],
             "twofactorAuthentication": false,
@@ -58,60 +58,66 @@ class SignUpViewModel: ObservableObject {
                 print(profilePicture)
                 multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
             }
-        }, to: "http://localhost:3000/register", method: .post)
+        }, to: "http://localhost:3000/register/normal", method: .post)
+        .responseDecodable(of: ServerResponseSignup.self) { response in
+            debugPrint(response)
+        }
+    }
+    
+    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage, locatedAtCoordinates: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage]) {
+        let accProviderData: [String: Any] = [
+            "username": username,
+            "email": email,
+            "password": password,
+            "language": "en",
+            "accountType": "provider",
+            "private": false,
+            "currency": currency,
+            "savedPublications": [],
+            "connectedPublications": [],
+            "twofactorAuthentication": false,
+            "owns": []
+        ]
+        
+        let publicationData: [String: Any] = [
+            "title": publicationTitle,
+            "description": publicatioDesc,
+            "rent": publicationRent,
+            "type": publicationType,
+            "visibility": visibility
+        ]
+        
+        let locatedAtData: [String: Any] = [
+            "latitude": locatedAtCoordinates[0],
+            "longitude": locatedAtCoordinates[1]
+        ]
+        
+        var imagesPng: [Data?] = []
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            if let accProviderData = try? JSONSerialization.data(withJSONObject: accProviderData),
+               let locatedAtData = try? JSONSerialization.data(withJSONObject: locatedAtData),
+               let publicationData = try? JSONSerialization.data(withJSONObject: publicationData),
+               let profilePicture = profilePicture.pngData() {
+                multipartFormData.append(accProviderData, withName: "accProviderData")
+                multipartFormData.append(locatedAtData, withName: "locAtData")
+                multipartFormData.append(publicationData, withName: "publicationData")
+                multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
+                
+                for (index, image) in images.enumerated() {
+                           if let imageData = image.pngData() {
+                               multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+                           }
+                       }
+            }
+            
+            
+        }, to: "http://localhost:3000/register/provider", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
         }
     }
 
-    
-    /*func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
-        let url = "http://localhost:3000/register"
-        
-        AF.upload(multipartFormData: { multipartFormData in
-            // Add JSON data
-            let bodyData: [String: Any] = [
-                "username": userData[0],
-                "email": userData[1],
-                "language": "en",
-                "accountType": "normal",
-                "password": userData[2],
-                "private": false,
-                "currency": userData[6],
-                "savedPublications": [],
-                "connectedPublications": [],
-                "twoFactorAuthentication": false,
-                "owns": [],
-                "locatedAt": userData[7]
-            ]
-            if let jsonData = try? JSONSerialization.data(withJSONObject: bodyData) {
-                multipartFormData.append(jsonData, withName: "userData", mimeType: "application/json")
-            }
-            
-            /*if let locationData = userData[5] as? [Double] {
-                let latitude = locationData[0]
-                let longitude = locationData[1]
-                let location: [String: Any] = [
-                    "latitude": latitude,
-                    "longitude": longitude
-                ]
-                // use location
-                if let locJsonData = try? JSONSerialization.data(withJSONObject: location) {
-                    multipartFormData.append(locJsonData, withName: "locData", mimeType: "application/json")
-                }
-            }*/
-            
-            
-            
-            // Add image data
-            if let imageData = image.jpegData(compressionQuality: 0.8) {
-                multipartFormData.append(imageData, withName: "image", mimeType: "image/jpeg")
-            }
-        }, to: url)
-        .responseDecodable(of: ServerResponseSignup.self) { response in
-            debugPrint(response)
-        }
-    }*/
 
     
     func login(email: String, password: String) {
@@ -146,109 +152,6 @@ class SignUpViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
-    /*func register(isToggled: Binding<Bool>, userData: [Any], image: UIImage) {
-            let url = URL(string: "http://localhost:3000/register")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            
-            let multipart = MultipartFormData()
-            
-            // Add JSON data
-            let bodyData: [String: Any] = [
-                    "username": userData[0],
-                    "email": userData[1],
-                    "language": "en",
-                    "accountType": "normal",
-                    "password": userData[2],
-                    "preferredLocations": userData[5],
-                    "private": false,
-                    "currency": userData[6],
-                    "savedPublications": [String](),
-                    "connectedPublications": [String](),
-                    "twoFactorAuthentication": false,
-                    "profilePicture": "",
-                    "owns": [String](),
-                    "locatedAt": userData[7]
-            ] as [String : Any]
-            let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
-            multipart.append(jsonData, withName: "userData", mimeType: "application/json")
-            
-            // Add image data
-            let imageData = image.jpegData(compressionQuality: 0.8)!
-            multipart.append(imageData, withName: "profilePicture", fileName: "image.jpg", mimeType: "image/jpeg")
-            
-            request.setValue(multipart.contentType, forHTTPHeaderField: "Content-Type")
-            
-            request.httpBody = multipart.data
-            
-            URLSession.shared.dataTaskPublisher(for: request)
-                .tryMap { output in
-                    guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
-                        throw URLError(.badServerResponse)
-                    }
-                    return output.data
-                }
-                .decode(type: ServerResponseSignup.self, decoder: JSONDecoder())
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { completion in
-                    switch completion {
-                    case .failure(let error):
-                        print("Error: \(error)")
-                    case .finished:
-                        break
-                    }
-                }, receiveValue: { [weak self] response in
-                    self?.serverResponse = response.message
-                })
-                .store(in: &cancellables)
-        }*/
-
-    
-    /*func register(isToggled: Binding<Bool>, userData: [Any]) {
-        let url = URL(string: "http://localhost:3000/register")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let bodyData: [String: Any] = [
-                "username": userData[0],
-                "email": userData[1],
-                "language": "en",
-                "accountType": "normal",
-                "password": userData[2],
-                "preferredLocations": userData[5],
-                "private": false,
-                "currency": userData[6],
-                "savedPublications": [String](),
-                "connectedPublications": [String](),
-                "twoFactorAuthentication": false,
-                "profilePicture": "",
-                "owns": [String](),
-                "locatedAt": userData[7]
-        ] as [String : Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
-        request.httpBody = jsonData
-        URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap { output in
-                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
-                    throw URLError(.badServerResponse)
-                }
-                return output.data
-            }
-            .decode(type: ServerResponseSignup.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] response in
-                self?.serverResponse = response.message
-            })
-            .store(in: &cancellables)
-    }*/
     
     func uploadImage(image: UIImage) {
         let url = URL(string: "http://localhost:3000/user/images")!
@@ -426,10 +329,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func validatePublication(data: [String]) -> Bool {
-        let title = data[0]
-        let desc = data[1]
-        let rent = data[2]
+    func validatePublication(title: String, desc: String, rent: String) -> Bool {
         if title.count <= 5 {
             validationError = "You need to isnert a title that is bigger than 5 characters"
             return false

@@ -79,7 +79,6 @@ struct SignUpPublisherSecond: View {
                                     let _ = viewModel.hasProfileImage(profileImage: croppedImage)
                                     
                                     if viewModel.validationError.isEmpty {
-                                        
                                         shouldNavigate.toggle()
                                     }
                                 }) {
@@ -91,7 +90,7 @@ struct SignUpPublisherSecond: View {
                                 if !viewModel.validationError.isEmpty {
                                     styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
                                 }
-                                NavigationLink(destination: EmptyView(), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUp(username: username, email: email, password: password, profilePicture: croppedImage, bio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()
