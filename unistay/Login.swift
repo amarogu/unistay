@@ -83,6 +83,8 @@ struct Login: View {
     @State var shouldNavigate: Bool = false
     @State var isPresented: Bool = false
     
+    @State var passVisible: Bool = false
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -111,7 +113,16 @@ struct Login: View {
                                             Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
                                                 if password2.isEmpty { styledText(type: "Regular", size: 13, content: "Password") }
-                                                TextField("", text: $password2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                if !passVisible {
+                                                    SecureField("", text: $password2).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                } else {
+                                                    TextField("", text: $password2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                }
+                                            }
+                                            Button(action: {
+                                                passVisible.toggle()
+                                            }) {
+                                                Image(systemName: !passVisible ? "eye.slash" : "eye").font(.system(size: 14))
                                             }
                                         }
                                     }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
