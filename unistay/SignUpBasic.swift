@@ -73,6 +73,10 @@ struct SignUpBasic: View {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 FormHeader()
+                                HStack {
+                                    Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red).padding(.top, 4.9)
+                                    styledText(type: "Regular", size: 13, content: "=  required field")
+                                }.padding(.vertical, 4)
                                 Group {
                                     TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true)
                                     TextInputField(input: $email, placeholderText: "Email address", placeholderIcon: "envelope", required: true)
@@ -82,7 +86,7 @@ struct SignUpBasic: View {
                                     Toggle(isOn: $isToggled) {
                                         HStack {
                                             Image(systemName: "rectangle.stack.badge.person.crop").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            styledText(type: "Regular", size: 13, content: "Sign up as a publisher account")
+                                            styledText(type: "Regular", size: 13, content: "Sign up as a landlord")
                                         }
                                     }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
                                         isToggled.toggle()

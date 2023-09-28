@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A31D7A122AC1B08500AFA05A /* MapSearchBarSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */; };
 		A31D7A142AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */; };
+		A32DE6C82AC4F39E0041F9E0 /* SignUpSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32DE6C72AC4F39E0041F9E0 /* SignUpSuccess.swift */; };
 		A3362FEA2AB9296A001FCB34 /* SignUpSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */; };
 		A3362FEE2ABA03A0001FCB34 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FED2ABA03A0001FCB34 /* RequestModel.swift */; };
 		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUp.swift; sourceTree = "<group>"; };
 		A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUpFifth.swift; sourceTree = "<group>"; };
+		A32DE6C72AC4F39E0041F9E0 /* SignUpSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSuccess.swift; sourceTree = "<group>"; };
 		A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecond.swift; sourceTree = "<group>"; };
 		A3362FED2ABA03A0001FCB34 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				A36E80932A75AD7700DAC3DD /* ContentView.swift */,
 				A3F539BE2A828B2400CEDFE7 /* tabItem.swift */,
 				A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */,
+				A32DE6C72AC4F39E0041F9E0 /* SignUpSuccess.swift */,
 				A364E35B2AB8EA8200C7AB8B /* Login.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
@@ -355,6 +358,7 @@
 				A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */,
 				A33F42652AB3AF9F00A8BD58 /* PicField.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
+				A32DE6C82AC4F39E0041F9E0 /* SignUpSuccess.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */,
 				A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */,

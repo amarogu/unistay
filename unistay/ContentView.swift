@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-func styledText(type: String, size: CGFloat, content: String) -> Text {
-    return Text(content).font(.custom("Eina03-\(type)", size: size))
+func styledText(type: String, size: CGFloat, content: String, color: String = "BodyEmphasized") -> Text {
+    return Text(content).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
 }
 
 /*struct SuperTextField: View {
