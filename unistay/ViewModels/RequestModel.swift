@@ -14,7 +14,7 @@ struct ServerResponseSignup: Decodable {
 }
 
 class ServerResponseLogin: Codable {
-    var message: String
+    let message: String
 }
 
 class SignUpViewModel: ObservableObject {
@@ -129,40 +129,17 @@ class SignUpViewModel: ObservableObject {
             debugPrint(response)
         }
     }
-
-
     
     func login(email: String, password: String) {
-        let url = URL(string: "http://localhost:3000/login")! // Update with your login endpoint
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let bodyData: [String: Any] = [
+        let parameters: [String: Any] = [
             "email": email,
             "password": password
         ]
-        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
-        request.httpBody = jsonData
-        URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap { output in
-                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 401 else {
-                    throw URLError(.badServerResponse)
-                }
-                return output.data
+
+        AF.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseDecodable(of: ServerResponseLogin.self) { response in
+                debugPrint(response)
             }
-            .decode(type: ServerResponseLogin.self, decoder: JSONDecoder()) // Update with your login response type
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] response in
-                self?.serverResponse = response.message
-            })
-            .store(in: &cancellables)
     }
     
     func uploadImage(image: UIImage) {

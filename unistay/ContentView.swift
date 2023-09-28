@@ -68,7 +68,7 @@ struct ContentView: View {
                         //sizeCompute(size: tabSize)
                     }
                 })
-            }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom)
+            }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true)
         }.background(Color("BackgroundColor"))
         
     }

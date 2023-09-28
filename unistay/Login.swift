@@ -121,12 +121,19 @@ struct Login: View {
                                 }
                                 Button(action: {
                                     //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
+                                    if email2.count < 5 {
+                                        viewModel.validationError = "Your email addres must be at least 5 character long"
+                                    }
+                                    if !email2.contains("@") {
+                                        viewModel.validationError = "Your email address needs to contain an @"
+                                    }
                                     if viewModel.validationError.isEmpty {
-                                        shouldNavigate.toggle()
+                                        //shouldNavigate.toggle()
+                                        viewModel.login(email: email2, password: password2)
                                     }
                                 }) {
                                     HStack(alignment: .center) {
-                                        styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                        styledText(type: "Semibold", size: 14, content: "Continue", color: "AccentColor")
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
@@ -134,7 +141,7 @@ struct Login: View {
                                     HStack {
                                         styledText(type: "Regular", size: 13, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline()
                                         Image(systemName: "chevron.right").font(.system(size: 13))
-                                    }.padding(.bottom, 1)
+                                    }.padding(.bottom, 4).padding(.top, 3)
                                 }
                                 NavigationLink(destination: SignUpBasic()) {
                                     HStack {
@@ -143,7 +150,7 @@ struct Login: View {
                                     }.padding(.bottom, 1)
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                                    styledText(type: "Regular", size: 13, content: viewModel.validationError, color: "Error")
                                     //let _ = print("hey")
                                 }
                                 Spacer()
