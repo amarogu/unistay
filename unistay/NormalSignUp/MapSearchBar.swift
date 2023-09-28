@@ -43,7 +43,7 @@ struct MapSearchBar: View {
     
     var body: some View {
         if isSignedUp {
-            Text("Success")
+            SignUpSuccess()
         } else {
             NavigationView {
                 GeometryReader {

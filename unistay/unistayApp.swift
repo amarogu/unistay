@@ -38,7 +38,7 @@ struct unistayApp: App {
                         }
         }*/
         WindowGroup {
-            SignUpBasic()
+            Login(isLoggedIn: $isLoggedIn)
         }
     }
 }
@@ -46,6 +46,6 @@ struct unistayApp: App {
 struct AppProvider_Previews: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = false
-        //LoginView(isLoggedIn: $isLoggedIn)
+        Login(isLoggedIn: $isLoggedIn)
     }
 }

@@ -86,7 +86,9 @@ struct Login: View {
     @State var passVisible: Bool = false
     
     @State var responseMsg: String = ""
-    @State var isLoggedIn: Bool = false
+    @Binding var isLoggedIn: Bool
+    
+    @State var navigationTag: String?
     
     var body: some View {
         NavigationStack {
@@ -137,9 +139,13 @@ struct Login: View {
                                     //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
                                     if email2.count < 5 {
                                         viewModel.validationError = "Your email addres must be at least 5 character long"
+                                    } else {
+                                        viewModel.validationError = ""
                                     }
                                     if !email2.contains("@") {
                                         viewModel.validationError = "Your email address needs to contain an @"
+                                    } else {
+                                        viewModel.validationError = ""
                                     }
                                     if viewModel.validationError.isEmpty {
                                         //shouldNavigate.toggle()
@@ -153,8 +159,9 @@ struct Login: View {
                                                     print("Response: \(response)")
                                                     print(response)
                                                     responseMsg = response
-                                                    if responseMsg == "User created" {
+                                                    if responseMsg == "Logged in successfully" {
                                                         isLoggedIn = true
+                                                        navigationTag = "LOGGEDIN"
                                                     }
                                                 }
                                         }
@@ -185,15 +192,13 @@ struct Login: View {
                             }.frame(maxWidth: width * 0.8)
                         }.frame(maxWidth: .infinity)
                     }
-            }.tint(Color("BodyEmphasized")).onAppear{
+            }.background(
+                NavigationLink(tag: "LOGGEDIN", selection: $navigationTag) {
+                    ContentView(isLoggedIn: $isLoggedIn)
+                } label: {}.labelsHidden()
+            ).tint(Color("BodyEmphasized")).onAppear{
                 shouldNavigate = false
             }.removeFocusOnTap()
         }.navigationBarHidden(true)
-    }
-}
-
-struct Login_Previews: PreviewProvider {
-    static var previews: some View {
-        Login()
     }
 }

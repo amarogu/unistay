@@ -20,7 +20,7 @@ struct SignUpSuccess: View {
                     VStack(spacing: 10) {
                         styledText(type: "Semibold", size: 24, content: "Successfully registered").frame(width: 0.85 * width).multilineTextAlignment(.center)
                         styledText(type: "Regular", size: 14, content: "Want an advanced configuration? Click here to control exactly how you want UniStay to behave").multilineTextAlignment(.center).frame(width: 0.8 * width)
-                        NavigationLink(destination: Login(), label: {
+                        NavigationLink(destination: EmptyView(), label: {
                             HStack {
                                 styledText(type: "Regular", size: 14, content: "Back to login", color: "Body").underline()
                                 Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
