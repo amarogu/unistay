@@ -85,6 +85,9 @@ struct Login: View {
     
     @State var passVisible: Bool = false
     
+    @State var responseMsg: String = ""
+    @State var isLoggedIn: Bool = false
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -140,7 +143,21 @@ struct Login: View {
                                     }
                                     if viewModel.validationError.isEmpty {
                                         //shouldNavigate.toggle()
-                                        viewModel.login(email: email2, password: password2)
+                                        viewModel.login(email: email2, password: password2) {
+                                            response, error in
+                                                if let error = error {
+                                                    // Handle error
+                                                    print("Error: \(error)")
+                                                } else if let response = response {
+                                                    // Use the response
+                                                    print("Response: \(response)")
+                                                    print(response)
+                                                    responseMsg = response
+                                                    if responseMsg == "User created" {
+                                                        isLoggedIn = true
+                                                    }
+                                                }
+                                        }
                                     }
                                 }) {
                                     HStack(alignment: .center) {

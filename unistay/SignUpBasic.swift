@@ -44,11 +44,11 @@ enum Field {
 struct SignUpBasic: View {
     //@Binding var responseData: String
     @StateObject private var viewModel = SignUpViewModel()
-    @State var username: String = "testing"
-    @State var email: String = "test@test"
-    @State var confirmEmail: String = "test@test"
-    @State var password: String = "12345678"
-    @State var confirmPass: String = "12345678"
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var confirmEmail: String = ""
+    @State var password: String = ""
+    @State var confirmPass: String = ""
     @State var isToggled: Bool = false
     
     var editingChanged: (Bool)->() = { _ in }

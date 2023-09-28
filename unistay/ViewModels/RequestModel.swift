@@ -130,7 +130,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func login(email: String, password: String) {
+    func login(email: String, password: String, completion: @escaping (String?, Error?) -> Void) {
         let parameters: [String: Any] = [
             "email": email,
             "password": password
@@ -139,6 +139,12 @@ class SignUpViewModel: ObservableObject {
         AF.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseDecodable(of: ServerResponseLogin.self) { response in
                 debugPrint(response)
+                switch response.result {
+                case .success(let value):
+                    completion(value.message, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
             }
     }
     
