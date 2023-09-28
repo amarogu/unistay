@@ -24,6 +24,13 @@ struct UserPanel: View {
     var user: User = .init(name: "Lucca", surname: "Gray", username: "luccagray", bio: "Adventurous soul with a love for books and food. Let's connect and share our stories! 🌍📚🍽️", amountOfConnections: 14)
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0
+    
+    @State var areDetailsExpanded: Bool = false
+    @State var fullBio: Bool = false
+    
+    @State private var showSheet = false
+    @State private var sheetHeight: CGFloat = .zero
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -42,23 +49,34 @@ struct UserPanel: View {
                 //Spacer()
                 HStack (alignment: .center) {
                     VStack(alignment: .leading, spacing: 20) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            styledText(type: "Semibold", size: 16, content: "\(user.name) \(user.surname)")
-                            styledText(type: "Regular", size: 14, content: "@\(user.username)").foregroundColor(Color("Body"))
-                        }
-                        styledText(type: "Regular", size: 14, content: user.bio).frame(maxWidth: width * 0.6).padding(.trailing, width * 0.4)
-                        Button (action: {
-                            
-                        }) {
-                            HStack {
-                                styledText(type: "Regular", size: 14, content: "See \(user.name)'s full bio").foregroundColor(Color("Body"))
-                                Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
-                            }
-                        }
-                        HStack {
-                            styledText(type: "Semibold", size: 14, content: "\(user.amountOfConnections)")
-                            styledText(type: "Regular", size: 14, content: "Connections")
-                        }
+                        
+                        DisclosureGroup(
+                            isExpanded: $areDetailsExpanded,
+                            content: {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    HStack {
+                                        styledText(type: "Regular", size: 14, content: user.bio).frame(maxWidth: width * 0.6).padding(.top, 8)
+                                        Spacer()
+                                    }
+                                        Button (action: {
+                                            fullBio.toggle()
+                                        }) {
+                                            HStack {
+                                                styledText(type: "Regular", size: 14, content: "See \(user.name)'s full bio").foregroundColor(Color("Body"))
+                                                Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
+                                            }
+                                        }
+                                        HStack {
+                                            styledText(type: "Semibold", size: 14, content: "\(user.amountOfConnections)")
+                                            styledText(type: "Regular", size: 14, content: "Connections")
+                                        }
+                                }
+                            },
+                            label: { VStack(alignment: .leading, spacing: 2) {
+                                styledText(type: "Semibold", size: 16, content: "\(user.name) \(user.surname)")
+                                styledText(type: "Regular", size: 14, content: "@\(user.username)").foregroundColor(Color("Body"))
+                            } }
+                        ).tint(Color("BodyEmphasized"))
                     }.padding(.top, imageSize / 1.2)
                     Spacer()
                 }.frame(maxWidth: .infinity).padding(.bottom, 10)
@@ -83,7 +101,41 @@ struct UserPanel: View {
                 //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor")).edgesIgnoringSafeArea(.bottom)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor")).edgesIgnoringSafeArea(.bottom).sheet(isPresented: $fullBio, content: {
+            VStack(alignment: .trailing) {
+                Button(action: {
+                    fullBio.toggle()
+                }) {
+                    styledText(type: "Semibold", size: 14, content: "Done")
+                }.alignmentGuide(.top, computeValue: { dimension in
+                    1
+                }).padding(.top, 34)
+                Spacer()
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        styledText(type: "Semibold", size: 14, content: "\(user.name)'s bio")
+                        Image(systemName: "doc").foregroundColor(Color("Body"))
+                    }
+                    styledText(type: "Regular", size: 14, content: user.bio).modifier(GetHeightModifier(height: $sheetHeight))
+                }.frame(maxWidth: 300)
+                Spacer()
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([.fraction(0.45), .medium, .large])
+        })
+    }
+}
+
+struct GetHeightModifier: ViewModifier {
+    @Binding var height: CGFloat
+
+    func body(content: Content) -> some View {
+        content.background(
+            GeometryReader { geo -> Color in
+                DispatchQueue.main.async {
+                    height = geo.size.height
+                }
+                return Color.clear
+            }
+        )
     }
 }
     
