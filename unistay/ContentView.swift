@@ -55,9 +55,7 @@ struct ContentView: View {
                 } else if (selectedTab == "Menu") {
                     MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                 } else if(selectedTab == "Profile") {
-                    UserPanel().onAppear {
-                        model.getProfPic()
-                    }
+                    UserPanel()
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {

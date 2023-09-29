@@ -31,6 +31,9 @@ struct UserPanel: View {
     @State private var showSheet = false
     @State private var sheetHeight: CGFloat = .zero
     
+    @StateObject var ImageDownloader = SignUpViewModel.ImageDownloader()
+    var model = SignUpViewModel()
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -38,14 +41,34 @@ struct UserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
-                    Image("ProfilePicture").resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
-                        geo in
-                        Color.clear.onAppear {
-                            imageSize = geo.size.width
-                        }
-                    }).offset(.init(width: imageSize / 2, height: imageSize / 2))
-                    
-                }.frame(maxWidth: .infinity).background(Color("BackgroundColor"))
+                    if let image = ImageDownloader.downloadedImage {
+                        Image(uiImage: image).resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
+                            geo in
+                            Color.clear.onAppear {
+                                imageSize = geo.size.width
+                            }
+                        }).offset(.init(width: imageSize / 2, height: imageSize / 2))
+                    } else {
+                        Rectangle().frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
+                            geo in
+                            Color.clear.onAppear {
+                                imageSize = geo.size.width
+                            }
+                        }).offset(.init(width: imageSize / 2, height: imageSize / 2)).foregroundColor(Color("Gray"))
+                    }
+                }.frame(maxWidth: .infinity).background(Color("BackgroundColor")).onAppear {
+                    ImageDownloader.downloadProfPic()
+                    model.getUser {
+                        userData, error in
+                        if let userData = userData {
+                                // Use userData
+                                print(userData)
+                            } else if let error = error {
+                                // Handle error
+                                print(error)
+                            }
+                    }
+                }
                 //Spacer()
                 HStack (alignment: .center) {
                     VStack(alignment: .leading, spacing: 20) {

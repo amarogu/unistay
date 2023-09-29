@@ -27,6 +27,27 @@ class profPic: Decodable {
     let __v: Int
 }
 
+class UserData: Decodable {
+    let _id: String
+    let username: String
+    let email: String
+    let language: String
+    let password: String
+    let preferredLocations: [String]
+    let isPrivate: Bool
+    let currency: String
+    let savedPublications: [String]
+    let connectedPublications: [String]
+    let owns: [String]
+    let profilePicture: String
+    let __v: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case username, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, profilePicture, _id, __v
+        case isPrivate = "private"
+    }
+}
+
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
@@ -176,6 +197,10 @@ class SignUpViewModel: ObservableObject {
             return self.session.request(url, method: method, parameters: parameters, encoding: encoding)
         }
         
+        func download(_ url: String) -> DownloadRequest {
+            return self.session.download(url)
+        }
+        
         func login(email: String, password: String, completion: @escaping (String?, Error?) -> Void) {
             let parameters: [String: Any] = [
                 "email": email,
@@ -213,10 +238,41 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    func getUser(completion: @escaping (UserData?, Error?) -> Void) {
+        NetworkManager.shared.request("http://localhost:3000/user", method: .get).responseDecodable(of: UserData.self) { response in
+            debugPrint(response)
+            switch response.result {
+            case .success(let value):
+                completion(value, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
+
+    }
+    
     func getProfPic() {
         NetworkManager.shared.request("http://localhost:3000/user/profilepicture", method: .get).responseDecodable(of: profPic.self) {
             response in
             debugPrint(response)
+        }
+    }
+    
+    class ImageDownloader: ObservableObject {
+        @Published var downloadedImage: UIImage?
+        
+        func downloadProfPic() {
+            NetworkManager.shared.download("http://localhost:3000/user/profilepicture").responseURL {
+                response in
+                debugPrint(response.fileURL as Any)
+                if let url = response.fileURL {
+                    let image = UIImage(contentsOfFile: url.path)
+                    DispatchQueue.main.async {
+                        self.downloadedImage = image
+                        debugPrint(self.downloadedImage as Any)
+                    }
+                }
+            }
         }
     }
     
