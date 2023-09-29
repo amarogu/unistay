@@ -150,6 +150,7 @@ struct Login: View {
                                                 if let error = error {
                                                     // Handle error
                                                     print("Error: \(error)")
+                                                    viewModel.validationError = "Your credentials are incorrect"
                                                 } else if let response = response {
                                                     // Use the response
                                                     print("Response: \(response)")
