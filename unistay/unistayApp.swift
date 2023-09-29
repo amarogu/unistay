@@ -26,9 +26,6 @@ class SessionManager {
     private init() {}
 }
 
-
-
-
 class Global: ObservableObject {
     @Published var navTag: String? = ""
 }

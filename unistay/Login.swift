@@ -103,7 +103,6 @@ struct Login: View {
                                                     if responseMsg == "Logged in successfully" {
                                                         isLoggedIn = true
                                                         SessionManager.shared.isLoggedIn = true
-                                                        checkCookies()
                                                     }
                                                 }
                                         }

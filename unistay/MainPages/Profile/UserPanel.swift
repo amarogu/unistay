@@ -84,7 +84,7 @@ struct UserPanel: View {
                 //Spacer()
                 ZStack(alignment: .top) {
                     ScrollView {
-                        Rectangle().frame(width: .infinity, height: selectionHeight).foregroundColor(.clear)
+                        Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
                         Suggestion(width: width).padding(.bottom, 20)
                         Universities(size: width, selectionSize: selectionHeight)
                     }//.padding(.top, selectionSize)
@@ -116,7 +116,7 @@ struct UserPanel: View {
                         styledText(type: "Semibold", size: 14, content: "\(user.name)'s bio")
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
-                    checkCookies()
+                    styledText(type: "Regular", size: 14, content: user.bio).modifier(GetHeightModifier(height: $sheetHeight))
                 }.frame(maxWidth: 300)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.bio.count < 110 ? .fraction(0.35) : .medium, .medium, .large])
