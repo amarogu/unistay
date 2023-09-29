@@ -148,6 +148,36 @@ class SignUpViewModel: ObservableObject {
             }
     }
     
+    class NetworkManager {
+        static let shared = NetworkManager()
+        
+        private let session: Session
+        
+        private init() {
+            let configuration = URLSessionConfiguration.default
+            configuration.httpCookieStorage = HTTPCookieStorage.shared
+            self.session = Session(configuration: configuration)
+        }
+        
+        func login(email: String, password: String, completion: @escaping (String?, Error?) -> Void) {
+            let parameters: [String: Any] = [
+                "email": email,
+                "password": password
+            ]
+            
+            self.session.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseDecodable(of: ServerResponseLogin.self) { response in
+                    debugPrint(response)
+                    switch response.result {
+                    case .success(let value):
+                        completion(value.message, nil)
+                    case .failure(let error):
+                        completion(nil, error)
+                    }
+                }
+        }
+    }
+    
     func uploadImage(image: UIImage) {
         let url = URL(string: "http://localhost:3000/user/images")!
         var request = URLRequest(url: url)

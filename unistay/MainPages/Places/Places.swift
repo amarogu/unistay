@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct Places: View {
     @State private var searchText = ""
     // @State private var searchText3 = "a"
@@ -29,6 +31,7 @@ struct Places: View {
                     ForEach(filterOptions, id: \.self) {
                         option in
                         Button(action: {
+                            
                             if(selectedFilters.contains(option)) {
                                 selectedFilters.remove(at: selectedFilters.firstIndex(of: option) ?? -1)
                             } else {

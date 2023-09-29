@@ -30,6 +30,16 @@ class Global: ObservableObject {
     @Published var navTag: String? = ""
 }
 
+func checkCookies() {
+    if let cookies = HTTPCookieStorage.shared.cookies {
+        for cookie in cookies {
+            print("Name: \(cookie.name), Value: \(cookie.value), Domain: \(cookie.domain), Path: \(cookie.path)")
+        }
+    } else {
+        print("No cookies found")
+    }
+}
+
 @main
 struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
