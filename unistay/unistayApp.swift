@@ -26,6 +26,10 @@ class SessionManager {
     private init() {}
 }
 
+class Global: ObservableObject {
+    @Published var navTag: String? = ""
+}
+
 @main
 struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
