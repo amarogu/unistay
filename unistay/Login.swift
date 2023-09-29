@@ -119,9 +119,9 @@ struct Login: View {
                                             ZStack(alignment: .leading) {
                                                 if password2.isEmpty { styledText(type: "Regular", size: 13, content: "Password") }
                                                 if !passVisible {
-                                                    SecureField("", text: $password2).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                    SecureField("", text: $password2).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never)
                                                 } else {
-                                                    TextField("", text: $password2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
+                                                    TextField("", text: $password2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never)
                                                 }
                                             }
                                             Button(action: {
@@ -130,9 +130,7 @@ struct Login: View {
                                                 Image(systemName: !passVisible ? "eye.slash" : "eye").font(.system(size: 14))
                                             }
                                         }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
-                                    }
+                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity)
                                     
                                 }
                                 Button(action: {
