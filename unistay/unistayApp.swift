@@ -33,6 +33,7 @@ class Global: ObservableObject {
 @main
 struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
+    @State var navigateToContent: Bool = false
     var body: some Scene {
         /*WindowGroup {
             if isLoggedIn {
@@ -42,7 +43,14 @@ struct unistayApp: App {
                         }
         }*/
         WindowGroup {
-            Login(isLoggedIn: $isLoggedIn)
+            NavigationStack {
+                if isLoggedIn {
+                    ContentView(isLoggedIn: $isLoggedIn)
+                } else {
+                    Login(isLoggedIn: $isLoggedIn)
+                    let _ = print(isLoggedIn)
+                }
+            }
         }
     }
 }

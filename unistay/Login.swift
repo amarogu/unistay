@@ -88,8 +88,6 @@ struct Login: View {
     @State var responseMsg: String = ""
     @Binding var isLoggedIn: Bool
     
-    @State var navigationTag: String?
-    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -159,7 +157,7 @@ struct Login: View {
                                                     responseMsg = response
                                                     if responseMsg == "Logged in successfully" {
                                                         isLoggedIn = true
-                                                        navigationTag = "LOGGEDIN"
+                                                        SessionManager.shared.isLoggedIn = true
                                                     }
                                                 }
                                         }
@@ -190,11 +188,7 @@ struct Login: View {
                             }.frame(maxWidth: width * 0.8)
                         }.frame(maxWidth: .infinity)
                     }
-            }.background(
-                NavigationLink(tag: "LOGGEDIN", selection: $navigationTag) {
-                    ContentView(isLoggedIn: $isLoggedIn)
-                } label: {}.labelsHidden()
-            ).tint(Color("BodyEmphasized")).onAppear{
+            }.tint(Color("BodyEmphasized")).onAppear{
                 shouldNavigate = false
             }.removeFocusOnTap()
         }.navigationBarHidden(true)

@@ -60,7 +60,6 @@ struct MenuItem: View {
     @State private var showingData: Bool = false
     var itemFields: [Any] = []
     @Binding var isLoggedIn: Bool
-    @State var backToLogin: Bool = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -97,17 +96,13 @@ struct MenuItem: View {
                             }
                         } else {
                             Button(action: {
-                                SessionManager.shared.isLoggedIn = false
                                 self.isLoggedIn = false
-                                backToLogin = true
+                                SessionManager.shared.isLoggedIn = false
                             }) {
                                 styledText(type: "Regular", size: 16, content: menuItemData.options[0]).foregroundColor(Color("Body")).underline()
                             }
                         }
                         Spacer()
-                        NavigationLink(destination: Login(isLoggedIn: $isLoggedIn), isActive: $backToLogin) {
-                            EmptyView()
-                        }
                     }.frame(maxWidth: .infinity)
                 }.padding(.bottom, 45)
             }
