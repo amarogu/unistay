@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Selection: View {
     var viewOptions: [String]
+    var model: SignUpViewModel = SignUpViewModel()
     @Binding var selectedView: String
     var body: some View {
         HStack() {

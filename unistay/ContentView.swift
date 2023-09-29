@@ -44,6 +44,7 @@ struct ContentView: View {
     @State private var selectedTab = "Places"
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
+    var model: SignUpViewModel = SignUpViewModel()
     var body: some View {
         GeometryReader {
             geometry in
@@ -54,7 +55,9 @@ struct ContentView: View {
                 } else if (selectedTab == "Menu") {
                     MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                 } else if(selectedTab == "Profile") {
-                    UserPanel()
+                    UserPanel().onAppear {
+                        model.getProfPic()
+                    }
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {

@@ -17,6 +17,16 @@ class ServerResponseLogin: Codable {
     let message: String
 }
 
+class profPic: Decodable {
+    let _id: String
+    let referenceId: String
+    let onModel: String
+    let path: String
+    let position: Int
+    let cover: Bool
+    let __v: Int
+}
+
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
     @Published var validationError: String = ""
@@ -154,9 +164,16 @@ class SignUpViewModel: ObservableObject {
         private let session: Session
         
         private init() {
-            let configuration = URLSessionConfiguration.default
+            let configuration = URLSessionConfiguration.af.default
             configuration.httpCookieStorage = HTTPCookieStorage.shared
             self.session = Session(configuration: configuration)
+            
+            // Load cookies at the start
+            loadCookies()
+        }
+        
+        func request(_ url: String, method: HTTPMethod, parameters: Parameters? = nil, encoding: ParameterEncoding = JSONEncoding.default) -> DataRequest {
+            return self.session.request(url, method: method, parameters: parameters, encoding: encoding)
         }
         
         func login(email: String, password: String, completion: @escaping (String?, Error?) -> Void) {
@@ -170,11 +187,36 @@ class SignUpViewModel: ObservableObject {
                     debugPrint(response)
                     switch response.result {
                     case .success(let value):
+                        // Save cookies after successful login
+                        self.saveCookies()
                         completion(value.message, nil)
                     case .failure(let error):
                         completion(nil, error)
                     }
                 }
+        }
+        
+        // Save cookies to UserDefaults
+        private func saveCookies() {
+            let cookiesData = try? NSKeyedArchiver.archivedData(withRootObject: HTTPCookieStorage.shared.cookies ?? [], requiringSecureCoding: false)
+            UserDefaults.standard.set(cookiesData, forKey: "cookies")
+        }
+        
+        // Load cookies from UserDefaults
+        private func loadCookies() {
+            if let cookiesData = UserDefaults.standard.data(forKey: "cookies"),
+               let cookies = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(cookiesData) as? [HTTPCookie] {
+                for cookie in cookies {
+                    HTTPCookieStorage.shared.setCookie(cookie)
+                }
+            }
+        }
+    }
+    
+    func getProfPic() {
+        NetworkManager.shared.request("http://localhost:3000/user/profilepicture", method: .get).responseDecodable(of: profPic.self) {
+            response in
+            debugPrint(response)
         }
     }
     

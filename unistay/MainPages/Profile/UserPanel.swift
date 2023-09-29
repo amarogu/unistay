@@ -116,7 +116,7 @@ struct UserPanel: View {
                         styledText(type: "Semibold", size: 14, content: "\(user.name)'s bio")
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
-                    styledText(type: "Regular", size: 14, content: user.bio).modifier(GetHeightModifier(height: $sheetHeight))
+                    checkCookies()
                 }.frame(maxWidth: 300)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.bio.count < 110 ? .fraction(0.35) : .medium, .medium, .large])

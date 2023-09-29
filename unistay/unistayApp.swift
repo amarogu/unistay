@@ -26,18 +26,23 @@ class SessionManager {
     private init() {}
 }
 
+
+
+
 class Global: ObservableObject {
     @Published var navTag: String? = ""
 }
 
-func checkCookies() {
+func checkCookies() -> Text {
     if let cookies = HTTPCookieStorage.shared.cookies {
         for cookie in cookies {
             print("Name: \(cookie.name), Value: \(cookie.value), Domain: \(cookie.domain), Path: \(cookie.path)")
+            return Text("\(cookie.value)")
         }
     } else {
         print("No cookies found")
     }
+    return Text("\thanks")
 }
 
 @main
@@ -58,7 +63,6 @@ struct unistayApp: App {
                     ContentView(isLoggedIn: $isLoggedIn)
                 } else {
                     Login(isLoggedIn: $isLoggedIn)
-                    let _ = print(isLoggedIn)
                 }
             }
         }
