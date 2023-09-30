@@ -6,13 +6,24 @@
 //
 
 import SwiftUI
-struct User {
-    var id: UUID = UUID()
-    var name: String
-    var surname: String
-    var username: String
-    var bio: String
-    var amountOfConnections: Int
+
+class LocalUser {
+    var _id: String = ""
+    var username: String = ""
+    var name: String = ""
+    var surname: String = ""
+    var email: String = ""
+    var language: String = ""
+    var password: String = ""
+    var preferredLocations: [String] = []
+    var isPrivate: Bool = false
+    var currency: String = ""
+    var savedPublications: [String] = []
+    var connectedPublications: [String] = []
+    var owns: [String] = []
+    var profilePicture: String = ""
+    var bio: String = ""
+    var __v: Int = 0
 }
 
 struct UserPanel: View {
@@ -21,7 +32,7 @@ struct UserPanel: View {
     @State private var imageSize: CGFloat = 0
     @State private var selectedView: String = "Universities"
     var viewOptions = ["Universities", "Location", "Roommates"]
-    var user: User = .init(name: "Lucca", surname: "Gray", username: "luccagray", bio: "Adventurous soul with a love for books and food. Let's connect and share our stories! 🌍📚🍽️", amountOfConnections: 14)
+    @State private var user: User? = nil
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0
     
@@ -62,7 +73,9 @@ struct UserPanel: View {
                         userData, error in
                         if let userData = userData {
                                 // Use userData
+                                self.user = userData
                                 print(userData)
+                                print(userData.username)
                             } else if let error = error {
                                 // Handle error
                                 print(error)
@@ -78,27 +91,35 @@ struct UserPanel: View {
                             content: {
                                 VStack(alignment: .leading, spacing: 16) {
                                     HStack {
-                                        styledText(type: "Regular", size: 14, content: user.bio).frame(maxWidth: width * 0.6).padding(.top, 8)
+                                        if let bio = user?.bio {
+                                            styledText(type: "Regular", size: 14, content: bio).frame(maxWidth: width * 0.6).padding(.top, 8)
+                                        }
                                         Spacer()
                                     }
                                         Button (action: {
                                             fullBio.toggle()
                                         }) {
                                             HStack {
-                                                styledText(type: "Regular", size: 14, content: "See \(user.name)'s full bio").foregroundColor(Color("Body"))
+                                                if let name = user?.name {
+                                                    styledText(type: "Regular", size: 14, content: "See \(name)'s full bio").foregroundColor(Color("Body"))
+                                                }
                                                 Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
                                             }
                                         }
                                         HStack {
-                                            styledText(type: "Semibold", size: 14, content: "\(user.amountOfConnections)")
+                                            if let connectedPublications = user?.connectedPublications {
+                                                styledText(type: "Semibold", size: 14, content: "\(connectedPublications.count)")
+                                            }
                                             styledText(type: "Regular", size: 14, content: "Connections")
                                         }
                                 }
                             },
                             label: { VStack(alignment: .leading, spacing: 2) {
-                                styledText(type: "Semibold", size: 16, content: "\(user.name) \(user.surname)")
-                                styledText(type: "Regular", size: 14, content: "@\(user.username)").foregroundColor(Color("Body"))
-                            } }
+                                if let name = user?.name, let surname = user?.surname, let username = user?.username {
+                                    styledText(type: "Semibold", size: 16, content: "\(name) \(surname)")
+                                    styledText(type: "Regular", size: 14, content: "@\(username)").foregroundColor(Color("Body"))
+
+                                }                            } }
                         ).tint(Color("BodyEmphasized"))
                     }.padding(.top, imageSize / 1.2)
                     Spacer()
@@ -136,13 +157,17 @@ struct UserPanel: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        styledText(type: "Semibold", size: 14, content: "\(user.name)'s bio")
+                        if let name = user?.name {
+                            styledText(type: "Semibold", size: 14, content: "\(name)'s bio")
+                        }
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
-                    styledText(type: "Regular", size: 14, content: user.bio).modifier(GetHeightModifier(height: $sheetHeight))
+                    if let bio = user?.bio {
+                        styledText(type: "Regular", size: 14, content: bio).modifier(GetHeightModifier(height: $sheetHeight))
+                    }
                 }.frame(maxWidth: 300)
                 Spacer()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.bio.count < 110 ? .fraction(0.35) : .medium, .medium, .large])
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
         })
     }
 }

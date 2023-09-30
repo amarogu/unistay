@@ -27,9 +27,11 @@ class profPic: Decodable {
     let __v: Int
 }
 
-class UserData: Decodable {
+class User: Decodable {
     let _id: String
     let username: String
+    let name: String
+    let surname: String
     let email: String
     let language: String
     let password: String
@@ -39,14 +41,16 @@ class UserData: Decodable {
     let savedPublications: [String]
     let connectedPublications: [String]
     let owns: [String]
+    let bio: String
     let profilePicture: String
     let __v: Int
     
     enum CodingKeys: String, CodingKey {
-        case username, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, profilePicture, _id, __v
+        case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, __v
         case isPrivate = "private"
     }
 }
+
 
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
@@ -238,8 +242,8 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func getUser(completion: @escaping (UserData?, Error?) -> Void) {
-        NetworkManager.shared.request("http://localhost:3000/user", method: .get).responseDecodable(of: UserData.self) { response in
+    func getUser(completion: @escaping (User?, Error?) -> Void) {
+        NetworkManager.shared.request("http://localhost:3000/user", method: .get).responseDecodable(of: User.self) { response in
             debugPrint(response)
             switch response.result {
             case .success(let value):
