@@ -129,9 +129,9 @@ struct UserPanel: View {
                 ZStack(alignment: .top) {
                     ScrollView {
                         Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
-                        Suggestion(width: width).padding(.bottom, 20)
+                        Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight)
                         Universities(size: width, selectionSize: selectionHeight)
-                    }//.padding(.top, selectionSize)
+                    }
                     Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
                         geo in
                         LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {

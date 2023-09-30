@@ -8,7 +8,9 @@
 import SwiftUI
 import Combine
 
-
+class AppText {
+    
+}
 
 public struct RemoveFocusOnTapModifier: ViewModifier {
     public func body(content: Content) -> some View {
@@ -62,6 +64,9 @@ struct SignUpBasic: View {
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false
     
+    @State var name: String = ""
+    @State var surname: String = ""
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -79,6 +84,10 @@ struct SignUpBasic: View {
                                 }.padding(.vertical, 4)
                                 Group {
                                     TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true)
+                                    HStack {
+                                        TextInputField(input: $name, placeholderText: "Name", placeholderIcon: "person.text.rectangle", required: true).frame(maxWidth: width * 0.5)
+                                        TextInputField(input: $surname, placeholderText: "Surname", placeholderIcon: "", required: false, padding: 4).frame(maxWidth: width * 0.5)
+                                    }
                                     TextInputField(input: $email, placeholderText: "Email address", placeholderIcon: "envelope", required: true)
                                     TextInputField(input: $confirmEmail, placeholderText: "Confirm your email address", placeholderIcon: "checkmark.circle", required: true)
                                     TextInputField(input: $password, placeholderText: "Password", placeholderIcon: "key", required: true)
@@ -116,7 +125,7 @@ struct SignUpBasic: View {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4.5)
+                                    styledText(type: "Regular", size: 13, content: viewModel.validationError, color: "Error").padding(.top, 4.5)
                                     //let _ = print("hey")
                                 }
                                 Spacer()
