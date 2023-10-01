@@ -48,7 +48,7 @@ struct Login: View {
                                         HStack {
                                             Image(systemName: "person.crop.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
-                                                if email2.isEmpty { styledText(type: "Regular", size: 13, content: "Email address") }
+                                                if email2.isEmpty { localizedText(type: "Regular", size: 13, contentKey: "Email address") }
                                                 TextField("", text: $email2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
                                             }
                                         }
@@ -59,7 +59,7 @@ struct Login: View {
                                         HStack {
                                             Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .leading) {
-                                                if password2.isEmpty { styledText(type: "Regular", size: 13, content: "Password") }
+                                                if password2.isEmpty { localizedText(type: "Regular", size: 13, contentKey: "Password") }
                                                 if !passVisible {
                                                     SecureField("", text: $password2).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never)
                                                 } else {
@@ -109,19 +109,19 @@ struct Login: View {
                                     }
                                 }) {
                                     HStack(alignment: .center) {
-                                        styledText(type: "Semibold", size: 14, content: "Continue", color: "AccentColor")
+                                        localizedText(type: "Semibold", size: 14, contentKey: "Continue", color: "AccentColor")
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
                                 NavigationLink(destination: Text("Content")) {
                                     HStack {
-                                        styledText(type: "Regular", size: 13, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized")).underline()
+                                        localizedText(type: "Regular", size: 13, contentKey: "Forgot your password?").underline()
                                         Image(systemName: "chevron.right").font(.system(size: 13))
                                     }.padding(.bottom, 4).padding(.top, 3)
                                 }
                                 NavigationLink(destination: SignUpBasic()) {
                                     HStack {
-                                        styledText(type: "Regular", size: 13, content: "Sign up").foregroundColor(Color("BodyEmphasized")).underline()
+                                        localizedText(type: "Regular", size: 13, contentKey: "Sign up").underline()
                                         Image(systemName: "chevron.right").font(.system(size: 13))
                                     }.padding(.bottom, 1)
                                 }

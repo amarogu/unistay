@@ -6,33 +6,66 @@
 //
 
 import SwiftUI
+import Combine
 
 struct FormHeader: View {
-    var languages: [String] = ["System language", "English", "Portuguese", "French"]
-    @State var selectedLanguage: String = "System language"
+    @State var alert: Bool = false
+    @State var selectedLanguageIndex = 0
+    let languages = ["en", "pt", "fr"]
+    let explanations = [
+        "The selected language is controlled by the system. To change it, please change the selected language in settings.",
+        "O idioma selecionado é controlado pelo sistema. Para alterá-lo, altere o idioma selecionado nas configurações.",
+        "La langue sélectionnée est contrôlée par le système. Pour le modifier, veuillez modifier la langue sélectionnée dans les paramètres."
+    ]
+
     var body: some View {
         HStack {
             Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)
-            styledText(type: "Bold", size: 22, content: "UniStay")
+            localizedText(type: "Bold", size: 22, contentKey: "UniStay", color: "BodyEmphasized")
         }.padding(.bottom, -10)
         HStack {
-            styledText(type: "Bold", size: 34, content: "Sign Up")
+            localizedText(type: "Bold", size: 34, contentKey: "Sign up", color: "BodyEmphasized")
             Spacer()
-            Menu {
-                ForEach(languages, id: \.self) {
-                    language in
-                    Button(action: {
-                        selectedLanguage = language
-                    }) {
-                        Label(language, systemImage: selectedLanguage == language ? "checkmark" : "")
-                    }
-                }
-            } label: {
+            Button(action: {
+                alert.toggle()
+            }) {
                 HStack {
                     Image(systemName: "globe").foregroundColor(Color("Body"))
-                    Image(systemName: "chevron.down").foregroundColor(Color("Body"))
+                    styledText(type: "Regular", size: 14, content: Locale.current.language.languageCode?.identifier.uppercased() ?? "", color: "Body")
                 }
             }
-        }.padding(.bottom, 10)
+        }.sheet(isPresented: $alert, onDismiss: {
+            // Stop the timer when the sheet is dismissed
+            timer.upstream.connect().cancel()
+        }) {
+            VStack(spacing: 18) {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        alert = false
+                    }) {
+                        localizedText(type: "Semibold", size: 14, contentKey: "Done", color: "BodyEmphasized")
+                    }
+                }
+                ZStack {
+                    ForEach(0..<languages.count) { index in
+                        Text(explanations[index])
+                            .opacity(selectedLanguageIndex == index ? 1.0 : 0.0)
+                            .animation(.easeInOut(duration: 1.0), value: selectedLanguageIndex)
+                    }
+                }
+                
+            }.padding(28).presentationDetents([.fraction(0.3)])
+        }
+        .onAppear {
+            // Start a timer that increments selectedLanguageIndex every 3 seconds
+            timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+            timerCancellable = timer.sink { _ in
+                selectedLanguageIndex = (selectedLanguageIndex + 1) % languages.count
+            }
+        }
     }
+
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var timerCancellable: AnyCancellable? = nil
 }

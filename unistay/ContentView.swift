@@ -11,6 +11,10 @@ func styledText(type: String, size: CGFloat, content: String, color: String = "B
     return Text(content).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
 }
 
+func localizedText(type: String, size: CGFloat, contentKey: LocalizedStringKey, color: String = "BodyEmphasized") -> Text {
+    return Text(contentKey).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
+}
+
 /*struct SuperTextField: View {
     
     var placeholder: Text
@@ -20,7 +24,7 @@ func styledText(type: String, size: CGFloat, content: String, color: String = "B
     
     var body: some View {
         ZStack(alignment: .leading) {
-            if text.isEmpty { placeholder }
+ /Users/gustavoamaro/Documents/GitHub/unistay/unistay/ViewModels if text.isEmpty { placeholder }
             TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
         }
     }

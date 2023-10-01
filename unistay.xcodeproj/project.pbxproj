@@ -35,6 +35,7 @@
 		A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A36E80C22A7C49CF00DAC3DD /* eina-03-semibold.ttf */; };
 		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
 		A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */; };
+		A3A617832AC8D28600A91817 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A3A617822AC8D28600A91817 /* Localizable.xcstrings */; };
 		A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DA35482A8CED3A005EAAC9 /* MenuView.swift */; };
 		A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E245982A90197100BC7E37 /* MenuItem.swift */; };
 		A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */; };
@@ -83,6 +84,7 @@
 		A36E80C62A7C4A0500DAC3DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A36E80C92A7C724400DAC3DD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelection.swift; sourceTree = "<group>"; };
+		A3A617822AC8D28600A91817 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A3DA35482A8CED3A005EAAC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A3E245982A90197100BC7E37 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		A3E2459A2A91466000BC7E37 /* MenuItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemSheet.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		A36E80902A75AD7700DAC3DD /* unistay */ = {
 			isa = PBXGroup;
 			children = (
+				A3A617822AC8D28600A91817 /* Localizable.xcstrings */,
 				A33D12242AC7522D0014B05B /* unistay.entitlements */,
 				A36E80C62A7C4A0500DAC3DD /* Info.plist */,
 				A349CA172ABDFEF400F5C11A /* Fields */,
@@ -317,6 +320,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
+				fr,
 			);
 			mainGroup = A36E80852A75AD7700DAC3DD;
 			packageReferences = (
@@ -338,6 +343,7 @@
 			files = (
 				A36E80992A75AD7800DAC3DD /* Preview Assets.xcassets in Resources */,
 				A36E80C32A7C49CF00DAC3DD /* eina-03-bold.ttf in Resources */,
+				A3A617832AC8D28600A91817 /* Localizable.xcstrings in Resources */,
 				A36E80962A75AD7800DAC3DD /* Assets.xcassets in Resources */,
 				A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */,
 				A36E80C42A7C49CF00DAC3DD /* eina-03-regular.ttf in Resources */,

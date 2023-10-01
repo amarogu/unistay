@@ -114,7 +114,7 @@ struct SignUpBasic: View {
                                     }
                                 }) {
                                     HStack(alignment: .center) {
-                                        styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                        styledText(type: "Semibold", size: 14, content: "Continue", color: "AccentColor")
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
