@@ -17,6 +17,56 @@
         }
       }
     },
+    "=  required field" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "= campo obrigatório"
+          }
+        }
+      }
+    },
+    "Back to login" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voltar para o login"
+          }
+        }
+      }
+    },
+    "Click here to change the profile picture you have selected" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique aqui para alterar sua foto de perfil"
+          }
+        }
+      }
+    },
+    "Confirm your email address" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme seu email"
+          }
+        }
+      }
+    },
+    "Confirm your password" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme sua senha"
+          }
+        }
+      }
+    },
     "Content" : {
 
     },
@@ -31,8 +81,46 @@
         }
       }
     },
+    "Continue to home" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avançar para a tela inicial"
+          }
+        }
+      }
+    },
+    "Crop" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redimensionar"
+          }
+        }
+      }
+    },
+    "Currently selected" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionado"
+          }
+        }
+      }
+    },
     "Done" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fechar"
+          }
+        }
+      }
     },
     "Email address" : {
       "extractionState" : "manual",
@@ -58,6 +146,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "English"
+          }
+        }
+      }
+    },
+    "Find a place" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encontre um local"
           }
         }
       }
@@ -93,8 +191,25 @@
     "hi" : {
 
     },
-    "Key" : {
-      "extractionState" : "manual"
+    "Insert a publisher bio" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira uma bio para seu perfil"
+          }
+        }
+      }
+    },
+    "Insert a user bio" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira uma bio para seu perfil"
+          }
+        }
+      }
     },
     "Login" : {
       "extractionState" : "manual",
@@ -108,7 +223,17 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"Log in\""
+            "value" : "Log in"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
           }
         }
       }
@@ -130,6 +255,16 @@
         }
       }
     },
+    "Please insert a profile picture" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor insira uma foto de perfil"
+          }
+        }
+      }
+    },
     "Portuguese" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -141,14 +276,72 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Português"
           }
         }
       }
     },
+    "Publication description" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição da propriedade"
+          }
+        }
+      }
+    },
+    "Publication title" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título da propriedade"
+          }
+        }
+      }
+    },
+    "Rent" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aluguel mensal"
+          }
+        }
+      }
+    },
+    "required field" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "campo obrigatório"
+          }
+        }
+      }
+    },
     "Search accommodations, locations..." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busque acomodações, lugares..."
+          }
+        }
+      }
+    },
+    "SELECT A PLACE" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SELECIONE UM LOCAL"
+          }
+        }
+      }
     },
     "Sign up" : {
       "extractionState" : "manual",
@@ -167,6 +360,37 @@
         }
       }
     },
+    "Sign up as a landlord" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registre-se como locador"
+          }
+        }
+      }
+    },
+    "Successfully registered" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrado com sucesso"
+          }
+        }
+      }
+    },
+    "Surname" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobrenome"
+          }
+        }
+      }
+    },
     "System language" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -178,8 +402,258 @@
         }
       }
     },
+    "The bio needs to be at least 15 characters long" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A bio tem que ter ao menos 15 caracteres"
+          }
+        }
+      }
+    },
+    "The e-mail address is not valid" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O endereço de email é inválido"
+          }
+        }
+      }
+    },
+    "The e-mail addresses do not match" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os endereços de email não são iguais"
+          }
+        }
+      }
+    },
+    "The password does not fit the criteria" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A senha não se encaixa no padrão esperado"
+          }
+        }
+      }
+    },
+    "The passwords do not match" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As senhas não são iguais"
+          }
+        }
+      }
+    },
+    "The username needs to be 3 to 20 characters long" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O nome de usuário precisa ter ao menos 3 e no máximo 20 caracteres"
+          }
+        }
+      }
+    },
     "UniStay" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UniStay"
+          }
+        }
+      }
+    },
+    "Update you profile picture" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize sua foto de perfil"
+          }
+        }
+      }
+    },
+    "Update your profile picture" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize sua foto de perfil"
+          }
+        }
+      }
+    },
+    "Upload a profile picture" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faça o upload da sua foto de perfil"
+          }
+        }
+      }
+    },
+    "Use your current location" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use sua localização atual"
+          }
+        }
+      }
+    },
+    "Username" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome de usuário"
+          }
+        }
+      }
+    },
+    "Want an advanced configuration? Click here to control exactly how you want UniStay to behave" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quer uma configuração avançada? Clique aqui para controlar exatamente como o UniStay deve se comportar"
+          }
+        }
+      }
+    },
+    "You need to insert a location" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisa inserir uma localização"
+          }
+        }
+      }
+    },
+    "You need to insert at least three images" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisa inserir no mínimo três imagens"
+          }
+        }
+      }
+    },
+    "You need to isnert a title that is bigger than 5 characters" : {
 
+    },
+    "You need to select at least one location" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisa selecionar ao menos uma localização"
+          }
+        }
+      }
+    },
+    "You need to tell users where your accommodation is located" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você precisa dizer aos usuários onde sua acomodação fica!"
+          }
+        }
+      }
+    },
+    "Your credentials are incorrect" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suas credenciais estão incorretas"
+          }
+        }
+      }
+    },
+    "Your description cannot be longer than 600 characters" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sua descrição não pode ter mais que 600 caracteres"
+          }
+        }
+      }
+    },
+    "Your email addres must be at least 5 character long" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu endereço de email precisa ter ao menos 5 caracteres"
+          }
+        }
+      }
+    },
+    "Your email address needs to contain an @" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu endereço de email precisa conter um @"
+          }
+        }
+      }
+    },
+    "Your publication description needs to be at least 60 characters long" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A descrição da sua publicação precisa ter ao menos 60 caracteres"
+          }
+        }
+      }
+    },
+    "Your rent value seems too big" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aluguel para muito alto"
+          }
+        }
+      }
+    },
+    "Your rent value seems too low." : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aluguel parece muito baixo"
+          }
+        }
+      }
+    },
+    "Your title cannot be longer than 25 characters" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu título não pode ter mais que 25 caracteres"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -13,7 +13,7 @@ struct TextInputField: View {
     @FocusState private var isFocused: Bool
     
     @Binding var input: String
-    var placeholderText: String
+    var placeholderText: LocalizedStringKey
     var placeholderIcon: String
     
     var required: Bool
@@ -26,13 +26,13 @@ struct TextInputField: View {
                 Image(systemName: placeholderIcon).font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                 ZStack(alignment: .topLeading) {
                     if input.isEmpty { HStack {
-                        styledText(type: "Regular", size: 13, content: placeholderText).padding(.leading, padding)
+                        localizedText(type: "Regular", size: 13, contentKey: placeholderText).padding(.leading, padding)
                         Spacer()
                         if required {
                             Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)
                         }
                     } }
-                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding)
+                    TextField(text: $input, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
                     //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }

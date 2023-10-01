@@ -9,6 +9,17 @@ import SwiftUI
 import Combine
 import Alamofire
 
+extension LocalizedStringKey {
+    var isEmpty: Bool {
+            // Mirror the `LocalizedStringKey` to access its internal `key` property
+            let mirror = Mirror(reflecting: self)
+            if let key = mirror.children.first(where: { $0.label == "key" })?.value as? String {
+                return key.isEmpty
+            }
+            return true
+        }
+}
+
 struct ServerResponseSignup: Decodable {
     let message: String
 }
@@ -54,7 +65,7 @@ class User: Decodable {
 
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
-    @Published var validationError: String = ""
+    @Published var validationError: LocalizedStringKey = ""
     var cancellables = Set<AnyCancellable>()
     
     func testRequest() {

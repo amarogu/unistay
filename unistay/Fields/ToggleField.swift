@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ToggleField: View {
     @Binding var isToggleOn: Bool
-    var field: String
+    var field: LocalizedStringKey
 
     var body: some View {
         Toggle(isOn: $isToggleOn) {
             HStack {
                 Image(systemName: "arrow.up.doc")
-                styledText(type: "Regular", size: 13, content: field)
+                localizedText(type: "Regular", size: 13, contentKey: field)
             }
         }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
             isToggleOn.toggle()

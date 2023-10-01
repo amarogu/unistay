@@ -65,7 +65,7 @@ struct SignUpPublisherFourth: View {
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red)
+                                    localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error")
                                 }
                                 NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection), isActive: $shouldNavigate) {
                                     EmptyView()

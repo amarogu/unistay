@@ -203,6 +203,9 @@ struct MapSearchBarSignUpFifth: View {
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
+                        if !viewModel.validationError.isEmpty {
+                            localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 4.5)
+                        }
                     }.padding(.all, 30)
                     
                 }.background {

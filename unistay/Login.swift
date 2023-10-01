@@ -126,7 +126,7 @@ struct Login: View {
                                     }.padding(.bottom, 1)
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError, color: "Error")
+                                    localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error")
                                     //let _ = print("hey")
                                 }
                                 Spacer()

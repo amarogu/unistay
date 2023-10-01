@@ -120,12 +120,12 @@ struct MapSearchBarSignUp: View {
                                     }
                                 }
                             }
-                            styledText(type: "Regular", size: 13, content: "You need to provide your location").foregroundStyle(Color("Body")).padding(.horizontal, 14).padding(.vertical, 1)
+                            localizedText(type: "Regular", size: 13, contentKey: "You need to provide your location", color: "Body").padding(.horizontal, 14).padding(.vertical, 1)
                             NavigationLink(destination: EmptyView()) {
-                                styledText(type: "Regular", size: 13, content: "Understand why we need your location").foregroundColor(Color("Body")).padding(.horizontal, 14).padding(.vertical, 1).underline()
+                                localizedText(type: "Regular", size: 13, contentKey: "Understand why we need your location", color: "Body").padding(.horizontal, 14).padding(.vertical, 1).underline()
                             }
                         }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
-                        styledText(type: "Regular", size: 13, content: "Set a currency you will see on other accommodations").foregroundColor(Color("Body")).padding(.top, 4)
+                        localizedText(type: "Regular", size: 13, contentKey: "Set a currency you will see on other accommodations", color: "Body").padding(.top, 4)
                         MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection)).tint(Color("BodyEmphasized"))
                         Button(action: {
                             if pickedLocNames == "" {
@@ -148,7 +148,7 @@ struct MapSearchBarSignUp: View {
                             
                         }) {
                             HStack(alignment: .center) {
-                                styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                localizedText(type: "Semibold", size: 14, contentKey: "Continue", color: "AccentColor")
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
@@ -156,7 +156,7 @@ struct MapSearchBarSignUp: View {
                             EmptyView()
                         }
                         if !viewModel.validationError.isEmpty {
-                            styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 4)
+                            localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError).foregroundColor(.red).padding(.top, 4)
                         }
                     }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
@@ -185,12 +185,12 @@ struct MapViewSignUpSelection: View {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         HStack {
-                            styledText(type: "Regular", size: 13, content: "Confirm your location")
+                            localizedText(type: "Regular", size: 13, contentKey: "Confirm your location")
                             Image(systemName: "checkmark.circle").font(.system(size: 13))
                         }
                         HStack {
-                            styledText(type: "Regular", size: 13, content: place.name ?? "").foregroundColor(Color("BodyEmphasized"))
-                            styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
+                            styledText(type: "Regular", size: 13, content: place.name ?? "")
+                            styledText(type: "Regular", size: 13, content: place.locality ?? "", color: "Body").opacity(0.8)
                         }
                         Button(action: {
                             pickedLocLocs = place.locality ?? ""
@@ -199,7 +199,7 @@ struct MapViewSignUpSelection: View {
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             HStack {
-                                styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized"))
+                                localizedText(type: "Regular", size: 14, contentKey: "Confirm")
                                 Image(systemName: "arrow.forward").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                             }.padding(.horizontal, 10).padding(.vertical, 4).background(Color.green.opacity(0.4)).cornerRadius(5).padding(.top, 8)
                         }

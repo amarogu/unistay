@@ -80,7 +80,7 @@ struct SignUpBasic: View {
                                 FormHeader()
                                 HStack {
                                     Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red).padding(.top, 4.9)
-                                    styledText(type: "Regular", size: 13, content: "=  required field")
+                                    localizedText(type: "Regular", size: 13, contentKey: "=  required field")
                                 }.padding(.vertical, 4)
                                 Group {
                                     TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true)
@@ -95,7 +95,7 @@ struct SignUpBasic: View {
                                     Toggle(isOn: $isToggled) {
                                         HStack {
                                             Image(systemName: "rectangle.stack.badge.person.crop").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            styledText(type: "Regular", size: 13, content: "Sign up as a landlord")
+                                            localizedText(type: "Regular", size: 13, contentKey: "Sign up as a landlord")
                                         }
                                     }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
                                         isToggled.toggle()
@@ -114,7 +114,7 @@ struct SignUpBasic: View {
                                     }
                                 }) {
                                     HStack(alignment: .center) {
-                                        styledText(type: "Semibold", size: 14, content: "Continue", color: "AccentColor")
+                                        localizedText(type: "Semibold", size: 14, contentKey: "Continue", color: "AccentColor")
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
@@ -125,7 +125,7 @@ struct SignUpBasic: View {
                                     EmptyView()
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    styledText(type: "Regular", size: 13, content: viewModel.validationError, color: "Error").padding(.top, 4.5)
+                                    localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 4.5)
                                     //let _ = print("hey")
                                 }
                                 Spacer()

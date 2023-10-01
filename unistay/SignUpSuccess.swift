@@ -18,17 +18,17 @@ struct SignUpSuccess: View {
                 ZStack {
                     Color("BackgroundColor")
                     VStack(spacing: 10) {
-                        styledText(type: "Semibold", size: 24, content: "Successfully registered").frame(width: 0.85 * width).multilineTextAlignment(.center)
-                        styledText(type: "Regular", size: 14, content: "Want an advanced configuration? Click here to control exactly how you want UniStay to behave").multilineTextAlignment(.center).frame(width: 0.8 * width)
+                        localizedText(type: "Semibold", size: 24, contentKey: "Successfully registered").frame(width: 0.85 * width).multilineTextAlignment(.center)
+                        localizedText(type: "Regular", size: 14, contentKey: "Want an advanced configuration? Click here to control exactly how you want UniStay to behave").multilineTextAlignment(.center).frame(width: 0.8 * width)
                         NavigationLink(destination: EmptyView(), label: {
                             HStack {
-                                styledText(type: "Regular", size: 14, content: "Back to login", color: "Body").underline()
+                                localizedText(type: "Regular", size: 14, contentKey: "Back to login", color: "Body").underline()
                                 Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
                             }
                         })
                         NavigationLink(destination: ContentView(isLoggedIn: $present), label: {
                             HStack {
-                                styledText(type: "Regular", size: 14, content: "Continue to home", color: "Body").underline()
+                                localizedText(type: "Regular", size: 14, contentKey: "Continue to home", color: "Body").underline()
                                 Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
                             }
                         })

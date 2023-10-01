@@ -54,7 +54,7 @@ struct MapSearchBar: View {
                         VStack(alignment: .leading) {
                             FormHeader()
                             VStack(alignment: .leading) {
-                                SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Find a place"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                                SearchBar(placeholder: localizedText(type: "Regular", size: 13, contentKey: "Find a place"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                                 
                                 if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                     List {
@@ -77,7 +77,7 @@ struct MapSearchBar: View {
                                                 }
                                             }.listRowBackground(Color.clear).listRowSeparator(.hidden)
                                         } header: {
-                                            styledText(type: "Regular", size: 13, content: "SELECT A PLACE")
+                                            localizedText(type: "Regular", size: 13, contentKey: "SELECT A PLACE")
                                         }
                                     }.listStyle(.plain).frame(maxHeight: height * 0.4).background(Color("SearchBar").opacity(0.4)).cornerRadius(5).padding(.vertical, 1)
                                 } else {
@@ -97,7 +97,7 @@ struct MapSearchBar: View {
                                             navigationTag = "MAPVIEW"
                                         }) {
                                             HStack(alignment: .center) {
-                                                styledText(type: "Regular", size: 14, content: "Use your current location").foregroundColor(Color("Body"))
+                                                localizedText(type: "Regular", size: 14, contentKey: "Use your current location", color: "Body")
                                                 Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
                                                 
                                             }.padding(.vertical, 1).padding(.leading, 14)
@@ -105,7 +105,7 @@ struct MapSearchBar: View {
                                         if !pickedLocNames.isEmpty {
                                             HStack {
                                                 VStack(alignment: .leading) {
-                                                    styledText(type: "regular", size: 13, content: "Currently selected").padding(.bottom, 10)
+                                                    localizedText(type: "regular", size: 13, contentKey: "Currently selected").padding(.bottom, 10)
                                                     VStack(alignment: .leading, spacing: 10) {
                                                         ForEach(pickedLocNames, id:\.self) {
                                                             loc in
@@ -173,12 +173,12 @@ struct MapSearchBar: View {
                                 
                             }) {
                                 HStack(alignment: .center) {
-                                    styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                    localizedText(type: "Semibold", size: 14, contentKey: "Continue", color: "AccentColor")
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
                             if !viewModel.validationError.isEmpty {
-                                styledText(type: "Regular", size: 13, content: viewModel.validationError).foregroundColor(.red).padding(.top, 1.25)
+                                localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 1.25)
                             }
                             if (responseMsg.isEmpty) && clicked && viewModel.validationError.isEmpty {
                                 HStack {
