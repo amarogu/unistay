@@ -31,6 +31,7 @@ struct AccomodationsGroup: View {
     var selectionSize: CGFloat
     var body: some View {
         
+        NavigationStack {
             ScrollView {
                 HStack(alignment: .top) {
 
@@ -52,8 +53,9 @@ struct AccomodationsGroup: View {
                     
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
             }
+        }.tint(Color("BodyEmphasized"))
         }
-            }
+    }
 
         
 
