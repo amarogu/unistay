@@ -86,7 +86,7 @@ struct MenuView: View {
                     }//.padding(.bottom, 25)
                 }
                 Spacer()
-            }.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12).padding(.bottom, tabSize)
+            }.padding(.bottom, tabSize)
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
     }
 }

@@ -145,7 +145,7 @@ struct UserPanel: View {
                 //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.all, 14).background(Color("BackgroundColor")).edgesIgnoringSafeArea(.bottom).sheet(isPresented: $fullBio, content: {
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor")).edgesIgnoringSafeArea(.bottom).sheet(isPresented: $fullBio, content: {
             VStack(alignment: .trailing) {
                 Button(action: {
                     fullBio.toggle()

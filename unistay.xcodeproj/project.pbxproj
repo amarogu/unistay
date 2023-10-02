@@ -136,7 +136,6 @@
 			children = (
 				A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */,
 				A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */,
-				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
 				A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */,
 			);
 			path = PublisherSignUp;
@@ -146,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				A349CA222ABE05A700F5C11A /* MapSearchBar.swift */,
+				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
 				A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */,
 			);
 			path = NormalSignUp;

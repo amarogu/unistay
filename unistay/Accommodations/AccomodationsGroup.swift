@@ -41,7 +41,7 @@ struct AccomodationsGroup: View {
                             }
                         }
                     }
-                    //Spacer()
+                    Spacer()
                     VStack {
                         ForEach(accommodations, id: \.self) { accommodation in
                             if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) {

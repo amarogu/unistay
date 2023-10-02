@@ -57,9 +57,6 @@
         }
       }
     },
-    "%lf" : {
-
-    },
     "%lld" : {
 
     },
@@ -358,6 +355,7 @@
       }
     },
     "Search accommodations, locations..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

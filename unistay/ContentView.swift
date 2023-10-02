@@ -86,14 +86,14 @@ struct ContentView: View {
                         option in
                         unistay.tabItem(selectedTab: $selectedTab, option: option)
                     }
-                }.padding(.all, 18).background(GeometryReader {
+                }.padding(.bottom, 38).padding(.top, 58).background(GeometryReader {
                     geo in
-                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.74), endPoint: .top).onAppear {
+                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.62), endPoint: .top).onAppear {
                         tabSize = geo.size.height
                         //sizeCompute(size: tabSize)
                     }
                 })
-            }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true)
+            }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
         }.background(Color("BackgroundColor"))
         
     }
