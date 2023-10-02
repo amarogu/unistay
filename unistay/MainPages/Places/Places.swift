@@ -24,7 +24,7 @@ struct Places: View {
     var body: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
-                styledText(type: "Bold", size: 30, content: "Accommodations")
+                Text("Accommodations").customStyle(type: "Bold", size: 30)
                 Spacer()
                 Menu {
                     //Button(action: {}, label: {Text("Button")})

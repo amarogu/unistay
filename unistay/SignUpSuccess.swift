@@ -18,17 +18,27 @@ struct SignUpSuccess: View {
                 ZStack {
                     Color("BackgroundColor")
                     VStack(spacing: 10) {
-                        localizedText(type: "Semibold", size: 24, contentKey: "Successfully registered").frame(width: 0.85 * width).multilineTextAlignment(.center)
-                        localizedText(type: "Regular", size: 14, contentKey: "Want an advanced configuration? Click here to control exactly how you want UniStay to behave").multilineTextAlignment(.center).frame(width: 0.8 * width)
+                        Text("Successfully registered")
+                            .customStyle(type: "Semibold", size: 24)
+                            .frame(width: 0.85 * width)
+                            .multilineTextAlignment(.center)
+                        Text("Want an advanced configuration? Click here to control exactly how you want UniStay to behave")
+                            .customStyle(size: 14)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 0.8 * width)
                         NavigationLink(destination: EmptyView(), label: {
                             HStack {
-                                localizedText(type: "Regular", size: 14, contentKey: "Back to login", color: "Body").underline()
+                                Text("Back to login")
+                                    .customStyle(size: 14, color: "Body")
+                                    .underline()
                                 Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
                             }
                         })
                         NavigationLink(destination: ContentView(isLoggedIn: $present), label: {
                             HStack {
-                                localizedText(type: "Regular", size: 14, contentKey: "Continue to home", color: "Body").underline()
+                                Text("Continue to home")
+                                    .customStyle(size: 14, color: "Body")
+                                    .underline()
                                 Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
                             }
                         })
@@ -50,3 +60,4 @@ struct SignUpSuccess: View {
 #Preview {
     SignUpSuccess()
 }
+

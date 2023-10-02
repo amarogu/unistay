@@ -63,7 +63,7 @@ struct MapSearchBarSignUpFifth: View {
                     VStack(alignment: .leading) {
                         FormHeader()
                         VStack(alignment: .leading) {
-                            SearchBar(placeholder: styledText(type: "Regular", size: 13, content: "Set your location"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            SearchBar(placeholder: Text("Set your location").customStyle(size: 13) as! Text, text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
@@ -80,13 +80,14 @@ struct MapSearchBarSignUpFifth: View {
                                                 navigationTag = "MAPVIEW"
                                             }) {
                                                 HStack(spacing: 15) {
-                                                    styledText(type: "Regular", size: 14, content: place.name ?? "")
-                                                    styledText(type: "Regular", size: 14, content: place.locality ?? "").opacity(0.8)
+                                                    
+                                                    Text(place.name ?? "").customStyle(size: 14)
+                                                    Text(place.locality ?? "").customStyle(size: 14).opacity(0.8)
                                                 }.padding(.vertical, 6)
                                             }
                                         }.listRowBackground(Color.clear).listRowSeparator(.hidden)
                                     } header: {
-                                        styledText(type: "Regular", size: 13, content: "SELECT A PLACE")
+                                        Text("SELECT A PLACE").customStyle(size: 13)
                                     }
                                 }.listStyle(.plain).frame(maxHeight: height * 0.4).background(Color("SearchBar").opacity(0.4)).cornerRadius(5).padding(.vertical, 1)
                             } else {
@@ -106,7 +107,7 @@ struct MapSearchBarSignUpFifth: View {
                                         navigationTag = "MAPVIEW"
                                     }) {
                                         HStack(alignment: .center) {
-                                            styledText(type: "Regular", size: 14, content: "Use your current location").foregroundColor(Color("Body"))
+                                            Text("Use your current location").customStyle(size: 14, color: "Body")
                                             Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
                                             
                                         }.padding(.vertical, 1).padding(.leading, 14)
@@ -114,11 +115,12 @@ struct MapSearchBarSignUpFifth: View {
                                     if !pickedLocNames.isEmpty {
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                styledText(type: "regular", size: 13, content: "Currently selected").padding(.bottom, 10)
+                                                Text("Currently selected").customStyle(size: 13).padding(.bottom, 10)
                                                 VStack(alignment: .leading, spacing: 10) {
                                                     HStack {
-                                                        styledText(type: "Regular", size: 13, content: pickedLocNames)
-                                                        styledText(type: "Regular", size: 13, content: pickedLocLocs).foregroundColor(Color("Body").opacity(0.8))
+                                                        
+                                                        Text(pickedLocNames).customStyle(size: 13)
+                                                        Text(pickedLocLocs).customStyle(size: 13, color: "Body").opacity(0.8)
                                                         Spacer()
                                                         Button(action: {
                                                             pickedLocNames = ""
@@ -137,7 +139,7 @@ struct MapSearchBarSignUpFifth: View {
                                 }
                             }
                         }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
-                        MenuField(items: visibility, menuSelection: $publicationVisibility, icon: publicationVisibility == "Visible" ? "eye" : "eye.slash", placeholder: styledText(type: "Regular", size: 13, content: publicationVisibility)).tint(Color("BodyEmphasized"))
+                        MenuField(items: visibility, menuSelection: $publicationVisibility, icon: publicationVisibility == "Visible" ? "eye" : "eye.slash", placeholder: publicationVisibility).tint(Color("BodyEmphasized"))
                         Button(action: {
                             show.toggle()
                             array = []
@@ -164,15 +166,15 @@ struct MapSearchBarSignUpFifth: View {
                                         }
                                     }.padding(.trailing, 10)
                                     VStack(alignment: .leading) {
-                                        styledText(type: "Regular", size: 12, content: "Update your publication images").foregroundColor(Color("BodyEmphasized"))
-                                        styledText(type: "Regular", size: 12, content: "Click here to change the images you have selected").foregroundColor(Color("Body")).opacity(0.8).multilineTextAlignment(.leading)
+                                        Text("Update your publication images").customStyle(size: 12)
+                                        Text("Click here to change the images you have selected").customStyle(size: 12, color: "Body").opacity(0.8).multilineTextAlignment(.leading)
                                     }
                                     Spacer()
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
                             } else {
                                 HStack {
                                     Image(systemName: "camera").font(.system(size: 14))
-                                    styledText(type: "Regular", size: 13, content: "Upload publication images")
+                                    Text("Upload publication images").customStyle(size: 13)
                                     Spacer()
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
                             }
@@ -199,12 +201,13 @@ struct MapSearchBarSignUpFifth: View {
                             }
                         }) {
                             HStack(alignment: .center) {
-                                styledText(type: "Semibold", size: 14, content: "Continue").foregroundColor(Color("AccentColor"))
+                                
+                                Text("Continue").customStyle(type: "Semibold", size: 14, color: "AccentColor")
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
                         if !viewModel.validationError.isEmpty {
-                            localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 4.5)
+                            Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
                         }
                     }.padding(.all, 30)
                     

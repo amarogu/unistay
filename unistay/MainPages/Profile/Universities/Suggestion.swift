@@ -27,8 +27,8 @@ struct Suggestion: View {
         
         HStack {
             VStack(alignment: .leading, spacing: 14) {
-                styledText(type: "Semibold", size: 16, content: suggestion.title)
-                styledText(type: "Regular", size: 14, content: suggestion.content).foregroundColor(Color("Body")).padding(.trailing, width * 0.08)
+                Text(suggestion.title).customStyle(type: "Semibold", size: 16)
+                Text(suggestion.content).customStyle(size: 14).padding(.trailing, width * 0.08)
             }/*.background(GeometryReader {
                 geo in
                 Color.clear.onAppear {

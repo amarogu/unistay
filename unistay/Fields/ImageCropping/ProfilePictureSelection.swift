@@ -99,7 +99,7 @@ struct CropView: View {
                         Image(systemName: "x.circle")
                     }.foregroundColor(Color("BodyEmphasized"))
                     Spacer()
-                    localizedText(type: "Semibold", size: 14, contentKey: "Crop").foregroundColor(Color("BodyEmphasized"))
+                    Text("Crop").customStyle(size: 14)
                     Spacer()
                     Button(action: {
                         let renderer = ImageRenderer(content: ImageView(true))

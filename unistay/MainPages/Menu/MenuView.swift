@@ -10,7 +10,7 @@ import SwiftUI
 
 func menuTitle(title: String, icon: String) -> some View {
     return HStack(alignment: .center) {
-        styledText(type: "SemiBold", size: 20, content: title)
+        Text(title).customStyle(type: "Semibold", size: 20)
         Image(systemName: icon)
     }.padding(.bottom, 25)
 }

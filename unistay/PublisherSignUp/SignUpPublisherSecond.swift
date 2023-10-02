@@ -48,15 +48,15 @@ struct SignUpPublisherSecond: View {
                                             HStack() {
                                                 Image(uiImage: image).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 40).padding(.trailing, 4)
                                                 VStack(alignment: .leading) {
-                                                    localizedText(type: "Regular", size: 12, contentKey: "Update you profile picture")
-                                                    localizedText(type: "Regular", size: 12, contentKey: "Click here to change the profile picture you have selected", color: "Body").opacity(0.8).multilineTextAlignment(.leading)
+                                                    Text("Update you profile picture").customStyle(type: "Regular", size: 12)
+                                                    Text("Click here to change the profile picture you have selected").customStyle(type: "Regular", size: 12, color: "Body").opacity(0.8).multilineTextAlignment(.leading)
                                                 }
                                                 Spacer()
                                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                         } else {
                                             HStack {
                                                 Image(systemName: "camera").font(.system(size: 14))
-                                                localizedText(type: "Regular", size: 13, contentKey: "Upload a profile picture")
+                                                Text("Upload a profile picture").customStyle(type: "Regular", size: 13)
                                                 Spacer()
                                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                                         }
@@ -65,7 +65,7 @@ struct SignUpPublisherSecond: View {
                                         HStack(alignment: .center) {
                                             Image(systemName: "note.text").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                                             ZStack(alignment: .topLeading) {
-                                                if publisherBio.isEmpty { localizedText(type: "Regular", size: 13, contentKey: "Insert a publisher bio") }
+                                                if publisherBio.isEmpty { Text("Insert a publisher bio").customStyle(type: "Regular", size: 13) }
                                                 TextField(text: $publisherBio, axis: .vertical, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized"))
                                             }
                                         }
@@ -82,12 +82,12 @@ struct SignUpPublisherSecond: View {
                                     }
                                 }) {
                                     HStack(alignment: .center) {
-                                        localizedText(type: "Semibold", size: 14, contentKey: "Continue").foregroundColor(Color("AccentColor"))
+                                        Text("Continue").customStyle(type: "Semibold", size: 14, color: "AccentColor")
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
                                 if !viewModel.validationError.isEmpty {
-                                    localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 4.5)
+                                    Text(viewModel.validationError).customStyle(type: "Regular", size: 13, color: "Error").padding(.top, 4.5)
                                 }
                                 NavigationLink(destination: MapSearchBarSignUp(username: username, email: email, password: password, profilePicture: croppedImage, bio: publisherBio), isActive: $shouldNavigate) {
                                     EmptyView()

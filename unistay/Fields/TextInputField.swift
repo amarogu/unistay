@@ -13,7 +13,7 @@ struct TextInputField: View {
     @FocusState private var isFocused: Bool
     
     @Binding var input: String
-    var placeholderText: LocalizedStringKey
+    var placeholderText: String
     var placeholderIcon: String
     
     var required: Bool
@@ -26,7 +26,7 @@ struct TextInputField: View {
                 Image(systemName: placeholderIcon).font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                 ZStack(alignment: .topLeading) {
                     if input.isEmpty { HStack {
-                        localizedText(type: "Regular", size: 13, contentKey: placeholderText).padding(.leading, padding)
+                        Text(placeholderText).customStyle(size: 13).padding(.leading, padding)
                         Spacer()
                         if required {
                             Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)

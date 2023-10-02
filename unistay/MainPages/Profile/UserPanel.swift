@@ -92,7 +92,7 @@ struct UserPanel: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     HStack {
                                         if let bio = user?.bio {
-                                            styledText(type: "Regular", size: 14, content: bio).frame(maxWidth: width * 0.6).padding(.top, 8)
+                                            Text(bio).customStyle(size: 14).frame(maxWidth: width * 0.6).padding(.top, 8)
                                         }
                                         Spacer()
                                     }
@@ -101,23 +101,23 @@ struct UserPanel: View {
                                         }) {
                                             HStack {
                                                 if let name = user?.name {
-                                                    styledText(type: "Regular", size: 14, content: "See \(name)'s full bio").foregroundColor(Color("Body"))
+                                                    Text("See \(name)'s full bio").customStyle(size: 14)
                                                 }
                                                 Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
                                             }
                                         }
                                         HStack {
                                             if let connectedPublications = user?.connectedPublications {
-                                                styledText(type: "Semibold", size: 14, content: "\(connectedPublications.count)")
+                                                Text("\(connectedPublications.count)").customStyle(type: "Semibold", size: 14)
                                             }
-                                            styledText(type: "Regular", size: 14, content: "Connections")
+                                            Text("Connections").customStyle(size: 14)
                                         }
                                 }
                             },
                             label: { VStack(alignment: .leading, spacing: 2) {
                                 if let name = user?.name, let surname = user?.surname, let username = user?.username {
-                                    styledText(type: "Semibold", size: 16, content: "\(name) \(surname)")
-                                    styledText(type: "Regular", size: 14, content: "@\(username)").foregroundColor(Color("Body"))
+                                    Text("\(name) \(surname)").customStyle(type: "Semibold", size: 14)
+                                    Text("@\(username)").customStyle(size: 14, color: "Body")
 
                                 }                            } }
                         ).tint(Color("BodyEmphasized"))
@@ -150,7 +150,7 @@ struct UserPanel: View {
                 Button(action: {
                     fullBio.toggle()
                 }) {
-                    styledText(type: "Semibold", size: 14, content: "Done")
+                    Text("Done").customStyle(type: "Semibold", size: 14)
                 }.alignmentGuide(.top, computeValue: { dimension in
                     1
                 }).padding(.top, 34)
@@ -158,12 +158,12 @@ struct UserPanel: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         if let name = user?.name {
-                            styledText(type: "Semibold", size: 14, content: "\(name)'s bio")
+                            Text("\(name)'s bio").customStyle(type: "Semibold", size: 14)
                         }
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
                     if let bio = user?.bio {
-                        styledText(type: "Regular", size: 14, content: bio).modifier(GetHeightModifier(height: $sheetHeight))
+                        Text(bio).customStyle(size: 14).modifier(GetHeightModifier(height: $sheetHeight))
                     }
                 }.frame(maxWidth: 300)
                 Spacer()

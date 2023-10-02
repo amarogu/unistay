@@ -65,7 +65,7 @@ class User: Decodable {
 
 class SignUpViewModel: ObservableObject {
     @Published var serverResponse: String? = nil
-    @Published var validationError: LocalizedStringKey = ""
+    @Published var validationError: String = ""
     var cancellables = Set<AnyCancellable>()
     
     func testRequest() {

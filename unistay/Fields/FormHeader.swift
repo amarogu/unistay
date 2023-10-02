@@ -27,10 +27,10 @@ struct FormHeader: View {
     var body: some View {
         HStack {
             Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: 24)
-            localizedText(type: "Bold", size: 22, contentKey: "UniStay")
+            Text("UniStay").customStyle(type: "Bold", size: 22)
         }.padding(.bottom, -10)
         HStack {
-            localizedText(type: "Bold", size: 34, contentKey: "Sign up")
+            Text("Sign up").customStyle(type: "Bold", size: 34)
             Spacer()
             Button(action: {
                 alert.toggle()
@@ -42,7 +42,7 @@ struct FormHeader: View {
             }) {
                 HStack {
                     Image(systemName: "globe").foregroundColor(Color("Body"))
-                    styledText(type: "Regular", size: 14, content: Locale.current.language.languageCode?.identifier.uppercased() ?? "", color: "Body")
+                    Text(Locale.current.language.languageCode?.identifier.uppercased() ?? "").customStyle(size: 14)
                 }
             }
         }.sheet(isPresented: $alert, onDismiss: {
@@ -52,29 +52,28 @@ struct FormHeader: View {
             VStack(spacing: 18) {
                 HStack {
                     Spacer()
-                    ZStack {
-                        ForEach(0..<doneButton.count) { index in
-                            Button(action: {
-                                alert = false
-                                selectedBtnIndex = index
-                            }) {
-                                styledText(type: "Semibold", size: 14, content: doneButton[index])
-                                    .opacity(selectedBtnIndex == index ? 1.0 : 0.0)
-                                    .animation(.easeInOut(duration: 1.0), value: selectedBtnIndex)
+                    Button(action: {
+                        alert = false
+                    }) {
+                        ZStack {
+                            ForEach(0..<doneButton.count) {
+                                index in
+                                Text(doneButton[index]).customStyle(type: "Semibold", size: 14).opacity(selectedBtnIndex == index ? 1.0 : 0.0).animation(.easeInOut(duration: 1.0), value: selectedBtnIndex)
                             }
                         }
                     }
                 }.padding(.bottom, 18)
                 ZStack {
                     ForEach(0..<languages.count) { index in
-                        styledText(type: "Regular", size: 14, content: explanations[index]).opacity(selectedLanguageIndex == index ? 1.0 : 0.0).animation(.easeInOut(duration: 1.0), value: selectedLanguageIndex)
+                        Text(explanations[index]).customStyle(size: 14).opacity(selectedLanguageIndex == index ? 1.0 : 0.0).animation(.easeInOut(duration: 1.0), value: selectedLanguageIndex)
                     }
                 }
                 
-            }.padding(28).presentationDetents([.fraction(0.2)])
+            }.padding(28).presentationDetents([.fraction(0.3)])
         }
     }
 
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timerCancellable: AnyCancellable? = nil
 }
+

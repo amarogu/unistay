@@ -11,7 +11,7 @@ struct MenuField: View {
     var items: [String]
     @Binding var menuSelection: String
     var icon: String
-    var placeholder: Text
+    var placeholder: String
 
     var body: some View {
         Menu {
@@ -25,7 +25,7 @@ struct MenuField: View {
         } label: {
             HStack {
                 Image(systemName: icon).font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                placeholder
+                Text(placeholder).customStyle(size: 13)
                 Spacer()
                 Image(systemName: "chevron.down").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
             }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)

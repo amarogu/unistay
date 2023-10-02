@@ -18,14 +18,14 @@ struct Universitiy: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     //Image(systemName: "location.circle.fill")
-                    styledText(type: "Regular", size: 14, content: universitydata.name)
+                    Text(universitydata.name).customStyle(size: 14)
                 }
                 HStack {
                     Image(systemName: "location.circle.fill")
-                    styledText(type: "Regular", size: 14, content: universitydata.location)
+                    Text(universitydata.location).customStyle(size: 14)
                 }
                 HStack {
-                    styledText(type: "Regular", size: 14, content: "\(universitydata.amountOfAccommodations) accommodations")
+                    Text("\(universitydata.amountOfAccommodations) accommodations").customStyle(size: 14)
                     
                 }
                 /*HStack {

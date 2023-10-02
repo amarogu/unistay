@@ -15,7 +15,7 @@ struct ToggleField: View {
         Toggle(isOn: $isToggleOn) {
             HStack {
                 Image(systemName: "arrow.up.doc")
-                localizedText(type: "Regular", size: 13, contentKey: field)
+                Text(field).customStyle(size: 13)
             }
         }.tint(.accentColor).padding(.vertical, 5).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).onTapGesture {
             isToggleOn.toggle()

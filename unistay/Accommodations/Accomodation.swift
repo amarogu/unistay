@@ -18,15 +18,18 @@ struct Accomodation: View {
                 
                 HStack {
                     Image(systemName: "location.circle.fill")
-                    styledText(type: "Regular", size: 14, content: AccommodationData.location)
+                    
+                    Text(AccommodationData.location).customStyle(size: 14)
                 }
                 HStack {
-                    styledText(type: "Regular", size: 14, content: "\(AccommodationData.currency) \(AccommodationData.rent)")
-                    styledText(type: "Regular", size: 13, content: "/month").opacity(0.7)
+                    
+                    Text("\(AccommodationData.currency) \(String(format: "%.2f", AccommodationData.rent))").customStyle(size: 14)
+                    Text("/month").customStyle(size: 13).opacity(0.7)
                 }
                 HStack {
                     Image(systemName: "star.fill").resizable().aspectRatio(contentMode: .fit).frame(width: 14)
-                    styledText(type: "Regular", size: 14, content: "\(AccommodationData.rating)")
+                    
+                    Text(String(format: "%.1f", AccommodationData.rating)).customStyle(size: 14)
                 }
 
             }

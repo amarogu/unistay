@@ -20,7 +20,7 @@ struct PicField: View {
                 } else {
                     HStack {
                         Image(systemName: content[1]).font(.system(size: 14))
-                        styledText(type: "Regular", size: 13, content: content[0])
+                        Text(content[0]).customStyle(size: 13)
                         Spacer()
                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
                 }

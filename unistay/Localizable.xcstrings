@@ -7,6 +7,26 @@
     "\thanks" : {
 
     },
+    "@%@" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "@%@"
+          }
+        }
+      }
+    },
+    "/month" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/mês"
+          }
+        }
+      }
+    },
     "%@" : {
       "localizations" : {
         "pt-BR" : {
@@ -17,12 +37,51 @@
         }
       }
     },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "%@'s bio" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bio de %@"
+          }
+        }
+      }
+    },
+    "%lf" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld accommodations" : {
+
+    },
     "=  required field" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "= campo obrigatório"
+          }
+        }
+      }
+    },
+    "Accommodations" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acomodações"
           }
         }
       }
@@ -37,6 +96,16 @@
         }
       }
     },
+    "Click here to change the images you have selected" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique aqui para alterar as imagens selecionadas"
+          }
+        }
+      }
+    },
     "Click here to change the profile picture you have selected" : {
       "localizations" : {
         "pt-BR" : {
@@ -47,28 +116,45 @@
         }
       }
     },
-    "Confirm your email address" : {
+    "Confirm" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirme seu email"
+            "value" : "Confirmar"
           }
         }
       }
     },
-    "Confirm your password" : {
+    "Confirm your location" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirme sua senha"
+            "value" : "Confirme sua localização"
+          }
+        }
+      }
+    },
+    "Connections" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conexões"
           }
         }
       }
     },
     "Content" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conteúdo"
+          }
+        }
+      }
     },
     "Continue" : {
       "extractionState" : "manual",
@@ -112,7 +198,6 @@
       }
     },
     "Done" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -150,12 +235,12 @@
         }
       }
     },
-    "Find a place" : {
+    "Forgot your password" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Encontre um local"
+            "value" : "Esqueceu sua senha?"
           }
         }
       }
@@ -188,6 +273,16 @@
         }
       }
     },
+    "Get started by creating your first publication" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cria sua primeira publicação"
+          }
+        }
+      }
+    },
     "hi" : {
 
     },
@@ -201,12 +296,12 @@
         }
       }
     },
-    "Insert a user bio" : {
+    "insert a user bio" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Insira uma bio para seu perfil"
+            "value" : "Insira uma bio"
           }
         }
       }
@@ -228,16 +323,6 @@
         }
       }
     },
-    "Name" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nome"
-          }
-        }
-      }
-    },
     "Password" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -251,16 +336,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Senha"
-          }
-        }
-      }
-    },
-    "Please insert a profile picture" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Por favor insira uma foto de perfil"
           }
         }
       }
@@ -282,47 +357,6 @@
         }
       }
     },
-    "Publication description" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Descrição da propriedade"
-          }
-        }
-      }
-    },
-    "Publication title" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Título da propriedade"
-          }
-        }
-      }
-    },
-    "Rent" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aluguel mensal"
-          }
-        }
-      }
-    },
-    "required field" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "campo obrigatório"
-          }
-        }
-      }
-    },
     "Search accommodations, locations..." : {
       "localizations" : {
         "pt-BR" : {
@@ -333,12 +367,42 @@
         }
       }
     },
+    "See %@'s full bio" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veja a bio de %@"
+          }
+        }
+      }
+    },
     "SELECT A PLACE" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "SELECIONE UM LOCAL"
+          }
+        }
+      }
+    },
+    "Set a currency you will see on other accommodations" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione a moeda que verá no aplicativo"
+          }
+        }
+      }
+    },
+    "Set your location" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione sua localização"
           }
         }
       }
@@ -381,16 +445,6 @@
         }
       }
     },
-    "Surname" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sobrenome"
-          }
-        }
-      }
-    },
     "System language" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -402,62 +456,12 @@
         }
       }
     },
-    "The bio needs to be at least 15 characters long" : {
+    "understand why we need your location" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A bio tem que ter ao menos 15 caracteres"
-          }
-        }
-      }
-    },
-    "The e-mail address is not valid" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O endereço de email é inválido"
-          }
-        }
-      }
-    },
-    "The e-mail addresses do not match" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Os endereços de email não são iguais"
-          }
-        }
-      }
-    },
-    "The password does not fit the criteria" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A senha não se encaixa no padrão esperado"
-          }
-        }
-      }
-    },
-    "The passwords do not match" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As senhas não são iguais"
-          }
-        }
-      }
-    },
-    "The username needs to be 3 to 20 characters long" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O nome de usuário precisa ter ao menos 3 e no máximo 20 caracteres"
+            "value" : "Entenda porque precisamos da sua localização"
           }
         }
       }
@@ -492,12 +496,32 @@
         }
       }
     },
+    "Update your publication images" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize as images da sua acomodação"
+          }
+        }
+      }
+    },
     "Upload a profile picture" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Faça o upload da sua foto de perfil"
+          }
+        }
+      }
+    },
+    "Upload publication images" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faça o upload das imagens da acomodação"
           }
         }
       }
@@ -512,16 +536,6 @@
         }
       }
     },
-    "Username" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nome de usuário"
-          }
-        }
-      }
-    },
     "Want an advanced configuration? Click here to control exactly how you want UniStay to behave" : {
       "localizations" : {
         "pt-BR" : {
@@ -532,125 +546,12 @@
         }
       }
     },
-    "You need to insert a location" : {
+    "You need to provide your location" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Você precisa inserir uma localização"
-          }
-        }
-      }
-    },
-    "You need to insert at least three images" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você precisa inserir no mínimo três imagens"
-          }
-        }
-      }
-    },
-    "You need to isnert a title that is bigger than 5 characters" : {
-
-    },
-    "You need to select at least one location" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você precisa selecionar ao menos uma localização"
-          }
-        }
-      }
-    },
-    "You need to tell users where your accommodation is located" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você precisa dizer aos usuários onde sua acomodação fica!"
-          }
-        }
-      }
-    },
-    "Your credentials are incorrect" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suas credenciais estão incorretas"
-          }
-        }
-      }
-    },
-    "Your description cannot be longer than 600 characters" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sua descrição não pode ter mais que 600 caracteres"
-          }
-        }
-      }
-    },
-    "Your email addres must be at least 5 character long" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu endereço de email precisa ter ao menos 5 caracteres"
-          }
-        }
-      }
-    },
-    "Your email address needs to contain an @" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu endereço de email precisa conter um @"
-          }
-        }
-      }
-    },
-    "Your publication description needs to be at least 60 characters long" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A descrição da sua publicação precisa ter ao menos 60 caracteres"
-          }
-        }
-      }
-    },
-    "Your rent value seems too big" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O aluguel para muito alto"
-          }
-        }
-      }
-    },
-    "Your rent value seems too low." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O aluguel parece muito baixo"
-          }
-        }
-      }
-    },
-    "Your title cannot be longer than 25 characters" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu título não pode ter mais que 25 caracteres"
+            "value" : "Você precisa fornecer sua localização"
           }
         }
       }

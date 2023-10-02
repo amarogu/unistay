@@ -19,8 +19,7 @@ struct SearchBar: View {
             Image(systemName: "magnifyingglass").font(.system(size: 12))
             ZStack(alignment: .leading) {
                 if text.isEmpty { placeholder }
-                TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13))
-                styledText(type: "Regular", size: 13, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)//.position(x: 1, y: 1)
+                TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13))//.position(x: 1, y: 1)
             }
         }
     }

@@ -54,7 +54,7 @@ struct MapSearchBar: View {
                         VStack(alignment: .leading) {
                             FormHeader()
                             VStack(alignment: .leading) {
-                                SearchBar(placeholder: localizedText(type: "Regular", size: 13, contentKey: "Find a place"), text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                                SearchBar(placeholder: Text("Set your location").customStyle(size: 13) as! Text, text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                                 
                                 if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                     List {
@@ -71,13 +71,13 @@ struct MapSearchBar: View {
                                                     navigationTag = "MAPVIEW"
                                                 }) {
                                                     HStack(spacing: 15) {
-                                                        styledText(type: "Regular", size: 14, content: place.name ?? "")
-                                                        styledText(type: "Regular", size: 14, content: place.locality ?? "").opacity(0.8)
+                                                        Text(place.name ?? "").customStyle(size: 14)
+                                                        Text(place.locality ?? "").customStyle(size: 14).opacity(0.8)
                                                     }.padding(.vertical, 6)
                                                 }
                                             }.listRowBackground(Color.clear).listRowSeparator(.hidden)
                                         } header: {
-                                            localizedText(type: "Regular", size: 13, contentKey: "SELECT A PLACE")
+                                            Text("Use your current location").customStyle(size: 14, color: "Body")
                                         }
                                     }.listStyle(.plain).frame(maxHeight: height * 0.4).background(Color("SearchBar").opacity(0.4)).cornerRadius(5).padding(.vertical, 1)
                                 } else {
@@ -97,7 +97,7 @@ struct MapSearchBar: View {
                                             navigationTag = "MAPVIEW"
                                         }) {
                                             HStack(alignment: .center) {
-                                                localizedText(type: "Regular", size: 14, contentKey: "Use your current location", color: "Body")
+                                                Text("Use your current location").customStyle(size: 14, color: "Body")
                                                 Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
                                                 
                                             }.padding(.vertical, 1).padding(.leading, 14)
@@ -105,13 +105,13 @@ struct MapSearchBar: View {
                                         if !pickedLocNames.isEmpty {
                                             HStack {
                                                 VStack(alignment: .leading) {
-                                                    localizedText(type: "regular", size: 13, contentKey: "Currently selected").padding(.bottom, 10)
+                                                    Text("Currently selected").customStyle(size: 13).padding(.bottom, 10)
                                                     VStack(alignment: .leading, spacing: 10) {
                                                         ForEach(pickedLocNames, id:\.self) {
                                                             loc in
                                                             HStack {
-                                                                styledText(type: "Regular", size: 13, content: loc)
-                                                                styledText(type: "Regular", size: 13, content: pickedLocLocs[pickedLocNames.firstIndex(of: loc)!]).foregroundColor(Color("Body").opacity(0.8))
+                                                                Text(loc).customStyle(size: 13)
+                                                                Text(pickedLocLocs[pickedLocNames.firstIndex(of: loc)!]).customStyle(size: 13, color: "Body").opacity(0.8)
                                                                 Spacer()
                                                                 Button(action: {
                                                                     pickedLocNames.remove(at: pickedLocNames.firstIndex(of: loc) ?? 0)
@@ -131,7 +131,7 @@ struct MapSearchBar: View {
                                     }
                                 }
                             }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
-                            MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: styledText(type: "Regular", size: 13, content: menuSelection)).tint(Color("BodyEmphasized"))
+                            MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection).tint(Color("BodyEmphasized"))
                             
                             Button(action: {
                                 clicked = true
@@ -173,12 +173,12 @@ struct MapSearchBar: View {
                                 
                             }) {
                                 HStack(alignment: .center) {
-                                    localizedText(type: "Semibold", size: 14, contentKey: "Continue", color: "AccentColor")
+                                    Text("Continue").customStyle(type: "Semibold", size: 14, color: "AccentColor")
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
                             if !viewModel.validationError.isEmpty {
-                                localizedText(type: "Regular", size: 13, contentKey: viewModel.validationError, color: "Error").padding(.top, 1.25)
+                                Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 1.25)
                             }
                             if (responseMsg.isEmpty) && clicked && viewModel.validationError.isEmpty {
                                 HStack {
@@ -215,12 +215,12 @@ struct MapViewSelection: View {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         HStack {
-                            styledText(type: "Regular", size: 13, content: "Confirm your location")
+                            Text("Confirm your location").customStyle(size: 13)
                             Image(systemName: "checkmark.circle").font(.system(size: 13))
                         }
                         HStack {
-                            styledText(type: "Regular", size: 13, content: place.name ?? "").foregroundColor(Color("BodyEmphasized"))
-                            styledText(type: "Regular", size: 13, content: place.locality ?? "").foregroundColor(Color("Body")).opacity(0.8)
+                            Text(place.name ?? "").customStyle(size: 13)
+                            Text(place.locality ?? "").customStyle(size: 13).opacity(0.8)
                         }
                         Button(action: {
                             if !pickedLocNames.contains(locationManager.pickedPlacemark?.name ?? "") {
@@ -233,7 +233,7 @@ struct MapViewSelection: View {
                             presentationMode.wrappedValue.dismiss()
                         }) {
                             HStack {
-                                styledText(type: "Regular", size: 14, content: "Confirm").foregroundColor(Color("BodyEmphasized"))
+                                Text("Confirm").customStyle(size: 14)
                                 Image(systemName: "arrow.forward").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
                             }.padding(.horizontal, 10).padding(.vertical, 4).background(Color.green.opacity(0.4)).cornerRadius(5).padding(.top, 8)
                         }

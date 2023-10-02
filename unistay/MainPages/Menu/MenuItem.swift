@@ -66,7 +66,7 @@ struct MenuItem: View {
                 Color("BackgroundColor")
                 VStack(alignment: .leading) {
                     HStack(alignment: .center) {
-                        styledText(type: "Regular", size: 16, content: menuItemData.title)
+                        Text(menuItemData.title).customStyle(size: 16)
                         Image(systemName: menuItemData.titleIcon)
                     }.padding(.bottom, 10)
                     HStack(alignment: .center) {
@@ -75,7 +75,7 @@ struct MenuItem: View {
                             Button(action: {
                                 showingData.toggle()
                             }) {
-                                styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
+                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16).underline()
                                 Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                             }.sheet(isPresented: $showingData) {
                                 MenuItemSheet(showingData: $showingData, titleIcon: menuItemData.descIcon, sheetTitle: menuItemData.sheetTitle ?? "", description: menuItemData.sheetDescription ?? "", action: menuItemData.action ?? "", fields: menuItemData.sheetFields ?? [], states: menuItemData.sheetStates ?? [])
@@ -91,7 +91,7 @@ struct MenuItem: View {
                                     }
                                 }
                             } label: {
-                                styledText(type: "Regular", size: 16, content: menuItemData.options[menuItemData.selectedItem]).foregroundColor(Color("Body")).underline()
+                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16).underline()
                                 Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                             }
                         } else {
@@ -99,7 +99,7 @@ struct MenuItem: View {
                                 self.isLoggedIn = false
                                 SessionManager.shared.isLoggedIn = false
                             }) {
-                                styledText(type: "Regular", size: 16, content: menuItemData.options[0]).foregroundColor(Color("Body")).underline()
+                                Text(menuItemData.options[0]).customStyle(size: 16).underline()
                             }
                         }
                         Spacer()

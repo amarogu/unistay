@@ -25,7 +25,7 @@ struct tabItem: View {
             } else {
                 icon(name: "line.3.horizontal", size: 22)
             }
-            styledText(type: "Regular", size: 14, content: option)
+            Text(option).customStyle(size: 14)
             
         }.frame(maxWidth: .infinity).onTapGesture {
             selectedTab = option

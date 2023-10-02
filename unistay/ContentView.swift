@@ -7,13 +7,33 @@
 
 import SwiftUI
 
-func styledText(type: String, size: CGFloat, content: String, color: String = "BodyEmphasized") -> Text {
+/*func styledText(type: String, size: CGFloat, content: String, color: String = "BodyEmphasized") -> Text {
     return Text(content).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
 }
 
 func localizedText(type: String, size: CGFloat, contentKey: LocalizedStringKey, color: String = "BodyEmphasized") -> Text {
     return Text(contentKey).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
+}*/
+
+struct CustomTextStyle: ViewModifier {
+    var type: String
+    var size: CGFloat
+    var color: String
+
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Eina03-\(type)", size: size))
+            .foregroundColor(Color(color))
+    }
 }
+
+extension Text {
+    func customStyle(type: String = "Regular", size: CGFloat, color: String = "BodyEmphasized") -> some View {
+        self.modifier(CustomTextStyle(type: type, size: size, color: color))
+    }
+}
+
+
 
 /*struct SuperTextField: View {
     

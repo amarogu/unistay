@@ -32,14 +32,14 @@ struct MenuItemSheet: View {
                         ForEach(fields, id: \.self) {
                             field in
                             ZStack(alignment: .leading) {
-                                if states[fields.firstIndex(of: field)!].isEmpty { styledText(type: "Regular", size: 13, content: field).foregroundColor(Color("BodyEmphasized")) }
+                                if states[fields.firstIndex(of: field)!].isEmpty { Text(field).customStyle(size: 13) }
                                 TextField("", text: $states[fields.firstIndex(of: field)!], onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).tint(Color("Body"))
                             }
                         }
                         Button(action: {
                             
                         }) {
-                            styledText(type: "Regular", size: 14, content: "Forgot your password?").foregroundColor(Color("BodyEmphasized"))
+                            Text("Forgot your password").customStyle(size: 14)
                         }
                         
                     }.listRowBackground(Color("SearchBar"))
@@ -49,26 +49,26 @@ struct MenuItemSheet: View {
                     Button(action: {
                         
                     }) {
-                        styledText(type: "Semibold", size: 14, content: action).foregroundColor(Color("BodyEmphasized"))
+                        Text(action).customStyle(size: 14)
                     }
                 }.listRowBackground(Color("SearchBar"))
             }.padding(.top, upper).scrollContentBackground(.hidden).foregroundColor(.blue).background(Color("BackgroundColor"))
             VStack {
                 HStack {
                     HStack {
-                        styledText(type: "Semibold", size: 20, content: sheetTitle)
+                        Text(sheetTitle).customStyle(size: 20)
                         Image(systemName: titleIcon)
                     }
                     Spacer()
                     Button(action: {
                         showingData.toggle()
                     }) {
-                        styledText(type: "Semibold", size: 16, content: "Done").foregroundColor(.accentColor)
+                        Text("Done").customStyle(size: 16, color: "AccentColor")
                     }
                 }
                 if(!description.isEmpty) {
                     HStack {
-                        styledText(type: "Regular", size: 14, content: description)
+                        Text(description).customStyle(size: 14)
                         Spacer()
                     }.padding(.top, 2)
                 }

@@ -12,7 +12,7 @@ struct ForgotYourPassword: View {
         ZStack {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             VStack {
-                styledText(type: "Regular", size: 14, content: "Content")
+                Text("Content").customStyle(size: 14)
             }
         }
     }
