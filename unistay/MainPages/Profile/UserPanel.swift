@@ -45,6 +45,8 @@ struct UserPanel: View {
     @StateObject var ImageDownloader = SignUpViewModel.ImageDownloader()
     var model = SignUpViewModel()
     
+    var tabSize: CGFloat
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -130,7 +132,7 @@ struct UserPanel: View {
                     ScrollView {
                         Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
                         Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight)
-                        Universities(size: width, selectionSize: selectionHeight)
+                        Universities(size: width, selectionSize: selectionHeight).padding(.bottom, tabSize)
                     }
                     Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
                         geo in
@@ -186,10 +188,4 @@ struct GetHeightModifier: ViewModifier {
         )
     }
 }
-    
-    struct Profile_Previews: PreviewProvider {
-        static var previews: some View {
-            UserPanel()
-        }
-    }
 
