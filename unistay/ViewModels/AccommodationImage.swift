@@ -9,6 +9,6 @@ import SwiftUI
 
 struct AccommodationImage: Identifiable, Hashable {
     var id: UUID = .init()
-    var color: Color
+    var image: String
 }
 

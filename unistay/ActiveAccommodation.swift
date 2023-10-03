@@ -16,27 +16,25 @@ struct ActiveAccommodation: View {
         GeometryReader { geometry in
             let size = geometry.size
             
-            if !fakedPages.isEmpty {
-                TabView(selection: $currentPage) {
-                    ForEach(fakedPages.indices, id: \.self) { index in
-                        RoundedRectangle(cornerRadius: 25, style: .continuous)
-                            .fill(fakedPages[index].color.gradient)
-                            .frame(width: 300, height: size.height)
-                            .tag(index)
+            VStack {
+                if !fakedPages.isEmpty {
+                    TabView(selection: $currentPage) {
+                        ForEach(fakedPages.indices, id: \.self) { index in
+                            Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                        }
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .overlay(alignment: .bottom) {
+                        PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
+                            .offset(y: 0)
                     }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .overlay(alignment: .bottom) {
-                    PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
-                        .offset(y: -15)
-                }
-            }
+            }.frame(maxHeight: 400)
         }
-        .frame(height: 400)
         .onAppear {
             guard fakedPages.isEmpty else { return }
-            for color in [Color.red, Color.blue, Color.yellow, Color.primary, Color.brown] {
-                listOfPages.append(.init(color: color))
+            for image in ["Image", "ProfileBackground", "Image"] {
+                listOfPages.append(.init(image: image))
             }
             createCarousel(true)
         }
