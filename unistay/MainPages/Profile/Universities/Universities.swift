@@ -24,20 +24,20 @@ struct Universities: View {
     var body: some View {
         
             ScrollView {
-                HStack(alignment: .top) {
+                HStack(alignment: .top, spacing: 8) {
 
-                    VStack {
+                    VStack(spacing: 8) {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 != 0) {
-                                Universitiy(universitydata: university, size: size, insets: Edge.Set.trailing, padding: size <= 400 ? 7 : 10).padding(.bottom, 20)
+                                Universitiy(universitydata: university, size: size)
                             }
                         }
                     }
-                    //Spacer()
-                    VStack {
+                    Spacer()
+                    VStack(spacing: 8) {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 == 0) {
-                                Universitiy(universitydata: university, size: size, insets: Edge.Set.leading, padding: size <= 400 ? 7 : 10).padding(.bottom, 20)
+                                Universitiy(universitydata: university, size: size)
                             }
                         }
                     }.padding(.top, 30)

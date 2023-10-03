@@ -10,14 +10,11 @@ import SwiftUI
 struct Universitiy: View {
     var universitydata: UniversityData
     var size: CGFloat
-    @State var insets: Edge.Set
-    var padding: CGFloat
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
+        VStack(alignment: .center) {
             Image("University").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading) {
                 HStack {
-                    //Image(systemName: "location.circle.fill")
                     Text(universitydata.name).customStyle(size: 14)
                 }
                 HStack {
@@ -28,17 +25,7 @@ struct Universitiy: View {
                     Text("\(universitydata.amountOfAccommodations) accommodations").customStyle(size: 14)
                     
                 }
-                /*HStack {
-                    styledText(type: "Regular", size: 14, content: "Click here to see the uni's profile")
-                }*/
-
             }
-        }.padding(.all, 14).background(Color("Gray")).cornerRadius(20).padding(insets, padding)
+        }.frame(maxWidth: .infinity).padding(.all, 14).background(Color("Gray")).cornerRadius(20)
     }
 }
-
-/*struct Universities_Previews: PreviewProvider {
-    static var previews: some View {
-        Universities()
-    }
-}*/

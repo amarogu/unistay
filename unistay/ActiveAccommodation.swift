@@ -16,20 +16,23 @@ struct ActiveAccommodation: View {
         GeometryReader { geometry in
             let size = geometry.size
             
-            VStack {
-                if !fakedPages.isEmpty {
-                    TabView(selection: $currentPage) {
-                        ForEach(fakedPages.indices, id: \.self) { index in
-                            Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+            ZStack(alignment: .top) {
+                Color("BackgroundColor").ignoresSafeArea(.all)
+                VStack {
+                    if !fakedPages.isEmpty {
+                        TabView(selection: $currentPage) {
+                            ForEach(fakedPages.indices, id: \.self) { index in
+                                Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                            }
+                        }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        .overlay(alignment: .bottom) {
+                            PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
+                                .offset(y: 0)
                         }
                     }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    .overlay(alignment: .bottom) {
-                        PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
-                            .offset(y: 0)
-                    }
-                }
-            }.frame(maxHeight: 400)
+                }.frame(maxHeight: 400)
+            }
         }
         .onAppear {
             guard fakedPages.isEmpty else { return }
