@@ -45,7 +45,7 @@ enum Field {
     
 struct SignUpBasic: View {
     //@Binding var responseData: String
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var validate = Validate()
     @State var username: String = ""
     @State var email: String = ""
     @State var confirmEmail: String = ""
@@ -102,10 +102,9 @@ struct SignUpBasic: View {
                                     }.padding(.vertical, 1)
                                 }
                                 Button(action: {
-                                    _ = viewModel.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
+                                    _ = validate.validateSignUp(inputs: [username, email, confirmEmail, password, confirmPass], isToggled: $isToggled)
                                     print("\(username)\(email)\(password)")
-                                    viewModel.testRequest()
-                                    if viewModel.validationError.isEmpty {
+                                                    if validate.validationError.isEmpty {
                                         if isToggled {
                                             shouldNavigateToPublisher.toggle()
                                         } else {
@@ -124,8 +123,8 @@ struct SignUpBasic: View {
                                 NavigationLink(destination: SignUpPublisherSecond(username: username, email: email, password: password), isActive: $shouldNavigateToPublisher) {
                                     EmptyView()
                                 }
-                                if !viewModel.validationError.isEmpty {
-                                    Text(viewModel.validationError)
+                                if !validate.validationError.isEmpty {
+                                    Text(validate.validationError)
                                         .customStyle(size: 13, color: "Error")
                                     //let _ = print("hey")
                                 }

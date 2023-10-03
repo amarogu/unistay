@@ -22,6 +22,7 @@ class LocalUser {
     var connectedPublications: [String] = []
     var owns: [String] = []
     var profilePicture: String = ""
+    var accountType: String = ""
     var bio: String = ""
     var __v: Int = 0
 }
@@ -42,8 +43,7 @@ struct UserPanel: View {
     @State private var showSheet = false
     @State private var sheetHeight: CGFloat = .zero
     
-    @StateObject var ImageDownloader = SignUpViewModel.ImageDownloader()
-    var model = SignUpViewModel()
+    @StateObject var downloader = ImageDownloader()
     
     var tabSize: CGFloat
     
@@ -54,7 +54,7 @@ struct UserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
-                    if let image = ImageDownloader.downloadedImage {
+                    if let image = downloader.downloadedImage {
                         Image(uiImage: image).resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                             geo in
                             Color.clear.onAppear {
@@ -70,8 +70,8 @@ struct UserPanel: View {
                         }).offset(.init(width: imageSize / 2, height: imageSize / 2)).foregroundColor(Color("Gray"))
                     }
                 }.frame(maxWidth: .infinity).background(Color("BackgroundColor")).onAppear {
-                    ImageDownloader.downloadProfPic()
-                    model.getUser {
+                    downloader.downloadProfPic()
+                    getUser {
                         userData, error in
                         if let userData = userData {
                                 // Use userData

@@ -68,7 +68,6 @@ struct ContentView: View {
     @State private var selectedTab = "Places"
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
-    var model: SignUpViewModel = SignUpViewModel()
     var body: some View {
         GeometryReader {
             geometry in

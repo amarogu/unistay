@@ -5,6 +5,22 @@
 //  Created by Gustavo Amaro on 03/10/23.
 //
 
+class ServerResponseLogin: Decodable {
+    let message: String
+    
+    enum CodingKeys: String, CodingKey {
+        case message
+    }
+}
+
+class ServerResponseSignup: Decodable {
+    let message: String
+    
+    enum CodingKeys: String, CodingKey {
+        case message
+    }
+}
+
 class User: Decodable {
     let _id: String
     let username: String
