@@ -19,6 +19,7 @@ struct ActiveAccommodation: View {
             ZStack(alignment: .top) {
                 Color("BackgroundColor").ignoresSafeArea(.all)
                 VStack {
+                    Text("").customStyle(type: "Semibold", size: 30)
                     if !fakedPages.isEmpty {
                         TabView(selection: $currentPage) {
                             ForEach(fakedPages.indices, id: \.self) { index in

@@ -36,7 +36,7 @@ class NetworkManager {
             "password": password
         ]
         
-        self.session.request("http://172.20.10.9:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        self.session.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseDecodable(of: ServerResponseLogin.self) { response in
                 debugPrint(response)
                 switch response.result {

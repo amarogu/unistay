@@ -44,3 +44,16 @@ class ImageDownloader: ObservableObject {
         }
     }
 }
+
+func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
+    NetworkManager.shared.request("http://localhost:3000/publication", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+        response in
+            debugPrint(response)
+            switch response.result {
+            case .success(let value):
+                completion(value, [] as? Error)
+            case .failure(let error):
+                completion([], error)
+            }
+    }
+}

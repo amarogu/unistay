@@ -55,3 +55,20 @@ class profPic: Decodable {
     let cover: Bool
     let __v: Int
 }
+
+class AccommodationResponse: Decodable {
+    let _id: String
+    let title: String
+    let description: String
+    let rent: Int
+    let currency: String
+    let type: String
+    let postLanguage: String
+    let owner: String
+    let visibility: String
+    let chats: [String]
+    let connectedUsers: [String]
+    let images: [String]
+    let location: String
+    let __v: Int
+}

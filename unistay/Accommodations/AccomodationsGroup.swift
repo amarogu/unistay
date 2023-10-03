@@ -29,6 +29,7 @@ struct AccomodationsGroup: View {
     var size: CGFloat
     var tabSize: CGFloat
     var selectionSize: CGFloat
+    @State private var pub: [AccommodationResponse?] = []
     var body: some View {
         
         NavigationStack {
@@ -52,6 +53,18 @@ struct AccomodationsGroup: View {
                     }.padding(.top, 30)
                     
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
+            }.onAppear {
+                getPubs {
+                    pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            self.pub.append(pubData)
+                            print(pubData.title)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                }
             }
         }.tint(Color("BodyEmphasized"))
         }
