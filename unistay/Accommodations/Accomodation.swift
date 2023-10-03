@@ -12,7 +12,7 @@ struct Accomodation: View {
     var size: CGFloat
     var padding: CGFloat
     var body: some View {
-        NavigationLink(destination: EmptyView(), label: {
+        NavigationLink(destination: ActiveAccommodation(), label: {
             VStack(alignment: .center, spacing: 20) {
                 Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 VStack(alignment: .leading, spacing: 10) {

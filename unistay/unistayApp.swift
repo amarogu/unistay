@@ -69,6 +69,12 @@ struct unistayApp: App {
 struct AppProvider_Previews: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = false
-        Login(isLoggedIn: $isLoggedIn)
+        NavigationStack {
+            if isLoggedIn {
+                ContentView(isLoggedIn: $isLoggedIn)
+            } else {
+                Login(isLoggedIn: $isLoggedIn)
+            }
+        }
     }
 }
