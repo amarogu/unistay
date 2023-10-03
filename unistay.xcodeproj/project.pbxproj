@@ -22,6 +22,10 @@
 		A33F42672AB3AFAD00A8BD58 /* MenuField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42662AB3AFAD00A8BD58 /* MenuField.swift */; };
 		A33F426F2AB61A6200A8BD58 /* FormHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F426E2AB61A6200A8BD58 /* FormHeader.swift */; };
 		A33F42752AB6375900A8BD58 /* SignUpPublisherSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */; };
+		A34865FE2ACB9169003FD07B /* AccommodationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34865FD2ACB9169003FD07B /* AccommodationImage.swift */; };
+		A34866002ACB91AE003FD07B /* OffsetReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34865FF2ACB91AE003FD07B /* OffsetReader.swift */; };
+		A34866022ACB91D1003FD07B /* ActiveAccommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */; };
+		A34866042ACB91EA003FD07B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34866032ACB91EA003FD07B /* Pagination.swift */; };
 		A349CA212ABE03E200F5C11A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349CA202ABE03E200F5C11A /* LocationManager.swift */; };
 		A349CA232ABE05A700F5C11A /* MapSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349CA222ABE05A700F5C11A /* MapSearchBar.swift */; };
 		A364E35C2AB8EA8200C7AB8B /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364E35B2AB8EA8200C7AB8B /* Login.swift */; };
@@ -70,6 +74,10 @@
 		A33F426E2AB61A6200A8BD58 /* FormHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormHeader.swift; sourceTree = "<group>"; };
 		A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPublisherSecond.swift; sourceTree = "<group>"; };
 		A3450F4E2AA4F2AE009792EF /* unistay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unistay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A34865FD2ACB9169003FD07B /* AccommodationImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationImage.swift; sourceTree = "<group>"; };
+		A34865FF2ACB91AE003FD07B /* OffsetReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetReader.swift; sourceTree = "<group>"; };
+		A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveAccommodation.swift; sourceTree = "<group>"; };
+		A34866032ACB91EA003FD07B /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		A349CA202ABE03E200F5C11A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		A349CA222ABE05A700F5C11A /* MapSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBar.swift; sourceTree = "<group>"; };
 		A364E35B2AB8EA8200C7AB8B /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -134,6 +142,7 @@
 		A33959472AB87527006BFB26 /* PublisherSignUp */ = {
 			isa = PBXGroup;
 			children = (
+				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
 				A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */,
 				A339593F2AB77705006BFB26 /* SignUpPublisherFourth.swift */,
 				A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */,
@@ -145,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				A349CA222ABE05A700F5C11A /* MapSearchBar.swift */,
-				A33F42742AB6375900A8BD58 /* SignUpPublisherSecond.swift */,
 				A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */,
 			);
 			path = NormalSignUp;
@@ -179,6 +187,7 @@
 		A349CA1F2ABE03AF00F5C11A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				A34865FD2ACB9169003FD07B /* AccommodationImage.swift */,
 				A3362FED2ABA03A0001FCB34 /* RequestModel.swift */,
 				A349CA202ABE03E200F5C11A /* LocationManager.swift */,
 			);
@@ -214,6 +223,9 @@
 				A364E35B2AB8EA8200C7AB8B /* Login.swift */,
 				A36E80952A75AD7800DAC3DD /* Assets.xcassets */,
 				A36E80972A75AD7800DAC3DD /* Preview Content */,
+				A34865FF2ACB91AE003FD07B /* OffsetReader.swift */,
+				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
+				A34866032ACB91EA003FD07B /* Pagination.swift */,
 			);
 			path = unistay;
 			sourceTree = "<group>";
@@ -367,6 +379,7 @@
 				A33F42652AB3AF9F00A8BD58 /* PicField.swift in Sources */,
 				A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */,
 				A32DE6C82AC4F39E0041F9E0 /* SignUpSuccess.swift in Sources */,
+				A34866022ACB91D1003FD07B /* ActiveAccommodation.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */,
 				A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */,
@@ -378,6 +391,7 @@
 				A3E245A32A9401B100BC7E37 /* Suggestion.swift in Sources */,
 				A349CA212ABE03E200F5C11A /* LocationManager.swift in Sources */,
 				A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */,
+				A34865FE2ACB9169003FD07B /* AccommodationImage.swift in Sources */,
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */,
@@ -387,7 +401,9 @@
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
 				A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
+				A34866002ACB91AE003FD07B /* OffsetReader.swift in Sources */,
 				A33F42752AB6375900A8BD58 /* SignUpPublisherSecond.swift in Sources */,
+				A34866042ACB91EA003FD07B /* Pagination.swift in Sources */,
 				A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */,
 				A33F42632AB3AF7800A8BD58 /* ToggleField.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
