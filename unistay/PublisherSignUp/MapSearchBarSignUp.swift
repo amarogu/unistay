@@ -9,7 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapSearchBarSignUp: View {
-    @StateObject private var viewModel = SignUpViewModel()
+     
+    @StateObject private var validate = Validate()
     
     @State var yourLocation: String = ""
     @State var isToggled: Bool = true
@@ -129,9 +130,9 @@ struct MapSearchBarSignUp: View {
                         MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection).tint(Color("BodyEmphasized"))
                         Button(action: {
                             if pickedLocNames == "" {
-                                viewModel.validationError = "You need to select at least one location"
+                                validate.validationError = "You need to select at least one location"
                             } else {
-                                viewModel.validationError = ""
+                                validate.validationError = ""
                                 if let coordinates = pickedLocCoordinates as? [[Optional<Double>]] {
                                     for coordinate in coordinates {
                                         if let latitude = coordinate[0].flatMap({ $0 }),
@@ -142,7 +143,7 @@ struct MapSearchBarSignUp: View {
                                     }
                                 }
                             }
-                            if !pickedLocNames.isEmpty && viewModel.validationError.isEmpty {
+                            if !pickedLocNames.isEmpty && validate.validationError.isEmpty {
                                 shouldNavigate.toggle()
                             }
                             
@@ -155,8 +156,8 @@ struct MapSearchBarSignUp: View {
                         NavigationLink(destination: SignUpPublisherFourth(username: username, email: email, password: password, profilePicture: profilePicture, bio: bio, locatedAt: locatedAt ?? [], currency: menuSelection), isActive: $shouldNavigate) {
                             EmptyView()
                         }
-                        if !viewModel.validationError.isEmpty {
-                            Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 4)
+                        if !validate.validationError.isEmpty {
+                            Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 4)
                         }
                     }.background {
                         NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {

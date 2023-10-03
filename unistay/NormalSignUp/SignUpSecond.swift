@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SignUpSecond: View {
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var validate = Validate()
+    
     
     @State var croppedImage: UIImage?
     @State var publisherBio: String = ""
@@ -76,12 +77,12 @@ struct SignUpSecond: View {
                             }
                             Button(action: {
                                 if !publisherBio.isEmpty {
-                                    let _ = viewModel.validateBio(bio: publisherBio)
+                                    let _ = validate.validateBio(bio: publisherBio)
                                 }
                                 if croppedImage != nil {
                                     profilePicture = croppedImage
                                 }
-                                if viewModel.validationError.isEmpty {
+                                if validate.validationError.isEmpty {
                                     shouldNavigate.toggle()
                                 }
                             }) {
@@ -90,8 +91,8 @@ struct SignUpSecond: View {
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                             }
-                            if !viewModel.validationError.isEmpty {
-                                Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
+                            if !validate.validationError.isEmpty {
+                                Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
                             }
                             NavigationLink(destination: MapSearchBar(profilePicture: profilePicture, publisherBio: publisherBio, username: username, email: email, password: password), isActive: $shouldNavigate) {
                                 EmptyView()

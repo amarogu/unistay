@@ -45,7 +45,8 @@ struct MapSearchBarSignUpFifth: View {
     @State var pickedLocLocs: String = ""
     @State var pickedLocCoordinates: [CLLocationDegrees?] = []
     
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var validate = Validate()
+    @StateObject private var registerOptions = Register()
     
     @State var presented: Bool = false
     
@@ -191,13 +192,13 @@ struct MapSearchBarSignUpFifth: View {
                             }
                         }
                         Button(action: {
-                            let _ = viewModel.hasMultipleImages(images: array)
+                            let _ = validate.hasMultipleImages(images: array)
                             if pickedLocCoordinates.isEmpty {
-                                viewModel.validationError = "You need to tell users where your accommodation is located"
+                                validate.validationError = "You need to tell users where your accommodation is located"
                             }
-                            if viewModel.validationError.isEmpty {
+                            if validate.validationError.isEmpty {
                                 //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                                
+                                registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array)
                             }
                         }) {
                             HStack(alignment: .center) {
@@ -206,8 +207,8 @@ struct MapSearchBarSignUpFifth: View {
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
-                        if !viewModel.validationError.isEmpty {
-                            Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
+                        if !validate.validationError.isEmpty {
+                            Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
                         }
                     }.padding(.all, 30)
                     

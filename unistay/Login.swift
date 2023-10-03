@@ -14,7 +14,7 @@ struct ServerResponse: Codable {
 import Combine
 
 struct Login: View {
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var validate = Validate()
     @State var password2: String = ""
     @State var email2: String = ""
     @State var isToggled: Bool = false
@@ -44,59 +44,30 @@ struct Login: View {
                                 Spacer()
                                 LoginHeader()
                                 Group {
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "person.crop.circle").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if email2.isEmpty { Text("Email address")
-                                                    .customStyle(size: 13) }
-                                                TextField("", text: $email2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never).focused($isFocused)
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
-                                        isFocused = true
-                                    }
-                                    VStack {
-                                        HStack {
-                                            Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
-                                            ZStack(alignment: .leading) {
-                                                if password2.isEmpty { Text("Password")
-                                                    .customStyle(size: 13) }
-                                                if !passVisible {
-                                                    SecureField("", text: $password2).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never)
-                                                } else {
-                                                    TextField("", text: $password2, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13)).textInputAutocapitalization(.never)
-                                                }
-                                            }
-                                            Button(action: {
-                                                passVisible.toggle()
-                                            }) {
-                                                Image(systemName: !passVisible ? "eye.slash" : "eye").font(.system(size: 14))
-                                            }
-                                        }
-                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity)
+                                    TextInputField(input: $email2, placeholderText: "Email", placeholderIcon: "envelope", required: false)
+                                    TextInputField(input: $password2, placeholderText: "Password", placeholderIcon: "key", required: false)
                                     
                                 }
                                 Button(action: {
                                     //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
                                     if email2.count < 5 {
-                                        viewModel.validationError = "Your email addres must be at least 5 character long"
+                                        validate.validationError = "Your email addres must be at least 5 character long"
                                     } else {
-                                        viewModel.validationError = ""
+                                        validate.validationError = ""
                                     }
                                     if !email2.contains("@") {
-                                        viewModel.validationError = "Your email address needs to contain an @"
+                                        validate.validationError = "Your email address needs to contain an @"
                                     } else {
-                                        viewModel.validationError = ""
+                                        validate.validationError = ""
                                     }
-                                    if viewModel.validationError.isEmpty {
+                                    if validate.validationError.isEmpty {
                                         //shouldNavigate.toggle()
-                                        SignUpViewModel.NetworkManager.shared.login(email: email2, password: password2) {
+                                        NetworkManager.shared.login(email: email2, password: password2) {
                                             response, error in
                                                 if let error = error {
                                                     // Handle error
                                                     print("Error: \(error)")
-                                                    viewModel.validationError = "Your credentials are incorrect"
+                                                    validate.validationError = "Your credentials are incorrect"
                                                 } else if let response = response {
                                                     // Use the response
                                                     print("Response: \(response)")
@@ -130,8 +101,8 @@ struct Login: View {
                                         Image(systemName: "chevron.right").font(.system(size: 13))
                                     }.padding(.bottom, 1)
                                 }
-                                if !viewModel.validationError.isEmpty {
-                                    Text(viewModel.validationError)
+                                if !validate.validationError.isEmpty {
+                                    Text(validate.validationError)
                                         .customStyle(size: 13, color: "Error")
                                     //let _ = print("hey")
                                 }

@@ -9,7 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapSearchBar: View {
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var registerOptions = Register()
+    @StateObject private var validate = Validate()
     
     @State var yourLocation: String = ""
     @State var isToggled: Bool = true
@@ -136,11 +137,11 @@ struct MapSearchBar: View {
                             Button(action: {
                                 clicked = true
                                 if pickedLocCoordinates.isEmpty {
-                                    viewModel.validationError = "You need to select at least one location"
+                                    validate.validationError = "You need to select at least one location"
                                 } else {
-                                    viewModel.validationError = ""
+                                    validate.validationError = ""
                                 }
-                                if !pickedLocCoordinates.isEmpty && viewModel.validationError.isEmpty {
+                                if !pickedLocCoordinates.isEmpty && validate.validationError.isEmpty {
                                     //viewModel.register(isToggled: $isToggled, userData: userData)
                                     if let coordinates = pickedLocCoordinates as? [[Optional<Double>]] {
                                         for coordinate in coordinates {
@@ -151,7 +152,7 @@ struct MapSearchBar: View {
                                             }
                                         }
                                     }
-                                    viewModel.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection) { response, error in
+                                    registerOptions.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection) { response, error in
                                         if let error = error {
                                             // Handle error
                                             print("Error: \(error)")
@@ -165,22 +166,17 @@ struct MapSearchBar: View {
                                             }
                                         }
                                     }
-                                    
-                                    //shouldNavigate.toggle()
-                                    //viewModel.testRequest()
                                 }
-                                //viewModel.testRequest()
-                                
                             }) {
                                 HStack(alignment: .center) {
                                     Text("Continue").customStyle(type: "Semibold", size: 14, color: "AccentColor")
                                     Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                 }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1))//.cornerRadius(5)
                             }
-                            if !viewModel.validationError.isEmpty {
-                                Text(viewModel.validationError).customStyle(size: 13, color: "Error").padding(.top, 1.25)
+                            if !validate.validationError.isEmpty {
+                                Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 1.25)
                             }
-                            if (responseMsg.isEmpty) && clicked && viewModel.validationError.isEmpty {
+                            if (responseMsg.isEmpty) && clicked && validate.validationError.isEmpty {
                                 HStack {
                                     Spacer()
                                     ProgressView()
@@ -192,7 +188,6 @@ struct MapSearchBar: View {
                                 MapViewSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
                             } label: {}.labelsHidden()
                         }.padding(.all, 30).zIndex(10)
-                        /*MapViewSelection().environmentObject(locationManager).edgesIgnoringSafeArea(.all)*/
                     }
                 }
             }

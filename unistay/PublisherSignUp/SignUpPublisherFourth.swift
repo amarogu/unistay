@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpPublisherFourth: View {
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var validate = Validate()
     
     var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
     var typeItems = ["On-campus", "Off-campus", "Homestay"]
@@ -55,8 +55,8 @@ struct SignUpPublisherFourth: View {
                                     MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: typeSelection)
                                 }
                                 Button(action: {
-                                    let _ = viewModel.validatePublication(title: publicationTitle, desc: publicationDescription, rent: rent)
-                                    if viewModel.validationError.isEmpty {
+                                    let _ = validate.validatePublication(title: publicationTitle, desc: publicationDescription, rent: rent)
+                                    if validate.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }
                                 }) {
@@ -65,8 +65,8 @@ struct SignUpPublisherFourth: View {
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
-                                if !viewModel.validationError.isEmpty {
-                                    Text(viewModel.validationError).customStyle(size: 13, color: "Error")
+                                if !validate.validationError.isEmpty {
+                                    Text(validate.validationError).customStyle(size: 13, color: "Error")
                                 }
                                 NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection), isActive: $shouldNavigate) {
                                     EmptyView()
