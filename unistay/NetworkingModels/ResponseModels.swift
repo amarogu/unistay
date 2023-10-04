@@ -5,6 +5,8 @@
 //  Created by Gustavo Amaro on 03/10/23.
 //
 
+import Foundation
+
 class ServerResponseLogin: Decodable {
     let message: String
     
@@ -56,7 +58,8 @@ class profPic: Decodable {
     let __v: Int
 }
 
-class AccommodationResponse: Decodable {
+class AccommodationResponse: Decodable, Hashable {
+    let id: UUID = UUID()
     let _id: String
     let title: String
     let description: String
@@ -71,4 +74,16 @@ class AccommodationResponse: Decodable {
     let images: [String]
     let location: String
     let __v: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, __v
+    }
+    
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+        
+        static func == (lhs: AccommodationResponse, rhs: AccommodationResponse) -> Bool {
+            return lhs.id == rhs.id
+        }
 }

@@ -37,17 +37,17 @@ struct AccomodationsGroup: View {
                 HStack(alignment: .top) {
 
                     VStack {
-                        ForEach(accommodations, id: \.self) { accommodation in
-                            if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 != 0) {
-                                Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
+                        ForEach(pub, id: \.self) { pubItem in
+                            if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
+                                Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
                             }
                         }
                     }
                     Spacer()
                     VStack {
-                        ForEach(accommodations, id: \.self) { accommodation in
-                            if ((accommodations.firstIndex(of: accommodation)! + 1) % 2 == 0) {
-                                Accomodation(AccommodationData: accommodation, size: size, padding: size <= 400 ? 3 : 8)
+                        ForEach(pub, id: \.self) { pubItem in
+                            if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
+                                Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
                             }
                         }
                     }.padding(.top, 30)
