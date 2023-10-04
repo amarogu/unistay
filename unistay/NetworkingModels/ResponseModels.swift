@@ -23,6 +23,12 @@ class ServerResponseSignup: Decodable {
     }
 }
 
+struct Location: Decodable {
+    let latitude: Double
+    let longitude: Double
+    let _id: String
+}
+
 class User: Decodable {
     let _id: String
     let username: String
@@ -31,7 +37,7 @@ class User: Decodable {
     let email: String
     let language: String
     let password: String
-    let preferredLocations: [String]
+    let preferredLocations: [Location]
     let isPrivate: Bool
     let currency: String
     let savedPublications: [String]
@@ -40,13 +46,15 @@ class User: Decodable {
     let bio: String
     let profilePicture: String
     let accountType: String
+    let locatedAt: [String]
     let __v: Int
     
     enum CodingKeys: String, CodingKey {
-        case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, accountType, __v
+        case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, accountType, locatedAt, __v
         case isPrivate = "private"
     }
 }
+
 
 class profPic: Decodable {
     let _id: String
@@ -56,6 +64,11 @@ class profPic: Decodable {
     let position: Int
     let cover: Bool
     let __v: Int
+}
+
+struct PubLocation: Decodable, Hashable {
+    let latitude: Double
+    let longitude: Double
 }
 
 class AccommodationResponse: Decodable, Hashable {
@@ -72,7 +85,7 @@ class AccommodationResponse: Decodable, Hashable {
     let chats: [String]
     let connectedUsers: [String]
     let images: [String]
-    let location: String
+    let location: PubLocation
     let __v: Int
     
     enum CodingKeys: String, CodingKey {
@@ -80,10 +93,11 @@ class AccommodationResponse: Decodable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
+        hasher.combine(id)
+    }
         
-        static func == (lhs: AccommodationResponse, rhs: AccommodationResponse) -> Bool {
-            return lhs.id == rhs.id
-        }
+    static func == (lhs: AccommodationResponse, rhs: AccommodationResponse) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
+

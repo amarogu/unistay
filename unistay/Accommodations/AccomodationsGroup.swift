@@ -65,6 +65,8 @@ struct AccomodationsGroup: View {
                         }
                     }
                 }
+            }.onDisappear {
+                pub.removeAll()
             }
         }.tint(Color("BodyEmphasized"))
         }

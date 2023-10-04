@@ -152,7 +152,7 @@ struct MapSearchBar: View {
                                             }
                                         }
                                     }
-                                    registerOptions.register(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection) { response, error in
+                                    /*registerOptions.register(username: username, email: email, password: password, bio: publisherBio, name: , surname: <#T##String#>, profilePicture: <#T##UIImage?#>, doubleLocCoordinates: <#T##[[Double]]#>, currency: <#T##String#>, completion: <#T##(String?, Error?) -> Void#>) { response, error in
                                         if let error = error {
                                             // Handle error
                                             print("Error: \(error)")
@@ -165,7 +165,7 @@ struct MapSearchBar: View {
                                                 isSignedUp = true
                                             }
                                         }
-                                    }
+                                    }*/
                                 }
                             }) {
                                 HStack(alignment: .center) {

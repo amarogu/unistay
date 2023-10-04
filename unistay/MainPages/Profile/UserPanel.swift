@@ -78,6 +78,7 @@ struct UserPanel: View {
                                 self.user = userData
                                 print(userData)
                                 print(userData.username)
+                            print (userData.preferredLocations[0].latitude)
                             } else if let error = error {
                                 // Handle error
                                 print(error)
@@ -93,6 +94,7 @@ struct UserPanel: View {
                             content: {
                                 VStack(alignment: .leading, spacing: 16) {
                                     HStack {
+                                        //checkCookies()
                                         if let bio = user?.bio {
                                             Text(bio).customStyle(size: 14).frame(maxWidth: width * 0.6).padding(.top, 8)
                                         }
