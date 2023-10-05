@@ -27,7 +27,7 @@ struct Accomodation: View {
                         if name != "" && country != "" {
                             Text("\(String(name?.prefix(3) ?? ""))... , \(country ?? "")").customStyle(size: 14)
                         } else {
-                            Rectangle().foregroundStyle(Color("SearchBar"))
+                            Rectangle().foregroundStyle(Color("SearchBar")).frame(maxHeight: 20)
                         }
                     }
                     HStack {
@@ -44,19 +44,25 @@ struct Accomodation: View {
                 }
             }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.vertical, 6)
         }).frame(maxWidth: size * 0.35 + 32).onAppear {
-            let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
-            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                guard let placemark = placemarks?.first, error == nil else {
-                    print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
-                    return
+            let defaults = UserDefaults.standard
+            if let name = defaults.string(forKey: "name"), let country = defaults.string(forKey: "country") {
+                self.name = name
+                self.country = country
+            } else {
+                let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
+                geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                    guard let placemark = placemarks?.first, error == nil else {
+                        print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
+                        return
+                    }
+                    defaults.set(placemark.name, forKey: "name")
+                    defaults.set(placemark.country, forKey: "country")
+                    self.name = placemark.name
+                    self.country = placemark.country
                 }
-                // You can now access the placemark's properties, such as name, country, etc.
-                print(placemark.name ?? "")
-                print(placemark.country ?? "")
-                name = placemark.name
-                country = placemark.country
             }
         }
+
     }
 }
 

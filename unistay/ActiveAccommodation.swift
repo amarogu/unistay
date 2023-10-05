@@ -35,9 +35,9 @@ struct ActiveAccommodation: View {
                                     .offset(y: 0)
                             }
                         }
-                    }.frame(maxHeight: 400)
+                    }.frame(maxHeight: size.width * 0.75)
                 }
-            }
+            }.padding(.all, 14)
         }
         .onAppear {
             guard fakedPages.isEmpty else { return }
