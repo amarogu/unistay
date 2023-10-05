@@ -86,10 +86,11 @@ class AccommodationResponse: Decodable, Hashable {
     let connectedUsers: [String]
     let images: [String]
     let location: PubLocation
+    let rating: Int
     let __v: Int
     
     enum CodingKeys: String, CodingKey {
-        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, __v
+        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, rating, __v
     }
     
     func hash(into hasher: inout Hasher) {

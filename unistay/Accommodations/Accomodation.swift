@@ -17,14 +17,18 @@ struct Accomodation: View {
     @State var name: String? = ""
     @State var country: String? = ""
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub), label: {
             VStack(alignment: .center, spacing: 20) {
                 Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
                         Image(systemName: "location.circle.fill")
-                        Text("\(String(name?.prefix(3) ?? ""))... , \(country ?? "")").customStyle(size: 14)
+                        if name != "" && country != "" {
+                            Text("\(String(name?.prefix(3) ?? ""))... , \(country ?? "")").customStyle(size: 14)
+                        } else {
+                            Rectangle().foregroundStyle(Color("SearchBar"))
+                        }
                     }
                     HStack {
                         
@@ -34,12 +38,12 @@ struct Accomodation: View {
                     HStack {
                         Image(systemName: "star.fill").resizable().aspectRatio(contentMode: .fit).frame(width: 14)
                         
-                        Text(String(format: "%.1f", 5)).customStyle(size: 14)
+                        Text(String(format: "%.1f", pub?.rating ?? 10)).customStyle(size: 14)
                     }
 
                 }
             }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.vertical, 6)
-        }).onAppear {
+        }).frame(maxWidth: size * 0.35 + 32).onAppear {
             let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 guard let placemark = placemarks?.first, error == nil else {

@@ -35,7 +35,7 @@ struct AccomodationsGroup: View {
         NavigationStack {
             ScrollView {
                 HStack(alignment: .top) {
-
+                    
                     VStack {
                         ForEach(pub, id: \.self) { pubItem in
                             if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
@@ -53,22 +53,23 @@ struct AccomodationsGroup: View {
                     }.padding(.top, 30)
                     
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
-            }.onAppear {
-                getPubs {
-                    pubData, error in
-                    for pubData in pubData {
-                        if let pubData = pubData {
-                            self.pub.append(pubData)
-                            print(pubData.title)
-                        } else if let error = error {
-                            print(error)
-                        }
+            }
+            
+        }.tint(Color("BodyEmphasized")).onAppear {
+            getPubs {
+                pubData, error in
+                for pubData in pubData {
+                    if let pubData = pubData {
+                        self.pub.append(pubData)
+                        print(pubData.title)
+                    } else if let error = error {
+                        print(error)
                     }
                 }
-            }.onDisappear {
-                pub.removeAll()
             }
-        }.tint(Color("BodyEmphasized"))
+        }.onDisappear {
+            pub.removeAll()
+        }
         }
     }
 

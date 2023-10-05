@@ -11,28 +11,32 @@ struct ActiveAccommodation: View {
     @State private var currentPage: Int = 0
     @State private var listOfPages: [AccommodationImage] = []
     @State private var fakedPages: [AccommodationImage] = []
-
+    var pub: AccommodationResponse?
     var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
             
             ZStack(alignment: .top) {
                 Color("BackgroundColor").ignoresSafeArea(.all)
-                VStack {
-                    Text("").customStyle(type: "Semibold", size: 30)
-                    if !fakedPages.isEmpty {
-                        TabView(selection: $currentPage) {
-                            ForEach(fakedPages.indices, id: \.self) { index in
-                                Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                VStack(alignment: .leading) {
+                    if let pubTitle = pub?.title {
+                        Text(pubTitle).customStyle(type: "Semibold", size: 30)
+                    }
+                    VStack {
+                        if !fakedPages.isEmpty {
+                            TabView(selection: $currentPage) {
+                                ForEach(fakedPages.indices, id: \.self) { index in
+                                    Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                                }
+                            }
+                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                            .overlay(alignment: .bottom) {
+                                PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
+                                    .offset(y: 0)
                             }
                         }
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        .overlay(alignment: .bottom) {
-                            PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
-                                .offset(y: 0)
-                        }
-                    }
-                }.frame(maxHeight: 400)
+                    }.frame(maxHeight: 400)
+                }
             }
         }
         .onAppear {
