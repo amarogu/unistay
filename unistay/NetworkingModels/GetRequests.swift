@@ -46,7 +46,7 @@ class ImageDownloader: ObservableObject {
 }
 
 func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
-    NetworkManager.shared.request("http://localhost:3000/publication", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+    NetworkManager.shared.request("http://localhost:3000/nearest", method: .get).responseDecodable(of: [AccommodationResponse].self) {
         response in
             debugPrint(response)
             switch response.result {

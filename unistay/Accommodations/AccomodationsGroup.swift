@@ -36,21 +36,25 @@ struct AccomodationsGroup: View {
             ScrollView {
                 HStack(alignment: .top) {
                     
-                    VStack {
-                        ForEach(pub, id: \.self) { pubItem in
-                            if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
-                                Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
+                    if pub.isEmpty {
+                        Text("There are not any accommodations within a 200km range of your preferred locations 😔").customStyle(size: 14).padding(.top, 30)
+                    } else {
+                        VStack {
+                            ForEach(pub, id: \.self) { pubItem in
+                                if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
+                                    Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
+                                }
                             }
                         }
+                        Spacer()
+                        VStack {
+                            ForEach(pub, id: \.self) { pubItem in
+                                if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
+                                    Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
+                                }
+                            }
+                        }.padding(.top, 30)
                     }
-                    Spacer()
-                    VStack {
-                        ForEach(pub, id: \.self) { pubItem in
-                            if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
-                                Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
-                            }
-                        }
-                    }.padding(.top, 30)
                     
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
             }

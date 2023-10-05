@@ -174,15 +174,7 @@
       }
     },
     "Continue" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avançar"
-          }
-        }
-      }
+
     },
     "Continue to home" : {
       "localizations" : {
@@ -322,6 +314,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "Login" : {
       "extractionState" : "manual",
@@ -474,6 +469,16 @@
         }
       }
     },
+    "There are not any accommodations within a 200km range of your preferred locations 😔" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há nenhuma acomodação dentro de uma distância de 200km de qualquer um de seus locais selecionados 😔"
+          }
+        }
+      }
+    },
     "understand why we need your location" : {
       "localizations" : {
         "pt-BR" : {
@@ -550,6 +555,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use sua localização atual"
+          }
+        }
+      }
+    },
+    "Username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
           }
         }
       }
