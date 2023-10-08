@@ -29,7 +29,6 @@ func getProfPic() {
 
 class ImageDownloader: ObservableObject {
     @Published var downloadedImage: UIImage?
-    @Published var image: [UIImage?] = []
     
     func downloadProfPic() {
         NetworkManager.shared.download("http://localhost:3000/user/profilepicture").responseURL {
@@ -44,27 +43,12 @@ class ImageDownloader: ObservableObject {
             }
         }
     }
-    
-    func downloadImage(_ id: String, completion: @escaping () -> Void) {
-        NetworkManager.shared.download("http://localhost:3000/image/\(id)").responseURL {
-            response in
-            
-            if let url = response.fileURL {
-                let image = UIImage(contentsOfFile: url.path)
-                DispatchQueue.main.async {
-                    self.image.append(image)
-                    debugPrint(image)
-                    completion()
-                }
-            }
-        }
-    }
 }
 
 func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
     NetworkManager.shared.request("http://localhost:3000/nearest", method: .get).responseDecodable(of: [AccommodationResponse].self) {
         response in
-            
+            debugPrint(response)
             switch response.result {
             case .success(let value):
                 completion(value, [] as? Error)

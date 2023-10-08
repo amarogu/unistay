@@ -16,15 +16,18 @@ struct Accomodation: View {
     var geocoder = CLGeocoder()
     @State var name: String? = ""
     @State var country: String? = ""
-    @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     var body: some View {
         NavigationLink(destination: ActiveAccommodation(pub: pub, imageDownloader: imageDownloader), label: {
             VStack(alignment: .center, spacing: 20) {
+<<<<<<< HEAD
                 if let firstImage = imageDownloader.image.first {
                     Image(uiImage: firstImage ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 } else {
                     Rectangle().foregroundStyle(Color("SearchBar")).frame(width: size * 0.35, height: size * 0.35)
                 }
+=======
+                Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+>>>>>>> parent of c7f0475 (todo: fix the always refreshing images)
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
@@ -66,20 +69,6 @@ struct Accomodation: View {
                     self.country = placemark.country
                 }
             }
-            let group = DispatchGroup()
-
-            for img in pub?.images ?? [] {
-                group.enter()
-                imageDownloader.downloadImage(img) {
-                    group.leave()
-                }
-            }
-
-            group.notify(queue: .main) {
-                print(imageDownloader.image)
-            }
-
-            print(imageDownloader.image)
         }
 
     }

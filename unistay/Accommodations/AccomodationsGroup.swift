@@ -30,7 +30,6 @@ struct AccomodationsGroup: View {
     var tabSize: CGFloat
     var selectionSize: CGFloat
     @State private var pub: [AccommodationResponse?] = []
-    @State private var images: [UIImage?] = []
     var body: some View {
         
         NavigationStack {
@@ -66,7 +65,7 @@ struct AccomodationsGroup: View {
                 for pubData in pubData {
                     if let pubData = pubData {
                         self.pub.append(pubData)
-                        
+                        print(pubData.title)
                     } else if let error = error {
                         print(error)
                     }
