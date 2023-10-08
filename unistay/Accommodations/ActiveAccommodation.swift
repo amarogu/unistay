@@ -13,6 +13,7 @@ struct ActiveAccommodation: View {
     @State private var fakedPages: [UIImage?] = []
     var pub: AccommodationResponse?
     @State var images: [UIImage?]
+    @State var location: [String?] = []
     var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
@@ -20,9 +21,6 @@ struct ActiveAccommodation: View {
             ZStack(alignment: .top) {
                 Color("BackgroundColor").ignoresSafeArea(.all)
                 VStack(alignment: .leading) {
-                    if let pubTitle = pub?.title {
-                        Text(pubTitle).customStyle(type: "Semibold", size: 30)
-                    }
                     VStack {
                         if !fakedPages.isEmpty {
                             TabView(selection: $currentPage) {
@@ -37,6 +35,23 @@ struct ActiveAccommodation: View {
                             }
                         }
                     }.frame(maxHeight: size.width * 0.75)
+                    ScrollView {
+                        if let pub = pub {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(pub.title).customStyle(type: "Semibold", size: 26)
+                                if let name = location[0], let country = location[1] {
+                                    HStack {
+                                        Image(systemName: "location.circle").font(.system(size: 14))
+                                        Text("\(name), \(country)").customStyle(size: 14)
+                                        Spacer()
+                                        Text("by \(pub.owner)").customStyle(size: 14)
+                                    }
+                                }
+                                Text(pub.description).customStyle(size: 14).padding(.top, 14)
+                            }.padding(.horizontal, 14).padding(.vertical, 18)
+                            
+                        }
+                    }
                 }
             }
         }

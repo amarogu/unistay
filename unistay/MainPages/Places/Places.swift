@@ -22,7 +22,7 @@ struct Places: View {
     var tabSize: CGFloat
     @State private var selectionSize: CGFloat = 0
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 6) {
             HStack(alignment: .center) {
                 Text("Accommodations").customStyle(type: "Bold", size: 30)
                 Spacer()
@@ -45,7 +45,7 @@ struct Places: View {
                 } label: {
                     Label(title: {Text("")}, icon: {Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24)).foregroundColor(/*@START_MENU_TOKEN@*/Color("BodyEmphasized")/*@END_MENU_TOKEN@*/)})
                 }
-            }.padding(.bottom, 4)//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
+            }//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
             Spacer()
             /*SearchBar(searchText: $searchText).padding(.all, 10).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("SearchBar")/*@END_MENU_TOKEN@*/).cornerRadius(5)*/
             TextInputField(input: $text, placeholderText: "Search locations, accommodations...", placeholderIcon: "magnifyingglass", required: false)//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)

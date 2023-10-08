@@ -134,7 +134,13 @@ struct UserPanel: View {
                     ScrollView {
                         Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
                         Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight)
-                        Universities(size: width, selectionSize: selectionHeight).padding(.bottom, tabSize)
+                        if selectedView == "Universities" {
+                            Universities(size: width, selectionSize: selectionHeight).padding(.bottom, tabSize)
+                        } else if selectedView == "Location" {
+                            
+                        } else {
+                            
+                        }
                     }
                     Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
                         geo in

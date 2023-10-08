@@ -19,7 +19,7 @@ struct Accomodation: View {
     @State var cover: UIImage?
     @State var images: [UIImage?] = []
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(pub: pub, images: images), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub, images: images, location: [name, country]), label: {
             VStack(alignment: .center, spacing: 20) {
                 Image(uiImage: cover ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 VStack(alignment: .leading, spacing: 10) {
@@ -77,22 +77,36 @@ struct Accomodation: View {
                             }
                         }
                     }
-                }
-                if images == [] {
-                    for img in pub?.images ?? [] {
-                        NetworkManager.shared.download("http://localhost:3000/image/\(img)").responseURL {
-                            response in
-                            debugPrint(response.fileURL as Any)
-                            if let url = response.fileURL {
-                            let image = UIImage(contentsOfFile: url.path)
-                                DispatchQueue.main.async {
-                                    self.images.append(image)
-                                    debugPrint(self.images as Any)
+                    if images.isEmpty {
+                        let group = DispatchGroup()
+                        let urls = pub?.images ?? []
+                        var downloadedImages: [UIImage?] = Array(repeating: nil, count: urls.count)
+
+                        for (index, img) in urls.enumerated() {
+                            group.enter()
+                            NetworkManager.shared.download("http://localhost:3000/image/\(img)").responseURL { response in
+                                debugPrint(response.fileURL as Any)
+                                if let url = response.fileURL {
+                                    let image = UIImage(contentsOfFile: url.path)
+                                    DispatchQueue.main.async {
+                                        downloadedImages[index] = image
+                                        debugPrint(downloadedImages as Any)
+                                        group.leave()
+                                    }
+                                } else {
+                                    group.leave()
                                 }
                             }
                         }
+
+                        group.notify(queue: .main) {
+                            self.images = downloadedImages
+                        }
+
                     }
+
                 }
+                
             }
         }
     }

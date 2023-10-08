@@ -57,6 +57,16 @@
         }
       }
     },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
     "%@... , %@" : {
       "localizations" : {
         "en" : {
@@ -112,6 +122,9 @@
           }
         }
       }
+    },
+    "by %@" : {
+
     },
     "Click here to change the images you have selected" : {
       "localizations" : {

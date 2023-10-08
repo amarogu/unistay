@@ -26,7 +26,7 @@ struct Universities: View {
             ScrollView {
                 HStack(alignment: .top, spacing: 8) {
 
-                    VStack(spacing: 8) {
+                    VStack(spacing: 20) {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 != 0) {
                                 Universitiy(universitydata: university, size: size)
@@ -34,7 +34,7 @@ struct Universities: View {
                         }
                     }
                     Spacer()
-                    VStack(spacing: 8) {
+                    VStack(spacing: 20) {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 == 0) {
                                 Universitiy(universitydata: university, size: size)
