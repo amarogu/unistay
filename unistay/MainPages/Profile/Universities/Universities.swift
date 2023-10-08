@@ -23,6 +23,7 @@ struct Universities: View {
     var selectionSize: CGFloat
     var body: some View {
         
+        NavigationStack {
             ScrollView {
                 HStack(alignment: .top, spacing: 8) {
 
@@ -43,7 +44,8 @@ struct Universities: View {
                     }.padding(.top, 30)
                     
                 }//.padding(.top, 20)
-            }
+            }.scrollIndicators(.hidden)
+        }
         }
 }
 

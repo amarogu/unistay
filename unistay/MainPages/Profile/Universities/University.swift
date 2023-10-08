@@ -25,7 +25,7 @@ struct Universitiy: View {
                     Text("\(universitydata.amountOfAccommodations) accommodations").customStyle(size: 14).lineLimit(1)
                     
                 }
-            }
+            }.padding(.top, 8)
         }.frame(maxWidth: .infinity).padding(.all, 14).background(Color("Gray")).cornerRadius(20)
     }
 }

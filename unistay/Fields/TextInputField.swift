@@ -13,7 +13,7 @@ struct TextInputField: View {
     @FocusState private var isFocused: Bool
     
     @Binding var input: String
-    var placeholderText: String
+    var placeholderText: LocalizedStringKey
     var placeholderIcon: String
     
     var required: Bool

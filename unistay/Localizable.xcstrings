@@ -123,7 +123,7 @@
         }
       }
     },
-    "by %@" : {
+    "by Owner" : {
 
     },
     "Click here to change the images you have selected" : {
@@ -156,6 +156,9 @@
         }
       }
     },
+    "Confirm your email address" : {
+
+    },
     "Confirm your location" : {
       "localizations" : {
         "pt-BR" : {
@@ -165,6 +168,12 @@
           }
         }
       }
+    },
+    "Confirm your password" : {
+
+    },
+    "Connect" : {
+
     },
     "Connections" : {
       "localizations" : {
@@ -228,6 +237,9 @@
           }
         }
       }
+    },
+    "Email" : {
+
     },
     "Email address" : {
       "extractionState" : "manual",
@@ -348,6 +360,9 @@
         }
       }
     },
+    "Name" : {
+
+    },
     "Password" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -382,6 +397,15 @@
         }
       }
     },
+    "Publication description" : {
+
+    },
+    "Publication title" : {
+
+    },
+    "Rent" : {
+
+    },
     "Search accommodations, locations..." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -392,6 +416,9 @@
           }
         }
       }
+    },
+    "Search locations, accommodations..." : {
+
     },
     "See %@'s full bio" : {
       "localizations" : {
@@ -470,6 +497,9 @@
           }
         }
       }
+    },
+    "Surname" : {
+
     },
     "System language" : {
       "extractionState" : "manual",

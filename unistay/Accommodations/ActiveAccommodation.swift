@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import MapKit
+import CoreLocation
 
 struct ActiveAccommodation: View {
     @State private var currentPage: Int = 0
@@ -14,7 +16,14 @@ struct ActiveAccommodation: View {
     var pub: AccommodationResponse?
     @State var images: [UIImage?]
     @State var location: [String?] = []
+    @StateObject var locationManager: LocationManager = .init()
+    @State private var region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 34.011_286, longitude: -116.166_868),
+            span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+        )
     var body: some View {
+        let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
+        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
         GeometryReader { geometry in
             let size = geometry.size
             
@@ -34,7 +43,7 @@ struct ActiveAccommodation: View {
                                     .offset(y: 0)
                             }
                         }
-                    }.frame(maxHeight: size.width * 0.75)
+                    }.frame(maxHeight: size.width * 0.7).padding(.top, 14)
                     ScrollView {
                         if let pub = pub {
                             VStack(alignment: .leading, spacing: 10) {
@@ -44,15 +53,39 @@ struct ActiveAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        Text("by \(pub.owner)").customStyle(size: 14)
-                                    }
+                                        Text("by Owner").customStyle(size: 14)
+                                    }.padding(.bottom, 8)
                                 }
-                                Text(pub.description).customStyle(size: 14).padding(.top, 14)
-                            }.padding(.horizontal, 14).padding(.vertical, 18)
+                                Divider()
+                                Text(pub.description).customStyle(size: 14).padding(.trailing, size.width * 0.3)
+                            }
                             
                         }
-                    }
+                        Map(coordinateRegion: .constant(region), annotationItems: [getAnnotation(coordinate)]) { place in
+                            MapPin(coordinate: place.coordinate, tint: .green)
+                        }.frame(height: 200).cornerRadius(5).padding(.top, 16)
+                    }.padding(.horizontal, 20).padding(.vertical, 18)
+                    
+                    Spacer()
+                    Divider()
+                    VStack {
+                        HStack {
+                            if let pub = pub {
+                                VStack(alignment: .leading) {
+                                    Text("\(pub.rent)").customStyle(type: "Semibold", size: 18)
+                                    Text("/month").customStyle(size: 14, color: "Body")
+                                }
+                            }
+                            Spacer()
+                            Button(action: {
+                                
+                            }) {
+                                Text("Connect").customStyle(size: 14).padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                            }
+                        }
+                    }.padding(.horizontal, 28).padding(.vertical, 8)
                 }
+                
             }
         }
         .onAppear {
@@ -69,3 +102,13 @@ struct ActiveAccommodation: View {
         fakedPages.append(contentsOf: listOfPages)
     }
 }
+
+class IdentifiablePointAnnotation: MKPointAnnotation, Identifiable {
+    let id = UUID()
+}
+
+func getAnnotation(_ coordinate: CLLocationCoordinate2D) -> IdentifiablePointAnnotation {
+        let annotation = IdentifiablePointAnnotation()
+        annotation.coordinate = coordinate
+        return annotation
+    }
