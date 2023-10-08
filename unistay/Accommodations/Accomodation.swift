@@ -17,17 +17,9 @@ struct Accomodation: View {
     @State var name: String? = ""
     @State var country: String? = ""
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(pub: pub, imageDownloader: imageDownloader), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub), label: {
             VStack(alignment: .center, spacing: 20) {
-<<<<<<< HEAD
-                if let firstImage = imageDownloader.image.first {
-                    Image(uiImage: firstImage ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
-                } else {
-                    Rectangle().foregroundStyle(Color("SearchBar")).frame(width: size * 0.35, height: size * 0.35)
-                }
-=======
                 Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
->>>>>>> parent of c7f0475 (todo: fix the always refreshing images)
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
