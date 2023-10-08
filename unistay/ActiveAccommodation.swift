@@ -37,7 +37,7 @@ struct ActiveAccommodation: View {
                             }
                         }
                     }.frame(maxHeight: size.width * 0.75)
-                }.padding(.all, 14)
+                }
             }
         }
         .onAppear {
