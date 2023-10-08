@@ -18,10 +18,12 @@ struct Accomodation: View {
     @State var country: String? = ""
     @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(pub: pub), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub, imageDownloader: imageDownloader), label: {
             VStack(alignment: .center, spacing: 20) {
                 if let firstImage = imageDownloader.image.first {
                     Image(uiImage: firstImage ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                } else {
+                    Rectangle().foregroundStyle(Color("SearchBar")).frame(width: size * 0.35, height: size * 0.35)
                 }
                 VStack(alignment: .leading, spacing: 10) {
                     

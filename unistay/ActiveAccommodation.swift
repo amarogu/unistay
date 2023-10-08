@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ActiveAccommodation: View {
     @State private var currentPage: Int = 0
-    @State private var listOfPages: [AccommodationImage] = []
-    @State private var fakedPages: [AccommodationImage] = []
+    @State private var listOfPages: [UIImage?] = []
+    @State private var fakedPages: [UIImage?] = []
     var pub: AccommodationResponse?
+    @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
@@ -26,7 +27,7 @@ struct ActiveAccommodation: View {
                         if !fakedPages.isEmpty {
                             TabView(selection: $currentPage) {
                                 ForEach(fakedPages.indices, id: \.self) { index in
-                                    Image(fakedPages[index].image).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                                    Image(uiImage: fakedPages[index] ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
                                 }
                             }
                             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -41,8 +42,8 @@ struct ActiveAccommodation: View {
         }
         .onAppear {
             guard fakedPages.isEmpty else { return }
-            for image in ["Image", "ProfileBackground", "Image"] {
-                listOfPages.append(.init(image: image))
+            for image in imageDownloader.image {
+                listOfPages.append(image)
             }
             createCarousel(true)
         }
