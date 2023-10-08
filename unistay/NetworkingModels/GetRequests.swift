@@ -52,6 +52,7 @@ func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
             switch response.result {
             case .success(let value):
                 completion(value, [] as? Error)
+                
             case .failure(let error):
                 completion([], error)
             }

@@ -60,22 +60,22 @@ struct AccomodationsGroup: View {
             }
             
         }.tint(Color("BodyEmphasized")).onAppear {
-            getPubs {
-                pubData, error in
-                for pubData in pubData {
-                    if let pubData = pubData {
-                        self.pub.append(pubData)
-                        print(pubData.title)
-                    } else if let error = error {
-                        print(error)
+            if pub == [] {
+                getPubs {
+                    pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            self.pub.append(pubData)
+                            print(pubData.title)
+                        } else if let error = error {
+                            print(error)
+                        }
                     }
                 }
             }
-        }.onDisappear {
-            pub.removeAll()
-        }
         }
     }
+}
 
         
 
