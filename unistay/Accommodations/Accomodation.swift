@@ -16,10 +16,13 @@ struct Accomodation: View {
     var geocoder = CLGeocoder()
     @State var name: String? = ""
     @State var country: String? = ""
+    @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     var body: some View {
         NavigationLink(destination: ActiveAccommodation(pub: pub), label: {
             VStack(alignment: .center, spacing: 20) {
-                Image("Image").resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                if let firstImage = imageDownloader.image.first {
+                    Image(uiImage: firstImage ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                }
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
@@ -61,6 +64,20 @@ struct Accomodation: View {
                     self.country = placemark.country
                 }
             }
+            let group = DispatchGroup()
+
+            for img in pub?.images ?? [] {
+                group.enter()
+                imageDownloader.downloadImage(img) {
+                    group.leave()
+                }
+            }
+
+            group.notify(queue: .main) {
+                print(imageDownloader.image)
+            }
+
+            print(imageDownloader.image)
         }
 
     }
