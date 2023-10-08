@@ -16,11 +16,12 @@ struct Accomodation: View {
     var geocoder = CLGeocoder()
     @State var name: String? = ""
     @State var country: String? = ""
-    @State var downloadedImage: UIImage?
+    @State var cover: UIImage?
+    @State var images: [UIImage?] = []
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(pub: pub), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub, images: images), label: {
             VStack(alignment: .center, spacing: 20) {
-                Image(uiImage: downloadedImage ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                Image(uiImage: cover ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
@@ -64,17 +65,30 @@ struct Accomodation: View {
             }
             if let publication = pub {
                 print("iterated")
-                print(downloadedImage)
-                if downloadedImage == nil {
-                    
+                if cover == nil {
                     NetworkManager.shared.download("http://localhost:3000/image/\(pub?.images[0] ?? "")").responseURL {
                         response in
                         debugPrint(response.fileURL as Any)
                         if let url = response.fileURL {
                         let image = UIImage(contentsOfFile: url.path)
                             DispatchQueue.main.async {
-                                self.downloadedImage = image
-                                debugPrint(self.downloadedImage as Any)
+                                self.cover = image
+                                debugPrint(self.cover as Any)
+                            }
+                        }
+                    }
+                }
+                if images == [] {
+                    for img in pub?.images ?? [] {
+                        NetworkManager.shared.download("http://localhost:3000/image/\(img)").responseURL {
+                            response in
+                            debugPrint(response.fileURL as Any)
+                            if let url = response.fileURL {
+                            let image = UIImage(contentsOfFile: url.path)
+                                DispatchQueue.main.async {
+                                    self.images.append(image)
+                                    debugPrint(self.images as Any)
+                                }
                             }
                         }
                     }
