@@ -46,22 +46,14 @@ struct Accomodation: View {
                 }
             }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.vertical, 6)
         }).frame(maxWidth: size * 0.35 + 32).onAppear {
-            let defaults = UserDefaults.standard
-            if let name = defaults.string(forKey: "name"), let country = defaults.string(forKey: "country") {
-                self.name = name
-                self.country = country
-            } else {
-                let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
-                geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                    guard let placemark = placemarks?.first, error == nil else {
-                        print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
-                        return
-                    }
-                    defaults.set(placemark.name, forKey: "name")
-                    defaults.set(placemark.country, forKey: "country")
-                    self.name = placemark.name
-                    self.country = placemark.country
+            let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                guard let placemark = placemarks?.first, error == nil else {
+                    print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
+                    return
                 }
+                self.name = placemark.name
+                self.country = placemark.country
             }
             if let publication = pub {
                 print("iterated")
