@@ -68,6 +68,7 @@ struct ContentView: View {
     @State private var selectedTab = "Places"
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
+    @State private var user: User? = nil
     var body: some View {
         GeometryReader {
             geometry in
@@ -80,7 +81,7 @@ struct ContentView: View {
                 } else if(selectedTab == "Profile") {
                     UserPanel(tabSize: tabSize)
                 } else if selectedTab == "Chats" {
-                    Chats()
+                    Chats(user: user)
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {
@@ -95,7 +96,21 @@ struct ContentView: View {
                     }
                 })
             }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
-        }.background(Color("BackgroundColor"))
+        }.background(Color("BackgroundColor")).onAppear {
+            getUser {
+                userData, error in
+                if let userData = userData {
+                        // Use userData
+                        self.user = userData
+                        print(userData)
+                        print(userData.username)
+                    print (userData.preferredLocations[0].latitude)
+                    } else if let error = error {
+                        // Handle error
+                        print(error)
+                    }
+            }
+        }
         
     }
 }

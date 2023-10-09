@@ -42,6 +42,10 @@ class ImageDownloader: ObservableObject {
             }
         }
     }
+    
+    func downloadUserImage() {
+        
+    }
 }
 
 func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {

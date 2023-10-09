@@ -125,7 +125,12 @@ class Chat: Decodable, Identifiable {
     }
 }
 
-class Participant: Decodable {
+class Participant: Decodable, Identifiable {
+    var id = UUID()
     let _id: String
     let username: String
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, username
+    }
 }
