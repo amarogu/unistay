@@ -102,6 +102,22 @@ class AccommodationResponse: Decodable, Hashable {
     }
 }
 
+class Message: Decodable, Identifiable {
+    var id = UUID()
+    let _id: String
+    let senderId: String
+    let chatId: String
+    let content: String
+    let createdAt: String
+    let updatedAt: String
+    let __v: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, senderId, chatId, content, createdAt, updatedAt, __v
+    }
+    
+}
+
 class Chat: Decodable, Identifiable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -118,10 +134,12 @@ class Chat: Decodable, Identifiable {
     let participants: [Participant]
     let createdAt: String
     let updatedAt: String
+    let messages: [Message]
     let __v: Int
     
+    
     enum CodingKeys: String, CodingKey {
-        case _id, creator, publicationAssociated, participants, createdAt, updatedAt, __v
+        case _id, creator, publicationAssociated, participants, createdAt, updatedAt, __v, messages
     }
 }
 

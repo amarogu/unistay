@@ -320,6 +320,9 @@
         }
       }
     },
+    "Group" : {
+
+    },
     "Group with:" : {
 
     },
@@ -448,6 +451,9 @@
           }
         }
       }
+    },
+    "Send a message" : {
+
     },
     "Set a currency you will see on other accommodations" : {
       "localizations" : {

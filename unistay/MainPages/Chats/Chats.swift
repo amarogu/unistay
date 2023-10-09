@@ -26,7 +26,7 @@ struct Chats: View {
             List {
                 ForEach(persistentChats) {
                     chat in
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ChatActive(chat: chat)) {
                         HStack(spacing: 18) {
                             ZStack(alignment: .bottomLeading) {
                                 ForEach(chat.participants) {
@@ -83,8 +83,4 @@ struct Chats: View {
             }*/
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
     }
-}
-
-#Preview {
-    Chats()
 }
