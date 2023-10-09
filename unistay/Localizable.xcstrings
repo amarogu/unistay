@@ -126,9 +126,6 @@
     "by Owner" : {
 
     },
-    "Chat with" : {
-
-    },
     "Chats" : {
 
     },
@@ -322,6 +319,9 @@
           }
         }
       }
+    },
+    "Group with:" : {
+
     },
     "Hello, World!" : {
 

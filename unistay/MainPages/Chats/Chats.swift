@@ -22,21 +22,35 @@ struct Chats: View {
                 }) {
                     Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24))
                 }.tint(Color("BodyEmphasized"))
-            }.padding(.all, 18)
+            }
             List {
                 ForEach(observableChat.chatsArray) {
                     chat in
-                    VStack(alignment: .leading) {
-                        Text("Chat with").customStyle(size: 14)
-                        HStack {
-                            ForEach(chat.participants) {
-                                participant in
-                                
-                                if user?._id != participant._id {
+                    NavigationLink(destination: EmptyView()) {
+                        HStack(spacing: 18) {
+                            ZStack(alignment: .bottomLeading) {
+                                ForEach(chat.participants) {
+                                    participant in
                                     if let profPic = profilePicture[participant._id] {
-                                        Image(uiImage: profPic ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: 38, height: 38).scaleEffect(1).clipShape(Circle())
+                                        if participant._id == chat.participants[0]._id {
+                                            Image(uiImage: profPic ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle()).opacity(0.85)
+                                        }
+                                        if participant._id == chat.participants[1]._id {
+                                            Image(uiImage: profPic ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: 30, height: 30).scaleEffect(1).clipShape(Circle()).offset(x: -8, y: 8)
+                                        }
                                     }
-                                    Text(participant.username).customStyle(size: 14).padding(.vertical, 4).padding(.horizontal, 8).background(Color("AccentColor")).cornerRadius(5).onAppear {
+                                }
+                            }
+                            VStack(alignment: .leading) {
+                                Text("Group with:").customStyle(size: 14)
+                                ForEach(chat.participants) {
+                                    participant in
+                                    HStack() {
+                                        if user?._id != participant._id {
+                                            
+                                            Text("@\(participant.username)").customStyle(size: 14).padding(.vertical, 4).padding(.horizontal, 10).background(Color("AccentColor")).cornerRadius(5)
+                                        }
+                                    }.onAppear {
                                         imageDownloader.downloadUserImage(participant._id) {
                                             img, error in
                                             profilePicture[participant._id] = img ?? UIImage()
@@ -44,8 +58,8 @@ struct Chats: View {
                                     }
                                 }
                             }
-                        }
-                    }.padding(.vertical, 10).listRowBackground(Color("BackgroundColor"))
+                        }.padding(.vertical, 10)
+                    }.listRowBackground(Color("BackgroundColor"))
                 }
             }.listStyle(.plain).padding(.all, 0)
             /*ForEach(observableChat.chatsArray) {chat in
