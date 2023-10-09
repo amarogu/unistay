@@ -60,25 +60,13 @@ struct Accomodation: View {
                 self.name = placemark.name
                 self.country = placemark.country
             }
-            if let publication = pub {
+            if pub != nil {
                 print("iterated")
                 if cover == nil {
-                    NetworkManager.shared.download("http://localhost:3000/image/\(pub?.images[0] ?? "")").responseURL {
-                        response in
-                        debugPrint(response.fileURL as Any)
-                        if let url = response.fileURL {
-                        let image = UIImage(contentsOfFile: url.path)
-                            DispatchQueue.main.async {
-                                self.cover = image
-                                debugPrint(self.cover as Any)
-                            }
-                        }
-                    }
                     if images.isEmpty {
                         let group = DispatchGroup()
                         let urls = pub?.images ?? []
                         var downloadedImages: [UIImage?] = Array(repeating: nil, count: urls.count)
-
                         for (index, img) in urls.enumerated() {
                             group.enter()
                             NetworkManager.shared.download("http://localhost:3000/image/\(img)").responseURL { response in
@@ -95,15 +83,11 @@ struct Accomodation: View {
                                 }
                             }
                         }
-
                         group.notify(queue: .main) {
                             self.images = downloadedImages
                         }
-
                     }
-
                 }
-                
             }
         }
     }

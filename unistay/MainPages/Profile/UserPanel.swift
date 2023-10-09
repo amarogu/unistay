@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 
 class LocalUser {
     var _id: String = ""
@@ -43,7 +44,7 @@ struct UserPanel: View {
     @State private var showSheet = false
     @State private var sheetHeight: CGFloat = .zero
     
-    @StateObject var downloader = ImageDownloader()
+    //@StateObject var downloader = ImageDownloader()
     
     var tabSize: CGFloat
     
@@ -54,23 +55,17 @@ struct UserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
-                    if let image = downloader.downloadedImage {
-                        Image(uiImage: image).resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
+                    LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
+                        i in
+                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                             geo in
                             Color.clear.onAppear {
                                 imageSize = geo.size.width
                             }
                         }).offset(.init(width: imageSize / 2, height: imageSize / 2))
-                    } else {
-                        Rectangle().frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
-                            geo in
-                            Color.clear.onAppear {
-                                imageSize = geo.size.width
-                            }
-                        }).offset(.init(width: imageSize / 2, height: imageSize / 2)).foregroundColor(Color("Gray"))
                     }
                 }.frame(maxWidth: .infinity).background(Color("BackgroundColor")).onAppear {
-                    downloader.downloadProfPic()
+                    //downloader.downloadProfPic()
                     getUser {
                         userData, error in
                         if let userData = userData {
