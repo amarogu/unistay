@@ -32,13 +32,19 @@ struct Chats: View {
                             ZStack(alignment: .bottomLeading) {
                                 ForEach(chat.participants) {
                                     participant in
-                                    AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)"))
+                                    
                                     if let profPic = profilePicture[participant._id] {
                                         if participant._id == chat.participants[0]._id {
-                                            Image(uiImage: profPic ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle()).opacity(0.85)
+                                            AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
+                                                i in
+                                                i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                            }
                                         }
                                         if participant._id == chat.participants[1]._id {
-                                            Image(uiImage: profPic ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: 30, height: 30).scaleEffect(1).clipShape(Circle()).offset(x: -8, y: 8)
+                                            AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
+                                                i in
+                                                i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 30, height: 30).scaleEffect(1).clipShape(Circle()).offset(x: -8, y: 8)
+                                            }
                                         }
                                     }
                                 }
