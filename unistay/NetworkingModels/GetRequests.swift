@@ -43,8 +43,22 @@ class ImageDownloader: ObservableObject {
         }
     }
     
-    func downloadUserImage() {
-        
+    func downloadUserImage(_ userId: String, completion: @escaping (UIImage?, Error?) -> Void) {
+        NetworkManager.shared.download("http://localhost:3000/user/profilepicture/?id=\(userId)").responseURL {
+            response in
+            debugPrint(response.fileURL as Any)
+            if let url = response.fileURL {
+                let image = UIImage(contentsOfFile: url.path)
+                DispatchQueue.main.async {
+                    switch response.result {
+                    case .success:
+                        completion(image, nil)
+                    case .failure(let error):
+                        completion(nil, error)
+                    }
+                }
+            }
+        }
     }
 }
 
