@@ -126,6 +126,12 @@
     "by Owner" : {
 
     },
+    "Chat owned by %@" : {
+
+    },
+    "Chats" : {
+
+    },
     "Click here to change the images you have selected" : {
       "localizations" : {
         "pt-BR" : {
@@ -316,6 +322,9 @@
           }
         }
       }
+    },
+    "Hello, World!" : {
+
     },
     "hi" : {
 

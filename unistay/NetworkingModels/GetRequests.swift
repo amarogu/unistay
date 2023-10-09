@@ -17,7 +17,6 @@ func getUser(completion: @escaping (User?, Error?) -> Void) {
             completion(nil, error)
         }
     }
-
 }
 
 func getProfPic() {
@@ -48,13 +47,35 @@ class ImageDownloader: ObservableObject {
 func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
     NetworkManager.shared.request("http://localhost:3000/nearest", method: .get).responseDecodable(of: [AccommodationResponse].self) {
         response in
-            debugPrint(response)
-            switch response.result {
-            case .success(let value):
-                completion(value, [] as? Error)
-                
-            case .failure(let error):
-                completion([], error)
+        debugPrint(response)
+        switch response.result {
+        case .success(let value):
+            completion(value, [] as? Error)
+        case .failure(let error):
+            completion([], error)
+        }
+    }
+}
+
+class ObservableChat: ObservableObject {
+    @Published var chatsArray: [Chat] = []
+    
+    func fetchChats(completion: @escaping ([Chat]?, Error?) -> Void) {
+        let url = "http://localhost:3000/chats"
+        NetworkManager.shared.request(url, method: .get)
+            .validate()
+            .responseDecodable(of: [Chat].self) { response in
+                switch response.result {
+                case .success(let chats):
+                    completion(chats, nil)
+                    for result in chats {
+                        self.chatsArray.append(result)
+                    }
+                    debugPrint(response)
+                case .failure(let error):
+                    completion(nil, error)
+                    debugPrint(response)
+                }
             }
     }
 }

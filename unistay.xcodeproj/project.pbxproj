@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A31D7A122AC1B08500AFA05A /* MapSearchBarSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */; };
 		A31D7A142AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */; };
+		A32828602AD41E05002F8642 /* ActiveUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328285F2AD41E05002F8642 /* ActiveUniversity.swift */; };
+		A32828912AD437A1002F8642 /* Chats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32828902AD437A1002F8642 /* Chats.swift */; };
 		A32DE6C82AC4F39E0041F9E0 /* SignUpSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32DE6C72AC4F39E0041F9E0 /* SignUpSuccess.swift */; };
 		A3362FEA2AB9296A001FCB34 /* SignUpSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */; };
 		A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339593D2AB77594006BFB26 /* TextInputField.swift */; };
@@ -63,6 +65,8 @@
 /* Begin PBXFileReference section */
 		A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUp.swift; sourceTree = "<group>"; };
 		A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUpFifth.swift; sourceTree = "<group>"; };
+		A328285F2AD41E05002F8642 /* ActiveUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveUniversity.swift; sourceTree = "<group>"; };
+		A32828902AD437A1002F8642 /* Chats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chats.swift; sourceTree = "<group>"; };
 		A32DE6C72AC4F39E0041F9E0 /* SignUpSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSuccess.swift; sourceTree = "<group>"; };
 		A3362FE92AB9296A001FCB34 /* SignUpSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSecond.swift; sourceTree = "<group>"; };
 		A339593D2AB77594006BFB26 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
@@ -128,12 +132,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A32828692AD42554002F8642 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				A32828902AD437A1002F8642 /* Chats.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
 		A33855702A96DEEA00CAF86F /* Universities */ = {
 			isa = PBXGroup;
 			children = (
 				A3E245A22A9401B100BC7E37 /* Suggestion.swift */,
 				A3E245A42A94DDF000BC7E37 /* University.swift */,
 				A3E245A62A94DEBC00BC7E37 /* Universities.swift */,
+				A328285F2AD41E05002F8642 /* ActiveUniversity.swift */,
 			);
 			path = Universities;
 			sourceTree = "<group>";
@@ -231,7 +244,6 @@
 				A3E245A02A93F9A000BC7E37 /* MainPages */,
 				A349CA162ABDFEA200F5C11A /* NormalSignUp */,
 				A33959472AB87527006BFB26 /* PublisherSignUp */,
-				A3E2459F2A93F97800BC7E37 /* Accommodations */,
 				A36E80BF2A7C49B100DAC3DD /* Fonts */,
 				A36A74FC2ACC89CE009AB71F /* NetworkingModels */,
 				A349CA1F2ABE03AF00F5C11A /* ViewModels */,
@@ -293,6 +305,7 @@
 				A33855712A96DF0800CAF86F /* Profile */,
 				A3E245A12A93F9D400BC7E37 /* Places */,
 				A3E2459E2A93F93600BC7E37 /* Menu */,
+				A32828692AD42554002F8642 /* Chats */,
 			);
 			path = MainPages;
 			sourceTree = "<group>";
@@ -300,6 +313,7 @@
 		A3E245A12A93F9D400BC7E37 /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				A3E2459F2A93F97800BC7E37 /* Accommodations */,
 				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
 				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
 				A3F539BC2A8198B300CEDFE7 /* Places.swift */,
@@ -416,6 +430,7 @@
 				A3E2459B2A91466000BC7E37 /* MenuItemSheet.swift in Sources */,
 				A34865FE2ACB9169003FD07B /* AccommodationImage.swift in Sources */,
 				A36E80922A75AD7700DAC3DD /* unistayApp.swift in Sources */,
+				A32828912AD437A1002F8642 /* Chats.swift in Sources */,
 				A36A74F32ACC82C9009AB71F /* NetworkManager.swift in Sources */,
 				A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */,
 				A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */,
@@ -431,6 +446,7 @@
 				A33F42632AB3AF7800A8BD58 /* ToggleField.swift in Sources */,
 				A36A74F12ACC7F9A009AB71F /* Register.swift in Sources */,
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
+				A32828602AD41E05002F8642 /* ActiveUniversity.swift in Sources */,
 				A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */,
 				A3E245A52A94DDF000BC7E37 /* University.swift in Sources */,
 			);

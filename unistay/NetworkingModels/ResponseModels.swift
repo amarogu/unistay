@@ -102,3 +102,30 @@ class AccommodationResponse: Decodable, Hashable {
     }
 }
 
+class Chat: Decodable, Identifiable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Chat, rhs: Chat) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    var id = UUID()
+    let _id: String
+    let creator: String
+    let publicationAssociated: Bool
+    let participants: [Participant]
+    let createdAt: String
+    let updatedAt: String
+    let __v: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, creator, publicationAssociated, participants, createdAt, updatedAt, __v
+    }
+}
+
+class Participant: Decodable {
+    let _id: String
+    let username: String
+}

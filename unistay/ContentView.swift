@@ -79,6 +79,8 @@ struct ContentView: View {
                     MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                 } else if(selectedTab == "Profile") {
                     UserPanel(tabSize: tabSize)
+                } else if selectedTab == "Chats" {
+                    Chats()
                 }
                 HStack(alignment: .bottom) {
                     ForEach(views, id:\.self) {
