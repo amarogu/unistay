@@ -12,6 +12,7 @@ struct Chats: View {
     @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     @State var user: User? = nil
     @State var profilePicture: [String: UIImage?] = [:]
+    @State var persistentChats: [Chat] = []
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -24,7 +25,7 @@ struct Chats: View {
                 }.tint(Color("BodyEmphasized"))
             }
             List {
-                ForEach(observableChat.chatsArray) {
+                ForEach(persistentChats) {
                     chat in
                     NavigationLink(destination: EmptyView()) {
                         HStack(spacing: 18) {
@@ -61,16 +62,21 @@ struct Chats: View {
                         }.padding(.vertical, 10)
                     }.listRowBackground(Color("BackgroundColor"))
                 }
-            }.listStyle(.plain).padding(.all, 0)
+            }.listStyle(.plain).padding(.all, 0).onAppear {
+                observableChat.fetchChats {
+                    result, _ in
+                    for chat in result ?? [] {
+                        if persistentChats.isEmpty {
+                            persistentChats.append(chat)
+                        }
+                    }
+                }
+                
+            }
             /*ForEach(observableChat.chatsArray) {chat in
                 Text("Chat owned by \(chat.creator)")
             }*/
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor")).onAppear {
-            observableChat.fetchChats {
-                _, _ in
-            }
-            
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
     }
 }
 
