@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct Chats: View {
     @ObservedObject var observableChat: ObservableChat = ObservableChat()
-    @ObservedObject var imageDownloader: ImageDownloader = ImageDownloader()
     @State var user: User? = nil
-    @State var profilePicture: [String: UIImage?] = [:]
     @State var persistentChats: [Chat] = []
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,21 +31,19 @@ struct Chats: View {
                             ZStack(alignment: .bottomLeading) {
                                 ForEach(chat.participants) {
                                     participant in
-                                    
-                                    if let profPic = profilePicture[participant._id] {
                                         if participant._id == chat.participants[0]._id {
-                                            AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
+                                            LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
                                                 i in
                                                 i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
                                             }
                                         }
                                         if participant._id == chat.participants[1]._id {
-                                            AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
+                                            LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)")) {
                                                 i in
                                                 i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 30, height: 30).scaleEffect(1).clipShape(Circle()).offset(x: -8, y: 8)
                                             }
                                         }
-                                    }
+                                    
                                 }
                             }
                             VStack(alignment: .leading) {
@@ -59,10 +56,10 @@ struct Chats: View {
                                             Text("@\(participant.username)").customStyle(size: 14).padding(.vertical, 4).padding(.horizontal, 10).background(Color("AccentColor")).cornerRadius(5)
                                         }
                                     }.onAppear {
-                                        imageDownloader.downloadUserImage(participant._id) {
+                                        /*imageDownloader.downloadUserImage(participant._id) {
                                             img, error in
                                             profilePicture[participant._id] = img ?? UIImage()
-                                        }
+                                        }*/
                                         /*profilePicture[participant._id] = AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)"))*/
                                     }
                                 }

@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreLocation
 import MapKit
+import Nuke
+import NukeUI
 
 struct Accomodation: View {
     var pub: AccommodationResponse?
@@ -21,7 +23,10 @@ struct Accomodation: View {
     var body: some View {
         NavigationLink(destination: ActiveAccommodation(pub: pub, images: images, location: [name, country]), label: {
             VStack(alignment: .center, spacing: 20) {
-                Image(uiImage: cover ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                LazyImage(url: URL(string: "http://localhost:3000/image/\(pub?.images[0] ?? "")")) {
+                    i in
+                    i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                }
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack {
