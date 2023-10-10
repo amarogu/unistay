@@ -17,7 +17,7 @@ struct Selection: View {
                 Button(action: {
                     selectedView = option
                 }, label: {
-                    Text(option).customStyle(type: "Semibold", size: 18, color: selectedView == option ? "BodyEmphasized" : "Body").opacity(selectedView == option ? 1 : 0.7)
+                    Text(option).customStyle(type: "Semibold", size: 17, color: selectedView == option ? "BodyEmphasized" : "Body").opacity(selectedView == option ? 1 : 0.7)
                 }).padding(.trailing, 12)
             }
             Spacer()

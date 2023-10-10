@@ -93,6 +93,7 @@ struct ChatActive: View {
                                         }
                                     }
                                 }
+                                message = ""
                             }
                     }) {
                         Image(systemName: "paperplane").font(.system(size: 15)).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColor")).tint(Color("BodyAccent")).cornerRadius(5)
