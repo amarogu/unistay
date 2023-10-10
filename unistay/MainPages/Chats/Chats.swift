@@ -63,13 +63,13 @@ struct Chats: View {
                     observableChat.fetchChats {
                         result, _ in
                         for chat in result ?? [] {
-                            if persistentChats.isEmpty {
-                                persistentChats.append(chat)
-                            }
+                            persistentChats.append(chat)
                         }
                     }
                     
-                }
+                }.onDisappear {
+                    persistentChats = []
+                } // TODO: Check if this does not remove the chat that is being sent to the ActiveChat view
                 /*ForEach(observableChat.chatsArray) {chat in
                     Text("Chat owned by \(chat.creator)")
                 }*/
