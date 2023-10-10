@@ -37,51 +37,56 @@ struct ChatActive: View {
                     ForEach(chat.messages) {
                         msg in
                         if user?._id == msg.senderId {
-                            HStack {
+                            HStack() {
                                 Spacer()
-                                VStack {
+                                VStack(alignment: .trailing) {
                                     HStack {
                                         Text(msg.content).customStyle(size: 14)
-                                        Spacer()
+                                        
                                     }
                                     HStack {
-                                        Spacer()
+                                        
                                         Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
                                     }
                                 }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("AccentColor")).cornerRadius(5)
-                            }.padding(.vertical, 1).padding(.horizontal, 20).padding(.leading, 24)
+                            }.padding(.vertical, 1).padding(.horizontal, 20)
                             
                         } else {
                             HStack {
-                                VStack {
+                                VStack(alignment: .trailing) {
                                     HStack {
                                         Text(msg.content).customStyle(size: 14)
-                                        Spacer()
+                                        
                                     }
                                     HStack {
-                                        Spacer()
+                                        
                                         Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
                                     }
                                 }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("SearchBar")).cornerRadius(5)
                                 Spacer()
-                            }.padding(.vertical, 1).padding(.horizontal, 20).padding(.trailing, 24)
+                            }.padding(.vertical, 1).padding(.horizontal, 20)
                         }
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.bottom, 68)
                 HStack(spacing: 8) {
                     TextInputField(input: $message, placeholderText: "Send a message", placeholderIcon: "text.bubble", required: false)
                     Button(action: {
-                        postMessage(to: chat._id, by: user?._id ?? "", content: message) {
-                            result, error in
-                        }
-                        observableChat.fetchChats {
-                            result, error in
-                            for fetchedChat in result ?? [] {
-                                if fetchedChat._id == chat._id {
-                                    chat = fetchedChat
+                        let group = DispatchGroup()
+
+                            group.enter()
+                            postMessage(to: chat._id, by: user?._id ?? "", content: message) { result, error in
+                                group.leave()
+                            }
+
+                            group.notify(queue: .main) {
+                                observableChat.fetchChats { result, error in
+                                    for fetchedChat in result ?? [] {
+                                        if fetchedChat._id == chat._id {
+                                            chat = fetchedChat
+                                        }
+                                    }
                                 }
                             }
-                        }
                     }) {
                         Image(systemName: "paperplane").font(.system(size: 15)).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColor")).tint(Color("BodyEmphasized")).cornerRadius(5)
                     }

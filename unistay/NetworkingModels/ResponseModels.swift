@@ -115,10 +115,20 @@ class Message: Decodable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case _id, senderId, chatId, content, createdAt, updatedAt, __v
     }
-    
 }
 
-class Chat: Decodable, Identifiable {
+class Participant: Decodable, Identifiable {
+    var id = UUID()
+    let _id: String
+    let username: String
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, username
+    }
+}
+
+class Chat: ObservableObject, Identifiable, Decodable {
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -134,21 +144,23 @@ class Chat: Decodable, Identifiable {
     let participants: [Participant]
     let createdAt: String
     let updatedAt: String
-    let messages: [Message]
+    @Published var messages: [Message] = []
     let __v: Int
-    
     
     enum CodingKeys: String, CodingKey {
         case _id, creator, publicationAssociated, participants, createdAt, updatedAt, __v, messages
     }
-}
-
-class Participant: Decodable, Identifiable {
-    var id = UUID()
-    let _id: String
-    let username: String
     
-    enum CodingKeys: String, CodingKey {
-        case _id, username
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        _id = try container.decode(String.self, forKey: ._id)
+        creator = try container.decode(String.self, forKey: .creator)
+        publicationAssociated = try container.decode(Bool.self, forKey: .publicationAssociated)
+        participants = try container.decode([Participant].self, forKey: .participants)
+        createdAt = try container.decode(String.self, forKey: .createdAt)
+        updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        messages = try container.decode([Message].self, forKey: .messages)
+        __v = try container.decode(Int.self, forKey: .__v)
     }
 }
+
