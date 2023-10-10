@@ -45,7 +45,7 @@ struct Chats: View {
                                         HStack() {
                                             if user?._id != participant._id {
                                                 
-                                                Text("@\(participant.username)").customStyle(size: 14).padding(.vertical, 4).padding(.horizontal, 10).background(Color("AccentColor")).cornerRadius(5)
+                                                Text("@\(participant.username)").customStyle(size: 14, color: "BodyAccent").padding(.vertical, 4).padding(.horizontal, 10).background(Color("AccentColor")).cornerRadius(5)
                                             }
                                         }.onAppear {
                                             /*imageDownloader.downloadUserImage(participant._id) {
@@ -83,10 +83,10 @@ struct Chats: View {
                         Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24))
                     }.tint(Color("BodyEmphasized"))
                 }
-                Text("Chat with potential roommates and landlords")
-            }.background(
-                LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.2), endPoint: .bottom)
-            ).frame(maxHeight: 90)
+                Text("Chat with potential roommates and landlords").lineLimit(1)
+            }.frame(maxHeight: 100).padding(.bottom, 40).padding(.trailing, 10).background(
+                LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.65), endPoint: .bottom)
+            )
             }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
         
     }

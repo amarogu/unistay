@@ -13,7 +13,6 @@ struct ChatActive: View {
     @ObservedObject var observableChat: ObservableChat = ObservableChat()
     @State var user: User?
     @State var message: String = ""
-    
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
     func formatTime(from dateString: String) -> String {
@@ -34,37 +33,45 @@ struct ChatActive: View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 ScrollView {
-                    ForEach(chat.messages) {
-                        msg in
-                        if user?._id == msg.senderId {
-                            HStack() {
-                                Spacer()
-                                VStack(alignment: .trailing) {
-                                    HStack {
-                                        Text(msg.content).customStyle(size: 14)
-                                        
-                                    }
-                                    HStack {
-                                        
-                                        Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
-                                    }
-                                }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("AccentColor")).cornerRadius(5)
-                            }.padding(.vertical, 1).padding(.horizontal, 20)
-                            
-                        } else {
-                            HStack {
-                                VStack(alignment: .trailing) {
-                                    HStack {
-                                        Text(msg.content).customStyle(size: 14)
-                                        
-                                    }
-                                    HStack {
-                                        
-                                        Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
-                                    }
-                                }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("SearchBar")).cornerRadius(5)
-                                Spacer()
-                            }.padding(.vertical, 1).padding(.horizontal, 20)
+                    ScrollViewReader {
+                        scrollView in
+                        ForEach(chat.messages) {
+                            msg in
+                            if user?._id == msg.senderId {
+                                HStack() {
+                                    Spacer()
+                                    VStack(alignment: .trailing) {
+                                        HStack {
+                                            Text(msg.content).customStyle(size: 14, color: "BodyAccent")
+                                            
+                                        }
+                                        HStack {
+                                            
+                                            Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "BodyAccent")
+                                        }
+                                    }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("AccentColor")).cornerRadius(5)
+                                }.padding(.vertical, 1).padding(.horizontal, 20)
+                                
+                            } else {
+                                HStack {
+                                    VStack(alignment: .trailing) {
+                                        HStack {
+                                            Text(msg.content).customStyle(size: 14)
+                                            
+                                        }
+                                        HStack {
+                                            
+                                            Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
+                                        }
+                                    }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("SearchBar")).cornerRadius(5)
+                                    Spacer()
+                                }.padding(.vertical, 1).padding(.horizontal, 20)
+                            }
+                        }.onChange(of: chat.messages.count) {
+                            _ in
+                            print("New message")
+                            let lastMessage = chat.messages.last?._id
+                            scrollView.scrollTo(lastMessage, anchor: .bottom)
                         }
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.bottom, 68)
@@ -88,7 +95,7 @@ struct ChatActive: View {
                                 }
                             }
                     }) {
-                        Image(systemName: "paperplane").font(.system(size: 15)).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColor")).tint(Color("BodyEmphasized")).cornerRadius(5)
+                        Image(systemName: "paperplane").font(.system(size: 15)).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColor")).tint(Color("BodyAccent")).cornerRadius(5)
                     }
                 }.padding(.vertical, 14).padding(.horizontal, 20)
             }
