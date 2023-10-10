@@ -10,6 +10,7 @@ import NukeUI
 
 struct ChatActive: View {
     @State var chat: Chat
+    @State var user: User?
     @State var message: String = ""
     var body: some View {
         NavigationStack {
@@ -17,7 +18,11 @@ struct ChatActive: View {
                 ScrollView {
                     ForEach(chat.messages) {
                         msg in
-                        Text(msg.content)
+                        if user?._id == msg.senderId {
+                            Text(msg.content).background(Color("SearchBar"))
+                        } else {
+                            Text(msg.content).background(Color("AccentColor"))
+                        }
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 HStack(spacing: 8) {
