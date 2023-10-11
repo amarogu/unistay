@@ -47,7 +47,8 @@ struct ChatActive: View {
                                             HStack {
                                                 Text(msg.content).customStyle(size: 14, color: "BodyAccent")
                                                 
-                                            }
+                                            }.padding(.bottom, 4)
+                                            Text(getUsername(msg.senderId, chat)).customStyle(type: "Semibold", size: 12, color: "BodyAccent")
                                             HStack {
                                                 
                                                 Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "BodyAccent")
@@ -61,7 +62,8 @@ struct ChatActive: View {
                                             HStack {
                                                 Text(msg.content).customStyle(size: 14)
                                                 
-                                            }
+                                            }.padding(.bottom, 4)
+                                            Text(getUsername(msg.senderId, chat)).customStyle(type: "Semibold", size: 12, color: "Body")
                                             HStack {
                                                 
                                                 Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
@@ -83,7 +85,11 @@ struct ChatActive: View {
                     TextInputField(input: $message, placeholderText: "Send a message", placeholderIcon: "text.bubble", required: false)
                     Button(action: {
                         let group = DispatchGroup()
-
+                        
+                        if message.isEmpty {
+                            return
+                        }
+                        
                             group.enter()
                             postMessage(to: chat._id, by: user?._id ?? "", content: message) { result, error in
                                 group.leave()
@@ -112,3 +118,12 @@ struct ChatActive: View {
     }
 }
 
+func getUsername(_ id: String, _ chat: Chat?) -> String {
+    for user in chat?.participants ?? [] {
+        if id == user._id {
+            return user.username
+        }
+    }
+    
+    return ""
+}
