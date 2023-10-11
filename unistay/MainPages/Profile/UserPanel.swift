@@ -59,6 +59,10 @@ struct UserPanel: View {
     @State var updatedName: String = ""
     @State var updatedSurname: String = ""
     
+    @State var responseAlert: String = ""
+    @State var responseAlertTitle: String = ""
+    @State var isAlertOn: Bool = false
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -192,6 +196,14 @@ struct UserPanel: View {
                 }.frame(maxWidth: 300)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
+        }).alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
+            Button(role: .cancel, action: {
+                
+            }) {
+                Text("OK")
+            }
+        }, message: {
+            Text(responseAlert)
         }).sheet(isPresented: $editProfile) {
             ZStack {
                 Color("BackgroundColor")
@@ -206,6 +218,42 @@ struct UserPanel: View {
                         Spacer()
                         Button(action: {
                             editProfile.toggle()
+                            if !updatedUser.isEmpty {
+                                changeProperty("username", updatedUser) {
+                                    value, error in
+                                    if let error = error {
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "Something went wrong. Please try again."
+                                        isAlertOn = true
+                                    } else if let value = value {
+                                        switch value {
+                                        case .response:
+                                            responseAlertTitle = "Success"
+                                            responseAlert = "Data updated successfully"
+                                            isAlertOn = true
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            switch error.error {
+                                            case 11000:
+                                                responseAlert = "The username already exists. please try a different one"
+                                            default:
+                                                responseAlert = "Unknown error"
+                                            }
+                                            isAlertOn = true
+                                        }
+                                    }
+                                }
+                            }
+                            getUser {
+                                userData, error in
+                                if let userData = userData {
+                                        // Use userData
+                                        self.user = userData
+                                    } else if let error = error {
+                                        // Handle error
+                                        print(error)
+                                    }
+                            }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)
                         }
