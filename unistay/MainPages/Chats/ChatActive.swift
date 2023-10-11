@@ -29,52 +29,56 @@ struct ChatActive: View {
                 return ""
             }
         }
+    
+    @State private var scrollTarget: UUID?
+
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
-                ScrollView {
-                    ScrollViewReader {
-                        scrollView in
-                        ForEach(chat.messages) {
-                            msg in
-                            if user?._id == msg.senderId {
-                                HStack() {
-                                    Spacer()
-                                    VStack(alignment: .trailing) {
-                                        HStack {
-                                            Text(msg.content).customStyle(size: 14, color: "BodyAccent")
-                                            
-                                        }
-                                        HStack {
-                                            
-                                            Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "BodyAccent")
-                                        }
-                                    }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("AccentColor")).cornerRadius(5)
-                                }.padding(.vertical, 1).padding(.horizontal, 20)
-                                
-                            } else {
-                                HStack {
-                                    VStack(alignment: .trailing) {
-                                        HStack {
-                                            Text(msg.content).customStyle(size: 14)
-                                            
-                                        }
-                                        HStack {
-                                            
-                                            Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
-                                        }
-                                    }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("SearchBar")).cornerRadius(5)
-                                    Spacer()
-                                }.padding(.vertical, 1).padding(.horizontal, 20)
+                ScrollViewReader {
+                    scrollView in
+                    ScrollView {
+                            ForEach(chat.messages) {
+                                msg in
+                                if user?._id == msg.senderId {
+                                    HStack() {
+                                        Spacer()
+                                        VStack(alignment: .trailing) {
+                                            HStack {
+                                                Text(msg.content).customStyle(size: 14, color: "BodyAccent")
+                                                
+                                            }
+                                            HStack {
+                                                
+                                                Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "BodyAccent")
+                                            }
+                                        }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("AccentColor")).cornerRadius(5)
+                                    }.padding(.vertical, 1).padding(.horizontal, 20)
+                                    
+                                } else {
+                                    HStack {
+                                        VStack(alignment: .trailing) {
+                                            HStack {
+                                                Text(msg.content).customStyle(size: 14)
+                                                
+                                            }
+                                            HStack {
+                                                
+                                                Text(formatTime(from: msg.createdAt)).customStyle(size: 12, color: "Body")
+                                            }
+                                        }.padding(.vertical, 8.5).padding(.horizontal, 18).background(Color("SearchBar")).cornerRadius(5)
+                                        Spacer()
+                                    }.padding(.vertical, 1).padding(.horizontal, 20)
+                                }
+                            }.onChange(of: chat.messages.count) { _ in
+                                scrollTarget = chat.messages.last?.id
+                            }.onChange(of: scrollTarget) { target in
+                                if let target = target {
+                                    scrollView.scrollTo(target, anchor: .bottom)
+                                }
                             }
-                        }.onChange(of: chat.messages.count) {
-                            _ in
-                            print("New message")
-                            let lastMessage = chat.messages.last?._id
-                            scrollView.scrollTo(lastMessage, anchor: .bottom)
-                        }
-                    }
-                }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.bottom, 68)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity).padding(.bottom, 68).defaultScrollAnchor(.bottom)
+                }
                 HStack(spacing: 8) {
                     TextInputField(input: $message, placeholderText: "Send a message", placeholderIcon: "text.bubble", required: false)
                     Button(action: {
