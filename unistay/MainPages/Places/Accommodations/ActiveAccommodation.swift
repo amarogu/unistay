@@ -80,7 +80,7 @@ struct ActiveAccommodation: View {
                             Button(action: {
                                 
                             }) {
-                                Text("Connect").customStyle(size: 14).padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                             }
                         }
                     }.padding(.horizontal, 28).padding(.vertical, 8)

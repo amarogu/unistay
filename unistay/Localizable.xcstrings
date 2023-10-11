@@ -126,6 +126,9 @@
     "by Owner" : {
 
     },
+    "Cancel" : {
+
+    },
     "Chat with potential roommates and landlords" : {
 
     },
@@ -244,6 +247,9 @@
         }
       }
     },
+    "Edit your profile" : {
+
+    },
     "Email" : {
 
     },
@@ -312,6 +318,9 @@
           }
         }
       }
+    },
+    "General information" : {
+
     },
     "Get started by creating your first publication" : {
       "localizations" : {
@@ -411,6 +420,9 @@
           }
         }
       }
+    },
+    "Profile picture and bio" : {
+
     },
     "Publication description" : {
 
@@ -570,6 +582,12 @@
         }
       }
     },
+    "Update your bio" : {
+
+    },
+    "Update your name" : {
+
+    },
     "Update your profile picture" : {
       "localizations" : {
         "pt-BR" : {
@@ -589,6 +607,12 @@
           }
         }
       }
+    },
+    "Update your surname" : {
+
+    },
+    "Update your username" : {
+
     },
     "Upload a profile picture" : {
       "localizations" : {

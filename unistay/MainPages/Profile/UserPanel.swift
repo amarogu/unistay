@@ -48,6 +48,17 @@ struct UserPanel: View {
     
     var tabSize: CGFloat
     
+    @State var editProfile: Bool = false
+    @State var presented: Bool = false
+    @State var croppedImage: UIImage?
+    
+    // edit profile inputs
+    
+    @State var updatedBio: String = ""
+    @State var updatedUser: String = ""
+    @State var updatedName: String = ""
+    @State var updatedSurname: String = ""
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -91,9 +102,9 @@ struct UserPanel: View {
                                     HStack {
                                         //checkCookies()
                                         if let bio = user?.bio {
-                                            Text(bio).customStyle(size: 14).frame(maxWidth: width * 0.6).padding(.top, 8)
+                                            Text(bio).customStyle(size: 14).padding(.top, 8).padding(.trailing, width * 0.4)
                                         }
-                                        Spacer()
+                                        
                                     }
                                         Button (action: {
                                             fullBio.toggle()
@@ -111,6 +122,14 @@ struct UserPanel: View {
                                             }
                                             Text("Connections").customStyle(size: 14)
                                         }
+                                    Button(action: {
+                                        editProfile.toggle()
+                                    }) {
+                                        HStack {
+                                            Text("Edit your profile").customStyle(size: 14)
+                                            Image(systemName: "square.and.pencil").foregroundStyle(Color("BodyEmphasized"))
+                                        }
+                                    }
                                 }
                             },
                             label: { VStack(alignment: .leading, spacing: 2) {
@@ -173,7 +192,61 @@ struct UserPanel: View {
                 }.frame(maxWidth: 300)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
-        })
+        }).sheet(isPresented: $editProfile) {
+            ZStack {
+                Color("BackgroundColor")
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Button(action: {
+                            croppedImage = nil
+                            editProfile.toggle()
+                        }) {
+                            Text("Cancel").customStyle(type: "Semibold", size: 14)
+                        }
+                        Spacer()
+                        Button(action: {
+                            editProfile.toggle()
+                        }) {
+                            Text("Done").customStyle(type: "Semibold", size: 14)
+                        }
+                    }.padding(.bottom, 24)
+                    Text("General information").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6)
+                    TextInputField(input: $updatedUser, placeholderText: "Update your username", placeholderIcon: "at", required: false)
+                    TextInputField(input: $updatedName, placeholderText: "Update your name", placeholderIcon: "person.text.rectangle", required: false)
+                    TextInputField(input: $updatedSurname, placeholderText: "Update your surname", placeholderIcon: "text.insert", required: false)
+                    Text("Profile picture and bio").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6).padding(.top, 10)
+                    HStack {
+                        if croppedImage == nil {
+                            LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
+                                i in
+                                i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 40, height: 40).scaleEffect(1).clipShape(Circle())
+                            }
+                        }
+                        Button(action: {
+                            presented.toggle()
+                        }) {
+                            if let image = croppedImage {
+                                HStack() {
+                                    Image(uiImage: image).resizable().aspectRatio(contentMode: .fit).frame(maxWidth: 40).padding(.trailing, 4)
+                                    VStack(alignment: .leading) {
+                                        Text("Update your profile picture").customStyle(type: "Regular", size: 12)
+                                        Text("Click here to change the profile picture you have selected").customStyle(type: "Regular", size: 12, color: "Body").opacity(0.8).multilineTextAlignment(.leading)
+                                    }
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                            } else {
+                                HStack {
+                                    Image(systemName: "camera").font(.system(size: 14)).tint(Color("BodyEmphasized"))
+                                    Text("Update your profile picture").customStyle(type: "Regular", size: 13)
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5)
+                            }
+                        }.cropImagePicker(crop: .circle, show: $presented, croppedImage: $croppedImage)
+                    }
+                    TextInputField(input: $updatedBio, placeholderText: "Update your bio", placeholderIcon: "note.text", required: false)
+                }.padding(.all, 16)
+            }
+        }
     }
 }
 

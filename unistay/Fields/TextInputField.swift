@@ -32,7 +32,7 @@ struct TextInputField: View {
                             Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)
                         }
                     } }
-                    TextField(text: $input, axis: placeholderText == "Send a message" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                    TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
                     //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }
