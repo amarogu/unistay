@@ -104,7 +104,7 @@ struct UserPanel: View {
                                         if let bio = user?.bio {
                                             Text(bio).customStyle(size: 14).padding(.top, 8).padding(.trailing, width * 0.4)
                                         }
-                                        
+                                        Spacer()
                                     }
                                         Button (action: {
                                             fullBio.toggle()
