@@ -55,7 +55,7 @@ struct MapSearchBar: View {
                         VStack(alignment: .leading) {
                             FormHeader()
                             VStack(alignment: .leading) {
-                                SearchBar(placeholder: Text("Set your location").customStyle(size: 13) as! Text, text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                                SearchBar(placeholder: "Choose your preferred locations", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                                 
                                 if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                     List {

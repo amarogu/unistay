@@ -25,13 +25,15 @@ struct SignUpPublisherFourth: View {
     @State var password: String
     @State var profilePicture: UIImage?
     @State var bio: String
-    @State var locatedAt: [Double]
+    @State var locatedAt: [Double?]
     @State var currency: String
     @State var publicationTitle: String = ""
     @State var publicationDescription: String = ""
     @State var rent: String = ""
     @State var menuSelection = "USD"
     @State var typeSelection: String = "On-campus"
+    @State var name: String
+    @State var surname: String
     
     var body: some View {
         NavigationStack {
@@ -68,7 +70,7 @@ struct SignUpPublisherFourth: View {
                                 if !validate.validationError.isEmpty {
                                     Text(validate.validationError).customStyle(size: 13, color: "Error")
                                 }
-                                NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection, name: name, surname: surname), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

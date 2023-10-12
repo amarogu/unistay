@@ -63,6 +63,8 @@ struct UserPanel: View {
     @State var responseAlertTitle: String = ""
     @State var isAlertOn: Bool = false
     
+    @State var pathToProfilePicture: String = "profilepicture"
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -70,7 +72,7 @@ struct UserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
-                    LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
+                    LazyImage(url: URL(string: "http://localhost:3000/user/\(pathToProfilePicture)")) {
                         i in
                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                             geo in
@@ -264,9 +266,6 @@ struct UserPanel: View {
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
-                                            case 11000:
-                                                responseAlert = "The username already exists. Please try a different one"
-                                                group.leave()
                                             default:
                                                 responseAlert = "Unknown error"
                                                 group.leave()
@@ -295,9 +294,6 @@ struct UserPanel: View {
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
-                                            case 11000:
-                                                responseAlert = "The username already exists. Please try a different one"
-                                                group.leave()
                                             default:
                                                 responseAlert = "Unknown error"
                                                 group.leave()
@@ -326,9 +322,6 @@ struct UserPanel: View {
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
-                                            case 11000:
-                                                responseAlert = "The username already exists. Please try a different one"
-                                                group.leave()
                                             default:
                                                 responseAlert = "Unknown error"
                                                 group.leave()
@@ -336,6 +329,9 @@ struct UserPanel: View {
                                         }
                                     }
                                 }
+                            }
+                            if croppedImage != nil {
+                                updateProfilePicture(croppedImage)
                             }
                             group.notify(queue: .main) {
                                 
@@ -350,6 +346,7 @@ struct UserPanel: View {
                                         }
                                 }
                                 isAlertOn = true
+                                pathToProfilePicture = "profilepicture"
                             }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)

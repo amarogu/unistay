@@ -27,6 +27,8 @@ struct SignUpPublisherSecond: View {
     @State var username: String
     @State var email: String
     @State var password: String
+    @State var name: String
+    @State var surname: String
     
     var body: some View {
         NavigationStack {
@@ -89,7 +91,7 @@ struct SignUpPublisherSecond: View {
                                 if !validate.validationError.isEmpty {
                                     Text(validate.validationError).customStyle(type: "Regular", size: 13, color: "Error").padding(.top, 4.5)
                                 }
-                                NavigationLink(destination: MapSearchBarSignUp(username: username, email: email, password: password, profilePicture: croppedImage, bio: publisherBio), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUp(username: username, email: email, password: password, profilePicture: croppedImage, bio: publisherBio, name: name, surname: surname), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

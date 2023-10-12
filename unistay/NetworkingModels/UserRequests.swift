@@ -32,6 +32,17 @@ enum PropertyChangeResult: Decodable {
     }
 }
 
+func updateProfilePicture(_ image: UIImage?) {
+    AF.upload(multipartFormData: { multipartFormData in
+        if let imageData = image?.pngData() {
+            multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+        }
+        debugPrint(multipartFormData)
+    }, to: "http://localhost:3000/user/profilepicture", method: .put)
+    .responseDecodable(of: ServerResponseSignup.self) { response in
+        debugPrint(response)
+    }
+}
 
 func changeProperty(_ property: String, _ content: String, completion: @escaping (PropertyChangeResult?, Error?) -> Void) {
     let parameters = [

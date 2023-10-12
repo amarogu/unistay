@@ -54,7 +54,7 @@ class Register: ObservableObject {
 
 
     
-    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, locatedAtCoordinates: [Double], pubLoc: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage]) {
+    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, locatedAtCoordinates: [Double?], pubLoc: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage], name: String, surname: String) {
         let locatedAtData: [String: Any] = [
             "latitude": locatedAtCoordinates[0],
             "longitude": locatedAtCoordinates[1]
@@ -68,6 +68,8 @@ class Register: ObservableObject {
         let accProviderData: [String: Any] = [
             "username": username,
             "email": email,
+            "name": name,
+            "surname": surname,
             "password": password,
             "language": "en",
             "accountType": "provider",
@@ -95,13 +97,14 @@ class Register: ObservableObject {
                let profilePicture = profilePicture?.pngData() {
                 multipartFormData.append(accProviderData, withName: "userData")
                 multipartFormData.append(publicationData, withName: "publicationData")
-                multipartFormData.append(profilePicture, withName: "image", fileName: "\(UUID()).png", mimeType: "image/png")
+                multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                 for (_, image) in images.enumerated() {
                     if let imageData = image.pngData() {
                         multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                     }
                 }
             }
+            debugPrint(multipartFormData)
         }, to: "http://localhost:3000/register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)

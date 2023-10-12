@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    var placeholder: Text
+    var placeholder: LocalizedStringKey
     @Binding var text: String
     var editingChanged: (Bool)->() = { _ in }
     var commit: ()->() = { }
@@ -18,7 +18,7 @@ struct SearchBar: View {
         HStack {
             Image(systemName: "magnifyingglass").font(.system(size: 12))
             ZStack(alignment: .leading) {
-                if text.isEmpty { placeholder }
+                if text.isEmpty { Text(placeholder).customStyle(size: 14) }
                 TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit).font(.custom("Eina03-Regular", size: 13))//.position(x: 1, y: 1)
             }
         }

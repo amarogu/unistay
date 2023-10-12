@@ -29,7 +29,9 @@ struct MapSearchBarSignUp: View {
     @State var password: String
     @State var profilePicture: UIImage?
     @State var bio: String
-    @State var locatedAt: [Double]?
+    @State var locatedAt: [Double?] = []
+    @State var name: String
+    @State var surname: String
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -49,7 +51,7 @@ struct MapSearchBarSignUp: View {
                         FormHeader()
                         
                         VStack(alignment: .leading) {
-                            SearchBar(placeholder: Text("Set your location").customStyle(size: 13) as! Text, text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            SearchBar(placeholder: "Set your location", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
                                     Section {
@@ -129,23 +131,28 @@ struct MapSearchBarSignUp: View {
                         Text("Set a currency you will see on other accommodations").customStyle(size: 13, color: "Body").padding(.top, 4)
                         MenuField(items: items, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection).tint(Color("BodyEmphasized"))
                         Button(action: {
+                            
                             if pickedLocNames == "" {
                                 validate.validationError = "You need to select at least one location"
                             } else {
                                 validate.validationError = ""
-                                if let coordinates = pickedLocCoordinates as? [[Optional<Double>]] {
-                                    for coordinate in coordinates {
-                                        if let latitude = coordinate[0].flatMap({ $0 }),
-                                           let longitude = coordinate[1].flatMap({ $0 }) {
-                                            print("Latitude: \(latitude), Longitude: \(longitude)")
-                                            locatedAt = [latitude, longitude]
-                                        }
-                                    }
+                                
+                                    
+                                        
+                                print("Latitude: \(String(describing: pickedLocCoordinates[0])), Longitude: \(String(describing: pickedLocCoordinates[1]))")
+                                            locatedAt = [pickedLocCoordinates[0].flatMap({ $0 }), pickedLocCoordinates[1].flatMap({ $0 })]
+                                            print(locatedAt)
+                                            
+                                        
+                                    
+                                
+                            }
+                            
+                            
+                                if !pickedLocNames.isEmpty && validate.validationError.isEmpty {
+                                    
+                                    shouldNavigate.toggle()
                                 }
-                            }
-                            if !pickedLocNames.isEmpty && validate.validationError.isEmpty {
-                                shouldNavigate.toggle()
-                            }
                             
                         }) {
                             HStack(alignment: .center) {
@@ -153,9 +160,9 @@ struct MapSearchBarSignUp: View {
                                 Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                             }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                         }
-                        NavigationLink(destination: SignUpPublisherFourth(username: username, email: email, password: password, profilePicture: profilePicture, bio: bio, locatedAt: locatedAt ?? [], currency: menuSelection), isActive: $shouldNavigate) {
+                        NavigationLink(destination: SignUpPublisherFourth(username: username, email: email, password: password, profilePicture: profilePicture, bio: bio, locatedAt: locatedAt, currency: menuSelection, name: name, surname: surname), isActive: $shouldNavigate) {
                             EmptyView()
-                        }
+                        } // The problem is the view is navigating before the located at is uploaded, I guess
                         if !validate.validationError.isEmpty {
                             Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 4)
                         }
@@ -199,6 +206,7 @@ struct MapViewSignUpSelection: View {
                             pickedLocNames = place.name ?? ""
                             pickedLocCoordinates = [locationManager.pickedLocation?.coordinate.latitude, locationManager.pickedLocation?.coordinate.longitude]
                             presentationMode.wrappedValue.dismiss()
+                            print(pickedLocCoordinates)
                         }) {
                             HStack {
                                 Text("Confirm").customStyle(size: 14)

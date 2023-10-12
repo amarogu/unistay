@@ -28,7 +28,7 @@ struct MapSearchBarSignUpFifth: View {
     @State var password: String
     @State var profilePicture: UIImage?
     @State var bio: String
-    @State var locatedAt: [Double]
+    @State var locatedAt: [Double?]
     @State var currency: String
     @State var publicationTitle: String
     @State var publicationDescription: String
@@ -37,6 +37,8 @@ struct MapSearchBarSignUpFifth: View {
     @State var typeSelection: String
     @State var publicationVisibility: String = "Visible"
     @State var visibility: [String] = ["Visible", "Invisible"]
+    @State var name: String
+    @State var surname: String
     
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
@@ -64,7 +66,7 @@ struct MapSearchBarSignUpFifth: View {
                     VStack(alignment: .leading) {
                         FormHeader()
                         VStack(alignment: .leading) {
-                            SearchBar(placeholder: Text("Set your location").customStyle(size: 13) as! Text, text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            SearchBar(placeholder: "Set your location", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
@@ -198,7 +200,7 @@ struct MapSearchBarSignUpFifth: View {
                             }
                             if validate.validationError.isEmpty {
                                 //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                                registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array)
+                                registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname)
                             }
                         }) {
                             HStack(alignment: .center) {

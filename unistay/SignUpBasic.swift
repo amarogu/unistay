@@ -120,7 +120,7 @@ struct SignUpBasic: View {
                                 NavigationLink(destination: SignUpSecond(username: username, email: email, password: password), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
-                                NavigationLink(destination: SignUpPublisherSecond(username: username, email: email, password: password), isActive: $shouldNavigateToPublisher) {
+                                NavigationLink(destination: SignUpPublisherSecond(username: username, email: email, password: password, name: name, surname: surname), isActive: $shouldNavigateToPublisher) {
                                     EmptyView()
                                 }
                                 if !validate.validationError.isEmpty {
