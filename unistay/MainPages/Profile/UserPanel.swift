@@ -223,31 +223,60 @@ struct UserPanel: View {
                                     if let error = error {
                                         responseAlertTitle = "Error"
                                         responseAlert = "Something went wrong. Please try again."
-                                        isAlertOn = true
                                         group.leave()
                                     } else if let value = value {
                                         switch value {
                                         case .response:
                                             responseAlertTitle = "Success"
                                             responseAlert = "Data updated successfully"
-                                            isAlertOn = true
                                             group.leave()
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
                                             case 11000:
-                                                responseAlert = "The username already exists. please try a different one"
+                                                responseAlert = "The username already exists. Please try a different one"
                                                 group.leave()
                                             default:
                                                 responseAlert = "Unknown error"
                                                 group.leave()
                                             }
-                                            isAlertOn = true
+                                        }
+                                    }
+                                }
+                            }
+                            if !updatedName.isEmpty {
+                                changeProperty("name", updatedName) {
+                                    value, error in
+                                    if let error = error {
+                                        responseAlertTitle = "Error"
+                                        if updatedName.count < 3 {
+                                            responseAlert = "Your name needs to be at least 3 characters long"
+                                        } else {
+                                            responseAlert = "Something went wrong. Please try again."
+                                        }
+                                        group.leave()
+                                    } else if let value = value {
+                                        switch value {
+                                        case .response:
+                                            responseAlertTitle = "Success"
+                                            responseAlert = "Data updated successfully"
+                                            group.leave()
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            switch error.error {
+                                            case 11000:
+                                                responseAlert = "The username already exists. Please try a different one"
+                                                group.leave()
+                                            default:
+                                                responseAlert = "Unknown error"
+                                                group.leave()
+                                            }
                                         }
                                     }
                                 }
                             }
                             group.notify(queue: .main) {
+                                
                                 getUser {
                                     userData, error in
                                     if let userData = userData {
@@ -258,6 +287,7 @@ struct UserPanel: View {
                                             print(error)
                                         }
                                 }
+                                isAlertOn = true
                             }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)
@@ -318,3 +348,23 @@ struct GetHeightModifier: ViewModifier {
     }
 }
 
+/*
+ if !updatedName.isEmpty {
+     changeProperty("name", updatedName) {
+         value, error in
+         if let error = error {
+             responseAlertTitle = "Error"
+             responseAlert = "Something went wrong. Please try again."
+             isAlertOn = true
+             group.leave()
+         }else if let value = value {
+             switch value {
+             case .response:
+                 
+             default:
+                 break
+             }
+         }
+     }
+ }
+*/
