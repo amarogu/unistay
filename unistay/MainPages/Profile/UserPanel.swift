@@ -34,7 +34,7 @@ struct UserPanel: View {
     @State private var imageSize: CGFloat = 0
     @State private var selectedView: String = "Universities"
     var viewOptions = ["Universities", "Location", "Roommates"]
-    @State private var user: User? = nil
+    @ObservedObject var user: ObservableUser = ObservableUser()
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0
     
@@ -85,10 +85,7 @@ struct UserPanel: View {
                         userData, error in
                         if let userData = userData {
                                 // Use userData
-                                self.user = userData
-                                print(userData)
-                                print(userData.username)
-                            print (userData.preferredLocations[0].latitude)
+                            self.user.user = userData
                             } else if let error = error {
                                 // Handle error
                                 print(error)
@@ -105,7 +102,7 @@ struct UserPanel: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     HStack {
                                         //checkCookies()
-                                        if let bio = user?.bio {
+                                        if let bio = user.user?.bio {
                                             Text(bio).customStyle(size: 14).padding(.top, 8).padding(.trailing, width * 0.4)
                                         }
                                         Spacer()
@@ -114,14 +111,14 @@ struct UserPanel: View {
                                             fullBio.toggle()
                                         }) {
                                             HStack {
-                                                if let name = user?.name {
+                                                if let name = user.user?.name {
                                                     Text("See \(name)'s full bio").customStyle(size: 14)
                                                 }
                                                 Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
                                             }
                                         }
                                         HStack {
-                                            if let connectedPublications = user?.connectedPublications {
+                                            if let connectedPublications = user.user?.connectedPublications {
                                                 Text("\(connectedPublications.count)").customStyle(type: "Semibold", size: 14)
                                             }
                                             Text("Connections").customStyle(size: 14)
@@ -137,7 +134,7 @@ struct UserPanel: View {
                                 }
                             },
                             label: { VStack(alignment: .leading, spacing: 2) {
-                                if let name = user?.name, let surname = user?.surname, let username = user?.username {
+                                if let name = user.user?.name, let surname = user.user?.surname, let username = user.user?.username {
                                     Text("\(name) \(surname)").customStyle(type: "Semibold", size: 14)
                                     Text("@\(username)").customStyle(size: 14, color: "Body")
 
@@ -185,17 +182,17 @@ struct UserPanel: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        if let name = user?.name {
+                        if let name = user.user?.name {
                             Text("\(name)'s bio").customStyle(type: "Semibold", size: 14)
                         }
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
-                    if let bio = user?.bio {
+                    if let bio = user.user?.bio {
                         Text(bio).customStyle(size: 14).modifier(GetHeightModifier(height: $sheetHeight))
                     }
                 }.frame(maxWidth: 300)
                 Spacer()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
         }).alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
             Button(role: .cancel, action: {
                 
@@ -217,7 +214,9 @@ struct UserPanel: View {
                         }
                         Spacer()
                         Button(action: {
+                            let group = DispatchGroup()
                             editProfile.toggle()
+                            group.enter()
                             if !updatedUser.isEmpty {
                                 changeProperty("username", updatedUser) {
                                     value, error in
@@ -225,34 +224,40 @@ struct UserPanel: View {
                                         responseAlertTitle = "Error"
                                         responseAlert = "Something went wrong. Please try again."
                                         isAlertOn = true
+                                        group.leave()
                                     } else if let value = value {
                                         switch value {
                                         case .response:
                                             responseAlertTitle = "Success"
                                             responseAlert = "Data updated successfully"
                                             isAlertOn = true
+                                            group.leave()
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
                                             case 11000:
                                                 responseAlert = "The username already exists. please try a different one"
+                                                group.leave()
                                             default:
                                                 responseAlert = "Unknown error"
+                                                group.leave()
                                             }
                                             isAlertOn = true
                                         }
                                     }
                                 }
                             }
-                            getUser {
-                                userData, error in
-                                if let userData = userData {
-                                        // Use userData
-                                        self.user = userData
-                                    } else if let error = error {
-                                        // Handle error
-                                        print(error)
-                                    }
+                            group.notify(queue: .main) {
+                                getUser {
+                                    userData, error in
+                                    if let userData = userData {
+                                            // Use userData
+                                        self.user.user = userData
+                                        } else if let error = error {
+                                            // Handle error
+                                            print(error)
+                                        }
+                                }
                             }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)
