@@ -275,6 +275,68 @@ struct UserPanel: View {
                                     }
                                 }
                             }
+                            if !updatedSurname.isEmpty {
+                                changeProperty("surname", updatedSurname) {
+                                    value, error in
+                                    if let error = error {
+                                        responseAlertTitle = "Error"
+                                        if updatedName.count < 3 {
+                                            responseAlert = "Your surname needs to be at least 3 characters long"
+                                        } else {
+                                            responseAlert = "Something went wrong. Please try again."
+                                        }
+                                        group.leave()
+                                    } else if let value = value {
+                                        switch value {
+                                        case .response:
+                                            responseAlertTitle = "Success"
+                                            responseAlert = "Data updated successfully"
+                                            group.leave()
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            switch error.error {
+                                            case 11000:
+                                                responseAlert = "The username already exists. Please try a different one"
+                                                group.leave()
+                                            default:
+                                                responseAlert = "Unknown error"
+                                                group.leave()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if !updatedBio.isEmpty {
+                                changeProperty("bio", updatedBio) {
+                                    value, error in
+                                    if let error = error {
+                                        responseAlertTitle = "Error"
+                                        if updatedName.count < 10 {
+                                            responseAlert = "Your bio needs to be at least 10 characters long"
+                                        } else {
+                                            responseAlert = "Something went wrong. Please try again."
+                                        }
+                                        group.leave()
+                                    } else if let value = value {
+                                        switch value {
+                                        case .response:
+                                            responseAlertTitle = "Success"
+                                            responseAlert = "Data updated successfully"
+                                            group.leave()
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            switch error.error {
+                                            case 11000:
+                                                responseAlert = "The username already exists. Please try a different one"
+                                                group.leave()
+                                            default:
+                                                responseAlert = "Unknown error"
+                                                group.leave()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             group.notify(queue: .main) {
                                 
                                 getUser {
