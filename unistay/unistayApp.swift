@@ -27,7 +27,7 @@ class SessionManager {
 }
 
 class Global: ObservableObject {
-    @Published var navTag: String? = ""
+    static let shared = Global()
 }
 
 func checkCookies() -> Text {
@@ -47,13 +47,6 @@ struct unistayApp: App {
     @State var isLoggedIn: Bool = SessionManager.shared.isLoggedIn
     @State var navigateToContent: Bool = false
     var body: some Scene {
-        /*WindowGroup {
-            if isLoggedIn {
-                ContentView(isLoggedIn: $isLoggedIn)
-                        } else {
-                            //LoginView(isLoggedIn: $isLoggedIn)
-                        }
-        }*/
         WindowGroup {
             NavigationStack {
                 if isLoggedIn {

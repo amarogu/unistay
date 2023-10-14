@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-/*func styledText(type: String, size: CGFloat, content: String, color: String = "BodyEmphasized") -> Text {
-    return Text(content).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
-}
-
-func localizedText(type: String, size: CGFloat, contentKey: LocalizedStringKey, color: String = "BodyEmphasized") -> Text {
-    return Text(contentKey).font(.custom("Eina03-\(type)", size: size)).foregroundColor(Color(color))
-}*/
-
 struct CustomTextStyle: ViewModifier {
     var type: String
     var size: CGFloat
@@ -33,31 +25,12 @@ extension Text {
     }
 }
 
-
-
-/*struct SuperTextField: View {
-    
-    var placeholder: Text
-    @Binding var text: String
-    var editingChanged: (Bool)->() = { _ in }
-    var commit: ()->() = { }
-    
-    var body: some View {
-        ZStack(alignment: .leading) {
- /Users/gustavoamaro/Documents/GitHub/unistay/unistay/ViewModels if text.isEmpty { placeholder }
-            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
-        }
-    }
-    
-}*/
-
 func icon(name: String, size: CGFloat) -> some View {
     return Image(systemName: name).resizable().aspectRatio(contentMode: .fit).frame(width: size)
 }
 
 struct ContentView: View {
     @State private var searchText = ""
-    // @State private var searchText3 = "a"
     @State var text: String = ""
     @State private var selectedFilters: [String] = []
     var filterOptions = ["option", "option 1", "option 2", "option 3"]
@@ -92,7 +65,6 @@ struct ContentView: View {
                     geo in
                     LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.62), endPoint: .top).onAppear {
                         tabSize = geo.size.height
-                        //sizeCompute(size: tabSize)
                     }
                 })
             }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
@@ -100,15 +72,13 @@ struct ContentView: View {
             getUser {
                 userData, error in
                 if let userData = userData {
-                        // Use userData
-                        self.user = userData
-                        print(userData)
-                        print(userData.username)
+                    self.user = userData
+                    print(userData)
+                    print(userData.username)
                     print (userData.preferredLocations[0].latitude)
-                    } else if let error = error {
-                        // Handle error
-                        print(error)
-                    }
+                } else if let error = error {
+                    print(error)
+                }
             }
         }
         
