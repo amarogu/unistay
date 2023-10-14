@@ -7,12 +7,13 @@
 
 import SwiftUI
 import Alamofire
+import Nuke
 
 class PropertyChangeResponse: Decodable {
     let message: String
 }
 
-class PropertyChangeError: Decodable {
+class PropertyChangeError: Decodable, Error {
     let error: Int
 }
 
@@ -32,35 +33,49 @@ enum PropertyChangeResult: Decodable {
     }
 }
 
-func updateProfilePicture(_ image: UIImage?) {
-    AF.upload(multipartFormData: { multipartFormData in
-        if let imageData = image?.pngData() {
-            multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+func updateProfilePicture(_ image: UIImage?) async throws -> ServerResponseSignup {
+    let response = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<ServerResponseSignup, Error>) in
+        AF.upload(multipartFormData: { multipartFormData in
+            if let imageData = image?.pngData() {
+                multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+            }
+            debugPrint(multipartFormData)
+        }, to: "http://localhost:3000/user/profilepicture", method: .put)
+        .responseDecodable(of: ServerResponseSignup.self) { response in
+            debugPrint(response)
+            switch response.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+                let url = URL(string: "http://localhost:3000/user/profilepicture")
+                let request = ImageRequest(url: url)
+                ImageCache.shared[ImageCacheKey(request: request)] = nil
+            case .failure(let error):
+                continuation.resume(throwing: error)
+            }
         }
-        debugPrint(multipartFormData)
-    }, to: "http://localhost:3000/user/profilepicture", method: .put)
-    .responseDecodable(of: ServerResponseSignup.self) { response in
-        debugPrint(response)
     }
+    
+    return response
 }
 
-func changeProperty(_ property: String, _ content: String, completion: @escaping (PropertyChangeResult?, Error?) -> Void) {
+func changeProperty(_ property: String, _ content: String) async throws -> PropertyChangeResult {
     let parameters = [
         property: content
     ]
-    NetworkManager.shared.request("http://localhost:3000/user/\(property)", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: PropertyChangeResult.self) {
-        response in
-        debugPrint(response)
+    
+    let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<PropertyChangeResult, Error>) in
+        NetworkManager.shared.request("http://localhost:3000/user/\(property)", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: PropertyChangeResult.self) { response in
             switch response.result {
             case .success(let value):
-                switch value {
-                case .response(let response):
-                    completion(.response(response), nil)
-                case .error(let error):
-                    completion(.error(error), nil)
-                }
+                continuation.resume(returning: value)
             case .failure(let error):
-                completion(nil, error)
+                continuation.resume(throwing: error)
             }
+        }
     }
+    
+    return response
 }
+
+

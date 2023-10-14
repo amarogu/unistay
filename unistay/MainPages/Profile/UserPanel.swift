@@ -7,26 +7,7 @@
 
 import SwiftUI
 import NukeUI
-
-class LocalUser {
-    var _id: String = ""
-    var username: String = ""
-    var name: String = ""
-    var surname: String = ""
-    var email: String = ""
-    var language: String = ""
-    var password: String = ""
-    var preferredLocations: [String] = []
-    var isPrivate: Bool = false
-    var currency: String = ""
-    var savedPublications: [String] = []
-    var connectedPublications: [String] = []
-    var owns: [String] = []
-    var profilePicture: String = ""
-    var accountType: String = ""
-    var bio: String = ""
-    var __v: Int = 0
-}
+import Nuke
 
 struct UserPanel: View {
     @State private var offset: CGSize = .zero
@@ -43,8 +24,6 @@ struct UserPanel: View {
     
     @State private var showSheet = false
     @State private var sheetHeight: CGFloat = .zero
-    
-    //@StateObject var downloader = ImageDownloader()
     
     var tabSize: CGFloat
     
@@ -63,8 +42,6 @@ struct UserPanel: View {
     @State var responseAlertTitle: String = ""
     @State var isAlertOn: Bool = false
     
-    @State var pathToProfilePicture: String = "profilepicture"
-    
     var body: some View {
         GeometryReader {
             geo in
@@ -72,7 +49,7 @@ struct UserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
-                    LazyImage(url: URL(string: "http://localhost:3000/user/\(pathToProfilePicture)")) {
+                    LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
                         i in
                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                             geo in
@@ -216,137 +193,147 @@ struct UserPanel: View {
                         }
                         Spacer()
                         Button(action: {
-                            let group = DispatchGroup()
                             editProfile.toggle()
-                            group.enter()
                             if !updatedUser.isEmpty {
-                                changeProperty("username", updatedUser) {
-                                    value, error in
-                                    if let error = error {
-                                        responseAlertTitle = "Error"
-                                        responseAlert = "Something went wrong. Please try again."
-                                        group.leave()
-                                    } else if let value = value {
-                                        switch value {
-                                        case .response:
+                                Task {
+                                    do {
+                                        let result = try await changeProperty("username", updatedUser)
+                                        switch result {
+                                        case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = "Data updated successfully"
-                                            group.leave()
+                                            responseAlert = response.message
+                                            getUser {
+                                                userData, _ in
+                                                if let userData = userData {
+                                                    self.user.user = userData
+                                                }
+                                            }
+                                            isAlertOn = true
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
                                             case 11000:
                                                 responseAlert = "The username already exists. Please try a different one"
-                                                group.leave()
+                                                isAlertOn = true
                                             default:
                                                 responseAlert = "Unknown error"
-                                                group.leave()
+                                                isAlertOn = true
                                             }
                                         }
+                                    } catch {
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "Something went wrong. Please try again."
+                                        isAlertOn = true
                                     }
                                 }
                             }
                             if !updatedName.isEmpty {
-                                changeProperty("name", updatedName) {
-                                    value, error in
-                                    if let error = error {
+                                Task {
+                                    do {
+                                        let result = try await changeProperty("name", updatedName)
+                                        
+                                        switch result {
+                                        case .response(let response):
+                                            responseAlertTitle = "Success"
+                                            responseAlert = response.message
+                                            getUser {
+                                                userData, _ in
+                                                if let userData = userData {
+                                                    self.user.user = userData
+                                                }
+                                            }
+                                            isAlertOn = true
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            responseAlert = "Error code: \(error.error)"
+                                            isAlertOn = true
+                                        }
+                                    } catch {
                                         responseAlertTitle = "Error"
                                         if updatedName.count < 3 {
                                             responseAlert = "Your name needs to be at least 3 characters long"
                                         } else {
                                             responseAlert = "Something went wrong. Please try again."
                                         }
-                                        group.leave()
-                                    } else if let value = value {
-                                        switch value {
-                                        case .response:
-                                            responseAlertTitle = "Success"
-                                            responseAlert = "Data updated successfully"
-                                            group.leave()
-                                        case .error(let error):
-                                            responseAlertTitle = "Error"
-                                            switch error.error {
-                                            default:
-                                                responseAlert = "Unknown error"
-                                                group.leave()
-                                            }
-                                        }
+                                        isAlertOn = true
                                     }
                                 }
                             }
                             if !updatedSurname.isEmpty {
-                                changeProperty("surname", updatedSurname) {
-                                    value, error in
-                                    if let error = error {
+                                Task {
+                                    do {
+                                        let result = try await changeProperty("surname", updatedSurname)
+                                        switch result {
+                                        case .response(let response):
+                                            responseAlertTitle = "Success"
+                                            responseAlert = response.message
+                                            getUser {
+                                                userData, _ in
+                                                if let userData = userData {
+                                                    self.user.user = userData
+                                                }
+                                            }
+                                            isAlertOn = true
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            responseAlert = "Error code: \(error.error)"
+                                            isAlertOn = true
+                                        }
+                                    } catch {
                                         responseAlertTitle = "Error"
-                                        if updatedName.count < 3 {
+                                        if updatedSurname.count < 3 {
                                             responseAlert = "Your surname needs to be at least 3 characters long"
                                         } else {
                                             responseAlert = "Something went wrong. Please try again."
                                         }
-                                        group.leave()
-                                    } else if let value = value {
-                                        switch value {
-                                        case .response:
-                                            responseAlertTitle = "Success"
-                                            responseAlert = "Data updated successfully"
-                                            group.leave()
-                                        case .error(let error):
-                                            responseAlertTitle = "Error"
-                                            switch error.error {
-                                            default:
-                                                responseAlert = "Unknown error"
-                                                group.leave()
-                                            }
-                                        }
+                                        isAlertOn = true
                                     }
                                 }
                             }
                             if !updatedBio.isEmpty {
-                                changeProperty("bio", updatedBio) {
-                                    value, error in
-                                    if let error = error {
+                                Task {
+                                    do {
+                                        let result = try await changeProperty("bio", updatedBio)
+                                        switch result {
+                                        case .response(let response):
+                                            responseAlertTitle = "Success"
+                                            responseAlert = response.message
+                                            getUser {
+                                                userData, _ in
+                                                if let userData = userData {
+                                                    self.user.user = userData
+                                                }
+                                            }
+                                            isAlertOn = true
+                                        case .error(let error):
+                                            responseAlertTitle = "Error"
+                                            responseAlert = "Error code: \(error.error)"
+                                            isAlertOn = true
+                                        }
+                                    } catch {
                                         responseAlertTitle = "Error"
-                                        if updatedName.count < 10 {
+                                        if updatedBio.count < 10 {
                                             responseAlert = "Your bio needs to be at least 10 characters long"
                                         } else {
                                             responseAlert = "Something went wrong. Please try again."
                                         }
-                                        group.leave()
-                                    } else if let value = value {
-                                        switch value {
-                                        case .response:
-                                            responseAlertTitle = "Success"
-                                            responseAlert = "Data updated successfully"
-                                            group.leave()
-                                        case .error(let error):
-                                            responseAlertTitle = "Error"
-                                            switch error.error {
-                                            default:
-                                                responseAlert = "Unknown error"
-                                                group.leave()
-                                            }
-                                        }
+                                        isAlertOn = true
                                     }
                                 }
                             }
                             if croppedImage != nil {
-                                updateProfilePicture(croppedImage)
-                            }
-                            group.notify(queue: .main) {
-                                
-                                getUser {
-                                    userData, error in
-                                    if let userData = userData {
-                                            // Use userData
-                                        self.user.user = userData
-                                        } else if let error = error {
-                                            // Handle error
-                                            print(error)
-                                        }
+                                Task {
+                                    do {
+                                        _ = try await updateProfilePicture(croppedImage)
+                                        responseAlertTitle = "Success"
+                                        responseAlert = "Data updated successfully"
+                                        isAlertOn = true
+                                    } catch {
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "Could not update your photo"
+                                        isAlertOn = true
+                                    }
                                 }
-                                isAlertOn = true
-                                pathToProfilePicture = "profilepicture"
                             }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)
@@ -406,24 +393,3 @@ struct GetHeightModifier: ViewModifier {
         )
     }
 }
-
-/*
- if !updatedName.isEmpty {
-     changeProperty("name", updatedName) {
-         value, error in
-         if let error = error {
-             responseAlertTitle = "Error"
-             responseAlert = "Something went wrong. Please try again."
-             isAlertOn = true
-             group.leave()
-         }else if let value = value {
-             switch value {
-             case .response:
-                 
-             default:
-                 break
-             }
-         }
-     }
- }
-*/
