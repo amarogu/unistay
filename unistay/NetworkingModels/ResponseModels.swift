@@ -53,6 +53,28 @@ class User: ObservableObject, Decodable {
         case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, accountType, locatedAt, __v
         case isPrivate = "private"
     }
+    
+    init() {
+        self._id = ""
+        self.username = ""
+        self.name = ""
+        self.surname = ""
+        self.email = ""
+        self.language = ""
+        self.password = ""
+        self.preferredLocations = []
+        self.isPrivate = false
+        self.currency = ""
+        self.savedPublications = []
+        self.connectedPublications = []
+        self.owns = []
+        self.bio = ""
+        self.profilePicture = ""
+        self.accountType = ""
+        self.locatedAt = []
+        self.__v = 0
+    }
+
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

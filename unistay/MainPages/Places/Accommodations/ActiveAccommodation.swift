@@ -8,6 +8,8 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import NukeUI
+import Nuke
 
 struct ActiveAccommodation: View {
     @State private var currentPage: Int = 0
@@ -21,6 +23,9 @@ struct ActiveAccommodation: View {
             center: CLLocationCoordinate2D(latitude: 34.011_286, longitude: -116.166_868),
             span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
         )
+    @StateObject var user: User
+    @State var connectedUsers: [Participant] = []
+    @State var connectedUsersProgress: String = ""
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -63,7 +68,25 @@ struct ActiveAccommodation: View {
                         }
                         Map(coordinateRegion: .constant(region), annotationItems: [getAnnotation(coordinate)]) { place in
                             MapPin(coordinate: place.coordinate, tint: .green)
-                        }.frame(height: 200).cornerRadius(5).padding(.top, 16)
+                        }.frame(height: 190).cornerRadius(5).padding(.top, 16)
+                        VStack(alignment: .leading) {
+                            Text("Connected users").customStyle(type: "Semibold", size: 14)
+                            HStack {
+                                ForEach(connectedUsers) {
+                                    user in
+                                    let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
+                                    LazyImage(url: url) {
+                                        i in
+                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                    }.onAppear {
+                                        let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
+                                        let request = ImageRequest(url: url)
+                                        ImageCache.shared[ImageCacheKey(request: request)] = nil
+                                    }
+                                }
+                                Spacer()
+                            }.padding(.top, 10)
+                        }.padding(.top, 16)
                     }.padding(.horizontal, 20).padding(.vertical, 18)
                     
                     Spacer()
@@ -94,6 +117,16 @@ struct ActiveAccommodation: View {
                 listOfPages.append(image)
             }
             createCarousel(true)
+            Task {
+                do {
+                    let result = try await fetchConnectedUsers(pub?._id ?? "")
+                    for user in result {
+                        connectedUsers.append(user)
+                    }
+                } catch {
+                    connectedUsers = []
+                }
+            }
         }
     }
     

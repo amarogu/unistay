@@ -41,7 +41,7 @@ struct ContentView: View {
     @State private var selectedTab = "Places"
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
-    @State private var user: User? = nil
+    @StateObject var user: User = User()
     var body: some View {
         GeometryReader {
             geometry in
@@ -72,7 +72,25 @@ struct ContentView: View {
             getUser {
                 userData, error in
                 if let userData = userData {
-                    self.user = userData
+                    DispatchQueue.main.async {
+                                self.user._id = userData._id
+                                self.user.username = userData.username
+                                self.user.name = userData.name
+                                self.user.surname = userData.surname
+                                self.user.email = userData.email
+                                self.user.language = userData.language
+                                self.user.password = userData.password
+                                self.user.preferredLocations = userData.preferredLocations
+                                self.user.isPrivate = userData.isPrivate
+                                self.user.currency = userData.currency
+                                self.user.savedPublications = userData.savedPublications
+                                self.user.connectedPublications = userData.connectedPublications
+                                self.user.owns = userData.owns
+                                self.user.bio = userData.bio
+                                self.user.profilePicture = userData.profilePicture
+                                self.user.accountType = userData.accountType
+                                self.user.locatedAt = userData.locatedAt
+                            }
                     print(userData)
                     print(userData.username)
                     print (userData.preferredLocations[0].latitude)
@@ -80,7 +98,7 @@ struct ContentView: View {
                     print(error)
                 }
             }
-        }
+        }.environmentObject(user)
         
     }
 }

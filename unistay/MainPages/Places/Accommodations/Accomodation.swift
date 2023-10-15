@@ -20,8 +20,9 @@ struct Accomodation: View {
     @State var country: String? = ""
     @State var cover: UIImage?
     @State var images: [UIImage?] = []
+    @EnvironmentObject var user: User
     var body: some View {
-        NavigationLink(destination: ActiveAccommodation(pub: pub, images: images, location: [name, country]), label: {
+        NavigationLink(destination: ActiveAccommodation(pub: pub, images: images, location: [name, country], user: user), label: {
             VStack(alignment: .center, spacing: 20) {
                 LazyImage(url: URL(string: "http://localhost:3000/image/\(pub?.images[0] ?? "")")) {
                     i in
