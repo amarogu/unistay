@@ -17,6 +17,28 @@ class PropertyChangeError: Decodable, Error {
     let error: Int
 }
 
+class ExtraneousUser: Decodable {
+    let _id: String
+    let bio: String
+    let profilePicture: String
+    let accountType: String
+    let username: String
+    let connectedPublications: [AccommodationResponse]
+    let name: String
+    let surname: String
+    
+    init() {
+        self._id = ""
+        self.bio = ""
+        self.profilePicture = ""
+        self.accountType = ""
+        self.username = ""
+        self.connectedPublications = []
+        self.name = ""
+        self.surname = ""
+    }
+}
+
 enum PropertyChangeResult: Decodable {
     case response(PropertyChangeResponse)
     case error(PropertyChangeError)
@@ -78,4 +100,19 @@ func changeProperty(_ property: String, _ content: String) async throws -> Prope
     return response
 }
 
-
+func getExtraneousUser(_ id: String) async throws -> ExtraneousUser {
+    let response = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<ExtraneousUser, Error>) in
+        NetworkManager.shared.request("http://localhost:3000/userprofile/?id=\(id)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: ExtraneousUser.self) {
+            response in
+            switch response.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let error):
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+    
+    return response
+}

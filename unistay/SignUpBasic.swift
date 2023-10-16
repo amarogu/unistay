@@ -8,10 +8,6 @@
 import SwiftUI
 import Combine
 
-class AppText {
-    
-}
-
 public struct RemoveFocusOnTapModifier: ViewModifier {
     public func body(content: Content) -> some View {
         content
@@ -46,11 +42,11 @@ enum Field {
 struct SignUpBasic: View {
     //@Binding var responseData: String
     @StateObject private var validate = Validate()
-    @State var username: String = ""
-    @State var email: String = ""
-    @State var confirmEmail: String = ""
-    @State var password: String = ""
-    @State var confirmPass: String = ""
+    @State var username: String = "tom"
+    @State var email: String = "tom@gmail.com"
+    @State var confirmEmail: String = "tom@gmail.com"
+    @State var password: String = "12345678"
+    @State var confirmPass: String = "12345678"
     @State var isToggled: Bool = false
     
     var editingChanged: (Bool)->() = { _ in }
@@ -64,8 +60,8 @@ struct SignUpBasic: View {
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false
     
-    @State var name: String = ""
-    @State var surname: String = ""
+    @State var name: String = "Tom"
+    @State var surname: String = "deLucca"
     
     var body: some View {
         NavigationStack {
@@ -117,7 +113,7 @@ struct SignUpBasic: View {
                                         Image(systemName: "arrow.right.circle").foregroundColor(Color("AccentColor"))
                                     }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("AccentColorClear").opacity(0.18)).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("AccentColorClear"), lineWidth: 1)).padding(.vertical, 1)//.cornerRadius(5)
                                 }
-                                NavigationLink(destination: SignUpSecond(username: username, email: email, password: password), isActive: $shouldNavigate) {
+                                NavigationLink(destination: SignUpSecond(username: username, email: email, password: password, name: name, surname: surname), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 NavigationLink(destination: SignUpPublisherSecond(username: username, email: email, password: password, name: name, surname: surname), isActive: $shouldNavigateToPublisher) {

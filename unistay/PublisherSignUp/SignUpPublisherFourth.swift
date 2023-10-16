@@ -27,9 +27,9 @@ struct SignUpPublisherFourth: View {
     @State var bio: String
     @State var locatedAt: [Double?]
     @State var currency: String
-    @State var publicationTitle: String = ""
-    @State var publicationDescription: String = ""
-    @State var rent: String = ""
+    @State var publicationTitle: String = "Hello, this is a title"
+    @State var publicationDescription: String = "Hello, this is a sample publication description. It envisions a lot of things, such as first second third"
+    @State var rent: String = "1000"
     @State var menuSelection = "USD"
     @State var typeSelection: String = "On-campus"
     @State var name: String

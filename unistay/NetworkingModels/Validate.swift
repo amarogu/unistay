@@ -101,12 +101,12 @@ class Validate: ObservableObject {
             return false
         }
         
-        if Int(rent)! <= 200 {
+        if Int(rent) ?? 0 <= 200 {
             validationError = "Your rent value seems too low."
             return false
         }
         
-        if Int(rent)! >= 10000 {
+        if Int(rent) ?? 0 >= 10000 {
             validationError = "Your rent value seems too big"
             return false
         }

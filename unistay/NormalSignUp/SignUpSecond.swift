@@ -28,6 +28,8 @@ struct SignUpSecond: View {
     @State var email: String
     @State var password: String
     @State var profilePicture: UIImage? = UIImage(named: "ProfilePlaceholder")
+    @State var name: String
+    @State var surname: String
     
     var body: some View {
         NavigationStack {
@@ -94,7 +96,7 @@ struct SignUpSecond: View {
                             if !validate.validationError.isEmpty {
                                 Text(validate.validationError).customStyle(size: 13, color: "Error").padding(.top, 4.5)
                             }
-                            NavigationLink(destination: MapSearchBar(profilePicture: profilePicture, publisherBio: publisherBio, username: username, email: email, password: password), isActive: $shouldNavigate) {
+                            NavigationLink(destination: MapSearchBar(profilePicture: profilePicture, publisherBio: publisherBio, username: username, email: email, password: password, name: name, surname: surname), isActive: $shouldNavigate) {
                                 EmptyView()
                             }
                             Spacer()

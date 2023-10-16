@@ -75,13 +75,15 @@ struct ActiveAccommodation: View {
                                 ForEach(connectedUsers) {
                                     user in
                                     let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
-                                    LazyImage(url: url) {
-                                        i in
-                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
-                                    }.onAppear {
-                                        let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
-                                        let request = ImageRequest(url: url)
-                                        ImageCache.shared[ImageCacheKey(request: request)] = nil
+                                    NavigationLink(destination: ExtraneousUserPanel(userId: user._id, tabSize: size.width * 0.75)) {
+                                        LazyImage(url: url) {
+                                            i in
+                                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                        }.onAppear {
+                                            let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
+                                            let request = ImageRequest(url: url)
+                                            ImageCache.shared[ImageCacheKey(request: request)] = nil
+                                        }
                                     }
                                 }
                                 Spacer()

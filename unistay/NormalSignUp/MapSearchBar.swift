@@ -42,6 +42,9 @@ struct MapSearchBar: View {
     @State var isSignedUp: Bool = false
     @State var clicked: Bool = false
     
+    @State var name: String
+    @State var surname: String
+    
     var body: some View {
         if isSignedUp {
             SignUpSuccess()
@@ -152,7 +155,7 @@ struct MapSearchBar: View {
                                             }
                                         }
                                     }
-                                    /*registerOptions.register(username: username, email: email, password: password, bio: publisherBio, name: , surname: <#T##String#>, profilePicture: <#T##UIImage?#>, doubleLocCoordinates: <#T##[[Double]]#>, currency: <#T##String#>, completion: <#T##(String?, Error?) -> Void#>) { response, error in
+                                    registerOptions.register(username: username, email: email, password: password, bio: publisherBio, name: name, surname: surname, profilePicture: profilePicture, doubleLocCoordinates: doubleLocCoordinates, currency: menuSelection) { response, error in
                                         if let error = error {
                                             // Handle error
                                             print("Error: \(error)")
@@ -165,7 +168,7 @@ struct MapSearchBar: View {
                                                 isSignedUp = true
                                             }
                                         }
-                                    }*/
+                                    }
                                 }
                             }) {
                                 HStack(alignment: .center) {

@@ -57,6 +57,10 @@ struct UserPanel: View {
                                 imageSize = geo.size.width
                             }
                         }).offset(.init(width: imageSize / 2, height: imageSize / 2))
+                    }.onAppear {
+                        let url = URL(string: "http://localhost:3000/user/profilepicture")!
+                        let request = ImageRequest(url: url)
+                        ImageCache.shared[ImageCacheKey(request: request)] = nil
                     }
                 }.frame(maxWidth: .infinity).background(Color("BackgroundColor")).onAppear {
                     //downloader.downloadProfPic()

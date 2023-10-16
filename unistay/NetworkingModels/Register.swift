@@ -40,7 +40,7 @@ class Register: ObservableObject {
                 multipartFormData.append(userData, withName: "userData")
                 multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
             }
-        }, to: "http://172.20.10.9:3000/register/normal", method: .post)
+        }, to: "http://localhost:3000/register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
             switch response.result {
