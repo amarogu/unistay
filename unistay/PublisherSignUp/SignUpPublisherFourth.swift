@@ -70,7 +70,7 @@ struct SignUpPublisherFourth: View {
                                 if !validate.validationError.isEmpty {
                                     Text(validate.validationError).customStyle(size: 13, color: "Error")
                                 }
-                                NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection, name: name, surname: surname), isActive: $shouldNavigate) {
+                                NavigationLink(destination: MapSearchBarSignUpFifth(publisherBio: bio, username: username, email: email, password: password, profilePicture: profilePicture, bio: bio, locatedAt: locatedAt, currency: currency, publicationTitle: publicationTitle, publicationDescription: publicationDescription, rent: rent, publicationCurrency: menuSelection, typeSelection: typeSelection, name: name, surname: surname), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                                 Spacer()

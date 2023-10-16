@@ -200,7 +200,10 @@ struct MapSearchBarSignUpFifth: View {
                             }
                             if validate.validationError.isEmpty {
                                 //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                                registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname)
+                                debugPrint(profilePicture)
+                                if let profilePicture = profilePicture {
+                                    registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname, bio: bio)
+                                }
                             }
                         }) {
                             HStack(alignment: .center) {

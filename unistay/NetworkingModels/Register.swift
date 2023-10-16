@@ -54,13 +54,13 @@ class Register: ObservableObject {
 
 
     
-    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage?, locatedAtCoordinates: [Double?], pubLoc: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage], name: String, surname: String) {
-        let locatedAtData: [String: Any] = [
+    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage, locatedAtCoordinates: [Double?], pubLoc: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage], name: String, surname: String, bio: String) {
+        let locatedAtData: [String: Double?] = [
             "latitude": locatedAtCoordinates[0],
             "longitude": locatedAtCoordinates[1]
         ]
         
-        let pubLocData: [String: Any] = [
+        let pubLocData: [String: Double] = [
             "latitude": pubLoc[0],
             "longitude": pubLoc[1]
         ]
@@ -79,6 +79,7 @@ class Register: ObservableObject {
             "connectedPublications": [],
             "twofactorAuthentication": false,
             "owns": [],
+            "bio": bio,
             "locatedAt": locatedAtData
         ]
         
@@ -94,17 +95,18 @@ class Register: ObservableObject {
         AF.upload(multipartFormData: { multipartFormData in
             if let accProviderData = try? JSONSerialization.data(withJSONObject: accProviderData),
                let publicationData = try? JSONSerialization.data(withJSONObject: publicationData),
-               let profilePicture = profilePicture?.pngData() {
+               let profilePicture = profilePicture.pngData() {
+                debugPrint("WE ARE IN")
                 multipartFormData.append(accProviderData, withName: "userData")
                 multipartFormData.append(publicationData, withName: "publicationData")
                 multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
-                for (_, image) in images.enumerated() {
-                    if let imageData = image.pngData() {
-                        multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+                for img in images {
+                    if let img = img.pngData() {
+                        multipartFormData.append(img, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                     }
                 }
             }
-            debugPrint(multipartFormData)
+            
         }, to: "http://localhost:3000/register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
@@ -118,7 +120,7 @@ class Register: ObservableObject {
             "password": password
         ]
 
-        AF.request("http://172.20.10.9:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        AF.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseDecodable(of: ServerResponseLogin.self) { response in
                 debugPrint(response)
                 switch response.result {
