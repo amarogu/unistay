@@ -76,9 +76,12 @@ struct SignUpPublisherSecond: View {
                                     }
                                 }
                                 Button(action: {
-                                    let _ = validate.validateBio(bio: publisherBio)
-                                    let _ = validate.hasProfileImage(profileImage: croppedImage)
-                                    
+                                    var isBioValid = validate.validateBio(bio: publisherBio)
+                                    if isBioValid {
+                                        let isProfPicValid = validate.hasProfileImage(profileImage: croppedImage)
+                                    } else {
+                                        isBioValid = validate.validateBio(bio: publisherBio)
+                                    }
                                     if validate.validationError.isEmpty {
                                         shouldNavigate.toggle()
                                     }

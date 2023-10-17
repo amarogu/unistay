@@ -125,7 +125,7 @@ struct MapSearchBarSignUp: View {
                             }
                             Text("You need to provide your location").customStyle(size: 13, color: "Body").padding(.horizontal, 14).padding(.vertical, 1)
                             NavigationLink(destination: EmptyView()) {
-                                Text("understand why we need your location").customStyle(size: 13, color: "Body").padding(.horizontal, 14).padding(.vertical, 1).underline()
+                                Text("understand why we need your location").customStyle(size: 13, color: "Body").padding(.horizontal, 14).padding(.vertical, 1).underline().multilineTextAlignment(.leading)
                             }
                         }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
                         Text("Set a currency you will see on other accommodations").customStyle(size: 13, color: "Body").padding(.top, 4)
@@ -139,9 +139,11 @@ struct MapSearchBarSignUp: View {
                                 
                                     
                                         
-                                print("Latitude: \(String(describing: pickedLocCoordinates[0])), Longitude: \(String(describing: pickedLocCoordinates[1]))")
-                                            locatedAt = [pickedLocCoordinates[0].flatMap({ $0 }), pickedLocCoordinates[1].flatMap({ $0 })]
-                                            print(locatedAt)
+                                if let unwrappedLat = pickedLocCoordinates[0], let unwrappedLng = pickedLocCoordinates[1] {
+                                    
+                                    locatedAt = [pickedLocCoordinates[0], pickedLocCoordinates[1]]
+                                                print(locatedAt)
+                                }
                                             
                                         
                                     

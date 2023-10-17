@@ -51,7 +51,7 @@ struct SignUpSuccess: View {
                             self.show = true
                         }
                     }
-                }
+                }.ignoresSafeArea(.all)
             }
         }
     }

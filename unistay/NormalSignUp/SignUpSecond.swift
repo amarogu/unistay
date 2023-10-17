@@ -78,8 +78,9 @@ struct SignUpSecond: View {
                                 }
                             }
                             Button(action: {
-                                if publisherBio.isEmpty {
-                                    let _ = validate.validateBio(bio: publisherBio)
+                                let isBioValid = validate.validateBio(bio: publisherBio)
+                                if isBioValid {
+                                    validate.validationError = ""
                                 }
                                 if croppedImage != nil {
                                     profilePicture = croppedImage

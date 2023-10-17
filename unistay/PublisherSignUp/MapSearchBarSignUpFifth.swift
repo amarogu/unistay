@@ -58,6 +58,8 @@ struct MapSearchBarSignUpFifth: View {
     
     @State var isSignedUp: Bool = false
     
+    @State var pubLoc: [Double] = []
+    
     var body: some View {
         if isSignedUp {
             SignUpSuccess()
@@ -134,7 +136,6 @@ struct MapSearchBarSignUpFifth: View {
                                                                 pickedLocNames = ""
                                                                 pickedLocLocs = ""
                                                                 pickedLocCoordinates = []
-                                                                print(pickedLocCoordinates)
                                                             }) {
                                                                 Image(systemName: "minus.circle").font(.system(size: 13)).foregroundColor(.red)
                                                             }
@@ -163,7 +164,6 @@ struct MapSearchBarSignUpFifth: View {
                             }) {
                                 if !array.isEmpty {
                                     HStack() {
-                                        let _ = print("loaded")
                                         ZStack {
                                             Image(uiImage: array[0]).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4)
                                             if array.count > 1 {
@@ -203,13 +203,16 @@ struct MapSearchBarSignUpFifth: View {
                                 if pickedLocCoordinates.isEmpty {
                                     validate.validationError = "You need to tell users where your accommodation is located"
                                 }
+                                if let unwrappedLat = pickedLocCoordinates[0], let unwrappedLng = pickedLocCoordinates[1] {
+                                    pubLoc = [unwrappedLat, unwrappedLng]
+                                }
                                 if validate.validationError.isEmpty {
                                     //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
-                                    debugPrint(profilePicture)
+                                    
                                     if let profilePicture = profilePicture {
-                                        registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: [0, 0], currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname, bio: bio) {
+                                        registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: pubLoc, currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname, bio: bio) {
                                             value, error in
-                                            if let error = error {
+                                            if error != nil {
                                                 isSignedUp =  false
                                             } else if let response = value {
                                                 if response == "User created" {
