@@ -44,6 +44,12 @@
             "state" : "new",
             "value" : "%1$@ %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
         }
       }
     },
@@ -52,6 +58,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$@ %2$lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$@ %2$lld"
           }
         }
@@ -64,6 +76,12 @@
             "state" : "new",
             "value" : "%1$@, %2$@"
           }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@"
+          }
         }
       }
     },
@@ -72,6 +90,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$@... , %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$@... , %2$@"
           }
         }
@@ -88,13 +112,33 @@
       }
     },
     "%lld" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "%lld accommodations" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld accommodations"
+          }
+        }
+      }
     },
     "=  required field" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "= champ obligatoire"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -105,6 +149,12 @@
     },
     "Accommodations" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logements"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -115,6 +165,12 @@
     },
     "Back to login" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour à la connexion"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -127,16 +183,44 @@
 
     },
     "Cancel" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
     },
     "Chat with potential roommates and landlords" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Converse com colegas de quarto e locadores"
+          }
+        }
+      }
     },
     "Chats" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chats"
+          }
+        }
+      }
     },
     "Choose your preferred locations" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha suas localizações"
+          }
+        }
+      }
     },
     "Click here to change the images you have selected" : {
       "localizations" : {
@@ -169,7 +253,14 @@
       }
     },
     "Confirm your email address" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme seu endereço de email"
+          }
+        }
+      }
     },
     "Confirm your location" : {
       "localizations" : {
@@ -182,13 +273,34 @@
       }
     },
     "Confirm your password" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirme sua senha"
+          }
+        }
+      }
     },
     "Connect" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectar"
+          }
+        }
+      }
     },
     "Connected users" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuários conectados"
+          }
+        }
+      }
     },
     "Connections" : {
       "localizations" : {
@@ -211,7 +323,14 @@
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        }
+      }
     },
     "Continue to home" : {
       "localizations" : {
@@ -222,6 +341,9 @@
           }
         }
       }
+    },
+    "Create a publication" : {
+
     },
     "Crop" : {
       "localizations" : {
@@ -254,10 +376,24 @@
       }
     },
     "Edit your profile" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edite seu perfil"
+          }
+        }
+      }
     },
     "Email" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
     },
     "Email address" : {
       "extractionState" : "manual",
@@ -271,7 +407,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Email"
+            "value" : "Endereço de email"
           }
         }
       }
@@ -326,7 +462,14 @@
       }
     },
     "General information" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geral"
+          }
+        }
+      }
     },
     "Get started by creating your first publication" : {
       "localizations" : {
@@ -339,10 +482,24 @@
       }
     },
     "Group" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupo"
+          }
+        }
+      }
     },
     "Group with:" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupo com:"
+          }
+        }
+      }
     },
     "Hello, World!" : {
 
@@ -382,6 +539,12 @@
             "value" : "Login"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se connecter"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -391,10 +554,30 @@
       }
     },
     "Name" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Password" : {
       "extractionState" : "manual",
@@ -403,6 +586,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Password"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
           }
         },
         "pt-BR" : {
@@ -422,6 +611,12 @@
             "value" : "Português"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Português"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -431,16 +626,44 @@
       }
     },
     "Profile picture and bio" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto de perfil e bio"
+          }
+        }
+      }
     },
     "Publication description" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição da publicação"
+          }
+        }
+      }
     },
     "Publication title" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título da publicação"
+          }
+        }
+      }
     },
     "Rent" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aluguel"
+          }
+        }
+      }
     },
     "Search accommodations, locations..." : {
       "extractionState" : "stale",
@@ -477,7 +700,14 @@
       }
     },
     "Send a message" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envie uma mensagem"
+          }
+        }
+      }
     },
     "Set a currency you will see on other accommodations" : {
       "localizations" : {
@@ -538,7 +768,14 @@
       }
     },
     "Surname" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobrenome"
+          }
+        }
+      }
     },
     "System language" : {
       "extractionState" : "manual",
@@ -592,10 +829,24 @@
       }
     },
     "Update your bio" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize sua bio"
+          }
+        }
+      }
     },
     "Update your name" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize seu nome"
+          }
+        }
+      }
     },
     "Update your profile picture" : {
       "localizations" : {
@@ -618,10 +869,24 @@
       }
     },
     "Update your surname" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize seu sobrenome"
+          }
+        }
+      }
     },
     "Update your username" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize seu nome de usuário"
+          }
+        }
+      }
     },
     "Upload a profile picture" : {
       "localizations" : {
@@ -683,6 +948,9 @@
           }
         }
       }
+    },
+    "Your publications" : {
+
     }
   },
   "version" : "1.0"

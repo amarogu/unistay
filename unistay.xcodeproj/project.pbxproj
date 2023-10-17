@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A301BF5E2AD6EE0D00A40185 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301BF5D2AD6EE0D00A40185 /* UserRequests.swift */; };
+		A30D79C62ADEBD4E00C44577 /* ProviderPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */; };
 		A31D7A122AC1B08500AFA05A /* MapSearchBarSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */; };
 		A31D7A142AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */; };
 		A32828602AD41E05002F8642 /* ActiveUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328285F2AD41E05002F8642 /* ActiveUniversity.swift */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		A301BF5D2AD6EE0D00A40185 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
+		A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPanel.swift; sourceTree = "<group>"; };
 		A31D7A112AC1B08500AFA05A /* MapSearchBarSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUp.swift; sourceTree = "<group>"; };
 		A31D7A132AC1B68300AFA05A /* MapSearchBarSignUpFifth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarSignUpFifth.swift; sourceTree = "<group>"; };
 		A328285F2AD41E05002F8642 /* ActiveUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveUniversity.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
 				A33855702A96DEEA00CAF86F /* Universities */,
 				A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */,
+				A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
 				A34866002ACB91AE003FD07B /* OffsetReader.swift in Sources */,
+				A30D79C62ADEBD4E00C44577 /* ProviderPanel.swift in Sources */,
 				A33F42752AB6375900A8BD58 /* SignUpPublisherSecond.swift in Sources */,
 				A34866042ACB91EA003FD07B /* Pagination.swift in Sources */,
 				A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */,

@@ -70,7 +70,28 @@ struct ContentView: View {
                     })
                 }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
             } else {
-                
+                ZStack(alignment: .bottom) {
+                    if(selectedTab == "Places") {
+                        Places(size: size, tabSize: tabSize)
+                    } else if (selectedTab == "Menu") {
+                        MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
+                    } else if(selectedTab == "Profile") {
+                        ProviderPanel(tabSize: tabSize)
+                    } else if selectedTab == "Chats" {
+                        Chats(user: user)
+                    }
+                    HStack(alignment: .bottom) {
+                        ForEach(views, id:\.self) {
+                            option in
+                            unistay.tabItem(selectedTab: $selectedTab, option: option)
+                        }
+                    }.padding(.bottom, 38).padding(.top, 58).background(GeometryReader {
+                        geo in
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.62), endPoint: .top).onAppear {
+                            tabSize = geo.size.height
+                        }
+                    })
+                }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
             }
         }.background(Color("BackgroundColor")).onAppear {
             getUser {
@@ -95,9 +116,6 @@ struct ContentView: View {
                                 self.user.accountType = userData.accountType
                                 self.user.locatedAt = userData.locatedAt
                             }
-                    print(userData)
-                    print(userData.username)
-                    print (userData.preferredLocations[0].latitude)
                 } else if let error = error {
                     print(error)
                 }

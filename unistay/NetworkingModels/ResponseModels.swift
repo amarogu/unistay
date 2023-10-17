@@ -46,7 +46,7 @@ class User: ObservableObject, Decodable {
     @Published var bio: String
     @Published var profilePicture: String
     @Published var accountType: String
-    @Published var locatedAt: [String]
+    @Published var locatedAt: [Location]
     let __v: Int
 
     enum CodingKeys: String, CodingKey {
@@ -94,7 +94,7 @@ class User: ObservableObject, Decodable {
         bio = try container.decode(String.self, forKey: .bio)
         profilePicture = try container.decode(String.self, forKey: .profilePicture)
         accountType = try container.decode(String.self, forKey: .accountType)
-        locatedAt = try container.decode([String].self, forKey: .locatedAt)
+        locatedAt = try container.decode([Location].self, forKey: .locatedAt)
         __v = try container.decode(Int.self, forKey: .__v)
     }
 }
