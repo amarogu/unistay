@@ -147,6 +147,9 @@
         }
       }
     },
+    "About your accommodation" : {
+
+    },
     "Accommodations" : {
       "localizations" : {
         "fr" : {
@@ -365,6 +368,9 @@
         }
       }
     },
+    "Description" : {
+
+    },
     "Done" : {
       "localizations" : {
         "pt-BR" : {
@@ -530,6 +536,9 @@
     "Key" : {
       "extractionState" : "manual"
     },
+    "Location, visibility and images" : {
+
+    },
     "Login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -654,6 +663,9 @@
           }
         }
       }
+    },
+    "Publish your accommodation" : {
+
     },
     "Rent" : {
       "localizations" : {
@@ -797,6 +809,9 @@
           }
         }
       }
+    },
+    "Title" : {
+
     },
     "understand why we need your location" : {
       "localizations" : {

@@ -8,6 +8,8 @@
 import SwiftUI
 import Nuke
 import NukeUI
+import MapKit
+import PhotosUI
 
 struct ProviderPanel: View {
     @State private var offset: CGSize = .zero
@@ -15,7 +17,7 @@ struct ProviderPanel: View {
     @State private var imageSize: CGFloat = 0
     @State private var selectedView: String = "Universities"
     var viewOptions = ["Universities", "Location", "Roommates"]
-    @ObservedObject var user: ObservableUser = ObservableUser()
+    @EnvironmentObject var user: User
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0
     
@@ -34,13 +36,42 @@ struct ProviderPanel: View {
     // edit profile inputs
     
     @State var updatedBio: String = ""
-    @State var updatedUser: String = ""
-    @State var updatedName: String = ""
-    @State var updatedSurname: String = ""
+    @State var title: String = "Hahhahaahahhahah"
+    @State var description: String = "Hhahahahhahahahhahahhahahahahhahahahahahhahahhahahahhahahahhahahahhahahhahaha"
+    @State var rent: String = "1479"
     
     @State var responseAlert: String = ""
     @State var responseAlertTitle: String = ""
     @State var isAlertOn: Bool = false
+    
+    @State var newPubSheet: Bool = false
+    
+    var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
+    var typeItems = ["On-campus", "Off-campus", "Homestay"]
+    @State var menuSelection = "USD"
+    @State var typeSelection: String = "On-campus"
+    
+    @StateObject var locationManager: LocationManager = .init()
+    @State var navigationTag: String?
+    
+    @State var pickedLocNames: String = ""
+    @State var pickedLocLocs: String = ""
+    @State var pickedLocCoordinates: [CLLocationDegrees?] = []
+    
+    @StateObject private var validate = Validate()
+    @StateObject private var registerOptions = Register()
+    
+    
+    @State var show: Bool = false
+    @State private var photosPickerItem = [PhotosPickerItem]()
+    @State private var array = [UIImage]()
+    
+    @State var isSignedUp: Bool = false
+    
+    @State var pubLoc: [Double] = []
+    
+    @State var publicationVisibility: String = "Visible"
+    @State var visibility: [String] = ["Visible", "Invisible"]
     
     var body: some View {
         GeometryReader {
@@ -62,19 +93,7 @@ struct ProviderPanel: View {
                         let request = ImageRequest(url: url)
                         ImageCache.shared[ImageCacheKey(request: request)] = nil
                     }
-                }.frame(maxWidth: .infinity).background(Color("BackgroundColor")).onAppear {
-                    //downloader.downloadProfPic()
-                    getUser {
-                        userData, error in
-                        if let userData = userData {
-                                // Use userData
-                            self.user.user = userData
-                            } else if let error = error {
-                                // Handle error
-                                print(error)
-                            }
-                    }
-                }
+                }.frame(maxWidth: .infinity).background(Color("BackgroundColor"))
                 //Spacer()
                 HStack (alignment: .center) {
                     VStack(alignment: .leading, spacing: 20) {
@@ -85,27 +104,27 @@ struct ProviderPanel: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     HStack {
                                         //checkCookies()
-                                        if let bio = user.user?.bio {
-                                            Text(bio).customStyle(size: 14).padding(.top, 8).padding(.trailing, width * 0.4)
-                                        }
+                                        
+                                            Text(user.bio).customStyle(size: 14).padding(.top, 8).padding(.trailing, width * 0.4)
+                                        
                                         Spacer()
                                     }
-                                        Button (action: {
-                                            fullBio.toggle()
-                                        }) {
-                                            HStack {
-                                                if let name = user.user?.name {
-                                                    Text("See \(name)'s full bio").customStyle(size: 14)
-                                                }
-                                                Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
-                                            }
-                                        }
+                                    Button (action: {
+                                        fullBio.toggle()
+                                    }) {
                                         HStack {
-                                            if let connectedPublications = user.user?.connectedPublications {
-                                                Text("\(connectedPublications.count)").customStyle(type: "Semibold", size: 14)
-                                            }
-                                            Text("Connections").customStyle(size: 14)
+                                            
+                                                Text("See \(user.name)'s full bio").customStyle(size: 14)
+                                            
+                                            Image(systemName: "doc.badge.ellipsis").foregroundColor(Color("Body"))
                                         }
+                                    }
+                                    HStack {
+                                        
+                                        Text("\(user.connectedPublications.count)").customStyle(type: "Semibold", size: 14)
+                                        
+                                        Text("Connections").customStyle(size: 14)
+                                    }
                                     Button(action: {
                                         editProfile.toggle()
                                     }) {
@@ -117,11 +136,11 @@ struct ProviderPanel: View {
                                 }
                             },
                             label: { VStack(alignment: .leading, spacing: 2) {
-                                if let name = user.user?.name, let surname = user.user?.surname, let username = user.user?.username {
-                                    Text("\(name) \(surname)").customStyle(type: "Semibold", size: 14)
-                                    Text("@\(username)").customStyle(size: 14, color: "Body")
-
-                                }                            } }
+                                
+                                Text("\(user.name) \(user.surname)").customStyle(type: "Semibold", size: 14)
+                                Text("@\(user.username)").customStyle(size: 14, color: "Body")
+                                    
+                                             } }
                         ).tint(Color("BodyEmphasized"))
                     }.padding(.top, imageSize / 1.2)
                     Spacer()
@@ -135,7 +154,7 @@ struct ProviderPanel: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Your publications").customStyle(type: "Semibold", size: 14).padding(.top, 12)
                         Button(action: {
-                            
+                            newPubSheet = true
                         }) {
                             HStack {
                                 Text("Create a publication").customStyle(size: 14)
@@ -168,17 +187,17 @@ struct ProviderPanel: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        if let name = user.user?.name {
-                            Text("\(name)'s bio").customStyle(type: "Semibold", size: 14)
-                        }
+                        
+                            Text("\(user.name)'s bio").customStyle(type: "Semibold", size: 14)
+                        
                         Image(systemName: "doc").foregroundColor(Color("Body"))
                     }
-                    if let bio = user.user?.bio {
-                        Text(bio).customStyle(size: 14).modifier(GetHeightModifier(height: $sheetHeight))
-                    }
+                    
+                    Text(user.bio).customStyle(size: 14).modifier(GetHeightModifier(height: $sheetHeight))
+                    
                 }.frame(maxWidth: 300)
                 Spacer()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.user?.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user.bio.count ?? "".count < 110 ? .fraction(0.35) : .medium, .medium, .large])
         }).alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
             Button(role: .cancel, action: {
                 
@@ -187,9 +206,182 @@ struct ProviderPanel: View {
             }
         }, message: {
             Text(responseAlert)
-        }).sheet(isPresented: $editProfile) {
+        }).sheet(isPresented: $newPubSheet) {
+            NavigationStack {
+                ZStack {
+                    Color("BackgroundColor").ignoresSafeArea(.all)
+                    VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Button(action: {
+                                    croppedImage = nil
+                                    newPubSheet = false
+                                }) {
+                                    Text("Cancel").customStyle(type: "Semibold", size: 14)
+                                }
+                                Spacer()
+                                Button(action: {
+                                    newPubSheet = false
+                                    Task {
+                                        do {
+                                            let res = try await postPublication(title: title, description: description, rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
+                                            isAlertOn = true
+                                            responseAlertTitle = "Success"
+                                            responseAlert = res.message
+                                        } catch {
+                                            isAlertOn = true
+                                            responseAlertTitle = "Error"
+                                            responseAlert = "An error occurred while uploading your accommodation. Please try again."
+                                        }
+                                    }
+                                }) {
+                                    Text("Publish your accommodation").customStyle(type: "Semibold", size: 14)
+                                }
+                            }.padding(.bottom, 24)
+                            Text("About your accommodation").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6)
+                            TextInputField(input: $title, placeholderText: "Title", placeholderIcon: "character.cursor.ibeam", required: false)
+                            TextInputField(input: $description, placeholderText: "Description", placeholderIcon: "text.below.photo", required: false)
+                            TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard", required: false)
+                            MenuField(items: publicationCurrencyItems, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection)
+                            MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: typeSelection)
+                        }
+                        Text("Location, visibility and images").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6).padding(.top, 14)
+                        VStack(alignment: .leading, spacing: 8) {
+                            SearchBar(placeholder: "Set your location", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            if let places = locationManager.fetchedPlaces, !places.isEmpty {
+                                List {
+                                    Section {
+                                        ForEach(places, id: \.self) {
+                                            place in
+                                            Button(action: {
+                                                if let coordinate = place.location?.coordinate {
+                                                    locationManager.pickedLocation = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                                                    locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                                                    locationManager.addDraggablePin(coordinate: coordinate)
+                                                    locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
+                                                }
+                                                navigationTag = "MAPVIEW"
+                                            }) {
+                                                HStack(spacing: 15) {
+                                                    
+                                                    Text(place.name ?? "").customStyle(size: 14)
+                                                    Text(place.locality ?? "").customStyle(size: 14).opacity(0.8)
+                                                }.padding(.vertical, 6)
+                                            }
+                                        }.listRowBackground(Color.clear).listRowSeparator(.hidden)
+                                    } header: {
+                                        Text("SELECT A PLACE").customStyle(size: 13)
+                                    }
+                                }.listStyle(.plain).frame(maxHeight: 300).background(Color("SearchBar").opacity(0.4)).cornerRadius(5).padding(.vertical, 1)
+                            } else {
+                                if !locationManager.searchText.isEmpty {
+                                    HStack {
+                                        Spacer()
+                                        ProgressView()
+                                        Spacer()
+                                    }.padding(.all, 8).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
+                                } else {
+                                    Button(action: {
+                                        if let coordinate = locationManager.userLocation?.coordinate {
+                                            locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                                            locationManager.addDraggablePin(coordinate: coordinate)
+                                            locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
+                                        }
+                                        navigationTag = "MAPVIEW"
+                                    }) {
+                                        HStack(alignment: .center) {
+                                            Text("Use your current location").customStyle(size: 14, color: "Body")
+                                            Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
+                                            
+                                        }.padding(.vertical, 1).padding(.leading, 14)
+                                    }
+                                    if !pickedLocNames.isEmpty {
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text("Currently selected").customStyle(size: 13).padding(.bottom, 10)
+                                                VStack(alignment: .leading, spacing: 10) {
+                                                    HStack {
+                                                        
+                                                        Text(pickedLocNames).customStyle(size: 13)
+                                                        Text(pickedLocLocs).customStyle(size: 13, color: "Body").opacity(0.8)
+                                                        Spacer()
+                                                        Button(action: {
+                                                            pickedLocNames = ""
+                                                            pickedLocLocs = ""
+                                                            pickedLocCoordinates = []
+                                                        }) {
+                                                            Image(systemName: "minus.circle").font(.system(size: 13)).foregroundColor(.red)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            Spacer()
+                                        }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 14).background(Color("SearchBar").opacity(0.8)).cornerRadius(5).padding(.top, 1)
+                                    }
+                                }
+                            }
+                        }.padding(.all, 10).clipShape(RoundedRectangle(cornerRadius:5)).overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("SearchBar"), lineWidth: 1.25)).padding(.bottom, 3)
+                        MenuField(items: visibility, menuSelection: $publicationVisibility, icon: publicationVisibility == "Visible" ? "eye" : "eye.slash", placeholder: publicationVisibility).tint(Color("BodyEmphasized"))
+                        Button(action: {
+                            show.toggle()
+                            array = []
+                            Task {
+                                for item in photosPickerItem {
+                                    if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                                        DispatchQueue.main.async {
+                                            self.array.append(image)
+                                        }
+                                    }
+                                }
+                            }
+                        }) {
+                            if !array.isEmpty {
+                                HStack() {
+                                    ZStack {
+                                        Image(uiImage: array[0]).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4)
+                                        if array.count > 1 {
+                                            Image(uiImage: array[1] ).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4).zIndex(-1).opacity(0.6).offset(x: 6, y: 3)
+                                            if array.count > 2 {
+                                                Image(uiImage: array[2] ).resizable().aspectRatio(contentMode: .fill).frame(maxWidth: 40, maxHeight: 40).scaleEffect(1.4).clipped().cornerRadius(5).padding(.trailing, 4).zIndex(-1).opacity(0.4).offset(x: 10, y: 5)
+                                            }
+                                        }
+                                    }.padding(.trailing, 10)
+                                    VStack(alignment: .leading) {
+                                        Text("Update your publication images").customStyle(size: 12)
+                                        Text("Click here to change the images you have selected").customStyle(size: 12, color: "Body").opacity(0.8).multilineTextAlignment(.leading)
+                                    }
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
+                            } else {
+                                HStack {
+                                    Image(systemName: "camera").font(.system(size: 14))
+                                    Text("Upload publication images").customStyle(size: 13)
+                                    Spacer()
+                                }.frame(maxWidth: .infinity).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
+                            }
+                        }.tint(Color("BodyEmphasized")).photosPicker(isPresented: $show, selection: $photosPickerItem).onChange(of: photosPickerItem) { newValue in
+                            array = []
+                            Task {
+                                for item in newValue {
+                                    if let imageData = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                                        DispatchQueue.main.async {
+                                            self.array.append(image)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }.padding(.all, 16)
+                }.background {
+                    NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
+                        MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
+                    }label: {}.labelsHidden()
+                
+            }
+            }
+        }.sheet(isPresented: $editProfile) {
             ZStack {
-                Color("BackgroundColor")
+                Color("BackgroundColor").ignoresSafeArea(.all)
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Button(action: {
@@ -201,21 +393,16 @@ struct ProviderPanel: View {
                         Spacer()
                         Button(action: {
                             editProfile.toggle()
-                            if !updatedUser.isEmpty {
+                            if !title.isEmpty {
                                 Task {
                                     do {
-                                        let result = try await changeProperty("username", updatedUser)
+                                        let result = try await changeProperty("username", title)
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
                                             responseAlert = response.message
-                                            getUser {
-                                                userData, _ in
-                                                if let userData = userData {
-                                                    self.user.user = userData
-                                                }
-                                            }
                                             isAlertOn = true
+                                            self.user.username = title
                                         case .error(let error):
                                             responseAlertTitle = "Error"
                                             switch error.error {
@@ -234,21 +421,16 @@ struct ProviderPanel: View {
                                     }
                                 }
                             }
-                            if !updatedName.isEmpty {
+                            if !description.isEmpty {
                                 Task {
                                     do {
-                                        let result = try await changeProperty("name", updatedName)
+                                        let result = try await changeProperty("name", description)
                                         
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
                                             responseAlert = response.message
-                                            getUser {
-                                                userData, _ in
-                                                if let userData = userData {
-                                                    self.user.user = userData
-                                                }
-                                            }
+                                            self.user.name = description
                                             isAlertOn = true
                                         case .error(let error):
                                             responseAlertTitle = "Error"
@@ -257,7 +439,7 @@ struct ProviderPanel: View {
                                         }
                                     } catch {
                                         responseAlertTitle = "Error"
-                                        if updatedName.count < 3 {
+                                        if description.count < 3 {
                                             responseAlert = "Your name needs to be at least 3 characters long"
                                         } else {
                                             responseAlert = "Something went wrong. Please try again."
@@ -266,20 +448,15 @@ struct ProviderPanel: View {
                                     }
                                 }
                             }
-                            if !updatedSurname.isEmpty {
+                            if !rent.isEmpty {
                                 Task {
                                     do {
-                                        let result = try await changeProperty("surname", updatedSurname)
+                                        let result = try await changeProperty("surname", rent)
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
                                             responseAlert = response.message
-                                            getUser {
-                                                userData, _ in
-                                                if let userData = userData {
-                                                    self.user.user = userData
-                                                }
-                                            }
+                                            self.user.surname = rent
                                             isAlertOn = true
                                         case .error(let error):
                                             responseAlertTitle = "Error"
@@ -288,7 +465,7 @@ struct ProviderPanel: View {
                                         }
                                     } catch {
                                         responseAlertTitle = "Error"
-                                        if updatedSurname.count < 3 {
+                                        if rent.count < 3 {
                                             responseAlert = "Your surname needs to be at least 3 characters long"
                                         } else {
                                             responseAlert = "Something went wrong. Please try again."
@@ -305,12 +482,7 @@ struct ProviderPanel: View {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
                                             responseAlert = response.message
-                                            getUser {
-                                                userData, _ in
-                                                if let userData = userData {
-                                                    self.user.user = userData
-                                                }
-                                            }
+                                            self.user.bio = updatedBio
                                             isAlertOn = true
                                         case .error(let error):
                                             responseAlertTitle = "Error"
@@ -347,9 +519,9 @@ struct ProviderPanel: View {
                         }
                     }.padding(.bottom, 24)
                     Text("General information").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6)
-                    TextInputField(input: $updatedUser, placeholderText: "Update your username", placeholderIcon: "at", required: false)
-                    TextInputField(input: $updatedName, placeholderText: "Update your name", placeholderIcon: "person.text.rectangle", required: false)
-                    TextInputField(input: $updatedSurname, placeholderText: "Update your surname", placeholderIcon: "text.insert", required: false)
+                    TextInputField(input: $title, placeholderText: "Update your username", placeholderIcon: "at", required: false)
+                    TextInputField(input: $description, placeholderText: "Update your name", placeholderIcon: "person.text.rectangle", required: false)
+                    TextInputField(input: $rent, placeholderText: "Update your surname", placeholderIcon: "text.insert", required: false)
                     Text("Profile picture and bio").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6).padding(.top, 10)
                     HStack {
                         if croppedImage == nil {
