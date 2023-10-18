@@ -78,6 +78,7 @@ struct ProviderPanel: View {
     var body: some View {
         GeometryReader {
             geo in
+            let size = geo.size
             let width = geo.size.width
             VStack(alignment: .leading) {
                 ZStack(alignment: .bottomLeading) {
@@ -152,16 +153,36 @@ struct ProviderPanel: View {
                     
                     ScrollView {
                         Rectangle().foregroundStyle(Color.clear).frame(height: selectionHeight)
-                        
+                        HStack(alignment: .top) {
+                            VStack {
+                                ForEach(pub, id: \.self) { pubItem in
+                                    if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
+                                        Accomodation(pub: pubItem, size: width, padding: width <= 400 ? 3 : 8)
+                                    }
+                                }
+                            }
+                            Spacer()
+                            VStack {
+                                ForEach(pub, id: \.self) { pubItem in
+                                    if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
+                                        Accomodation(pub: pubItem, size: width, padding: width <= 400 ? 3 : 8)
+                                    }
+                                }
+                            }.padding(.top, 30)
+                        }.tint(Color("BodyEmphasized")).padding(.bottom, 68)
                     }.onAppear {
                         Task {
                             do {
                                 let res = try await getYourPubs(user._id)
-                                
+                                for publication in res {
+                                    pub.append(publication)
+                                }
                             } catch {
                                 
                             }
                         }
+                    }.onDisappear {
+                        pub = []
                     }
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Your publications").customStyle(type: "Semibold", size: 14).padding(.top, 12)
@@ -174,9 +195,9 @@ struct ProviderPanel: View {
                                 Spacer()
                             }
                         }.tint(Color("BodyEmphasized"))
-                    }.frame(maxWidth: .infinity).background(GeometryReader {
+                    }.frame(maxWidth: .infinity).padding(.bottom, 24).background(GeometryReader {
                         geo in
-                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.8), endPoint: .bottom).onAppear {
                             selectionHeight = geo.size.height
                             selectionWidth = geo.size.width
                         }
