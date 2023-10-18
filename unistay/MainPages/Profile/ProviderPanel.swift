@@ -73,6 +73,8 @@ struct ProviderPanel: View {
     @State var publicationVisibility: String = "Visible"
     @State var visibility: [String] = ["Visible", "Invisible"]
     
+    @State var pub: [AccommodationResponse] = []
+    
     var body: some View {
         GeometryReader {
             geo in
@@ -150,6 +152,16 @@ struct ProviderPanel: View {
                     
                     ScrollView {
                         Rectangle().foregroundStyle(Color.clear).frame(height: selectionHeight)
+                        
+                    }.onAppear {
+                        Task {
+                            do {
+                                let res = try await getYourPubs(user._id)
+                                
+                            } catch {
+                                
+                            }
+                        }
                     }
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Your publications").customStyle(type: "Semibold", size: 14).padding(.top, 12)

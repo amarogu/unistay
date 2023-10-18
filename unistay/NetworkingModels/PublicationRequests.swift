@@ -77,3 +77,22 @@ func postPublication(title: String, description: String, rent: Double, currency:
     
     return res
 }
+
+func getYourPubs(_ id: String) async throws -> [AccommodationResponse] {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<[AccommodationResponse], Error>) in
+        
+        NetworkManager.shared.request("http://localhost:3000/yourpublications", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+            res in
+            debugPrint(res)
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
