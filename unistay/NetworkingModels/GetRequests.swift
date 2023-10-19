@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 func getUser(completion: @escaping (User?, Error?) -> Void) {
     NetworkManager.shared.request("http://localhost:3000/user", method: .get).responseDecodable(of: User.self) { response in
@@ -95,5 +96,51 @@ class ObservableChat: ObservableObject {
                     debugPrint(response)
                 }
             }
+    }
+}
+
+class WebSocketManager: ObservableObject {
+    var task: URLSessionWebSocketTask?
+    var cancellationToken: AnyCancellable? = nil
+
+    func connect(_ id: String) {
+        let url = URL(string: "ws://localhost:8080/?userId=\(id)")!
+        task = URLSession.shared.webSocketTask(with: url)
+        task?.resume()
+
+        receiveMessage()
+    }
+
+    func receiveMessage() {
+        task?.receive { result in
+            switch result {
+            case .failure(let error):
+                print("Error in receiving message: \(error)")
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    print("Received string: \(text)")
+                case .data(let data):
+                    print("Received data: \(data)")
+                @unknown default:
+                    fatalError()
+                }
+
+                // Continue listening for messages.
+                self.receiveMessage()
+            }
+        }
+    }
+
+    func sendMessage(_ message: String) {
+        task?.send(.string(message)) { error in
+            if let error = error {
+                print("Error in sending message: \(error)")
+            }
+        }
+    }
+
+    func disconnect() {
+        task?.cancel(with: .goingAway, reason: nil)
     }
 }

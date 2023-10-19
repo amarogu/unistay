@@ -13,13 +13,14 @@ struct Chats: View {
     @ObservedObject var observableChat: ObservableChat = ObservableChat()
     @State var user: User? = nil
     @State var persistentChats: [Chat] = []
+    @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
         ZStack(alignment: .top) {
                 List {
                     Rectangle().frame(height: 70).foregroundStyle(.clear).listRowBackground(Color("BackgroundColor"))
                     ForEach(persistentChats) {
                         chat in
-                        NavigationLink(destination: ChatActive(chat: chat, user: user)) {
+                        NavigationLink(destination: ChatActive(chat: chat, user: user, webSocket: webSocket)) {
                             HStack(spacing: 18) {
                                 ZStack(alignment: .bottomLeading) {
                                     ForEach(chat.participants) {

@@ -14,7 +14,7 @@ struct ChatActive: View {
     @State var user: User?
     @State var message: String = ""
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    
+    @StateObject var webSocket: WebSocketManager
     func formatTime(from dateString: String) -> String {
             let isoFormatter = ISO8601DateFormatter()
             isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -84,6 +84,8 @@ struct ChatActive: View {
                 HStack(spacing: 8) {
                     TextInputField(input: $message, placeholderText: "Send a message", placeholderIcon: "text.bubble", required: false)
                     Button(action: {
+                        webSocket.sendMessage(message)
+                        
                         let group = DispatchGroup()
                         
                         if message.isEmpty {
@@ -114,6 +116,8 @@ struct ChatActive: View {
             ToolbarItem {
                 Text("Group").customStyle(type: "Semibold", size: 14)
             }
+        }.onAppear {
+            webSocket.receiveMessage()
         }
     }
 }

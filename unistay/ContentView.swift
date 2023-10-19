@@ -42,6 +42,7 @@ struct ContentView: View {
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
     @StateObject var user: User = User()
+    @StateObject var webSocket: WebSocketManager = WebSocketManager()
     var body: some View {
         GeometryReader {
             geometry in
@@ -72,7 +73,7 @@ struct ContentView: View {
             } else {
                 ZStack(alignment: .bottom) {
                     if(selectedTab == "Places") {
-                        Places(size: size, tabSize: tabSize)
+                        ProviderActivity(size: size, tabSize: tabSize)
                     } else if (selectedTab == "Menu") {
                         MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                     } else if(selectedTab == "Profile") {
@@ -115,12 +116,14 @@ struct ContentView: View {
                                 self.user.profilePicture = userData.profilePicture
                                 self.user.accountType = userData.accountType
                                 self.user.locatedAt = userData.locatedAt
+                                self.webSocket.connect(userData._id)
                             }
                 } else if let error = error {
                     print(error)
                 }
             }
-        }.environmentObject(user)
+            
+        }.environmentObject(user).environmentObject(webSocket)
         
     }
 }

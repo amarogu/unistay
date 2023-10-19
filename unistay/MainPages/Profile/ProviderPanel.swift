@@ -150,10 +150,9 @@ struct ProviderPanel: View {
                     
                 }.frame(maxWidth: .infinity).padding(.bottom, 10)
                 ZStack(alignment: .topLeading) {
-                    
                     ScrollView {
                         Rectangle().foregroundStyle(Color.clear).frame(height: selectionHeight)
-                        HStack(alignment: .top) {
+                        HStack(alignment: .top, spacing: 14) {
                             VStack {
                                 ForEach(pub, id: \.self) { pubItem in
                                     if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
@@ -195,9 +194,9 @@ struct ProviderPanel: View {
                                 Spacer()
                             }
                         }.tint(Color("BodyEmphasized"))
-                    }.frame(maxWidth: .infinity).padding(.bottom, 24).background(GeometryReader {
+                    }.frame(maxWidth: .infinity).padding(.bottom, 32).background(GeometryReader {
                         geo in
-                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.8), endPoint: .bottom).onAppear {
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.4), endPoint: .bottom).onAppear {
                             selectionHeight = geo.size.height
                             selectionWidth = geo.size.width
                         }

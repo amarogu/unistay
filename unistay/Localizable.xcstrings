@@ -148,7 +148,14 @@
       }
     },
     "About your accommodation" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre a acomodação"
+          }
+        }
+      }
     },
     "Accommodations" : {
       "localizations" : {
@@ -165,6 +172,9 @@
           }
         }
       }
+    },
+    "Activity" : {
+
     },
     "Back to login" : {
       "localizations" : {
@@ -346,7 +356,14 @@
       }
     },
     "Create a publication" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crie uma publicação"
+          }
+        }
+      }
     },
     "Crop" : {
       "localizations" : {
@@ -369,7 +386,14 @@
       }
     },
     "Description" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição"
+          }
+        }
+      }
     },
     "Done" : {
       "localizations" : {
@@ -537,7 +561,14 @@
       "extractionState" : "manual"
     },
     "Location, visibility and images" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Localização, visibilidade e imagens"
+          }
+        }
+      }
     },
     "Login" : {
       "extractionState" : "manual",
@@ -577,6 +608,9 @@
           }
         }
       }
+    },
+    "New connections" : {
+
     },
     "OK" : {
       "localizations" : {
@@ -665,7 +699,14 @@
       }
     },
     "Publish your accommodation" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publique suas acomodações"
+          }
+        }
+      }
     },
     "Rent" : {
       "localizations" : {
@@ -689,7 +730,14 @@
       }
     },
     "Search locations, accommodations..." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busque locais, acomodações..."
+          }
+        }
+      }
     },
     "See %@'s full bio" : {
       "localizations" : {

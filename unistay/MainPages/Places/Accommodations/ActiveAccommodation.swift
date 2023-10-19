@@ -103,7 +103,16 @@ struct ActiveAccommodation: View {
                             }
                             Spacer()
                             Button(action: {
-                                
+                                Task {
+                                    do {
+                                        if let id = pub?._id {
+                                            let res = try await connectUser(id)
+                                            
+                                        }
+                                    } catch {
+                                        
+                                    }
+                                }
                             }) {
                                 Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                             }

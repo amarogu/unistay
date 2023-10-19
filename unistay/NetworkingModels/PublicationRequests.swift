@@ -16,6 +16,24 @@ class PubResponse: Decodable {
     }
 }
 
+func connectUser(_ id: String) async throws -> PubResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<PubResponse, Error>) in
+        NetworkManager.shared.request("http://localhost:3000/user/publication/?id=\(id)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: PubResponse.self) {
+            res in
+            debugPrint(res)
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
+
 func fetchConnectedUsers(_ publication: String) async throws -> [Participant] {
     let response = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<[Participant], Error>) in
