@@ -30,16 +30,15 @@ class Global: ObservableObject {
     static let shared = Global()
 }
 
-func checkCookies() -> Text {
+func checkCookies() -> String {
     if let cookies = HTTPCookieStorage.shared.cookies {
         for cookie in cookies {
-            print("Name: \(cookie.name), Value: \(cookie.value), Domain: \(cookie.domain), Path: \(cookie.path)")
-            return Text("\(cookie.value)")
+            return cookie.value
         }
     } else {
         print("No cookies found")
     }
-    return Text("\thanks")
+    return ""
 }
 
 @main

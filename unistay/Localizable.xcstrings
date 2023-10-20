@@ -4,9 +4,6 @@
     "" : {
 
     },
-    "\thanks" : {
-
-    },
     "@%@" : {
       "localizations" : {
         "pt-BR" : {
@@ -28,6 +25,7 @@
       }
     },
     "%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

@@ -90,19 +90,29 @@ class ObservableChat: ObservableObject {
                     for result in chats {
                         self.chatsArray.append(result)
                     }
-                    debugPrint(response)
+                    
                 case .failure(let error):
                     completion(nil, error)
-                    debugPrint(response)
+                
                 }
             }
     }
 }
 
 class WebSocketManager: ObservableObject {
-    let manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress])
+    let manager: SocketManager
+    
+    init() {
+        let socketURL = URL(string: "http://localhost:8080")!
+        let config: SocketIOClientConfiguration = [
+            .log(true),
+            .compress,
+            .connectParams(["cookies": checkCookies()])
+        ]
+        self.manager = SocketManager(socketURL: socketURL, config: config)
+    }
+
     func connect() {
-       
         let socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {
             data, ack in
@@ -111,4 +121,11 @@ class WebSocketManager: ObservableObject {
         socket.connect()
     }
     
+    func receiveMessage(_ chat: ObservableChat) {
+        let socket = manager.defaultSocket
+        socket.on("message") {
+            data, ack in
+            
+        }
+    }
 }
