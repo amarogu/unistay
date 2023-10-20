@@ -16,7 +16,6 @@ func postMessage(to: String, by: String, content: String, completion: @escaping 
     
     NetworkManager.shared.request("http://localhost:3000/message", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: Chat.self) {
         response in
-        debugPrint(response)
         switch response.result {
         case .success(let value):
             completion(value, nil)

@@ -123,9 +123,20 @@ class WebSocketManager: ObservableObject {
     
     func receiveMessage(_ chat: ObservableChat) {
         let socket = manager.defaultSocket
-        socket.on("message") {
-            data, ack in
-            
+        socket.on("message") { data, ack in
+            guard let messageData = data[0] as? [String: Any] else {
+                print("Unable to convert data to message")
+                return
+            }
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: messageData, options: .prettyPrinted)
+                let message = try JSONDecoder().decode(Message.self, from: jsonData)
+                print("Received message: \(message)")
+            } catch {
+                print("Failed to decode message: \(error)")
+            }
         }
+
     }
 }
