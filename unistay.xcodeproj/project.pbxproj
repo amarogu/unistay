@@ -37,6 +37,7 @@
 		A34866042ACB91EA003FD07B /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34866032ACB91EA003FD07B /* Pagination.swift */; };
 		A349CA212ABE03E200F5C11A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349CA202ABE03E200F5C11A /* LocationManager.swift */; };
 		A349CA232ABE05A700F5C11A /* MapSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A349CA222ABE05A700F5C11A /* MapSearchBar.swift */; };
+		A35D49912AE2087F006298B4 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A35D49902AE2087F006298B4 /* SocketIO */; };
 		A364E35C2AB8EA8200C7AB8B /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364E35B2AB8EA8200C7AB8B /* Login.swift */; };
 		A364E35E2AB8ED0300C7AB8B /* LoginHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364E35D2AB8ED0300C7AB8B /* LoginHeader.swift */; };
 		A36A74F12ACC7F9A009AB71F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36A74F02ACC7F9A009AB71F /* Register.swift */; };
@@ -148,6 +149,7 @@
 				A328289A2AD48B2E002F8642 /* NukeVideo in Frameworks */,
 				A32828962AD48B2E002F8642 /* NukeExtensions in Frameworks */,
 				A32828982AD48B2E002F8642 /* NukeUI in Frameworks */,
+				A35D49912AE2087F006298B4 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +374,7 @@
 				A32828952AD48B2E002F8642 /* NukeExtensions */,
 				A32828972AD48B2E002F8642 /* NukeUI */,
 				A32828992AD48B2E002F8642 /* NukeVideo */,
+				A35D49902AE2087F006298B4 /* SocketIO */,
 			);
 			productName = unistay;
 			productReference = A3450F4E2AA4F2AE009792EF /* unistay.app */;
@@ -406,6 +409,7 @@
 			packageReferences = (
 				A3E80BDF2AC2F8B800672E8B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A32828922AD48B2E002F8642 /* XCRemoteSwiftPackageReference "Nuke" */,
+				A35D498F2AE2087F006298B4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = A36E80852A75AD7700DAC3DD;
 			projectDirPath = "";
@@ -712,6 +716,14 @@
 				minimumVersion = 12.1.6;
 			};
 		};
+		A35D498F2AE2087F006298B4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		A3E80BDF2AC2F8B800672E8B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -742,6 +754,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A32828922AD48B2E002F8642 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = NukeVideo;
+		};
+		A35D49902AE2087F006298B4 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A35D498F2AE2087F006298B4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
 		};
 		A3E80BE02AC2F8B800672E8B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

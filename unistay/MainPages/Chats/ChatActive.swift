@@ -84,7 +84,6 @@ struct ChatActive: View {
                 HStack(spacing: 8) {
                     TextInputField(input: $message, placeholderText: "Send a message", placeholderIcon: "text.bubble", required: false)
                     Button(action: {
-                        webSocket.sendMessage(message)
                         
                         let group = DispatchGroup()
                         
@@ -116,8 +115,6 @@ struct ChatActive: View {
             ToolbarItem {
                 Text("Group").customStyle(type: "Semibold", size: 14)
             }
-        }.onAppear {
-            webSocket.receiveMessage()
         }
     }
 }

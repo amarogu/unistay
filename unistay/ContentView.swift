@@ -116,7 +116,7 @@ struct ContentView: View {
                                 self.user.profilePicture = userData.profilePicture
                                 self.user.accountType = userData.accountType
                                 self.user.locatedAt = userData.locatedAt
-                                self.webSocket.connect(userData._id)
+                                self.webSocket.connect()
                             }
                 } else if let error = error {
                     print(error)
