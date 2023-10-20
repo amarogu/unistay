@@ -97,13 +97,7 @@ struct ChatActive: View {
                             }
 
                             group.notify(queue: .main) {
-                                observableChat.fetchChats { result, error in
-                                    for fetchedChat in result ?? [] {
-                                        if fetchedChat._id == chat._id {
-                                            chat = fetchedChat
-                                        }
-                                    }
-                                }
+                                
                                 message = ""
                             }
                     }) {

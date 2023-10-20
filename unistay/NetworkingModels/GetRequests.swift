@@ -121,7 +121,7 @@ class WebSocketManager: ObservableObject {
         socket.connect()
     }
     
-    func receiveMessage(_ chat: ObservableChat) {
+    func receiveMessage() {
         let socket = manager.defaultSocket
         socket.on("message") { data, ack in
             guard let messageData = data[0] as? [String: Any] else {
@@ -132,11 +132,11 @@ class WebSocketManager: ObservableObject {
             do {
                 let jsonData = try JSONSerialization.data(withJSONObject: messageData, options: .prettyPrinted)
                 let message = try JSONDecoder().decode(Message.self, from: jsonData)
-                print("Received message: \(message)")
+                print("Received message: \(message.content)")
+                
             } catch {
                 print("Failed to decode message: \(error)")
             }
         }
-
     }
 }
