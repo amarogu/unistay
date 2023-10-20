@@ -178,7 +178,7 @@ class Participant: Decodable, Identifiable {
     }
 }
 
-class Chat: ObservableObject, Identifiable, Decodable {
+class Chat: ObservableObject, Identifiable, Decodable, Equatable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

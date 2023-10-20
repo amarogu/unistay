@@ -20,7 +20,7 @@ struct Chats: View {
                     Rectangle().frame(height: 70).foregroundStyle(.clear).listRowBackground(Color("BackgroundColor"))
                     ForEach(persistentChats) {
                         chat in
-                        NavigationLink(destination: ChatActive(chat: chat, user: user, webSocket: webSocket)) {
+                        NavigationLink(destination: ChatActive(chat: chat, webSocket: webSocket, user: user)) {
                             HStack(spacing: 18) {
                                 ZStack(alignment: .bottomLeading) {
                                     ForEach(chat.participants) {

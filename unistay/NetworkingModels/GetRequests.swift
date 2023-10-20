@@ -81,9 +81,11 @@ class ObservableChat: ObservableObject {
     
     func fetchChats(completion: @escaping ([Chat]?, Error?) -> Void) {
         let url = "http://localhost:3000/chats"
+        
         NetworkManager.shared.request(url, method: .get)
             .validate()
             .responseDecodable(of: [Chat].self) { response in
+                
                 switch response.result {
                 case .success(let chats):
                     completion(chats, nil)
@@ -120,9 +122,10 @@ class WebSocketManager: ObservableObject {
         }
         socket.connect()
     }
-    
-    func receiveMessage() {
+
+    func receiveMessage() -> Message? {
         let socket = manager.defaultSocket
+        var msg: Message? = nil
         socket.on("message") { data, ack in
             guard let messageData = data[0] as? [String: Any] else {
                 print("Unable to convert data to message")
@@ -132,11 +135,13 @@ class WebSocketManager: ObservableObject {
             do {
                 let jsonData = try JSONSerialization.data(withJSONObject: messageData, options: .prettyPrinted)
                 let message = try JSONDecoder().decode(Message.self, from: jsonData)
-                print("Received message: \(message.content)")
-                
+                DispatchQueue.main.async {
+                    msg  = message
+                }
             } catch {
                 print("Failed to decode message: \(error)")
             }
         }
+        return msg
     }
 }

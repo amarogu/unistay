@@ -10,11 +10,13 @@ import NukeUI
 
 struct ChatActive: View {
     @State var chat: Chat
-    @ObservedObject var observableChat: ObservableChat = ObservableChat()
+    @ObservedObject var observableChat = ObservableChat()
+    @ObservedObject var webSocket: WebSocketManager
+
     @State var user: User?
     @State var message: String = ""
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    @StateObject var webSocket: WebSocketManager
+    
     func formatTime(from dateString: String) -> String {
             let isoFormatter = ISO8601DateFormatter()
             isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -38,7 +40,7 @@ struct ChatActive: View {
                 ScrollViewReader {
                     scrollView in
                     ScrollView {
-                            ForEach(chat.messages) {
+                        ForEach(chat.messages) {
                                 msg in
                                 if user?._id == msg.senderId {
                                     HStack() {
@@ -97,7 +99,6 @@ struct ChatActive: View {
                             }
 
                             group.notify(queue: .main) {
-                                
                                 message = ""
                             }
                     }) {

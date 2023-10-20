@@ -117,7 +117,6 @@ struct ContentView: View {
                                 self.user.accountType = userData.accountType
                                 self.user.locatedAt = userData.locatedAt
                                 self.webSocket.connect()
-                                self.webSocket.receiveMessage()
                             }
                 } else if let error = error {
                     print(error)
