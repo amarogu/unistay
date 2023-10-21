@@ -114,3 +114,21 @@ func getYourPubs(_ id: String) async throws -> [AccommodationResponse] {
     
     return res
 }
+
+func getNearestTo(_ lat: Double, _ lng: Double) async throws -> [AccommodationResponse] {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<[AccommodationResponse], Error>) in
+        NetworkManager.shared.request("http://localhost:3000/nearest-to/?lat=\(lat)&lng=\(lng)", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+            res in
+            debugPrint(res)
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
