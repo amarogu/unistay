@@ -112,6 +112,7 @@ struct Login: View {
                     }
             }.tint(Color("BodyEmphasized")).onAppear{
                 shouldNavigate = false
+                
             }.removeFocusOnTap()
         }.navigationBarHidden(true)
     }

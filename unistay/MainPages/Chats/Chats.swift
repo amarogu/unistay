@@ -80,7 +80,7 @@ struct Chats: View {
             }.frame(maxHeight: 100).padding(.bottom, 40).padding(.trailing, 10).background(
                 LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.65), endPoint: .bottom)
             )
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
         
     }
 }

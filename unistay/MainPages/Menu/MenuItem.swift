@@ -60,6 +60,7 @@ struct MenuItem: View {
     @State private var showingData: Bool = false
     var itemFields: [Any] = []
     @Binding var isLoggedIn: Bool
+    @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
         NavigationStack {
             ZStack {
@@ -98,6 +99,7 @@ struct MenuItem: View {
                             Button(action: {
                                 self.isLoggedIn = false
                                 SessionManager.shared.isLoggedIn = false
+                                webSocket.disconnect()
                             }) {
                                 Text(menuItemData.options[0]).customStyle(size: 16).underline()
                             }

@@ -110,6 +110,18 @@ struct ChatActive: View {
             ToolbarItem {
                 Text("Group").customStyle(type: "Semibold", size: 14)
             }
+        }.onAppear {
+            webSocket.receiveMessage()
+        }.onReceive(webSocket.$fetchChat) { fetchChat in
+            if fetchChat {
+                print("received in here")
+                observableChat.fetchChats {
+                    fetchedChats, err in
+                    for fetchedChat in fetchedChats ?? [] {
+                        chat = fetchedChat
+                    }
+                }
+            }
         }
     }
 }

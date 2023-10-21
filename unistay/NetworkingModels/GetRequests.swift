@@ -106,6 +106,7 @@ class ObservableChat: ObservableObject {
 class WebSocketManager: ObservableObject {
     let manager: SocketManager
     @Published var newConn: [User] = []
+    @Published var fetchChat: Bool = false
     
     init() {
         let socketURL = URL(string: "http://localhost:8080")!
@@ -126,25 +127,12 @@ class WebSocketManager: ObservableObject {
         socket.connect()
     }
 
-    func receiveMessage(_ chat: Chat) -> Chat {
+    func receiveMessage() {
         let socket = manager.defaultSocket
-        socket.on("message") { data, ack in
-            guard let messageData = data[0] as? [String: Any] else {
-                print("Unable to convert data to message")
-                return
-            }
-
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: messageData, options: .prettyPrinted)
-                let message = try JSONDecoder().decode(Message.self, from: jsonData)
-                DispatchQueue.main.async {
-                    chat.messages.append(message)
-                }
-            } catch {
-                print("Failed to decode message: \(error)")
-            }
+        socket.on("message") { _, _ in
+            self.fetchChat = true
         }
-        return chat
+        
     }
     
     func receiveNewConnection() {

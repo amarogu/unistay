@@ -128,8 +128,6 @@ struct ContentView: View {
                 }
             }
             
-        }.onDisappear {
-            webSocket.disconnect()
         }.environmentObject(user).environmentObject(webSocket).environmentObject(observableChat)
         
     }
