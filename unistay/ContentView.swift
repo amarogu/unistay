@@ -48,10 +48,11 @@ struct ContentView: View {
         GeometryReader {
             geometry in
             let size = geometry.size.width
+            let height = geometry.size.height
             if user.accountType == "student" {
                 ZStack(alignment: .bottom) {
                     if(selectedTab == "Places") {
-                        Places(size: size, tabSize: tabSize)
+                        Places(size: size, tabSize: tabSize, height: height)
                     } else if (selectedTab == "Menu") {
                         MenuView(size: size, tabSize: tabSize, isLoggedIn: $isLoggedIn)
                     } else if(selectedTab == "Profile") {
