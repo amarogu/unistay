@@ -12,6 +12,9 @@ import NukeUI
 import Nuke
 
 struct ActiveAccommodation: View {
+    @State var responseAlertTitle: String = ""
+    @State var responseAlert: String = ""
+    @State var isAlertOn: Bool = false
     @State private var currentPage: Int = 0
     @State private var listOfPages: [UIImage?] = []
     @State private var fakedPages: [UIImage?] = []
@@ -107,12 +110,19 @@ struct ActiveAccommodation: View {
                                     do {
                                         if let id = pub?._id {
                                             let res = try await connectUser(id)
-                                            
+                                            DispatchQueue.main.async {
+                                                if res.message == "Could not add user: User is already connected to this publication" {
+                                                    responseAlertTitle = "Error"
+                                                    responseAlert = "You are already connected to this publication"
+                                                    isAlertOn = true
+                                                }
+                                            }
                                         }
                                     } catch {
-                                        
+                                        // Handle error
                                     }
                                 }
+
                             }) {
                                 Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                             }
@@ -121,7 +131,15 @@ struct ActiveAccommodation: View {
                 }
                 
             }
-        }
+        }.alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
+            Button(role: .cancel, action: {
+                
+            }) {
+                Text("OK")
+            }
+        }, message: {
+            Text(responseAlert)
+        })
         .onAppear {
             guard fakedPages.isEmpty else { return }
             for image in images {

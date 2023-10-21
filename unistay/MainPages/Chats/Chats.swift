@@ -10,15 +10,14 @@ import NukeUI
 import Nuke
 
 struct Chats: View {
-    @ObservedObject var observableChat: ObservableChat = ObservableChat()
+    @EnvironmentObject var observableChat: ObservableChat
     @State var user: User? = nil
-    @State var persistentChats: [Chat] = []
     @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
         ZStack(alignment: .top) {
                 List {
                     Rectangle().frame(height: 70).foregroundStyle(.clear).listRowBackground(Color("BackgroundColor"))
-                    ForEach(persistentChats) {
+                    ForEach(observableChat.chatsArray) {
                         chat in
                         NavigationLink(destination: ChatActive(chat: chat, webSocket: webSocket, user: user)) {
                             HStack(spacing: 18) {
@@ -57,29 +56,13 @@ struct Chats: View {
                                                 
                                                 Text("@\(participant.username)").customStyle(size: 14, color: "BodyAccent").padding(.vertical, 4).padding(.horizontal, 10).background(Color("AccentColor")).cornerRadius(5)
                                             }
-                                        }.onAppear {
-                                            /*imageDownloader.downloadUserImage(participant._id) {
-                                                img, error in
-                                                profilePicture[participant._id] = img ?? UIImage()
-                                            }*/
-                                            /*profilePicture[participant._id] = AsyncImage(url: URL(string: "http://localhost:3000/user/profilepicture/?id=\(participant._id)"))*/
                                         }
                                     }
                                 }
                             }.padding(.vertical, 10)
                         }.listRowBackground(Color("BackgroundColor"))
                     }
-                }.padding(.top, 20).listStyle(.plain).onAppear {
-                    observableChat.fetchChats {
-                        result, _ in
-                        for chat in result ?? [] {
-                            persistentChats.append(chat)
-                        }
-                    }
-                    
-                }.onDisappear {
-                    persistentChats = []
-                } // TODO: Check if this does not remove the chat that is being sent to the ActiveChat view
+                }.padding(.top, 20).listStyle(.plain) // TODO: Check if this does not remove the chat that is being sent to the ActiveChat view
                 /*ForEach(observableChat.chatsArray) {chat in
                     Text("Chat owned by \(chat.creator)")
                 }*/

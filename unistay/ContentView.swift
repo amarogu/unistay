@@ -43,6 +43,7 @@ struct ContentView: View {
     @Binding var isLoggedIn: Bool
     @StateObject var user: User = User()
     @StateObject var webSocket: WebSocketManager = WebSocketManager()
+    @StateObject var observableChat: ObservableChat = ObservableChat()
     var body: some View {
         GeometryReader {
             geometry in
@@ -95,6 +96,7 @@ struct ContentView: View {
                 }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.bottom).navigationBarBackButtonHidden(true).padding(.horizontal, 18).padding(.top, 14).padding(.bottom, 0)
             }
         }.background(Color("BackgroundColor")).onAppear {
+            observableChat.chatsArray = []
             getUser {
                 userData, error in
                 if let userData = userData {
@@ -117,13 +119,16 @@ struct ContentView: View {
                                 self.user.accountType = userData.accountType
                                 self.user.locatedAt = userData.locatedAt
                                 self.webSocket.connect()
+                                observableChat.fetchChats {
+                                    _, _ in
+                                }
                             }
                 } else if let error = error {
                     print(error)
                 }
             }
             
-        }.environmentObject(user).environmentObject(webSocket)
+        }.environmentObject(user).environmentObject(webSocket).environmentObject(observableChat)
         
     }
 }

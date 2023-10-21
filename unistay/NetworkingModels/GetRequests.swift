@@ -90,7 +90,9 @@ class ObservableChat: ObservableObject {
                 case .success(let chats):
                     completion(chats, nil)
                     for result in chats {
-                        self.chatsArray.append(result)
+                        
+                            self.chatsArray.append(result)
+                        
                     }
                     
                 case .failure(let error):
@@ -103,7 +105,7 @@ class ObservableChat: ObservableObject {
 
 class WebSocketManager: ObservableObject {
     let manager: SocketManager
-    
+
     init() {
         let socketURL = URL(string: "http://localhost:8080")!
         let config: SocketIOClientConfiguration = [
@@ -123,9 +125,8 @@ class WebSocketManager: ObservableObject {
         socket.connect()
     }
 
-    func receiveMessage() -> Message? {
+    func receiveMessage(_ chat: Chat) -> Chat {
         let socket = manager.defaultSocket
-        var msg: Message? = nil
         socket.on("message") { data, ack in
             guard let messageData = data[0] as? [String: Any] else {
                 print("Unable to convert data to message")
@@ -136,12 +137,12 @@ class WebSocketManager: ObservableObject {
                 let jsonData = try JSONSerialization.data(withJSONObject: messageData, options: .prettyPrinted)
                 let message = try JSONDecoder().decode(Message.self, from: jsonData)
                 DispatchQueue.main.async {
-                    msg  = message
+                    chat.messages.append(message)
                 }
             } catch {
                 print("Failed to decode message: \(error)")
             }
         }
-        return msg
+        return chat
     }
 }
