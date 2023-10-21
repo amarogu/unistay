@@ -20,6 +20,7 @@ struct ProviderActivity: View {
     @State private var selectionSize: CGFloat = 0
     @State var pub: [AccommodationResponse] = []
     @EnvironmentObject var user: User
+    @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
             HStack(alignment: .center) {
@@ -51,18 +52,21 @@ struct ProviderActivity: View {
             ZStack(alignment: .top) {
                 
                 ScrollView {
-                    Text("New connections").customStyle(type: "Semibold", size: 14)
-                    HStack {
-                        
+                    ProgressView().onAppear {
+                        webSocket.receiveNewConnection()
                     }
+                    
                 }
                 
-                Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 48).background(GeometryReader {
-                    geo in
-                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.2), endPoint: .bottom).onAppear {
-                        selectionSize = geo.size.height
-                    }
-                })//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
+                VStack(alignment: .leading) {
+                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 24).background(GeometryReader {
+                        geo in
+                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.2), endPoint: .bottom).onAppear {
+                            selectionSize = geo.size.height
+                        }
+                    })//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
+                    Text("New connections").customStyle(type: "Semibold", size: 14)
+                }
                 
             }
         }.frame(maxWidth: .infinity).onAppear {
