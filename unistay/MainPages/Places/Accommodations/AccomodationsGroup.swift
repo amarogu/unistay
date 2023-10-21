@@ -41,7 +41,21 @@ struct AccomodationsGroup: View {
                     }
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
             }
-        }.tint(Color("BodyEmphasized")).onChange(of: pickedLocCoordinates) {
+        }.tint(Color("BodyEmphasized")).onAppear {
+            if pub == [] {
+                getPubs {
+                    pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            self.pub.append(pubData)
+                            print(pubData.title)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                }
+            }
+        }.onChange(of: pickedLocCoordinates) {
             if pickedLocCoordinates == [] {
                 if pub == [] {
                     getPubs {
