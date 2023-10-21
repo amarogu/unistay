@@ -29,7 +29,7 @@ struct Location: Decodable {
     let _id: String
 }
 
-class User: ObservableObject, Decodable {
+class User: ObservableObject, Decodable, Identifiable {
     @Published var _id: String
     @Published var username: String
     @Published var name: String

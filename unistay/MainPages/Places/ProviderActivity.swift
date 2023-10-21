@@ -55,7 +55,10 @@ struct ProviderActivity: View {
                     ProgressView().onAppear {
                         webSocket.receiveNewConnection()
                     }
-                    
+                    ForEach(webSocket.newConn) {
+                        conn in
+                        Text(conn.username)
+                    }
                 }
                 
                 VStack(alignment: .leading) {
