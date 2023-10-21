@@ -55,9 +55,9 @@ struct ProviderActivity: View {
                     ProgressView().onAppear {
                         webSocket.receiveNewConnection()
                     }
-                    ForEach(webSocket.newConn) {
-                        conn in
-                        Text(conn.username)
+                    ForEach(pub, id:\.self) {
+                        pub in
+                        Text(pub.title)
                     }
                 }
                 
