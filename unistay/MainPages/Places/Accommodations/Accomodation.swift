@@ -54,15 +54,26 @@ struct Accomodation: View {
             }.padding(.all, 16).background(Color("Gray")).cornerRadius(20).padding(.vertical, 6)
         }).frame(maxWidth: size * 0.35 + 32).onAppear {
             let location = CLLocation(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
-            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                guard let placemark = placemarks?.first, error == nil else {
-                    print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
-                    return
+            let locationKey = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+            
+            if let savedLocation = UserDefaults.standard.object(forKey: locationKey) as? [String: String] {
+                self.name = savedLocation["name"]
+                self.country = savedLocation["country"]
+            } else {
+                geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                    guard let placemark = placemarks?.first, error == nil else {
+                        print("No placemark found: \(error?.localizedDescription ?? "Unknown Error")")
+                        return
+                    }
+                    self.name = placemark.name
+                    self.country = placemark.country
+                    
+                    let locationData = ["name": self.name, "country": self.country]
+                    UserDefaults.standard.set(locationData, forKey: locationKey)
                 }
-                self.name = placemark.name
-                self.country = placemark.country
             }
         }
+
     }
 }
 
