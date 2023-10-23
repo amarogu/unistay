@@ -37,14 +37,14 @@ struct ActiveAccommodation: View {
                 VStack(alignment: .leading) {
                     VStack {
                         if !(pub?.images.isEmpty ?? false) {
-                            TabView(selection: $currentPage) {
+                            TabView {
                                 ForEach(pub?.images ?? [], id: \.self) { img in
                                     LazyImage(url: URL(string: "http://localhost:3000/image/\(img)")) {
                                         i in
-                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(pub?.images.firstIndex(of: img))
+                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped()
                                     }
                                 }
-                            }
+                            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always)).id(pub?.images.count)
                         }
                     }.frame(maxHeight: size.width * 0.7).padding(.top, 14)
                     ScrollView {

@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 import MapKit
+import Foundation
 import Nuke
 import NukeUI
 
