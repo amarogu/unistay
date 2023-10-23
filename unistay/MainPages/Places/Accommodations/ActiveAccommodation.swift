@@ -41,14 +41,9 @@ struct ActiveAccommodation: View {
                                 ForEach(pub?.images ?? [], id: \.self) { img in
                                     LazyImage(url: URL(string: "http://localhost:3000/image/\(img)")) {
                                         i in
-                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(img)
+                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(pub?.images.firstIndex(of: img))
                                     }
                                 }
-                            }
-                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                            .overlay(alignment: .bottom) {
-                                PageControl(numberOfPages: pub?.images.count ?? 0, currentPage: $currentPage)
-                                    .offset(y: 0)
                             }
                         }
                     }.frame(maxHeight: size.width * 0.7).padding(.top, 14)
