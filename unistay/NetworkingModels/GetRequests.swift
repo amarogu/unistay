@@ -103,9 +103,24 @@ class ObservableChat: ObservableObject {
     }
 }
 
+class NewConnection: Decodable, Hashable, Identifiable, ObservableObject {
+    var id: UUID = UUID()
+    let newUser: User
+    let publication: AccommodationResponse
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: NewConnection, rhs: NewConnection) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 class WebSocketManager: ObservableObject {
     let manager: SocketManager
     @Published var newConn: Bool = false
+    @Published var newConnArray: [NewConnection] = []
     @Published var fetchChat: Bool = false
     
     init() {
@@ -138,8 +153,24 @@ class WebSocketManager: ObservableObject {
     func receiveNewConnection() {
         let socket = manager.defaultSocket
         socket.on("newConn") {
-            _, _ in
-            self.newConn = true
+            data, _ in
+            print(data)
+            guard let connData = data[0] as? [String: Any] else {
+                print("Unable to convert data to message")
+                return
+            }
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: connData, options: .prettyPrinted)
+                let decodedNewConn = try JSONDecoder().decode(NewConnection.self, from: jsonData)
+                DispatchQueue.main.async {
+                            // Create a new array and assign it to newConnArray
+                            var newArray = self.newConnArray
+                            self.newConnArray = newArray
+                            self.newConn = true
+                        }
+            } catch {
+                
+            }
         }
     }
     

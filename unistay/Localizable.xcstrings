@@ -172,7 +172,14 @@
       }
     },
     "Activity" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atividade"
+          }
+        }
+      }
     },
     "Back to login" : {
       "localizations" : {
@@ -555,6 +562,9 @@
         }
       }
     },
+    "Inside" : {
+
+    },
     "Key" : {
       "extractionState" : "manual"
     },
@@ -608,7 +618,14 @@
       }
     },
     "New connections" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novas conexões"
+          }
+        }
+      }
     },
     "OK" : {
       "localizations" : {
@@ -706,23 +723,15 @@
         }
       }
     },
+    "Received" : {
+
+    },
     "Rent" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aluguel"
-          }
-        }
-      }
-    },
-    "Search accommodations, locations..." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Busque acomodações, lugares..."
           }
         }
       }
@@ -857,7 +866,14 @@
       }
     },
     "Title" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Título"
+          }
+        }
+      }
     },
     "understand why we need your location" : {
       "localizations" : {

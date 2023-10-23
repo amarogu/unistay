@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct ProviderActivity: View {
     @State private var searchText = ""
@@ -18,7 +19,7 @@ struct ProviderActivity: View {
     var size: CGFloat
     var tabSize: CGFloat
     @State private var selectionSize: CGFloat = 0
-    @State var pub: [AccommodationResponse] = []
+    @State var pub: [NewConnection] = []
     @EnvironmentObject var user: User
     @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
@@ -52,39 +53,50 @@ struct ProviderActivity: View {
             ZStack(alignment: .top) {
                 
                 ScrollView {
-                    ProgressView().onAppear {
-                        webSocket.receiveNewConnection()
-                    }
-                    ForEach(pub, id:\.self) {
-                        pub in
-                        Text(pub.title)
-                    }
+                    VStack {
+                       
+                            Text("Inside")
+                            ForEach(pub) {
+                                newConn in
+                                
+                                HStack(spacing: 14) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(newConn.newUser.name).customStyle(size: 14)
+                                        Text(newConn.publication.description).customStyle(size: 14, color: "Body").lineLimit(2)
+                                    }
+                                    Spacer()
+                                    LazyImage(url: URL(string: "http://localhost:3000/image/\(newConn.publication.images[0])")) {
+                                        i in
+                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.1, height: size * 0.1).scaleEffect(1.25).clipped().cornerRadius(5)
+                                    }
+                                }.padding(.vertical, 10).padding(.horizontal, 14).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 4)
+                            }
+                        
+                    }.padding(.top, selectionSize + 14).padding(.bottom, tabSize)
                 }
                 
-                VStack(alignment: .leading) {
-                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 24).background(GeometryReader {
-                        geo in
-                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.2), endPoint: .bottom).onAppear {
-                            selectionSize = geo.size.height
-                        }
-                    })//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
-                    Text("New connections").customStyle(type: "Semibold", size: 14)
-                }
+                VStack {
+                    HStack {
+                        Text("New connections").customStyle(type: "Semibold", size: 14)
+                        Spacer()
+                    }
+                }.frame(maxWidth: .infinity).background(GeometryReader {
+                    geo in
+                    LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.2), endPoint: .bottom).onAppear {
+                        selectionSize = geo.size.height
+                    }
+                })
                 
             }
         }.frame(maxWidth: .infinity).onAppear {
-            Task {
-                do {
-                    let res = try await getYourPubs(user._id)
-                    for publication in res {
-                        pub.append(publication)
-                    }
-                } catch {
-                    
-                }
-            }
+            webSocket.receiveNewConnection()
         }.onDisappear {
             pub = []
+        }.onReceive(webSocket.$newConn) {
+            newConn in
+            if newConn {
+                
+            }
         }
         }
 }
