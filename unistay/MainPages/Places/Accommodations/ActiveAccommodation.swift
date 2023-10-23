@@ -16,10 +16,7 @@ struct ActiveAccommodation: View {
     @State var responseAlert: String = ""
     @State var isAlertOn: Bool = false
     @State private var currentPage: Int = 0
-    @State private var listOfPages: [UIImage?] = []
-    @State private var fakedPages: [UIImage?] = []
     var pub: AccommodationResponse?
-    @State var images: [UIImage?]
     @State var location: [String?] = []
     @StateObject var locationManager: LocationManager = .init()
     @State private var region = MKCoordinateRegion(
@@ -39,15 +36,18 @@ struct ActiveAccommodation: View {
                 Color("BackgroundColor").ignoresSafeArea(.all)
                 VStack(alignment: .leading) {
                     VStack {
-                        if !fakedPages.isEmpty {
+                        if !(pub?.images.isEmpty ?? false) {
                             TabView(selection: $currentPage) {
-                                ForEach(fakedPages.indices, id: \.self) { index in
-                                    Image(uiImage: fakedPages[index] ?? UIImage()).resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(index)
+                                ForEach(pub?.images ?? [], id: \.self) { img in
+                                    LazyImage(url: URL(string: "http://localhost:3000/image/\(img)")) {
+                                        i in
+                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped().cornerRadius(5).tag(img)
+                                    }
                                 }
                             }
                             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                             .overlay(alignment: .bottom) {
-                                PageControl(numberOfPages: listOfPages.count, currentPage: $currentPage)
+                                PageControl(numberOfPages: pub?.images.count ?? 0, currentPage: $currentPage)
                                     .offset(y: 0)
                             }
                         }
@@ -141,11 +141,6 @@ struct ActiveAccommodation: View {
             Text(responseAlert)
         })
         .onAppear {
-            guard fakedPages.isEmpty else { return }
-            for image in images {
-                listOfPages.append(image)
-            }
-            createCarousel(true)
             Task {
                 do {
                     let result = try await fetchConnectedUsers(pub?._id ?? "")
@@ -157,11 +152,6 @@ struct ActiveAccommodation: View {
                 }
             }
         }
-    }
-    
-    func createCarousel(_ setFirstPageAsCurrentPage: Bool = false) {
-        fakedPages.removeAll()
-        fakedPages.append(contentsOf: listOfPages)
     }
 }
 
