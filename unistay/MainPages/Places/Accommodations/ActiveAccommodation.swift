@@ -105,7 +105,7 @@ struct ActiveAccommodation: View {
                                 Button(action: {
                                     Task {
                                         do {
-                                            let res = try await favoritePublication(pub?._id ?? "", isFav ? true : false)
+                                            let res = try await savePublication(pub?._id ?? "", isFav ? true : false)
                                             withAnimation {
                                                 isFav.toggle()
                                             }
@@ -151,6 +151,11 @@ struct ActiveAccommodation: View {
             Text(responseAlert)
         })
         .onAppear {
+            for saved in user.savedPublications {
+                if pub?._id == saved {
+                    isFav = true
+                }
+            }
             Task {
                 do {
                     let result = try await fetchConnectedUsers(pub?._id ?? "")

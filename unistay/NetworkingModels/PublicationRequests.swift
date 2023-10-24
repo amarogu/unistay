@@ -133,10 +133,10 @@ func getNearestTo(_ lat: Double, _ lng: Double) async throws -> [AccommodationRe
     return res
 }
 
-func favoritePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse {
+func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/publication/favorite/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("http://localhost:3000/publication/save/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
             res in
             switch res.result {
             case .success(let value):

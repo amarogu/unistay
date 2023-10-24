@@ -128,7 +128,7 @@ struct Places: View {
                         
                         if(selectedView == "Saved") {
                             //Accomodation()
-                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
+                            SavedAccommodations(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else if(selectedView == "Recommended") {
                             AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else {
