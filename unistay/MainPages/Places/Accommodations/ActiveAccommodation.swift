@@ -26,6 +26,7 @@ struct ActiveAccommodation: View {
     @StateObject var user: User
     @State var connectedUsers: [Participant] = []
     @State var connectedUsersProgress: String = ""
+    @State var isFav: Bool = false
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -100,26 +101,40 @@ struct ActiveAccommodation: View {
                                 }
                             }
                             Spacer()
-                            Button(action: {
-                                Task {
-                                    do {
-                                        if let id = pub?._id {
-                                            let res = try await connectUser(id)
-                                            DispatchQueue.main.async {
-                                                if res.message == "Could not add user: User is already connected to this publication" {
-                                                    responseAlertTitle = "Error"
-                                                    responseAlert = "You are already connected to this publication"
-                                                    isAlertOn = true
+                            HStack(spacing: 18) {
+                                Button(action: {
+                                    Task {
+                                        do {
+                                            let res = try await favoritePublication(pub?._id ?? "", isFav ? true : false)
+                                            withAnimation {
+                                                isFav.toggle()
+                                            }
+                                        } catch { print(error) }
+                                    }
+                                }) {
+                                    Image(systemName: isFav ? "heart.fill" : "heart").tint(Color("BodyEmphasized"))
+                                }.contentTransition(.symbolEffect(.replace.downUp.byLayer))
+                                Button(action: {
+                                    Task {
+                                        do {
+                                            if let id = pub?._id {
+                                                let res = try await connectUser(id)
+                                                DispatchQueue.main.async {
+                                                    if res.message == "Could not add user: User is already connected to this publication" {
+                                                        responseAlertTitle = "Error"
+                                                        responseAlert = "You are already connected to this publication"
+                                                        isAlertOn = true
+                                                    }
                                                 }
                                             }
+                                        } catch {
+                                            // Handle error
                                         }
-                                    } catch {
-                                        // Handle error
                                     }
-                                }
 
-                            }) {
-                                Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                }) {
+                                    Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                }
                             }
                         }
                     }.padding(.horizontal, 28).padding(.vertical, 8)

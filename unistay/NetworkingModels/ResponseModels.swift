@@ -23,6 +23,14 @@ class ServerResponseSignup: Decodable {
     }
 }
 
+class GeneralResponse: Decodable {
+    let message: String
+    
+    enum CodingKeys: String, CodingKey {
+        case message
+    }
+}
+
 struct Location: Decodable {
     let latitude: Double
     let longitude: Double
