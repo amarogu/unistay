@@ -53,12 +53,8 @@ struct ProviderActivity: View {
                 
                 ScrollView {
                     VStack {
-                        if webSocket.newConn {
-                            Text("Received")
-                        }
                         ForEach(webSocket.newConnArray) {
                                 newConn in
-                            Text("New conn detected")
                                 HStack(spacing: 14) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(newConn.newUser.name).customStyle(size: 14)
@@ -89,14 +85,8 @@ struct ProviderActivity: View {
                 
             }
         }.frame(maxWidth: .infinity).onAppear {
-            Task {
-                            do {
-                                let newConn = try await webSocket.receiveNewConnection()
-                                webSocket.newConnArray.append(newConn)
-                            } catch {
-                                print("Error receiving new connection: \(error)")
-                            }
-                        }
+            
+            webSocket.receiveNewConnection()
         }
         }
 }

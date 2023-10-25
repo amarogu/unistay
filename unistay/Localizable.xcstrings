@@ -614,9 +614,6 @@
         }
       }
     },
-    "New conn detected" : {
-
-    },
     "New connections" : {
       "localizations" : {
         "pt-BR" : {
@@ -722,9 +719,6 @@
           }
         }
       }
-    },
-    "Received" : {
-
     },
     "Rent" : {
       "localizations" : {

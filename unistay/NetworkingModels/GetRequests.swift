@@ -154,28 +154,27 @@ class WebSocketManager: ObservableObject {
         
     }
     
-    func receiveNewConnection() async throws -> NewConnection {
-        return try await withCheckedThrowingContinuation { continuation in
-            let socket = manager.defaultSocket
-            socket.on("newConn") { data, _ in
-                print(data)
-                guard let connData = data[0] as? [String: Any] else {
-                    continuation.resume(throwing: CustomError.unableToConvertDataToMessage)
-                    return
-                }
-                
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: connData, options: .prettyPrinted)
-                    let decodedNewConn = try JSONDecoder().decode(NewConnection.self, from: jsonData)
-                    DispatchQueue.main.async {
-                        self.newConn = true
-                        continuation.resume(returning: decodedNewConn)
+    func receiveNewConnection() {
+        let socket = manager.defaultSocket
+                socket.on("newConn") {
+                    data, _ in
+                    print(data)
+                    guard let connData = data[0] as? [String: Any] else {
+                        print("Unable to convert data to message")
+                        return
                     }
-                } catch let error {
-                    continuation.resume(throwing: error)
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: connData, options: .prettyPrinted)
+                        let decodedNewConn = try JSONDecoder().decode(NewConnection.self, from: jsonData)
+                        DispatchQueue.main.async {
+                                    // Create a new array and assign it to newConnArray
+                            self.newConn = true
+                            self.newConnArray.append(decodedNewConn)
+                        }
+                    } catch {
+                        
+                    }
                 }
-            }
-        }
     }
 
     
