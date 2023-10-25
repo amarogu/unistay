@@ -108,6 +108,10 @@ class NewConnection: Decodable, Hashable, Identifiable, ObservableObject {
     let newUser: User
     let publication: AccommodationResponse
     
+    enum CodingKeys: String, CodingKey {
+        case newUser, publication
+    }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

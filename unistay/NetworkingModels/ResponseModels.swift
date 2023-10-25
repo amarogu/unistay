@@ -131,7 +131,6 @@ struct PubLocation: Decodable, Hashable {
 }
 
 class AccommodationResponse: Decodable, Hashable {
-    let id: UUID = UUID()
     let _id: String
     let title: String
     let description: String
@@ -153,11 +152,11 @@ class AccommodationResponse: Decodable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(_id)
     }
         
     static func == (lhs: AccommodationResponse, rhs: AccommodationResponse) -> Bool {
-        return lhs.id == rhs.id
+        return lhs._id == rhs._id
     }
 }
 
