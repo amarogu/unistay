@@ -624,6 +624,9 @@
         }
       }
     },
+    "New user connected:" : {
+
+    },
     "OK" : {
       "localizations" : {
         "pt-BR" : {

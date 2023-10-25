@@ -56,8 +56,11 @@ struct ProviderActivity: View {
                         ForEach(webSocket.newConnArray) {
                                 newConn in
                                 HStack(spacing: 14) {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(newConn.newUser.name).customStyle(size: 14)
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        HStack(spacing: 4) {
+                                            Text("New user connected:").customStyle(size: 14, color: "BodyAccent")
+                                            Text(newConn.newUser.name).customStyle(size: 14)
+                                        }.padding(.vertical, 2).padding(.horizontal, 8).background(Color("AccentColor")).cornerRadius(5)
                                         Text(newConn.publication.description).customStyle(size: 14, color: "Body").lineLimit(2)
                                     }
                                     Spacer()

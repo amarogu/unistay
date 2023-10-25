@@ -167,7 +167,6 @@ class WebSocketManager: ObservableObject {
                         let jsonData = try JSONSerialization.data(withJSONObject: connData, options: .prettyPrinted)
                         let decodedNewConn = try JSONDecoder().decode(NewConnection.self, from: jsonData)
                         DispatchQueue.main.async {
-                                    // Create a new array and assign it to newConnArray
                             self.newConn = true
                             self.newConnArray.append(decodedNewConn)
                         }
