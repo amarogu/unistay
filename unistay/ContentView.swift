@@ -42,6 +42,7 @@ struct ContentView: View {
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
     @StateObject var user: User = User()
+    var pub: AccommodationResponse?
     @StateObject var webSocket: WebSocketManager = WebSocketManager()
     @StateObject var observableChat: ObservableChat = ObservableChat()
     var body: some View {
@@ -102,35 +103,34 @@ struct ContentView: View {
                 userData, error in
                 if let userData = userData {
                     DispatchQueue.main.async {
-                                self.user._id = userData._id
-                                self.user.username = userData.username
-                                self.user.name = userData.name
-                                self.user.surname = userData.surname
-                                self.user.email = userData.email
-                                self.user.language = userData.language
-                                self.user.password = userData.password
-                                self.user.preferredLocations = userData.preferredLocations
-                                self.user.isPrivate = userData.isPrivate
-                                self.user.currency = userData.currency
-                                self.user.savedPublications = userData.savedPublications
-                                self.user.connectedPublications = userData.connectedPublications
-                                self.user.owns = userData.owns
-                                self.user.bio = userData.bio
-                                self.user.profilePicture = userData.profilePicture
-                                self.user.accountType = userData.accountType
-                                self.user.locatedAt = userData.locatedAt
-                                self.webSocket.connect()
-                                observableChat.fetchChats {
-                                    _, _ in
-                                }
-                            }
+                        self.user._id = userData._id
+                        self.user.username = userData.username
+                        self.user.name = userData.name
+                        self.user.surname = userData.surname
+                        self.user.email = userData.email
+                        self.user.language = userData.language
+                        self.user.password = userData.password
+                        self.user.preferredLocations = userData.preferredLocations
+                        self.user.isPrivate = userData.isPrivate
+                        self.user.currency = userData.currency
+                        self.user.savedPublications = userData.savedPublications
+                        self.user.connectedPublications = userData.connectedPublications
+                        self.user.owns = userData.owns
+                        self.user.bio = userData.bio
+                        self.user.profilePicture = userData.profilePicture
+                        self.user.accountType = userData.accountType
+                        self.user.locatedAt = userData.locatedAt
+                        self.webSocket.connect()
+                        observableChat.fetchChats {
+                            _, _ in
+                        }
+                        webSocket.receiveNewConnection()
+                    }
                 } else if let error = error {
                     print(error)
                 }
             }
-            
         }.environmentObject(user).environmentObject(webSocket).environmentObject(observableChat)
-        
     }
 }
     
