@@ -562,9 +562,6 @@
         }
       }
     },
-    "Inside" : {
-
-    },
     "Key" : {
       "extractionState" : "manual"
     },
@@ -616,6 +613,9 @@
           }
         }
       }
+    },
+    "New conn detected" : {
+
     },
     "New connections" : {
       "localizations" : {
@@ -722,6 +722,9 @@
           }
         }
       }
+    },
+    "Received" : {
+
     },
     "Rent" : {
       "localizations" : {

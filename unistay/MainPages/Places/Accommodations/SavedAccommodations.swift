@@ -27,10 +27,7 @@ struct SavedAccommodations: View {
                         VStack {
                             ForEach(pub, id: \.self) { pubItem in
                                 if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
-                                    NavigationLink(destination: ActiveAccommodation(pub: pub, location: [name, country], user: user) {
-                                        Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
-                                    }
-                                    
+                                    Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
                                 }
                             }
                         }

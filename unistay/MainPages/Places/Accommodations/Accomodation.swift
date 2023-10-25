@@ -30,7 +30,6 @@ struct Accomodation: View {
                     i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
                 }
                 VStack(alignment: .leading, spacing: 10) {
-                    
                     HStack {
                         Image(systemName: "location.circle.fill")
                         if name != "" && country != "" {

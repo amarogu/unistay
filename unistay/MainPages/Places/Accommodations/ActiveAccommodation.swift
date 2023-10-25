@@ -32,7 +32,6 @@ struct ActiveAccommodation: View {
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
         GeometryReader { geometry in
             let size = geometry.size
-            
             ZStack(alignment: .top) {
                 Color("BackgroundColor").ignoresSafeArea(.all)
                 VStack(alignment: .leading) {
