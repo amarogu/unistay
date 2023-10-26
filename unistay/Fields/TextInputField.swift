@@ -30,7 +30,7 @@ struct TextInputField: View {
                     if input.isEmpty { HStack {
                         Text(placeholderText).customStyle(size: 13).padding(.leading, padding)
                         Spacer()
-                        if required {
+                        if required && !(placeholderText == "Password" || placeholderText == "Confirm your password") {
                             Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)
                         }
                     } }
