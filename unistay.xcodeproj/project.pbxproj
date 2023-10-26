@@ -55,6 +55,7 @@
 		A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E80C92A7C724400DAC3DD /* SearchBar.swift */; };
 		A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */; };
 		A3A23F4A2AE8A4310098A26F /* ActiveProviderAccommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */; };
+		A3A23F4C2AE9E5D00098A26F /* NewPublicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */; };
 		A3A617832AC8D28600A91817 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A3A617822AC8D28600A91817 /* Localizable.xcstrings */; };
 		A3D597E12ADC72F500199C09 /* PublicationRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D597E02ADC72F500199C09 /* PublicationRequests.swift */; };
 		A3D597E32ADD575C00199C09 /* ExtraneousUserPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */; };
@@ -123,6 +124,7 @@
 		A36E80C92A7C724400DAC3DD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A379DD952AA372DF00952C43 /* ProfilePictureSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSelection.swift; sourceTree = "<group>"; };
 		A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProviderAccommodation.swift; sourceTree = "<group>"; };
+		A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPublicationView.swift; sourceTree = "<group>"; };
 		A3A617822AC8D28600A91817 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A3D597E02ADC72F500199C09 /* PublicationRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationRequests.swift; sourceTree = "<group>"; };
 		A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraneousUserPanel.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				A33855702A96DEEA00CAF86F /* Universities */,
 				A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */,
 				A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */,
+				A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */,
 				A3A23F4A2AE8A4310098A26F /* ActiveProviderAccommodation.swift in Sources */,
 				A36A74FB2ACC8890009AB71F /* ResponseModels.swift in Sources */,
+				A3A23F4C2AE9E5D00098A26F /* NewPublicationView.swift in Sources */,
 				A33959402AB77705006BFB26 /* SignUpPublisherFourth.swift in Sources */,
 				A31D7A122AC1B08500AFA05A /* MapSearchBarSignUp.swift in Sources */,
 				A36A74F72ACC83B0009AB71F /* GetRequests.swift in Sources */,
