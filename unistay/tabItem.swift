@@ -14,22 +14,27 @@ struct tabItem: View {
         self._selectedTab = selectedTab
         self.option = option
     }
+    @State var isActive: Bool = false
     var body: some View {
-        VStack(alignment: .center) {
-            if (option == "Places") {
-                icon(name: "house", size: 22)
-            } else if (option == "Chats") {
-                icon(name: "bubble.left.and.bubble.right", size: 22)
-            } else if (option == "Profile") {
-                icon(name: "person.crop.circle", size: 22)
-            } else {
-                icon(name: "line.3.horizontal", size: 22)
-            }
-            Text(option).customStyle(size: 14)
-            
-        }.frame(maxWidth: .infinity).onTapGesture {
-            selectedTab = option
-        }
+        VStack {
+            Button(action: {
+                selectedTab = option
+                isActive.toggle()
+            }) {
+                VStack(spacing: 8) {
+                    if (option == "Places") {
+                        Image(systemName: "house").resizable().aspectRatio(contentMode: .fit).frame(width: 18).tint(Color("BodyEmphasized"))
+                    } else if (option == "Chats") {
+                        Image(systemName: "bubble.left.and.bubble.right").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
+                    } else if (option == "Profile") {
+                        Image(systemName: "person.crop.circle").resizable().aspectRatio(contentMode: .fit).frame(width: 18).tint(Color("BodyEmphasized"))
+                    } else {
+                        Image(systemName: "line.3.horizontal").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
+                    }
+                    Text(option).customStyle(size: 14)
+                }
+            }.symbolEffect(.bounce.up.byLayer, value: isActive)
+        }.frame(maxWidth: .infinity)
     }
 }
 

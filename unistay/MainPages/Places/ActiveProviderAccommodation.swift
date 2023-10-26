@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 import NukeUI
 import Nuke
+import PhotosUI
+import MapKit
 
 struct ActiveProviderAccommodation: View {
     @State var responseAlertTitle: String = ""
@@ -27,6 +29,22 @@ struct ActiveProviderAccommodation: View {
     @State var connectedUsersProgress: String = ""
     @State var isFav: Bool = false
     @State var isEditing: Bool = false
+    
+    @State private var newPubSheet: Bool = false
+    @State private var croppedImage: UIImage? = nil
+    @State private var title: String = ""
+    @State private var description: String = ""
+    @State private var rent: String = ""
+    @State private var menuSelection: String = "USD"
+    @State private var typeSelection: String = "On-campus"
+    @State private var pickedLocNames: String = ""
+    @State private var pickedLocLocs: String = ""
+    @State private var pickedLocCoordinates: [CLLocationDegrees?] = []
+    @State private var show: Bool = false
+    @State private var photosPickerItem: [PhotosPickerItem] = []
+    @State private var array: [UIImage] = []
+    @State private var publicationVisibility: String = "Visible"
+    @State private var navigationTag: String? = nil
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -102,24 +120,12 @@ struct ActiveProviderAccommodation: View {
                             Spacer()
                             HStack(spacing: 18) {
                                 Button(action: {
-                                    Task {
-                                        do {
-                                            let res = try await savePublication(pub?._id ?? "", isFav ? true : false)
-                                            withAnimation {
-                                                isFav.toggle()
-                                            }
-                                        } catch { print(error) }
-                                    }
-                                }) {
-                                    Image(systemName: isFav ? "heart.fill" : "heart").tint(Color("BodyEmphasized"))
-                                }.contentTransition(.symbolEffect(.replace.downUp.byLayer))
-                                Button(action: {
                                     isEditing.toggle()
                                 }) {
                                     HStack {
-                                        Text("Edit").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
-                                        Image(systemName: "square.and.pencil").symbolEffect(.bounce.up.byLayer, value: isEditing)
-                                    }
+                                        Text("Edit").customStyle(size: 14, color: "BodyAccent")
+                                        Image(systemName: "square.and.pencil").symbolEffect(.bounce.up.byLayer, value: isEditing).tint(Color("BodyAccent"))
+                                    }.padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                                 }
                             }
                         }
@@ -127,6 +133,28 @@ struct ActiveProviderAccommodation: View {
                 }
                 
             }
+        }.sheet(isPresented: $isEditing) {
+            NewPublicationView(
+                    newPubSheet: $isEditing,
+                    croppedImage: $croppedImage,
+                    title: $title,
+                    description: $description,
+                    rent: $rent,
+                    responseAlert: $responseAlert,
+                    responseAlertTitle: $responseAlertTitle,
+                    isAlertOn: $isAlertOn,
+                    menuSelection: $menuSelection,
+                    typeSelection: $typeSelection,
+                    pickedLocNames: $pickedLocNames,
+                    pickedLocLocs: $pickedLocLocs,
+                    pickedLocCoordinates: $pickedLocCoordinates,
+                    show: $show,
+                    photosPickerItem: $photosPickerItem,
+                    array: $array,
+                    publicationVisibility: $publicationVisibility,
+                    navigationTag: $navigationTag,
+                    locationManager: locationManager
+                )
         }.alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
             Button(role: .cancel, action: {
                 
