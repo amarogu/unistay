@@ -20,6 +20,8 @@ struct TextInputField: View {
     
     var padding: CGFloat = 28
     
+    @State var isPasswordVisible: Bool = false
+    
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
@@ -32,7 +34,24 @@ struct TextInputField: View {
                             Circle().frame(width: 4.25, height: 4.25).foregroundColor(.red)
                         }
                     } }
-                    TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                    if placeholderText == "Password" || placeholderText == "Confirm your password" {
+                        HStack {
+                            if isPasswordVisible {
+                                TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                            } else {
+                                SecureField(text: $input, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                            }
+                            Button(action: {
+                                withAnimation {
+                                    isPasswordVisible.toggle()
+                                }
+                            }) {
+                                Image(systemName: isPasswordVisible ? "eye" : "eye.slash").font(.system(size: 14))
+                            }.contentTransition(.symbolEffect(.replace.downUp.byLayer))
+                        }
+                    } else {
+                        TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                    }
                     //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }

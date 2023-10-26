@@ -46,7 +46,6 @@ struct Login: View {
                                 Group {
                                     TextInputField(input: $email2, placeholderText: "Email", placeholderIcon: "envelope", required: false)
                                     TextInputField(input: $password2, placeholderText: "Password", placeholderIcon: "key", required: false)
-                                    
                                 }
                                 Button(action: {
                                     //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
