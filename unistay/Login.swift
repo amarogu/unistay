@@ -30,6 +30,7 @@ struct Login: View {
     @State var passVisible: Bool = false
     
     @State var responseMsg: String = ""
+    @State var isFullScreen: Bool = false
     @Binding var isLoggedIn: Bool
     
     var body: some View {
@@ -93,11 +94,13 @@ struct Login: View {
                                         Image(systemName: "chevron.right").font(.system(size: 13))
                                     }.padding(.bottom, 4).padding(.top, 3)
                                 }
-                                NavigationLink(destination: SignUpBasic()) {
+                                Button(action: {
+                                    isFullScreen = true
+                                }) {
                                     HStack {
                                         Text("Sign up")
                                             .customStyle(size: 13).underline()
-                                        Image(systemName: "chevron.right").font(.system(size: 13))
+                                        Image(systemName: "chevron.up").font(.system(size: 13))
                                     }.padding(.bottom, 1)
                                 }
                                 if !validate.validationError.isEmpty {
@@ -113,6 +116,8 @@ struct Login: View {
                 shouldNavigate = false
                 
             }.removeFocusOnTap()
-        }.navigationBarHidden(true)
+        }.navigationBarHidden(true).sheet(isPresented: $isFullScreen, content: {
+                SignUpBasic()
+        })
     }
 }

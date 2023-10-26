@@ -14,7 +14,6 @@ struct SignUpSuccess: View {
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
-            NavigationStack {
                 ZStack {
                     Color("BackgroundColor")
                     VStack(spacing: 10) {
@@ -26,22 +25,14 @@ struct SignUpSuccess: View {
                             .customStyle(size: 14)
                             .multilineTextAlignment(.center)
                             .frame(width: 0.8 * width)
-                        NavigationLink(destination: EmptyView(), label: {
+                        
+                        
                             HStack {
-                                Text("Back to login")
+                                Text("Swipe down to go back to login")
                                     .customStyle(size: 14, color: "Body")
                                     .underline()
-                                Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
+                                Image(systemName: "chevron.down").foregroundColor(Color("Body")).font(.system(size: 14))
                             }
-                        })
-                        NavigationLink(destination: ContentView(isLoggedIn: $present), label: {
-                            HStack {
-                                Text("Continue to home")
-                                    .customStyle(size: 14, color: "Body")
-                                    .underline()
-                                Image(systemName: "arrow.left").foregroundColor(Color("Body")).font(.system(size: 14))
-                            }
-                        })
                         Image(systemName: "checkmark.circle").font(.system(size: 24)).foregroundColor(.green).padding(.top, 10)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -51,13 +42,7 @@ struct SignUpSuccess: View {
                             self.show = true
                         }
                     }
-                }.ignoresSafeArea(.all)
-            }
+                }.ignoresSafeArea(.all).navigationBarBackButtonHidden(true)
         }
     }
 }
-
-#Preview {
-    SignUpSuccess()
-}
-

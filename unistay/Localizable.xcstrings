@@ -182,6 +182,7 @@
       }
     },
     "Back to login" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -351,6 +352,7 @@
       }
     },
     "Continue to home" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -843,6 +845,9 @@
           }
         }
       }
+    },
+    "Swipe down to go back to login" : {
+
     },
     "System language" : {
       "extractionState" : "manual",
