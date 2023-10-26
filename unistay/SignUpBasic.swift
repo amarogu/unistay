@@ -42,11 +42,11 @@ enum Field {
 struct SignUpBasic: View {
     //@Binding var responseData: String
     @StateObject private var validate = Validate()
-    @State var username: String = "tom"
-    @State var email: String = "tom@gmail.com"
-    @State var confirmEmail: String = "tom@gmail.com"
-    @State var password: String = "12345678"
-    @State var confirmPass: String = "12345678"
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var confirmEmail: String = ""
+    @State var password: String = ""
+    @State var confirmPass: String = ""
     @State var isToggled: Bool = false
     
     var editingChanged: (Bool)->() = { _ in }
@@ -60,8 +60,11 @@ struct SignUpBasic: View {
     @State var passChecked: Bool = false
     @State var emailchecked: Bool = false
     
-    @State var name: String = "Tom"
-    @State var surname: String = "deLucca"
+    @State var name: String = ""
+    @State var surname: String = ""
+    
+    @State var isUsernameValid: Bool = true
+    @State var isEmailValid: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -79,12 +82,52 @@ struct SignUpBasic: View {
                                     Text("=  required field").customStyle(size: 14)
                                 }.padding(.vertical, 4)
                                 Group {
-                                    TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true)
+                                    TextInputField(input: $username, placeholderText: "Username", placeholderIcon: "person.crop.circle", required: true).onChange(of: username) {
+                                        Task {
+                                            do {
+                                                let res = try await validateUsername(username)
+                                                withAnimation {
+                                                    if res.message == "available" {
+                                                        isUsernameValid = true
+                                                    } else {
+                                                        isUsernameValid = false
+                                                    }
+                                                }
+                                            } catch {
+                                                print(error)
+                                            }
+                                        }
+                                    }
+                                    if !username.isEmpty && !(username.count < 3 || username.count > 20) {
+                                        HStack {
+                                            Image(systemName: isUsernameValid ? "checkmark.circle" : "x.circle").font(.system(size: 14)).foregroundColor(isUsernameValid ? .green : Color("Error"))
+                                            Text(isUsernameValid ? "This username is available" : "This username is unavailable").customStyle(size: 14)
+                                        }.contentTransition(.symbolEffect(.replace.downUp.byLayer))
+                                    }
                                     HStack {
                                         TextInputField(input: $name, placeholderText: "Name", placeholderIcon: "person.text.rectangle", required: true).frame(maxWidth: width * 0.5)
                                         TextInputField(input: $surname, placeholderText: "Surname", placeholderIcon: "", required: false, padding: 4).frame(maxWidth: width * 0.5)
                                     }
-                                    TextInputField(input: $email, placeholderText: "Email address", placeholderIcon: "envelope", required: true)
+                                    TextInputField(input: $email, placeholderText: "Email address", placeholderIcon: "envelope", required: true).onChange(of: email) {
+                                        Task {
+                                            do {
+                                                let res = try await validateEmail(email)
+                                                if res.message == "available" {
+                                                    isEmailValid = true
+                                                } else {
+                                                    isEmailValid = false
+                                                }
+                                            } catch {
+                                                print(error)
+                                            }
+                                        }
+                                    }
+                                    if !email.isEmpty && !(email.count < 5 || email.count > 50 || !email.contains("@")) {
+                                        HStack {
+                                            Image(systemName: isEmailValid ? "checkmark.circle" : "x.circle").font(.system(size: 14)).foregroundColor(isEmailValid ? .green : Color("Error"))
+                                            Text(isEmailValid ? "This email address is available" : "This email address is unavailable").customStyle(size: 14)
+                                        }
+                                    }
                                     TextInputField(input: $confirmEmail, placeholderText: "Confirm your email address", placeholderIcon: "checkmark.circle", required: true)
                                     TextInputField(input: $password, placeholderText: "Password", placeholderIcon: "key", required: true)
                                     TextInputField(input: $confirmPass, placeholderText: "Confirm your password", placeholderIcon: "checkmark.circle", required: true)
@@ -134,11 +177,3 @@ struct SignUpBasic: View {
         }//.navigationBarHidden(true)
     }
 }
-    
-struct Stteh_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpBasic()
-    }
-}
-
-

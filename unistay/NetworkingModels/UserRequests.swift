@@ -116,3 +116,37 @@ func getExtraneousUser(_ id: String) async throws -> ExtraneousUser {
     
     return response
 }
+
+func validateUsername(_ username: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        NetworkManager.shared.request("http://localhost:3000/user/validate/username/?username=\(username)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+            res in
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let error):
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+    
+    return res
+}
+
+func validateEmail(_ email: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        NetworkManager.shared.request("http://localhost:3000/user/validate/email/?email=\(email)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+            res in
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let error):
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+    
+    return res
+}

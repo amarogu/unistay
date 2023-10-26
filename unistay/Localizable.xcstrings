@@ -865,6 +865,18 @@
         }
       }
     },
+    "This email address is available" : {
+
+    },
+    "This email address is unavailable" : {
+
+    },
+    "This username is available" : {
+
+    },
+    "This username is unavailable" : {
+
+    },
     "Title" : {
       "localizations" : {
         "pt-BR" : {
