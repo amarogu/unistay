@@ -183,6 +183,12 @@ class Participant: Decodable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case _id, username
     }
+    
+    init(id: UUID = UUID(), _id: String, username: String) {
+        self.id = id
+        self._id = _id
+        self.username = username
+    }
 }
 
 class Chat: ObservableObject, Identifiable, Decodable, Equatable {

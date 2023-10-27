@@ -27,6 +27,7 @@ struct ActiveAccommodation: View {
     @State var connectedUsers: [Participant] = []
     @State var connectedUsersProgress: String = ""
     @State var isFav: Bool = false
+    @State var hasConnected: Bool = false
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -77,10 +78,6 @@ struct ActiveAccommodation: View {
                                         LazyImage(url: url) {
                                             i in
                                             i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
-                                        }.onAppear {
-                                            let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
-                                            let request = ImageRequest(url: url)
-                                            ImageCache.shared[ImageCacheKey(request: request)] = nil
                                         }
                                     }
                                 }
@@ -123,6 +120,11 @@ struct ActiveAccommodation: View {
                                                         responseAlertTitle = "Error"
                                                         responseAlert = "You are already connected to this publication"
                                                         isAlertOn = true
+                                                    } else {
+                                                        responseAlertTitle = "Success"
+                                                        responseAlert = "Connected to this publication"
+                                                        isAlertOn = true
+                                                        connectedUsers.append(Participant(_id: user._id, username: user.username))
                                                     }
                                                 }
                                             }
