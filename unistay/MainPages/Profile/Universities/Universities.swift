@@ -27,24 +27,24 @@ struct Universities: View {
             ScrollView {
                 HStack(alignment: .top, spacing: 8) {
 
-                    VStack(spacing: 20) {
+                    VStack {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 != 0) {
-                                Universitiy(universitydata: university, size: size)
+                                Universitiy(universitydata: university, size: size + 40)
                             }
                         }
                     }
                     Spacer()
-                    VStack(spacing: 20) {
+                    VStack {
                         ForEach(universities, id: \.self) { university in
                             if ((universities.firstIndex(of: university)! + 1) % 2 == 0) {
-                                Universitiy(universitydata: university, size: size)
+                                Universitiy(universitydata: university, size: size + 40)
                             }
                         }
                     }.padding(.top, 30)
                     
                 }//.padding(.top, 20)
-            }.scrollIndicators(.hidden)
+            }
         }
         }
 }

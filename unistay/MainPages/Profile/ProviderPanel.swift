@@ -152,23 +152,23 @@ struct ProviderPanel: View {
                 ZStack(alignment: .topLeading) {
                     ScrollView {
                         Rectangle().foregroundStyle(Color.clear).frame(height: selectionHeight)
-                        HStack(alignment: .top, spacing: 14) {
-                            VStack {
-                                ForEach(pub, id: \.self) { pubItem in
-                                    if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
-                                        Accomodation(pub: pubItem, size: width, padding: width <= 400 ? 3 : 8)
+                            HStack(alignment: .top) {
+                                VStack {
+                                    ForEach(pub, id: \.self) { pubItem in
+                                        if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
+                                            Accomodation(pub: pubItem, size: width + 40, padding: 10)
+                                        }
                                     }
                                 }
-                            }
-                            Spacer()
-                            VStack {
-                                ForEach(pub, id: \.self) { pubItem in
-                                    if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
-                                        Accomodation(pub: pubItem, size: width, padding: width <= 400 ? 3 : 8)
+                                Spacer()
+                                VStack {
+                                    ForEach(pub, id: \.self) { pubItem in
+                                        if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
+                                            Accomodation(pub: pubItem, size: width + 40, padding: 10)
+                                        }
                                     }
-                                }
-                            }.padding(.top, 30)
-                        }.tint(Color("BodyEmphasized")).padding(.bottom, 68)
+                                }.padding(.top, 30)
+                            }.tint(Color("BodyEmphasized")).padding(.bottom, 68)
                     }.onAppear {
                         Task {
                             do {
