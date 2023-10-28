@@ -8,6 +8,8 @@
 import SwiftUI
 import Alamofire
 
+// MARK: RESPONSE MODELS
+
 class PubResponse: Decodable {
     let message: String
     
@@ -15,6 +17,57 @@ class PubResponse: Decodable {
         case message
     }
 }
+
+struct PubLocation: Decodable, Hashable {
+    let latitude: Double
+    let longitude: Double
+}
+
+struct Title: Decodable {
+    let original: String
+    let en: String
+    let pt: String
+    let fr: String
+}
+
+struct Description: Decodable {
+    let original: String
+    let en: String
+    let pt: String
+    let fr: String
+}
+
+class AccommodationResponse: Decodable, Hashable {
+    let _id: String
+    let title: Title
+    let description: Description
+    let rent: Int
+    let currency: String
+    let type: String
+    let postLanguage: String
+    let owner: String
+    let visibility: String
+    let chats: [String]
+    let connectedUsers: [String]
+    let images: [String]
+    let location: PubLocation
+    let rating: Int
+    let __v: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, rating, __v
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+        
+    static func == (lhs: AccommodationResponse, rhs: AccommodationResponse) -> Bool {
+        return lhs._id == rhs._id
+    }
+}
+
+// MARK: FUNCTIONS
 
 func connectUser(_ id: String) async throws -> PubResponse {
     let res = try await withCheckedThrowingContinuation {
