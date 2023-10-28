@@ -74,7 +74,6 @@
 		A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */; };
 		A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */; };
 		A3F636512AA3C7AB0076E164 /* Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F636502AA3C7AB0076E164 /* Crop.swift */; };
-		A3FEC77C2AE850D700185EFB /* SavedAccommodations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FEC77B2AE850D700185EFB /* SavedAccommodations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,7 +141,6 @@
 		A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accomodation.swift; sourceTree = "<group>"; };
 		A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomodationsGroup.swift; sourceTree = "<group>"; };
 		A3F636502AA3C7AB0076E164 /* Crop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crop.swift; sourceTree = "<group>"; };
-		A3FEC77B2AE850D700185EFB /* SavedAccommodations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAccommodations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,7 +330,6 @@
 				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
 				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
 				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
-				A3FEC77B2AE850D700185EFB /* SavedAccommodations.swift */,
 			);
 			path = Accommodations;
 			sourceTree = "<group>";
@@ -504,7 +501,6 @@
 				A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */,
 				A32828602AD41E05002F8642 /* ActiveUniversity.swift in Sources */,
 				A3E245992A90197100BC7E37 /* MenuItem.swift in Sources */,
-				A3FEC77C2AE850D700185EFB /* SavedAccommodations.swift in Sources */,
 				A3E245A52A94DDF000BC7E37 /* University.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,11 +8,8 @@
 import SwiftUI
 import MapKit
 
-
 struct Places: View {
     @State private var searchText = ""
-    // @State private var searchText3 = "a"
-    @State var text: String = ""
     @State private var selectedFilters: [String] = []
     var filterOptions = ["Bedrooms", "Bathrooms", "Guests", "Price range"]
     @State private var isMenuOpen = false
@@ -21,15 +18,14 @@ struct Places: View {
     var size: CGFloat
     var tabSize: CGFloat
     @State private var selectionSize: CGFloat = 0
-    
     @StateObject var locationManager: LocationManager = .init()
     @State var navigationTag: String?
-    
     @State var pickedLocNames: String = ""
     @State var pickedLocLocs: String = ""
     @State var pickedLocCoordinates: [CLLocationDegrees?] = []
-    
     var height: CGFloat
+    @State private var pub: [AccommodationResponse?] = []
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 6) {
@@ -37,7 +33,6 @@ struct Places: View {
                     Text("Accommodations").customStyle(type: "Bold", size: 30)
                     Spacer()
                     Menu {
-                        //Button(action: {}, label: {Text("Button")})
                         ForEach(filterOptions, id: \.self) {
                             option in
                             Button(action: {
@@ -55,11 +50,10 @@ struct Places: View {
                     } label: {
                         Label(title: {Text("")}, icon: {Image(systemName: "line.3.horizontal.decrease").font(.system(size: 24)).foregroundColor(/*@START_MENU_TOKEN@*/Color("BodyEmphasized")/*@END_MENU_TOKEN@*/)})
                     }
-                }//.padding(.horizontal, size <= 400 ? 3 + 12 : 8 + 12)
+                }
                 if locationManager.searchText.isEmpty {
                     Spacer()
                 }
-                /*SearchBar(searchText: $searchText).padding(.all, 10).background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("SearchBar")/*@END_MENU_TOKEN@*/).cornerRadius(5)*/
                 VStack(alignment: .leading) {
                     SearchBar(placeholder: "Search locations, accommodations...", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                     
@@ -127,12 +121,11 @@ struct Places: View {
                     ZStack(alignment: .top) {
                         
                         if(selectedView == "Saved") {
-                            //Accomodation()
-                            SavedAccommodations(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
+                            
                         } else if(selectedView == "Recommended") {
-                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
+                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $pub, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else {
-                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
+                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $pub, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         }
                         
                         Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 48).background(GeometryReader {
@@ -153,13 +146,41 @@ struct Places: View {
             } label: {}.labelsHidden()
         }.onDisappear {
             locationManager.searchText = ""
-        }
+        }.onAppear {
+            if pub == [] {
+                loadPubs()
+            }
+        }.onChange(of: pickedLocCoordinates) {
+            loadPubs()
         }
     }
-    
-    /*struct Places_Previews: PreviewProvider {
-        static var previews: some View {
-            Places()
+    private func loadPubs() {
+        if pickedLocCoordinates.isEmpty {
+            if pub == [] {
+                getPubs { pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            self.pub.append(pubData)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                }
+            }
+        } else {
+            Task {
+                do {
+                    let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
+                    DispatchQueue.main.async {
+                        pub = []
+                        for pub in res {
+                            self.pub.append(pub)
+                        }
+                    }
+                } catch {
+                    
+                }
+            }
         }
-    }*/
-
+    }
+}

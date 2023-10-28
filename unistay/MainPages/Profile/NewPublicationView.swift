@@ -55,6 +55,7 @@ struct NewPublicationView: View {
                                             responseAlertTitle = "Success"
                                             responseAlert = res.message
                                         } catch {
+                                            print(error)
                                             isAlertOn = true
                                             responseAlertTitle = "Error"
                                             responseAlert = "An error occurred while uploading your accommodation. Please try again."

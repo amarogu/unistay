@@ -13,7 +13,7 @@ struct AccomodationsGroup: View {
     var size: CGFloat
     var tabSize: CGFloat
     var selectionSize: CGFloat
-    @State private var pub: [AccommodationResponse?] = []
+    @Binding var pub: [AccommodationResponse?]
     @Binding var searchText: String
     @Binding var pickedLocCoordinates: [CLLocationDegrees?]
     var body: some View {
@@ -41,52 +41,6 @@ struct AccomodationsGroup: View {
                     }
                 }.padding(.bottom, tabSize).padding(.top, selectionSize - 30)
             }
-        }.tint(Color("BodyEmphasized")).onAppear {
-            if pub == [] {
-                getPubs {
-                    pubData, error in
-                    for pubData in pubData {
-                        if let pubData = pubData {
-                            self.pub.append(pubData)
-                            print(pubData.title)
-                        } else if let error = error {
-                            print(error)
-                        }
-                    }
-                }
-            }
-        }.onChange(of: pickedLocCoordinates) {
-            if pickedLocCoordinates == [] {
-                if pub == [] {
-                    getPubs {
-                        pubData, error in
-                        for pubData in pubData {
-                            if let pubData = pubData {
-                                self.pub.append(pubData)
-                                print(pubData.title)
-                            } else if let error = error {
-                                print(error)
-                            }
-                        }
-                    }
-                }
-            } else {
-                pub = []
-                if pub == [] {
-                    Task {
-                        do {
-                            let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
-                            DispatchQueue.main.async {
-                                for pub in res {
-                                    self.pub.append(pub)
-                                }
-                            }
-                        } catch {
-                            
-                        }
-                    }
-                }
-            }
-        }
+        }.tint(Color("BodyEmphasized"))
     }
 }

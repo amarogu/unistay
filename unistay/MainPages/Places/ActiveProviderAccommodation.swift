@@ -45,6 +45,8 @@ struct ActiveProviderAccommodation: View {
     @State private var array: [UIImage] = []
     @State private var publicationVisibility: String = "Visible"
     @State private var navigationTag: String? = nil
+    
+    var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
