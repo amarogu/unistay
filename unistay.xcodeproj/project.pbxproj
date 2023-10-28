@@ -160,6 +160,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A31684EE2AED8D55007926D1 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */,
+				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		A31684EF2AED8D69007926D1 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */,
+				A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		A31684F02AED8D8A007926D1 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				A3E2459F2A93F97800BC7E37 /* Accommodations */,
+				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
+				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		A31684F22AED8DBB007926D1 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				A3F539BC2A8198B300CEDFE7 /* Places.swift */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		A31684F32AED8DFA007926D1 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */,
+				A3DB21DE2AE01D840008F53C /* ProviderActivity.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		A32828692AD42554002F8642 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,11 +228,9 @@
 		A33855712A96DF0800CAF86F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				A3E2459C2A93A62000BC7E37 /* UserPanel.swift */,
+				A31684EF2AED8D69007926D1 /* Provider */,
+				A31684EE2AED8D55007926D1 /* Student */,
 				A33855702A96DEEA00CAF86F /* Universities */,
-				A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */,
-				A30D79C52ADEBD4E00C44577 /* ProviderPanel.swift */,
-				A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -327,9 +370,9 @@
 		A3E2459F2A93F97800BC7E37 /* Accommodations */ = {
 			isa = PBXGroup;
 			children = (
-				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
-				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
 				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
+				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
+				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
 			);
 			path = Accommodations;
 			sourceTree = "<group>";
@@ -348,12 +391,9 @@
 		A3E245A12A93F9D400BC7E37 /* Places */ = {
 			isa = PBXGroup;
 			children = (
-				A3E2459F2A93F97800BC7E37 /* Accommodations */,
-				A3F539C22A82E8CD00CEDFE7 /* Selection.swift */,
-				A36E80C92A7C724400DAC3DD /* SearchBar.swift */,
-				A3F539BC2A8198B300CEDFE7 /* Places.swift */,
-				A3DB21DE2AE01D840008F53C /* ProviderActivity.swift */,
-				A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */,
+				A31684F32AED8DFA007926D1 /* Provider */,
+				A31684F02AED8D8A007926D1 /* General */,
+				A31684F22AED8DBB007926D1 /* Student */,
 			);
 			path = Places;
 			sourceTree = "<group>";
