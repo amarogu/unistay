@@ -52,7 +52,7 @@ func fetchConnectedUsers(_ publication: String) async throws -> [Participant] {
     return response
 }
 
-func postPublication(title: String, description: String, rent: Double, currency: String, type: String, postLanguage: String, visibility: String, pubLoc: [Double?], images: [UIImage]) async throws -> PubResponse {
+func postPublication(title: [String: String], description: [String: String], rent: Double, currency: String, type: String, postLanguage: String, visibility: String, pubLoc: [Double?], images: [UIImage]) async throws -> PubResponse {
     let location = [
         "latitude": pubLoc[0],
         "longitude": pubLoc[1]

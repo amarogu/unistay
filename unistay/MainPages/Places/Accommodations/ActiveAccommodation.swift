@@ -52,7 +52,15 @@ struct ActiveAccommodation: View {
                     ScrollView {
                         if let pub = pub {
                             VStack(alignment: .leading, spacing: 10) {
-                                Text(pub.title).customStyle(type: "Semibold", size: 26)
+                                if lang == "EN" {
+                                    Text(pub.title.en).customStyle(type: "Semibold", size: 26)
+                                }
+                                if lang == "FR" {
+                                    Text(pub.title.fr).customStyle(type: "Semibold", size: 26)
+                                }
+                                if lang == "PT" {
+                                    Text(pub.title.pt).customStyle(type: "Semibold", size: 26)
+                                }
                                 if let name = location[0], let country = location[1] {
                                     HStack {
                                         Image(systemName: "location.circle").font(.system(size: 14))
@@ -62,7 +70,15 @@ struct ActiveAccommodation: View {
                                     }.padding(.bottom, 8)
                                 }
                                 Divider()
-                                Text(pub.description).customStyle(size: 14).padding(.trailing, size.width * 0.3)
+                                if lang == "EN" {
+                                    Text(pub.description.en).customStyle(type: "Semibold", size: 26)
+                                }
+                                if lang == "FR" {
+                                    Text(pub.description.fr).customStyle(type: "Semibold", size: 26)
+                                }
+                                if lang == "PT" {
+                                    Text(pub.description.pt).customStyle(type: "Semibold", size: 26)
+                                }
                             }
                             
                         }

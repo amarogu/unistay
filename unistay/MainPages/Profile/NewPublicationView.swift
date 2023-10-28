@@ -50,7 +50,7 @@ struct NewPublicationView: View {
                                     newPubSheet = false
                                     Task {
                                         do {
-                                            let res = try await postPublication(title: title, description: description, rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
+                                            let res = try await postPublication(title: ["original": title, "en": "", "pt": "", "fr": ""], description: ["original": description, "en": "", "pt": "", "fr": ""], rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
                                             isAlertOn = true
                                             responseAlertTitle = "Success"
                                             responseAlert = res.message

@@ -25,6 +25,8 @@ struct ProviderActivity: View {
     @State private var selectionSize: CGFloat = 0
     @EnvironmentObject var user: User
     @EnvironmentObject var webSocket: WebSocketManager
+    
+    var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 6) {
@@ -67,7 +69,16 @@ struct ProviderActivity: View {
                                                     Text("New user connected:").customStyle(size: 14, color: "BodyAccent")
                                                     Text(newConn.newUser.name).customStyle(size: 14, color: "BodyAccent")
                                                 }.padding(.vertical, 2).padding(.horizontal, 8).background(Color("AccentColor")).cornerRadius(5)
-                                                Text(newConn.publication.description).customStyle(size: 14, color: "Body").lineLimit(2).multilineTextAlignment(.leading)
+                                                if lang == "EN" {
+                                                    Text(newConn.publication.description.en).customStyle(size: 14, color: "Body").lineLimit(2).multilineTextAlignment(.leading)
+                                                }
+                                                if lang == "FR" {
+                                                    Text(newConn.publication.description.fr).customStyle(size: 14, color: "Body").lineLimit(2).multilineTextAlignment(.leading)
+                                                }
+                                                if lang == "PT" {
+                                                    Text(newConn.publication.description.pt).customStyle(size: 14, color: "Body").lineLimit(2).multilineTextAlignment(.leading)
+                                                }
+                                                
                                             }
                                             Spacer()
                                             LazyImage(url: URL(string: "http://localhost:3000/image/\(newConn.publication.images[0])")) {

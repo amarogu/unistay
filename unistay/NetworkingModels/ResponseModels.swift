@@ -130,10 +130,24 @@ struct PubLocation: Decodable, Hashable {
     let longitude: Double
 }
 
+struct Title: Decodable {
+    let original: String
+    let en: String
+    let pt: String
+    let fr: String
+}
+
+struct Description: Decodable {
+    let original: String
+    let en: String
+    let pt: String
+    let fr: String
+}
+
 class AccommodationResponse: Decodable, Hashable {
     let _id: String
-    let title: String
-    let description: String
+    let title: Title
+    let description: Description
     let rent: Int
     let currency: String
     let type: String
