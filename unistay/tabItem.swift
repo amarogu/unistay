@@ -23,11 +23,11 @@ struct tabItem: View {
             }) {
                 VStack(spacing: 8) {
                     if (option == "Places") {
-                        Image(systemName: "house").resizable().aspectRatio(contentMode: .fit).frame(width: 18).tint(Color("BodyEmphasized"))
+                        Image(systemName: "house").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     } else if (option == "Chats") {
                         Image(systemName: "bubble.left.and.bubble.right").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     } else if (option == "Profile") {
-                        Image(systemName: "person.crop.circle").resizable().aspectRatio(contentMode: .fit).frame(width: 18).tint(Color("BodyEmphasized"))
+                        Image(systemName: "person.crop.circle").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     } else {
                         Image(systemName: "line.3.horizontal").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     }

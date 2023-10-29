@@ -32,6 +32,10 @@ struct NewPublicationView: View {
     var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
     var typeItems: [String] = ["On-campus", "Off-campus", "Homestay"]
     var visibility: [String] = ["Visible", "Invisible"]
+    
+    @State private var showAlert = false
+        @State private var alertTitle = ""
+        @State private var alertMessage = ""
     var body: some View {
             NavigationStack {
                 ZStack {
@@ -47,8 +51,29 @@ struct NewPublicationView: View {
                                 }
                                 Spacer()
                                 Button(action: {
+                                    
+                                    if array.count < 3 {
+                                                alertTitle = "Error"
+                                                alertMessage = "Please select at least three pictures."
+                                                showAlert = true
+                                                return
+                                            }
+
+                                            // Check if location is not selected
+                                            if pickedLocCoordinates.isEmpty {
+                                                alertTitle = "Error"
+                                                alertMessage = "Please select a location."
+                                                showAlert = true
+                                                return
+                                            }
+
+                                        
                                     newPubSheet = false
+                                    
+                                    
+                                    
                                     Task {
+                                        
                                         do {
                                             let res = try await postPublication(title: ["original": title, "en": "", "pt": "", "fr": ""], description: ["original": description, "en": "", "pt": "", "fr": ""], rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
                                             isAlertOn = true
@@ -200,13 +225,13 @@ struct NewPublicationView: View {
                         }
                     }.padding(.all, 16)
                 }.background {
-                    NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
-                        MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
-                    }label: {}.labelsHidden()
-                
+                NavigationLink(tag: "MAPVIEW", selection: $navigationTag) {
+                    MapViewSignUpSelection(pickedLocNames: $pickedLocNames, pickedLocLocs: $pickedLocLocs, pickedLocCoordinates: $pickedLocCoordinates).environmentObject(locationManager).navigationBarBackButtonHidden(true).toolbarBackground(.visible, for: .automatic)
+                }label: {}.labelsHidden()
             }
-            }
-        
+        }.alert(isPresented: $showAlert) {
+            Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
     }
 }
 
