@@ -860,6 +860,9 @@
         }
       }
     },
+    "There are no users connected." : {
+
+    },
     "There are not any accommodations within a 200km range of your preferred locations 😔" : {
       "localizations" : {
         "pt-BR" : {

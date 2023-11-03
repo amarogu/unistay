@@ -88,6 +88,9 @@ struct ActiveAccommodation: View {
                         VStack(alignment: .leading) {
                             Text("Connected users").customStyle(type: "Semibold", size: 14)
                             HStack {
+                                if connectedUsers.isEmpty {
+                                    Text("There are no users connected.").customStyle(size: 14)
+                                }
                                 ForEach(connectedUsers) {
                                     user in
                                     let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
