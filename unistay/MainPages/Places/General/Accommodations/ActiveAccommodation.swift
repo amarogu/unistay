@@ -177,14 +177,16 @@ struct ActiveAccommodation: View {
                     isFav = true
                 }
             }
-            Task {
-                do {
-                    let result = try await fetchConnectedUsers(pub?._id ?? "")
-                    for user in result {
-                        connectedUsers.append(user)
+            if connectedUsers.isEmpty {
+                Task {
+                    do {
+                        let result = try await fetchConnectedUsers(pub?._id ?? "")
+                        for user in result {
+                            connectedUsers.append(user)
+                        }
+                    } catch {
+                        connectedUsers = []
                     }
-                } catch {
-                    connectedUsers = []
                 }
             }
         }

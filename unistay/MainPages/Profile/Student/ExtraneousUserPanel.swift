@@ -86,7 +86,7 @@ struct ExtraneousUserPanel: View {
                                         }
                                         HStack {
                                             
-                                            Text("\(user?.connectedPublications.count ?? 0)").customStyle(type: "Semibold", size: 14)
+                                            Text("\(user?.connectedPublications.count ?? 13)").customStyle(type: "Semibold", size: 14)
                                             
                                             Text("Connections").customStyle(size: 14)
                                         }

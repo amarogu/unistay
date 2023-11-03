@@ -158,6 +158,13 @@ struct Places: View {
             loadPubs()
             loadSaved()
             loadConnected()
+        }.onChange(of: selectedView) {
+            pub = []
+            savedPubs = []
+            connectedPubs = []
+            loadPubs()
+            loadSaved()
+            loadConnected()
         }
     }
     
