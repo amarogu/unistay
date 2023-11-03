@@ -26,7 +26,6 @@
 		A33959462AB788CB006BFB26 /* MultiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33959452AB788CB006BFB26 /* MultiSelection.swift */; };
 		A33A3D5B2A996CAA00A84269 /* ForgotYourPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */; };
 		A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */; };
-		A33E44A92AF53EB8008CD221 /* SavedAccommodations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E44A82AF53EB8008CD221 /* SavedAccommodations.swift */; };
 		A33F42632AB3AF7800A8BD58 /* ToggleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42622AB3AF7800A8BD58 /* ToggleField.swift */; };
 		A33F42652AB3AF9F00A8BD58 /* PicField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42642AB3AF9F00A8BD58 /* PicField.swift */; };
 		A33F42672AB3AFAD00A8BD58 /* MenuField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F42662AB3AFAD00A8BD58 /* MenuField.swift */; };
@@ -94,7 +93,6 @@
 		A33A3D5A2A996CAA00A84269 /* ForgotYourPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotYourPassword.swift; sourceTree = "<group>"; };
 		A33A3D5C2A996D5500A84269 /* SignUpBasic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBasic.swift; sourceTree = "<group>"; };
 		A33D12242AC7522D0014B05B /* unistay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = unistay.entitlements; sourceTree = "<group>"; };
-		A33E44A82AF53EB8008CD221 /* SavedAccommodations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAccommodations.swift; sourceTree = "<group>"; };
 		A33F42622AB3AF7800A8BD58 /* ToggleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleField.swift; sourceTree = "<group>"; };
 		A33F42642AB3AF9F00A8BD58 /* PicField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicField.swift; sourceTree = "<group>"; };
 		A33F42662AB3AFAD00A8BD58 /* MenuField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuField.swift; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
 				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
 				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
-				A33E44A82AF53EB8008CD221 /* SavedAccommodations.swift */,
 			);
 			path = Accommodations;
 			sourceTree = "<group>";
@@ -530,7 +527,6 @@
 				A379DD962AA372DF00952C43 /* ProfilePictureSelection.swift in Sources */,
 				A3F539C72A843B3900CEDFE7 /* AccomodationsGroup.swift in Sources */,
 				A33959462AB788CB006BFB26 /* MultiSelection.swift in Sources */,
-				A33E44A92AF53EB8008CD221 /* SavedAccommodations.swift in Sources */,
 				A3F539C52A82EC2E00CEDFE7 /* Accomodation.swift in Sources */,
 				A339593E2AB77594006BFB26 /* TextInputField.swift in Sources */,
 				A36E80CA2A7C724400DAC3DD /* SearchBar.swift in Sources */,
