@@ -54,6 +54,24 @@ class AccommodationResponse: Decodable, Hashable {
     let rating: Int
     let __v: Int
     
+    init(_id: String, title: Title, description: Description, rent: Int, currency: String, type: String, postLanguage: String, owner: String, visibility: String, chats: [String], connectedUsers: [String], images: [String], location: PubLocation, rating: Int, __v: Int) {
+        self._id = _id
+        self.title = title
+        self.description = description
+        self.rent = rent
+        self.currency = currency
+        self.type = type
+        self.postLanguage = postLanguage
+        self.owner = owner
+        self.visibility = visibility
+        self.chats = chats
+        self.connectedUsers = connectedUsers
+        self.images = images
+        self.location = location
+        self.rating = rating
+        self.__v = __v
+    }
+    
     enum CodingKeys: String, CodingKey {
         case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, rating, __v
     }

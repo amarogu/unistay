@@ -152,27 +152,7 @@ struct ActiveProviderAccommodation: View {
                 
             }
         }.sheet(isPresented: $isEditing) {
-            NewPublicationView(
-                    newPubSheet: $isEditing,
-                    croppedImage: $croppedImage,
-                    title: $title,
-                    description: $description,
-                    rent: $rent,
-                    responseAlert: $responseAlert,
-                    responseAlertTitle: $responseAlertTitle,
-                    isAlertOn: $isAlertOn,
-                    menuSelection: $menuSelection,
-                    typeSelection: $typeSelection,
-                    pickedLocNames: $pickedLocNames,
-                    pickedLocLocs: $pickedLocLocs,
-                    pickedLocCoordinates: $pickedLocCoordinates,
-                    show: $show,
-                    photosPickerItem: $photosPickerItem,
-                    array: $array,
-                    publicationVisibility: $publicationVisibility,
-                    navigationTag: $navigationTag,
-                    locationManager: locationManager
-                )
+            
         }.alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
             Button(role: .cancel, action: {
                 

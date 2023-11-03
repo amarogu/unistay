@@ -25,7 +25,8 @@ struct Places: View {
     @State var pickedLocCoordinates: [CLLocationDegrees?] = []
     var height: CGFloat
     @State private var pub: [AccommodationResponse?] = []
-
+    @State private var savedPubs: [AccommodationResponse?] = []
+    @EnvironmentObject var user: User
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 6) {
@@ -121,7 +122,7 @@ struct Places: View {
                     ZStack(alignment: .top) {
                         
                         if(selectedView == "Saved") {
-                            
+                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $savedPubs, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else if(selectedView == "Recommended") {
                             AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $pub, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else {
@@ -149,9 +150,52 @@ struct Places: View {
         }.onAppear {
             if pub == [] {
                 loadPubs()
+                loadSaved()
             }
         }.onChange(of: pickedLocCoordinates) {
             loadPubs()
+            loadSaved()
+        }
+    }
+    private func loadSaved() {
+        if pickedLocCoordinates.isEmpty {
+            if savedPubs == [] {
+                getPubs {
+                    pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            for saved in user.savedPublications {
+                                if saved == pubData._id {
+                                    self.savedPubs.append(pubData)
+                                }
+                            }
+                            print(pubData.title)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                }
+            }
+        } else {
+            savedPubs = []
+            
+                Task {
+                    do {
+                        let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
+                        DispatchQueue.main.async {
+                            for pub in res {
+                                for saved in user.savedPublications {
+                                    if saved == pub._id {
+                                        self.savedPubs.append(pub)
+                                    }
+                                }
+                            }
+                        }
+                    } catch {
+                        
+                    }
+                }
+            
         }
     }
     private func loadPubs() {

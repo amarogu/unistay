@@ -258,7 +258,8 @@ struct ProviderPanel: View {
                     array: $array,
                     publicationVisibility: $publicationVisibility,
                     navigationTag: $navigationTag,
-                    locationManager: locationManager
+                    locationManager: locationManager,
+                    pub: $pub
                 )
         }.sheet(isPresented: $editProfile) {
             ZStack {

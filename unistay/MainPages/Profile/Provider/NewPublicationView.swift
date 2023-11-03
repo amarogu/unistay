@@ -32,10 +32,11 @@ struct NewPublicationView: View {
     var publicationCurrencyItems: [String] = ["USD", "EUR", "GBP", "CAD"]
     var typeItems: [String] = ["On-campus", "Off-campus", "Homestay"]
     var visibility: [String] = ["Visible", "Invisible"]
-    
+    @Binding var pub: [AccommodationResponse]
     @State private var showAlert = false
-        @State private var alertTitle = ""
-        @State private var alertMessage = ""
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @EnvironmentObject var user: User
     var body: some View {
             NavigationStack {
                 ZStack {
@@ -51,34 +52,36 @@ struct NewPublicationView: View {
                                 }
                                 Spacer()
                                 Button(action: {
-                                    
                                     if array.count < 3 {
-                                                alertTitle = "Error"
-                                                alertMessage = "Please select at least three pictures."
-                                                showAlert = true
-                                                return
-                                            }
+                                        alertTitle = "Error"
+                                        alertMessage = "Please select at least three pictures."
+                                        showAlert = true
+                                        return
+                                    }
 
                                             // Check if location is not selected
-                                            if pickedLocCoordinates.isEmpty {
-                                                alertTitle = "Error"
-                                                alertMessage = "Please select a location."
-                                                showAlert = true
-                                                return
-                                            }
-
-                                        
+                                    if pickedLocCoordinates.isEmpty {
+                                        alertTitle = "Error"
+                                        alertMessage = "Please select a location."
+                                        showAlert = true
+                                        return
+                                    }
                                     newPubSheet = false
-                                    
-                                    
-                                    
                                     Task {
-                                        
                                         do {
                                             let res = try await postPublication(title: ["original": title, "en": "", "pt": "", "fr": ""], description: ["original": description, "en": "", "pt": "", "fr": ""], rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
                                             isAlertOn = true
                                             responseAlertTitle = "Success"
                                             responseAlert = res.message
+                                            pub = []
+                                            do {
+                                                let res = try await getYourPubs(user._id)
+                                                for publication in res {
+                                                    pub.append(publication)
+                                                }
+                                            } catch {
+                                                
+                                            }
                                         } catch {
                                             print(error)
                                             isAlertOn = true
