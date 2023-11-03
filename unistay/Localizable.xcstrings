@@ -632,6 +632,9 @@
     "New user connected:" : {
 
     },
+    "No accommodations found with the selected filters." : {
+
+    },
     "OK" : {
       "localizations" : {
         "pt-BR" : {
@@ -864,6 +867,7 @@
 
     },
     "There are not any accommodations within a 200km range of your preferred locations 😔" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

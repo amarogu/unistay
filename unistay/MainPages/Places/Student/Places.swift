@@ -27,6 +27,7 @@ struct Places: View {
     @State private var pub: [AccommodationResponse?] = []
     @State private var savedPubs: [AccommodationResponse?] = []
     @EnvironmentObject var user: User
+    @State private var connectedPubs: [AccommodationResponse?] = []
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 6) {
@@ -126,7 +127,7 @@ struct Places: View {
                         } else if(selectedView == "Recommended") {
                             AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $pub, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         } else {
-                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $pub, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
+                            AccomodationsGroup(size: size, tabSize: tabSize, selectionSize: selectionSize, pub: $connectedPubs, searchText: $locationManager.searchText, pickedLocCoordinates: $pickedLocCoordinates)
                         }
                         
                         Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 48).background(GeometryReader {
@@ -151,12 +152,53 @@ struct Places: View {
             if pub == [] {
                 loadPubs()
                 loadSaved()
+                loadConnected()
             }
         }.onChange(of: pickedLocCoordinates) {
             loadPubs()
             loadSaved()
+            loadConnected()
         }
     }
+    
+    private func loadConnected() {
+        if pickedLocCoordinates.isEmpty {
+            if connectedPubs == [] {
+                getPubs {
+                    pubData, error in
+                    for pubData in pubData {
+                        if let pubData = pubData {
+                            for connected in user.connectedPublications {
+                                if connected == pubData._id {
+                                    self.connectedPubs.append(pubData)
+                                }
+                            }
+                            print(pubData.title)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                }
+            }
+        } else {
+            connectedPubs = []
+            Task {
+                do {
+                    let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
+                    DispatchQueue.main.async {
+                        for pub in res {
+                            for connected in user.connectedPublications {
+                                if connected == pub._id {
+                                    self.connectedPubs.append(pub)
+                                }
+                            }
+                        }
+                    }
+                } catch {}
+            }
+        }
+    }
+    
     private func loadSaved() {
         if pickedLocCoordinates.isEmpty {
             if savedPubs == [] {
@@ -178,26 +220,23 @@ struct Places: View {
             }
         } else {
             savedPubs = []
-            
-                Task {
-                    do {
-                        let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
-                        DispatchQueue.main.async {
-                            for pub in res {
-                                for saved in user.savedPublications {
-                                    if saved == pub._id {
-                                        self.savedPubs.append(pub)
-                                    }
+            Task {
+                do {
+                    let res = try await getNearestTo(pickedLocCoordinates[0] ?? 0, pickedLocCoordinates[1] ?? 0)
+                    DispatchQueue.main.async {
+                        for pub in res {
+                            for saved in user.savedPublications {
+                                if saved == pub._id {
+                                    self.savedPubs.append(pub)
                                 }
                             }
                         }
-                    } catch {
-                        
                     }
-                }
-            
+                } catch {}
+            }
         }
     }
+    
     private func loadPubs() {
         if pickedLocCoordinates.isEmpty {
             if pub == [] {

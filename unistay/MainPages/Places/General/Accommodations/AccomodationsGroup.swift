@@ -21,7 +21,7 @@ struct AccomodationsGroup: View {
             ScrollView {
                 HStack(alignment: .top) {
                     if pub.isEmpty {
-                        Text("There are not any accommodations within a 200km range of your preferred locations 😔").customStyle(size: 14).padding(.top, 30)
+                        Text("No accommodations found with the selected filters.").customStyle(size: 14).padding(.top, 30)
                     } else {
                         VStack {
                             ForEach(pub, id: \.self) { pubItem in
