@@ -210,7 +210,7 @@ struct MapSearchBarSignUpFifth: View {
                                     //viewModel.register(isToggled: $isToggled, userData: userData, image: userData[4] as! UIImage)
                                     
                                     if let profilePicture = profilePicture {
-                                        registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: pubLoc, currency: publicationCurrency, publicationTitle: publicationTitle, publicatioDesc: publicationDescription, publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname, bio: bio) {
+                                        registerOptions.registerProvider(username: username, email: email, password: password, publisherBio: publisherBio, profilePicture: profilePicture, locatedAtCoordinates: locatedAt, pubLoc: pubLoc, currency: publicationCurrency, publicationTitle: ["original": publicationTitle, "en": "", "pt": "", "fr": ""], publicatioDesc: ["original": publicationDescription, "en": "", "pt": "", "fr": ""], publicationRent: Double(rent) ?? 0, publicationType: typeSelection, visibility: publicationVisibility, images: array, name: name, surname: surname, bio: bio) {
                                             value, error in
                                             if error != nil {
                                                 isSignedUp =  false

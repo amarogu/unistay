@@ -54,7 +54,7 @@ class Register: ObservableObject {
 
 
     
-    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage, locatedAtCoordinates: [Double?], pubLoc: [Double], currency: String, publicationTitle: String, publicatioDesc: String, publicationRent: Double, publicationType: String, visibility: String, images: [UIImage], name: String, surname: String, bio: String, completion: @escaping (String?, Error?) -> Void) {
+    func registerProvider(username: String, email: String, password: String, publisherBio: String, profilePicture: UIImage, locatedAtCoordinates: [Double?], pubLoc: [Double], currency: String, publicationTitle: [String: String], publicatioDesc: [String: String], publicationRent: Double, publicationType: String, visibility: String, images: [UIImage], name: String, surname: String, bio: String, completion: @escaping (String?, Error?) -> Void) {
         let locatedAtData: [String: Double?] = [
             "latitude": locatedAtCoordinates[0],
             "longitude": locatedAtCoordinates[1]

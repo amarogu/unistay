@@ -48,7 +48,10 @@ struct UserPanel: View {
             let width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
-                    Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                    LazyImage(url: URL(string: user.user?.backgroundImage ?? "")) {
+                        i in
+                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                    }
                     LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
                         i in
                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {

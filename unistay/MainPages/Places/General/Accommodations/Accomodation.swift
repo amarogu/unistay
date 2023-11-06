@@ -33,7 +33,7 @@ struct Accomodation: View {
                     HStack {
                         Image(systemName: "location.circle.fill")
                         if name != "" && country != "" {
-                            Text("\(String(name?.prefix(3) ?? ""))... , \(country ?? "")").customStyle(size: 14)
+                            Text("\(String(name?.prefix(8) ?? ""))...").customStyle(size: 14)
                         } else {
                             Rectangle().foregroundStyle(Color("SearchBar")).frame(maxHeight: 20)
                         }

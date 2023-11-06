@@ -120,6 +120,7 @@ struct ContentView: View {
                         self.user.profilePicture = userData.profilePicture
                         self.user.accountType = userData.accountType
                         self.user.locatedAt = userData.locatedAt
+                        self.user.backgroundImage = userData.backgroundImage
                         self.webSocket.connect()
                         observableChat.fetchChats {
                             _, _ in
