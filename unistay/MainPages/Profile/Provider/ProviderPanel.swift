@@ -85,7 +85,11 @@ struct ProviderPanel: View {
                     let _ = print(user.backgroundImage)
                     LazyImage(url: URL(string: user.backgroundImage)) {
                         i in
-                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        if i.isLoading {
+                            Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        } else {
+                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        }
                     }
                     LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
                         i in
@@ -441,38 +445,5 @@ struct ProviderPanel: View {
                 }.padding(.all, 16)
             }
         }
-    }
-}
-
-struct CustomLazyImageView: View {
-    @StateObject private var image = LoadableImage()
-
-    let url: URL
-
-    var body: some View {
-        Group {
-            if let image = image.value {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                Rectangle()
-                    .redacted(reason: .placeholder)
-            }
-        }
-        .onAppear { image.load(url: url) }
-    }
-}
-
-final class LoadableImage: ObservableObject, Identifiable {
-    @Published var value: UIImage?
-
-    func load(url: URL) {
-        let task = ImagePipeline.shared.loadImage(with: url) { [weak self] result in
-            if case .success(let response) = result {
-                self?.value = response.image
-            }
-        }
-        task.resume()
     }
 }

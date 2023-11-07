@@ -50,7 +50,11 @@ struct UserPanel: View {
                 ZStack(alignment: .bottomLeading) {
                     LazyImage(url: URL(string: user.user?.backgroundImage ?? "")) {
                         i in
-                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        if i.isLoading {
+                            Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        } else {
+                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        }
                     }
                     LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
                         i in
