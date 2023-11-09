@@ -9,7 +9,7 @@ import SwiftUI
 import SocketIO
 
 func getUser(completion: @escaping (User?, Error?) -> Void) {
-    NetworkManager.shared.request("http://localhost:3000/user", method: .get).responseDecodable(of: User.self) { response in
+    NetworkManager.shared.request("\(Global.shared.apiUrl)user", method: .get).responseDecodable(of: User.self) { response in
         debugPrint(response)
         switch response.result {
         case .success(let value):
@@ -21,7 +21,7 @@ func getUser(completion: @escaping (User?, Error?) -> Void) {
 }
 
 func getProfPic() {
-    NetworkManager.shared.request("http://localhost:3000/user/profilepicture", method: .get).responseDecodable(of: profPic.self) {
+    NetworkManager.shared.request("\(Global.shared.apiUrl)user/profilepicture", method: .get).responseDecodable(of: profPic.self) {
         response in
         debugPrint(response)
     }
@@ -31,7 +31,7 @@ class ImageDownloader: ObservableObject {
     @Published var downloadedImage: UIImage?
     
     func downloadProfPic() {
-        NetworkManager.shared.download("http://localhost:3000/user/profilepicture").responseURL {
+        NetworkManager.shared.download("\(Global.shared.apiUrl)user/profilepicture").responseURL {
             response in
             debugPrint(response.fileURL as Any)
             if let url = response.fileURL {
@@ -45,7 +45,7 @@ class ImageDownloader: ObservableObject {
     }
     
     func downloadUserImage(_ userId: String, completion: @escaping (UIImage?, Error?) -> Void) {
-        NetworkManager.shared.download("http://localhost:3000/user/profilepicture/?id=\(userId)").responseURL {
+        NetworkManager.shared.download("\(Global.shared.apiUrl)user/profilepicture/?id=\(userId)").responseURL {
             response in
             debugPrint(response.fileURL as Any)
             if let url = response.fileURL {
@@ -64,7 +64,7 @@ class ImageDownloader: ObservableObject {
 }
 
 func getPubs(completion: @escaping ([AccommodationResponse?], Error?) -> Void) {
-    NetworkManager.shared.request("http://localhost:3000/nearest", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+    NetworkManager.shared.request("\(Global.shared.apiUrl)nearest", method: .get).responseDecodable(of: [AccommodationResponse].self) {
         response in
         debugPrint(response)
         switch response.result {
@@ -80,7 +80,7 @@ class ObservableChat: ObservableObject {
     @Published var chatsArray: [Chat] = []
     
     func fetchChats(completion: @escaping ([Chat]?, Error?) -> Void) {
-        let url = "http://localhost:3000/chats"
+        let url = "\(Global.shared.apiUrl)chats"
         
         NetworkManager.shared.request(url, method: .get)
             .validate()
@@ -128,7 +128,7 @@ class WebSocketManager: ObservableObject {
     @Published var fetchChat: Bool = false
     
     init() {
-        let socketURL = URL(string: "http://localhost:8080")!
+        let socketURL = URL(string: "http://api.unistay.studio:8080")!
         let config: SocketIOClientConfiguration = [
             .log(true),
             .compress,

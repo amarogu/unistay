@@ -40,7 +40,7 @@ class Register: ObservableObject {
                 multipartFormData.append(userData, withName: "userData")
                 multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
             }
-        }, to: "http://localhost:3000/register", method: .post)
+        }, to: "\(Global.shared.apiUrl)register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
             switch response.result {
@@ -107,7 +107,7 @@ class Register: ObservableObject {
                 }
             }
             
-        }, to: "http://localhost:3000/register", method: .post)
+        }, to: "\(Global.shared.apiUrl)register", method: .post)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
             switch response.result {
@@ -126,7 +126,7 @@ class Register: ObservableObject {
             "password": password
         ]
 
-        AF.request("http://localhost:3000/login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        AF.request("\(Global.shared.apiUrl)login", method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseDecodable(of: ServerResponseLogin.self) { response in
                 debugPrint(response)
                 switch response.result {

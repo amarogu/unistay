@@ -85,7 +85,7 @@ func postMessage(to: String, by: String, content: String, completion: @escaping 
             "content": content
         ]
     
-    NetworkManager.shared.request("http://localhost:3000/message", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: Chat.self) {
+    NetworkManager.shared.request("\(Global.shared.apiUrl)message", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: Chat.self) {
         response in
         switch response.result {
         case .success(let value):

@@ -148,13 +148,13 @@ func updateProfilePicture(_ image: UIImage?) async throws -> ServerResponseSignu
                 multipartFormData.append(imageData, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
             }
             debugPrint(multipartFormData)
-        }, to: "http://localhost:3000/user/profilepicture", method: .put)
+        }, to: "\(Global.shared.apiUrl)user/profilepicture", method: .put)
         .responseDecodable(of: ServerResponseSignup.self) { response in
             debugPrint(response)
             switch response.result {
             case .success(let value):
                 continuation.resume(returning: value)
-                let url = URL(string: "http://localhost:3000/user/profilepicture")
+                let url = URL(string: "\(Global.shared.apiUrl)user/profilepicture")
                 let request = ImageRequest(url: url)
                 ImageCache.shared[ImageCacheKey(request: request)] = nil
             case .failure(let error):
@@ -172,7 +172,7 @@ func changeProperty(_ property: String, _ content: String) async throws -> Prope
     ]
     
     let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<PropertyChangeResult, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/user/\(property)", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: PropertyChangeResult.self) { response in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)user/\(property)", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: PropertyChangeResult.self) { response in
             switch response.result {
             case .success(let value):
                 continuation.resume(returning: value)
@@ -188,7 +188,7 @@ func changeProperty(_ property: String, _ content: String) async throws -> Prope
 func getExtraneousUser(_ id: String) async throws -> ExtraneousUser {
     let response = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<ExtraneousUser, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/userprofile/?id=\(id)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: ExtraneousUser.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)userprofile/?id=\(id)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: ExtraneousUser.self) {
             response in
             switch response.result {
             case .success(let value):
@@ -205,7 +205,7 @@ func getExtraneousUser(_ id: String) async throws -> ExtraneousUser {
 func validateUsername(_ username: String) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/user/validate/username/?username=\(username)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)user/validate/username/?username=\(username)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
             switch res.result {
             case .success(let value):
@@ -222,7 +222,7 @@ func validateUsername(_ username: String) async throws -> GeneralResponse {
 func validateEmail(_ email: String) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/user/validate/email/?email=\(email)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)user/validate/email/?email=\(email)", method: .post, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
             switch res.result {
             case .success(let value):

@@ -90,7 +90,7 @@ class AccommodationResponse: Decodable, Hashable {
 func connectUser(_ id: String) async throws -> PubResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<PubResponse, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/user/publication/?id=\(id)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: PubResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)user/publication/?id=\(id)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: PubResponse.self) {
             res in
             debugPrint(res)
             switch res.result {
@@ -108,7 +108,7 @@ func connectUser(_ id: String) async throws -> PubResponse {
 func fetchConnectedUsers(_ publication: String) async throws -> [Participant] {
     let response = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<[Participant], Error>) in
-        NetworkManager.shared.request("http://localhost:3000/publication/connectedusers/?id=\(publication)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: [Participant].self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/connectedusers/?id=\(publication)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: [Participant].self) {
             response in
             debugPrint(response)
             switch response.result {
@@ -152,7 +152,7 @@ func postPublication(title: [String: String], description: [String: String], ren
                     multipartFormData.append(img, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                 }
             }
-        }, to: "http://localhost:3000/createpublication", method: .post).responseDecodable(of: PubResponse.self) {
+        }, to: "\(Global.shared.apiUrl)createpublication", method: .post).responseDecodable(of: PubResponse.self) {
             res in
             debugPrint(res)
             switch res.result {
@@ -171,7 +171,7 @@ func getYourPubs(_ id: String) async throws -> [AccommodationResponse] {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<[AccommodationResponse], Error>) in
         
-        NetworkManager.shared.request("http://localhost:3000/yourpublications", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)yourpublications", method: .get).responseDecodable(of: [AccommodationResponse].self) {
             res in
             debugPrint(res)
             switch res.result {
@@ -189,7 +189,7 @@ func getYourPubs(_ id: String) async throws -> [AccommodationResponse] {
 func getNearestTo(_ lat: Double, _ lng: Double) async throws -> [AccommodationResponse] {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<[AccommodationResponse], Error>) in
-        NetworkManager.shared.request("http://localhost:3000/nearest-to/?lat=\(lat)&lng=\(lng)", method: .get).responseDecodable(of: [AccommodationResponse].self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)nearest-to/?lat=\(lat)&lng=\(lng)", method: .get).responseDecodable(of: [AccommodationResponse].self) {
             res in
             debugPrint(res)
             switch res.result {
@@ -207,7 +207,7 @@ func getNearestTo(_ lat: Double, _ lng: Double) async throws -> [AccommodationRe
 func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("http://localhost:3000/publication/save/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
             res in
             switch res.result {
             case .success(let value):
