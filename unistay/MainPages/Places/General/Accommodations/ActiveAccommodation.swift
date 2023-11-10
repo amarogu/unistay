@@ -43,7 +43,11 @@ struct ActiveAccommodation: View {
                                 ForEach(pub?.images ?? [], id: \.self) { img in
                                     LazyImage(url: URL(string: "\(Global.shared.apiUrl)image/\(img)")) {
                                         i in
-                                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped()
+                                        if i.isLoading {
+                                            Rectangle().foregroundStyle(Color("Gray")).aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped()
+                                        } else {
+                                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped()
+                                        }
                                     }
                                 }
                             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always)).id(pub?.images.count)

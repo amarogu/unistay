@@ -27,7 +27,11 @@ struct Accomodation: View {
             VStack(alignment: .center, spacing: 20) {
                 LazyImage(url: URL(string: "\(Global.shared.apiUrl)image/\(pub?.images[0] ?? "")")) {
                     i in
-                    i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                    if i.isLoading {
+                        Rectangle().foregroundStyle(Color("SearchBar")).aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                    } else {
+                        i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size * 0.35, height: size * 0.35).scaleEffect(1.25).clipped().cornerRadius(20)
+                    }
                 }
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
