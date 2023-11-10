@@ -41,7 +41,7 @@ struct ActiveAccommodation: View {
                         if !(pub?.images.isEmpty ?? false) {
                             TabView {
                                 ForEach(pub?.images ?? [], id: \.self) { img in
-                                    LazyImage(url: URL(string: "http://localhost:3000/image/\(img)")) {
+                                    LazyImage(url: URL(string: "\(Global.shared.apiUrl)image/\(img)")) {
                                         i in
                                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: size.width * 0.95, height: size.width * 0.75).scaleEffect(1.25).clipped()
                                     }
@@ -93,7 +93,7 @@ struct ActiveAccommodation: View {
                                 }
                                 ForEach(connectedUsers) {
                                     user in
-                                    let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(user._id)")
+                                    let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(user._id)")
                                     NavigationLink(destination: ExtraneousUserPanel(userId: user._id, tabSize: size.width * 0.75)) {
                                         LazyImage(url: url) {
                                             i in

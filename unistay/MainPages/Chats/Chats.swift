@@ -25,21 +25,21 @@ struct Chats: View {
                                     ForEach(chat.participants) {
                                         participant in
                                             if participant._id == chat.participants[0]._id {
-                                                LazyImage(url: URL(string: "http://localhost:3000/getuserpicture/?id=\(participant._id)")) {
+                                                LazyImage(url: URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(participant._id)")) {
                                                     i in
                                                     i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
                                                 }.onAppear {
-                                                    let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(participant._id)")
+                                                    let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(participant._id)")
                                                     let request = ImageRequest(url: url)
                                                     ImageCache.shared[ImageCacheKey(request: request)] = nil
                                                 }
                                             }
                                             if participant._id == chat.participants[1]._id {
-                                                LazyImage(url: URL(string: "http://localhost:3000/getuserpicture/?id=\(participant._id)")) {
+                                                LazyImage(url: URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(participant._id)")) {
                                                     i in
                                                     i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 30, height: 30).scaleEffect(1).clipShape(Circle()).offset(x: -8, y: 8)
                                                 }.onAppear {
-                                                    let url = URL(string: "http://localhost:3000/getuserpicture/?id=\(participant._id)")
+                                                    let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(participant._id)")
                                                     let request = ImageRequest(url: url)
                                                     ImageCache.shared[ImageCacheKey(request: request)] = nil
                                                 }

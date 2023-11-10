@@ -56,7 +56,7 @@ struct UserPanel: View {
                             i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
                         }
                     }
-                    LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
+                    LazyImage(url: URL(string: "\(Global.shared.apiUrl)user/profilepicture")) {
                         i in
                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
                             geo in
@@ -65,7 +65,7 @@ struct UserPanel: View {
                             }
                         }).offset(.init(width: imageSize / 2, height: imageSize / 2))
                     }.onAppear {
-                        let url = URL(string: "http://localhost:3000/user/profilepicture")!
+                        let url = URL(string: "\(Global.shared.apiUrl)user/profilepicture")!
                         let request = ImageRequest(url: url)
                         ImageCache.shared[ImageCacheKey(request: request)] = nil
                     }
@@ -357,7 +357,7 @@ struct UserPanel: View {
                     Text("Profile picture and bio").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6).padding(.top, 10)
                     HStack {
                         if croppedImage == nil {
-                            LazyImage(url: URL(string: "http://localhost:3000/user/profilepicture")) {
+                            LazyImage(url: URL(string: "\(Global.shared.apiUrl)user/profilepicture")) {
                                 i in
                                 i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 40, height: 40).scaleEffect(1).clipShape(Circle())
                             }
