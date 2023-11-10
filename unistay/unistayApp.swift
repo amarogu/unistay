@@ -28,7 +28,7 @@ class SessionManager {
 
 class Global: ObservableObject {
     static let shared = Global()
-    let apiUrl = "http//api.unistay.studio:3000/"
+    let apiUrl = "http://api.unistay.studio:3000/"
 }
 
 func checkCookies() -> String {
