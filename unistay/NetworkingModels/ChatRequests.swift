@@ -24,6 +24,11 @@ class Message: Decodable, Identifiable {
     }
 }
 
+class ChatResponse: Decodable {
+    let message: String
+    let chatId: String
+}
+
 class Participant: Decodable, Identifiable {
     var id = UUID()
     let _id: String
@@ -87,6 +92,7 @@ func postMessage(to: String, by: String, content: String, completion: @escaping 
     
     NetworkManager.shared.request("\(Global.shared.apiUrl)message", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseDecodable(of: Chat.self) {
         response in
+        print(response.result)
         switch response.result {
         case .success(let value):
             completion(value, nil)
@@ -96,15 +102,36 @@ func postMessage(to: String, by: String, content: String, completion: @escaping 
     }
 }
 
-func createChat(with: String, associatedTo: String) async throws -> GeneralResponse {
+func createChat(associatedTo: String) async throws -> ChatResponse {
     let res = try await withCheckedThrowingContinuation {
-        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        (continuation: CheckedContinuation<ChatResponse, Error>) in
         let params: [String: Any] = [
             "publicationAssociated": true,
             "publicationId": associatedTo
         ]
-        NetworkManager.shared.request("\(Global.shared.apiUrl)/chat", method: .post, parameters: params, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+        
+        NetworkManager.shared.request("\(Global.shared.apiUrl)chat", method: .post, parameters: params, encoding: JSONEncoding.default).responseDecodable(of: ChatResponse.self) {
             res in
+            print(res.result)
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
+
+func addUser(_ chatId: String, _ username: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        print(chatId, username)
+        NetworkManager.shared.request("\(Global.shared.apiUrl)chat/\(chatId)/?name=\(username)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+            res in
+            print(res.result)
             switch res.result {
             case .success(let value):
                 continuation.resume(returning: value)

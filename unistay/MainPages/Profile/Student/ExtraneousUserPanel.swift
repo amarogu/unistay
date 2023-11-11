@@ -121,18 +121,25 @@ struct ExtraneousUserPanel: View {
                         chatting.toggle()
                         Task {
                             do {
-                                let res = try await createChat(with: user?._id ?? "", associatedTo: pub?._id ?? "")
+                                let res = try await createChat(associatedTo: pub?._id ?? "")
                                 if res.message == "Chat created successfully" {
-                                    isAlertOn = true
-                                    responseAlertTitle = "Success"
-                                    responseAlert = "Go to chats to start chatting with this person"
+                                    let res = try await addUser(res.chatId, user?.username ?? "")
+                                    if res.message == "User added to chat successfully" {
+                                        isAlertOn = true
+                                        responseAlertTitle = "Success"
+                                        responseAlert = "Go to chats to start chatting with this person"
+                                    } else {
+                                        isAlertOn = true
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "An error occurred while creating this chat"
+                                    }
                                 } else {
                                     isAlertOn = true
                                     responseAlertTitle = "Error"
                                     responseAlert = "An error occurred while creating this chat"
                                 }
                             } catch {
-                                print(error)
+                                //print(error)
                             }
                         }
                     }) {
