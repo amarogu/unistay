@@ -95,3 +95,24 @@ func postMessage(to: String, by: String, content: String, completion: @escaping 
         }
     }
 }
+
+func createChat(with: String, associatedTo: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        let params: [String: Any] = [
+            "publicationAssociated": true,
+            "publicationId": associatedTo
+        ]
+        NetworkManager.shared.request("\(Global.shared.apiUrl)/chat", method: .post, parameters: params, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+            res in
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}

@@ -28,6 +28,7 @@ struct ActiveAccommodation: View {
     @State var connectedUsersProgress: String = ""
     @State var isFav: Bool = false
     @State var hasConnected: Bool = false
+    @State var pubOwner: String = ""
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
@@ -70,7 +71,17 @@ struct ActiveAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        Text("by Owner").customStyle(size: 14)
+                                        Text("by \(pubOwner)").customStyle(size: 14).onAppear {
+                                            Task {
+                                                do {
+                                                    let response = try await getExtraneousUser(pub.owner)
+                                                    pubOwner = response.username
+                                                    print(response)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
+                                        }
                                     }.padding(.bottom, 8)
                                 }
                                 Divider()
@@ -98,7 +109,7 @@ struct ActiveAccommodation: View {
                                 ForEach(connectedUsers) {
                                     user in
                                     let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(user._id)")
-                                    NavigationLink(destination: ExtraneousUserPanel(userId: user._id, tabSize: size.width * 0.75)) {
+                                    NavigationLink(destination: ExtraneousUserPanel(userId: user._id, tabSize: size.width * 0.75, pub: pub)) {
                                         LazyImage(url: url) {
                                             i in
                                             i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())

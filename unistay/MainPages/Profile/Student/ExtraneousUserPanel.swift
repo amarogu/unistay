@@ -19,7 +19,7 @@ struct ExtraneousUserPanel: View {
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0
     
-    @State var areDetailsExpanded: Bool = false
+    @State var areDetailsExpanded: Bool = true
     @State var fullBio: Bool = false
     
     @State private var showSheet = false
@@ -41,6 +41,10 @@ struct ExtraneousUserPanel: View {
     @State var responseAlert: String = ""
     @State var responseAlertTitle: String = ""
     @State var isAlertOn: Bool = false
+    
+    @State var chatting: Bool = false
+    
+    @State var pub: AccommodationResponse?
     
     var body: some View {
         GeometryReader {
@@ -111,29 +115,35 @@ struct ExtraneousUserPanel: View {
                     Spacer()
                 }.frame(maxWidth: .infinity).padding(.bottom, 10)
                 
-                //Spacer()
-                ZStack(alignment: .top) {
-                    ScrollView {
-                        Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
-                        Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight)
-                        if selectedView == "Universities" {
-                            Universities(size: width, selectionSize: selectionHeight).padding(.bottom, 24)
-                        } else if selectedView == "Location" {
-                            
-                        } else {
-                            
+                
+                HStack {
+                    Button(action: {
+                        chatting.toggle()
+                        Task {
+                            do {
+                                let res = try await createChat(with: user?._id ?? "", associatedTo: pub?._id ?? "")
+                                if res.message == "Chat created successfully" {
+                                    isAlertOn = true
+                                    responseAlertTitle = "Success"
+                                    responseAlert = "Go to chats to start chatting with this person"
+                                } else {
+                                    isAlertOn = true
+                                    responseAlertTitle = "Error"
+                                    responseAlert = "An error occurred while creating this chat"
+                                }
+                            } catch {
+                                print(error)
+                            }
                         }
+                    }) {
+                        HStack {
+                            Text("Start a chat with this person").customStyle(size: 14, color: "BodyAccent")
+                            Image(systemName: "bubble.left.and.bubble.right").symbolEffect(.bounce.up.byLayer, value: chatting).tint(Color("BodyAccent"))
+                        }.padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                     }
-                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
-                        geo in
-                        LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {
-                            selectionHeight = geo.size.height
-                            selectionWidth = geo.size.width
-                        }
-                        
-                    })//.padding(.top, 10)
-                    
+                    Spacer()
                 }
+                Spacer()
                 //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             

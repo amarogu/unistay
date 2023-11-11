@@ -205,9 +205,6 @@
     "by %@" : {
 
     },
-    "by Owner" : {
-
-    },
     "Cancel" : {
       "localizations" : {
         "pt-BR" : {
@@ -835,6 +832,9 @@
           }
         }
       }
+    },
+    "Start a chat with this person" : {
+
     },
     "Successfully registered" : {
       "localizations" : {

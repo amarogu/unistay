@@ -46,6 +46,8 @@ struct ActiveProviderAccommodation: View {
     @State private var publicationVisibility: String = "Visible"
     @State private var navigationTag: String? = nil
     
+    @State var pubOwner: String = ""
+    
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
@@ -89,7 +91,17 @@ struct ActiveProviderAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        Text("by \(pub.owner)").customStyle(size: 14)
+                                        Text("by \(pubOwner)").customStyle(size: 14).onAppear {
+                                            Task {
+                                                do {
+                                                    let response = try await getExtraneousUser(pub.owner)
+                                                    pubOwner = response.username
+                                                    print(response)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
+                                        }
                                     }.padding(.bottom, 8)
                                 }
                                 Divider()
