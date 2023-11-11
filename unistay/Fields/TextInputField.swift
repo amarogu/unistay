@@ -42,12 +42,10 @@ struct TextInputField: View {
                                 SecureField(text: $input, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
                             }
                             Button(action: {
-                                withAnimation {
-                                    isPasswordVisible.toggle()
-                                }
+                                isPasswordVisible.toggle()
                             }) {
                                 Image(systemName: isPasswordVisible ? "eye" : "eye.slash").font(.system(size: 14))
-                            }.contentTransition(.symbolEffect(.replace.downUp.byLayer))
+                            }
                         }
                     } else {
                         TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
@@ -58,6 +56,5 @@ struct TextInputField: View {
         }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
             isFocused = true
         }
-
     }
 }

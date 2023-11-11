@@ -68,6 +68,7 @@
 		A3E245A52A94DDF000BC7E37 /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E245A42A94DDF000BC7E37 /* University.swift */; };
 		A3E245A72A94DEBC00BC7E37 /* Universities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E245A62A94DEBC00BC7E37 /* Universities.swift */; };
 		A3E80BE12AC2F8B800672E8B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A3E80BE02AC2F8B800672E8B /* Alamofire */; };
+		A3F25D662AFEFAC3004374E6 /* AccommodationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F25D652AFEFAC3004374E6 /* AccommodationProvider.swift */; };
 		A3F539BD2A8198B300CEDFE7 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539BC2A8198B300CEDFE7 /* Places.swift */; };
 		A3F539BF2A828B2400CEDFE7 /* tabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539BE2A828B2400CEDFE7 /* tabItem.swift */; };
 		A3F539C32A82E8CD00CEDFE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F539C22A82E8CD00CEDFE7 /* Selection.swift */; };
@@ -135,6 +136,7 @@
 		A3E245A22A9401B100BC7E37 /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		A3E245A42A94DDF000BC7E37 /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
 		A3E245A62A94DEBC00BC7E37 /* Universities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Universities.swift; sourceTree = "<group>"; };
+		A3F25D652AFEFAC3004374E6 /* AccommodationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccommodationProvider.swift; sourceTree = "<group>"; };
 		A3F539BC2A8198B300CEDFE7 /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
 		A3F539BE2A828B2400CEDFE7 /* tabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabItem.swift; sourceTree = "<group>"; };
 		A3F539C22A82E8CD00CEDFE7 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				A3F539C62A843B3900CEDFE7 /* AccomodationsGroup.swift */,
 				A3F539C42A82EC2E00CEDFE7 /* Accomodation.swift */,
 				A34866012ACB91D1003FD07B /* ActiveAccommodation.swift */,
+				A3F25D652AFEFAC3004374E6 /* AccommodationProvider.swift */,
 			);
 			path = Accommodations;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				A34866022ACB91D1003FD07B /* ActiveAccommodation.swift in Sources */,
 				A36A74F92ACC854E009AB71F /* Validate.swift in Sources */,
 				A3E2459D2A93A62000BC7E37 /* UserPanel.swift in Sources */,
+				A3F25D662AFEFAC3004374E6 /* AccommodationProvider.swift in Sources */,
 				A33A3D5D2A996D5500A84269 /* SignUpBasic.swift in Sources */,
 				A3A23F4A2AE8A4310098A26F /* ActiveProviderAccommodation.swift in Sources */,
 				A36A74FB2ACC8890009AB71F /* ResponseModels.swift in Sources */,

@@ -164,7 +164,7 @@ struct ProviderPanel: View {
                                 VStack {
                                     ForEach(pub, id: \.self) { pubItem in
                                         if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
-                                            Accomodation(pub: pubItem, size: width + 40, padding: 10)
+                                            AccommodationProvider(pub: pubItem, size: width + 40, padding: 10)
                                         }
                                     }
                                 }
@@ -172,7 +172,7 @@ struct ProviderPanel: View {
                                 VStack {
                                     ForEach(pub, id: \.self) { pubItem in
                                         if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
-                                            Accomodation(pub: pubItem, size: width + 40, padding: 10)
+                                            AccommodationProvider(pub: pubItem, size: width + 40, padding: 10)
                                         }
                                     }
                                 }.padding(.top, 30)

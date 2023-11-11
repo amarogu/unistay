@@ -109,6 +109,7 @@ class ExtraneousUser: Decodable {
     let connectedPublications: [AccommodationResponse]
     let name: String
     let surname: String
+    let backgroundImage: String
     
     init() {
         self._id = ""
@@ -119,6 +120,7 @@ class ExtraneousUser: Decodable {
         self.connectedPublications = []
         self.name = ""
         self.surname = ""
+        self.backgroundImage = ""
     }
 }
 

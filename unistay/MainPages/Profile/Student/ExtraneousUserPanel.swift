@@ -48,7 +48,14 @@ struct ExtraneousUserPanel: View {
             let width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
-                    Image("ProfileBackground").resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                    LazyImage(url: URL(string: user?.backgroundImage ?? "")) {
+                        i in
+                        if i.isLoading {
+                            Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        } else {
+                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                        }
+                    }
                     LazyImage(url: URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(userId)")) {
                         i in
                         i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width * 0.2, height: width * 0.2).scaleEffect(1).clipShape(Circle()).overlay(Circle().stroke(Color("Gray"), lineWidth: 3.5)).background(GeometryReader {
