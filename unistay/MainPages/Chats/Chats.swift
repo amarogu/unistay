@@ -11,13 +11,14 @@ import Nuke
 
 struct Chats: View {
     @EnvironmentObject var observableChat: ObservableChat
+    @State var chatsArray: [Chat]? = []
     @State var user: User? = nil
     @EnvironmentObject var webSocket: WebSocketManager
     var body: some View {
         ZStack(alignment: .top) {
                 List {
                     Rectangle().frame(height: 70).foregroundStyle(.clear).listRowBackground(Color("BackgroundColor"))
-                    ForEach(observableChat.chatsArray) {
+                    ForEach(chatsArray ?? []) {
                         chat in
                         NavigationLink(destination: ChatActive(chat: chat, webSocket: webSocket, user: user)) {
                             HStack(spacing: 18) {
@@ -80,7 +81,21 @@ struct Chats: View {
             }.frame(maxHeight: 100).padding(.bottom, 40).padding(.trailing, 10).background(
                 LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.65), endPoint: .bottom)
             )
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor")).onAppear {
+            observableChat.fetchChats {
+                fetchedChats, err in
+                chatsArray = fetchedChats
+            }
+        }.onReceive(webSocket.$fetchChat) { fetchChat in
+            if fetchChat {
+                print("received in here")
+                observableChat.fetchChats {
+                    fetchedChats, err in
+                    chatsArray = fetchedChats
+                }
+            }
+        }
+
         
     }
 }
