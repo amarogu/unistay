@@ -48,6 +48,7 @@ struct ExtraneousUserPanel: View {
             let width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
+                    let _ = print(user?.backgroundImage)
                     LazyImage(url: URL(string: user?.backgroundImage ?? "")) {
                         i in
                         if i.isLoading {
@@ -164,8 +165,9 @@ struct ExtraneousUserPanel: View {
                 do {
                     let response = try await getExtraneousUser(userId)
                     user = response
+                    print(response)
                 } catch {
-                    
+                    print(error)
                 }
             }
         }

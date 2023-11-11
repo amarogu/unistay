@@ -106,7 +106,7 @@ class ExtraneousUser: Decodable {
     let profilePicture: String
     let accountType: String
     let username: String
-    let connectedPublications: [AccommodationResponse]
+    let connectedPublications: [String]
     let name: String
     let surname: String
     let backgroundImage: String
@@ -201,6 +201,7 @@ func getExtraneousUser(_ id: String) async throws -> ExtraneousUser {
         }
     }
     
+    print(response)
     return response
 }
 

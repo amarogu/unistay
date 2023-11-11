@@ -89,7 +89,7 @@ struct ActiveProviderAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        Text("by Owner").customStyle(size: 14)
+                                        Text("by \(pub.owner)").customStyle(size: 14)
                                     }.padding(.bottom, 8)
                                 }
                                 Divider()
