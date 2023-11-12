@@ -118,7 +118,9 @@ struct ChatActive: View {
                 observableChat.fetchChats {
                     fetchedChats, err in
                     for fetchedChat in fetchedChats ?? [] {
-                        chat = fetchedChat
+                        if chat._id == fetchedChat._id {
+                            chat = fetchedChat
+                        }
                     }
                 }
             }

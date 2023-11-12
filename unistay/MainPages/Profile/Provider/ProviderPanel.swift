@@ -85,7 +85,7 @@ struct ProviderPanel: View {
                     let _ = print(user.backgroundImage)
                     LazyImage(url: URL(string: user.backgroundImage)) {
                         i in
-                        if i.isLoading {
+                        if i.isLoading || i.error != nil {
                             Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
                         } else {
                             i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
