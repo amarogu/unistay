@@ -107,12 +107,24 @@ struct ActiveAccommodation: View {
                                     Text("There are no users connected.").customStyle(size: 14)
                                 }
                                 ForEach(connectedUsers) {
-                                    user in
-                                    let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(user._id)")
-                                    NavigationLink(destination: ExtraneousUserPanel(userId: user._id, tabSize: size.width * 0.75, pub: pub)) {
-                                        LazyImage(url: url) {
-                                            i in
-                                            i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                    userInstance in
+                                    let url = URL(string: "\(Global.shared.apiUrl)getuserpicture/?id=\(userInstance._id)")
+                                    if user._id == userInstance._id {
+                                        NavigationLink(destination: ZStack {
+                                            Color("BackgroundColor").ignoresSafeArea(.all)
+                                            UserPanel(tabSize: size.width).padding(.horizontal, 18)
+                                        }) {
+                                            LazyImage(url: url) {
+                                                i in
+                                                i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                            }
+                                        }
+                                    } else {
+                                        NavigationLink(destination: ExtraneousUserPanel(userId: userInstance._id, tabSize: size.width * 0.75, pub: pub)) {
+                                            LazyImage(url: url) {
+                                                i in
+                                                i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: 58, height: 58).scaleEffect(1).clipShape(Circle())
+                                            }
                                         }
                                     }
                                 }

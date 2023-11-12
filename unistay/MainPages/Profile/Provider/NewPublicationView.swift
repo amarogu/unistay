@@ -37,6 +37,8 @@ struct NewPublicationView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @EnvironmentObject var user: User
+    
+    @State var isAboutExpanded: Bool = false
     var body: some View {
             NavigationStack {
                 ZStack {
@@ -93,16 +95,19 @@ struct NewPublicationView: View {
                                     Text("Publish your accommodation").customStyle(type: "Semibold", size: 14)
                                 }
                             }.padding(.bottom, 24)
-                            Text("About your accommodation").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6)
-                            TextInputField(input: $title, placeholderText: "Title", placeholderIcon: "character.cursor.ibeam", required: false)
-                            TextInputField(input: $description, placeholderText: "Description", placeholderIcon: "text.below.photo", required: false)
-                            TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard", required: false)
-                            MenuField(items: publicationCurrencyItems, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection)
-                            MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: typeSelection)
+                            DisclosureGroup(isExpanded: $isAboutExpanded, content: {
+                                TextInputField(input: $title, placeholderText: "Title", placeholderIcon: "character.cursor.ibeam", required: false)
+                                TextInputField(input: $description, placeholderText: "Description", placeholderIcon: "text.below.photo", required: false)
+                                TextInputField(input: $rent, placeholderText: "Rent", placeholderIcon: "creditcard", required: false)
+                                MenuField(items: publicationCurrencyItems, menuSelection: $menuSelection, icon: "dollarsign.circle", placeholder: menuSelection)
+                                MenuField(items: typeItems, menuSelection: $typeSelection, icon: "house.and.flag", placeholder: typeSelection)
+                            }, label: {
+                                Text("About your accommodation").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6)
+                            }).tint(Color("Body"))
                         }
                         Text("Location, visibility and images").customStyle(size: 12, color: "Body").textCase(.uppercase).padding(.bottom, 6).padding(.top, 14)
                         VStack(alignment: .leading, spacing: 8) {
-                            SearchBar(placeholder: "Set your location", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
+                            SearchBar(placeholder: "Set the accommodation's location", text: $locationManager.searchText).background(Color("SearchBar")).padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).tint(Color("BodyEmphasized"))
                             if let places = locationManager.fetchedPlaces, !places.isEmpty {
                                 List {
                                     Section {
@@ -136,20 +141,6 @@ struct NewPublicationView: View {
                                         Spacer()
                                     }.padding(.all, 8).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
                                 } else {
-                                    Button(action: {
-                                        if let coordinate = locationManager.userLocation?.coordinate {
-                                            locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-                                            locationManager.addDraggablePin(coordinate: coordinate)
-                                            locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
-                                        }
-                                        navigationTag = "MAPVIEW"
-                                    }) {
-                                        HStack(alignment: .center) {
-                                            Text("Use your current location").customStyle(size: 14, color: "Body")
-                                            Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
-                                            
-                                        }.padding(.vertical, 1).padding(.leading, 14)
-                                    }
                                     if !pickedLocNames.isEmpty {
                                         HStack {
                                             VStack(alignment: .leading) {

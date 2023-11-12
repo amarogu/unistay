@@ -92,20 +92,6 @@ struct MapSearchBar: View {
                                             Spacer()
                                         }.padding(.all, 8).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1)
                                     } else {
-                                        Button(action: {
-                                            if let coordinate = locationManager.userLocation?.coordinate {
-                                                locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-                                                locationManager.addDraggablePin(coordinate: coordinate)
-                                                locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
-                                            }
-                                            navigationTag = "MAPVIEW"
-                                        }) {
-                                            HStack(alignment: .center) {
-                                                Text("Use your current location").customStyle(size: 14, color: "Body")
-                                                Image(systemName: "location.north.circle").foregroundColor(Color("Body"))
-                                                
-                                            }.padding(.vertical, 1).padding(.leading, 14)
-                                        }
                                         if !pickedLocNames.isEmpty {
                                             HStack {
                                                 VStack(alignment: .leading) {
