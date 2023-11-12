@@ -795,6 +795,12 @@
         }
       }
     },
+    "Set the accommodation's location" : {
+
+    },
+    "Set the location" : {
+
+    },
     "Set your location" : {
       "localizations" : {
         "pt-BR" : {

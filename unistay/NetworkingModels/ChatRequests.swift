@@ -131,7 +131,7 @@ func addUser(_ chatId: String, _ username: String) async throws -> GeneralRespon
         print(chatId, username)
         NetworkManager.shared.request("\(Global.shared.apiUrl)chat/\(chatId)/?name=\(username)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
-            print(res.result)
+            //print(res.result)
             switch res.result {
             case .success(let value):
                 continuation.resume(returning: value)

@@ -71,17 +71,19 @@ struct ActiveAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        Text("by \(pubOwner)").customStyle(size: 14).onAppear {
-                                            Task {
-                                                do {
-                                                    let response = try await getExtraneousUser(pub.owner)
-                                                    pubOwner = response.username
-                                                    print(response)
-                                                } catch {
-                                                    print(error)
+                                        NavigationLink(destination: ExtraneousUserPanel(userId: pub.owner, tabSize: size.width), label: {
+                                            Text("by \(pubOwner)").customStyle(size: 14).onAppear {
+                                                Task {
+                                                    do {
+                                                        let response = try await getExtraneousUser(pub.owner)
+                                                        pubOwner = response.username
+                                                        print(response)
+                                                    } catch {
+                                                        print(error)
+                                                    }
                                                 }
                                             }
-                                        }
+                                        })
                                     }.padding(.bottom, 8)
                                 }
                                 Divider()
