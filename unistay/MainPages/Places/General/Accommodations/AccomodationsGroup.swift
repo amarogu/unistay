@@ -22,6 +22,7 @@ struct AccomodationsGroup: View {
                 HStack(alignment: .top) {
                     if pub.isEmpty {
                         Text("No accommodations found with the selected filters.").customStyle(size: 14).padding(.top, 30)
+                        Spacer()
                     } else {
                         VStack {
                             ForEach(pub, id: \.self) { pubItem in
