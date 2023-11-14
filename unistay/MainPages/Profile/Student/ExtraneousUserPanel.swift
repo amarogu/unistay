@@ -53,7 +53,7 @@ struct ExtraneousUserPanel: View {
             VStack {
                 ZStack(alignment: .bottomLeading) {
                     let _ = print(user?.backgroundImage)
-                    LazyImage(url: URL(string: user?.backgroundImage ?? "")) {
+                    LazyImage(url: URL(string: "\(Global.shared.apiUrl)image/\(user?.backgroundImage ?? "")")) {
                         i in
                         if i.isLoading || i.error != nil {
                             Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)

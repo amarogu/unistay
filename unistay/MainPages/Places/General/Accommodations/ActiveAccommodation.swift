@@ -71,7 +71,7 @@ struct ActiveAccommodation: View {
                                         Image(systemName: "location.circle").font(.system(size: 14))
                                         Text("\(name), \(country)").customStyle(size: 14)
                                         Spacer()
-                                        NavigationLink(destination: ExtraneousUserPanel(userId: pub.owner, tabSize: size.width), label: {
+                                        NavigationLink(destination: ExtraneousUserPanel(userId: pub.owner, tabSize: size.width, pub: pub), label: {
                                             Text("by \(pubOwner)").customStyle(size: 14).onAppear {
                                                 Task {
                                                     do {
