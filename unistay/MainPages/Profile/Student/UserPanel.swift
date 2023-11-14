@@ -13,8 +13,8 @@ struct UserPanel: View {
     @State private var offset: CGSize = .zero
     @State private var scale: CGFloat = 1.0
     @State private var imageSize: CGFloat = 0
-    @State private var selectedView: String = "Universities"
-    var viewOptions = ["Universities", "Location", "Roommates"]
+    @State private var selectedView: LocalizedStringKey = "Universities"
+    var viewOptions: [LocalizedStringKey] = ["Universities", "Location", "Roommates"]
     @ObservedObject var user: ObservableUser = ObservableUser()
     @State private var selectionHeight: CGFloat = 0
     @State private var selectionWidth: CGFloat = 0

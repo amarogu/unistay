@@ -13,8 +13,8 @@ struct Places: View {
     @State private var selectedFilters: [String] = []
     var filterOptions = ["Bedrooms", "Bathrooms", "Guests", "Price range"]
     @State private var isMenuOpen = false
-    var viewOptions = ["Recommended", "Saved", "Connected"]
-    @State private var selectedView: String = "Recommended"
+    var viewOptions: [LocalizedStringKey] = ["Recommended", "Saved", "Connected"]
+    @State private var selectedView: LocalizedStringKey = "Recommended"
     var size: CGFloat
     var tabSize: CGFloat
     @State private var selectionSize: CGFloat = 0

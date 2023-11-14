@@ -73,7 +73,14 @@
       }
     },
     "%@..." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@..."
+          }
+        }
+      }
     },
     "%@'s bio" : {
       "localizations" : {
@@ -158,7 +165,14 @@
       }
     },
     "by %@" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by %@"
+          }
+        }
+      }
     },
     "Cancel" : {
       "localizations" : {
@@ -270,6 +284,16 @@
         }
       }
     },
+    "Connected" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectados"
+          }
+        }
+      }
+    },
     "Connected users" : {
       "localizations" : {
         "pt-BR" : {
@@ -361,7 +385,14 @@
       }
     },
     "Edit" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar"
+          }
+        }
+      }
     },
     "Edit your profile" : {
       "localizations" : {
@@ -518,6 +549,16 @@
     "Key" : {
       "extractionState" : "manual"
     },
+    "Location" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Localização"
+          }
+        }
+      }
+    },
     "Location, visibility and images" : {
       "localizations" : {
         "pt-BR" : {
@@ -578,10 +619,24 @@
       }
     },
     "New user connected:" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novo usuário conectado:"
+          }
+        }
+      }
     },
     "No accommodations found with the selected filters." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foram encontradas acomodações com os filtros selecionados."
+          }
+        }
+      }
     },
     "OK" : {
       "localizations" : {
@@ -679,12 +734,42 @@
         }
       }
     },
+    "Recommended" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recomendado"
+          }
+        }
+      }
+    },
     "Rent" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aluguel"
+          }
+        }
+      }
+    },
+    "Roommates" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colegas de quarto"
+          }
+        }
+      }
+    },
+    "Saved" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvos"
           }
         }
       }
@@ -740,10 +825,24 @@
       }
     },
     "Set the accommodation's location" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione a localização da acomodação"
+          }
+        }
+      }
     },
     "Set the location" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione a localização"
+          }
+        }
+      }
     },
     "Set your location" : {
       "localizations" : {
@@ -784,7 +883,14 @@
       }
     },
     "Start a chat with this person" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comece um chat com esta pessoa"
+          }
+        }
+      }
     },
     "Successfully registered" : {
       "localizations" : {
@@ -807,7 +913,14 @@
       }
     },
     "Swipe down to go back to login" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deslize para voltar ao login"
+          }
+        }
+      }
     },
     "System language" : {
       "extractionState" : "manual",
@@ -821,19 +934,54 @@
       }
     },
     "There are no users connected." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há usuários conectados"
+          }
+        }
+      }
     },
     "This email address is available" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este endereço de email está disponível"
+          }
+        }
+      }
     },
     "This email address is unavailable" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este endereço de email está indisponível"
+          }
+        }
+      }
     },
     "This username is available" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este nome de usuário está disponível"
+          }
+        }
+      }
     },
     "This username is unavailable" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este nome de usuário está indisponível"
+          }
+        }
+      }
     },
     "Title" : {
       "localizations" : {
@@ -861,6 +1009,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "UniStay"
+          }
+        }
+      }
+    },
+    "Universities" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Universidades"
           }
         }
       }
@@ -997,7 +1155,14 @@
       }
     },
     "Your publications" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suas publicações"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
