@@ -48,10 +48,13 @@ struct UserPanel: View {
             let width = geo.size.width
             VStack {
                 ZStack(alignment: .bottomLeading) {
-                    LazyImage(url: URL(string: user.user?.backgroundImage ?? "")) {
+                    LazyImage(url: URL(string: "\(Global.shared.apiUrl)image/\(user.user?.backgroundImage ?? "")")) {
                         i in
                         if i.isLoading || i.error != nil {
                             Rectangle().foregroundStyle(Color("Gray")).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
+                            let _ = print(i.error)
+                            let _ = print(user.user?.backgroundImage)
+                            
                         } else {
                             i.image?.resizable().aspectRatio(contentMode: .fill).frame(width: width, height: 90).scaleEffect(1.15).clipped().cornerRadius(15)
                         }

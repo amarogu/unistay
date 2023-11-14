@@ -24,17 +24,6 @@
         }
       }
     },
-    "%@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        }
-      }
-    },
     "%@ %@" : {
       "localizations" : {
         "en" : {
@@ -85,23 +74,6 @@
     },
     "%@..." : {
 
-    },
-    "%@... , %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@... , %2$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@... , %2$@"
-          }
-        }
-      }
     },
     "%@'s bio" : {
       "localizations" : {
@@ -181,23 +153,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Atividade"
-          }
-        }
-      }
-    },
-    "Back to login" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retour à la connexion"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voltar para o login"
           }
         }
       }
@@ -351,17 +306,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continuar"
-          }
-        }
-      }
-    },
-    "Continue to home" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avançar para a tela inicial"
           }
         }
       }
@@ -878,17 +822,6 @@
     },
     "There are no users connected." : {
 
-    },
-    "There are not any accommodations within a 200km range of your preferred locations 😔" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Não há nenhuma acomodação dentro de uma distância de 200km de qualquer um de seus locais selecionados 😔"
-          }
-        }
-      }
     },
     "This email address is available" : {
 
