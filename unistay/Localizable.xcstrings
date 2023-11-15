@@ -374,6 +374,9 @@
         }
       }
     },
+    "Disconnect" : {
+
+    },
     "Done" : {
       "localizations" : {
         "pt-BR" : {

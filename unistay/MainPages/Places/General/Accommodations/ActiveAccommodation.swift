@@ -30,6 +30,7 @@ struct ActiveAccommodation: View {
     @State var hasConnected: Bool = false
     @State var pubOwner: String = ""
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
+    @State var connected: Bool = false
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -164,33 +165,48 @@ struct ActiveAccommodation: View {
                                     Task {
                                         do {
                                             if let id = pub?._id {
-                                                let res = try await connectUser(id)
-                                                DispatchQueue.main.async {
-                                                    if res.message == "Could not add user: User is already connected to this publication" {
-                                                        responseAlertTitle = "Error"
-                                                        responseAlert = "You are already connected to this publication"
-                                                        isAlertOn = true
-                                                    } else {
-                                                        responseAlertTitle = "Success"
-                                                        responseAlert = "Connected to this publication"
-                                                        isAlertOn = true
-                                                        connectedUsers.append(Participant(_id: user._id, username: user.username))
+                                                if connected {
+                                                    let res = try await disconnectUser(id)
+                                                    DispatchQueue.main.async {
+                                                        if res.message != "User disconnected from publication successfully" {
+                                                            responseAlertTitle = "Error"
+                                                            responseAlert = "Could not disconnect you from this publication"
+                                                            isAlertOn = true
+                                                        } else {
+                                                            responseAlertTitle = "Success"
+                                                            responseAlert = "Disconnected from this publication"
+                                                            isAlertOn = true
+                                                            connectedUsers.removeAll(where: { $0._id == user._id })
+                                                        }
+                                                    }
+                                                } else {
+                                                    let res = try await connectUser(id)
+                                                    DispatchQueue.main.async {
+                                                        if res.message == "Could not add user: User is already connected to this publication" {
+                                                            responseAlertTitle = "Error"
+                                                            responseAlert = "You are already connected to this publication"
+                                                            isAlertOn = true
+                                                        } else {
+                                                            responseAlertTitle = "Success"
+                                                            responseAlert = "Connected to this publication"
+                                                            isAlertOn = true
+                                                            connectedUsers.append(Participant(_id: user._id, username: user.username))
+                                                        }
                                                     }
                                                 }
                                             }
                                         } catch {
-                                            // Handle error
+                                            print(error)
                                         }
+                                        connected.toggle()
                                     }
-
                                 }) {
-                                    Text("Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                    Text(connected ? "Disconnect" : "Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
                                 }
                             }
                         }
                     }.padding(.horizontal, 28).padding(.vertical, 8)
                 }
-                
             }
         }.alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
             Button(role: .cancel, action: {

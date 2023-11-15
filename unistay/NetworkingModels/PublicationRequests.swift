@@ -87,6 +87,23 @@ class AccommodationResponse: Decodable, Hashable {
 
 // MARK: FUNCTIONS
 
+func disconnectUser(_ id: String) async throws -> PubResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<PubResponse, Error>) in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)user/publication/disconnect/?id=\(id)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: PubResponse.self) {
+            res in
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
+
 func connectUser(_ id: String) async throws -> PubResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<PubResponse, Error>) in
