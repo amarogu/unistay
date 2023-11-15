@@ -209,6 +209,7 @@ func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse 
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
         NetworkManager.shared.request("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
             res in
+            print("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)")
             switch res.result {
             case .success(let value):
                 continuation.resume(returning: value)

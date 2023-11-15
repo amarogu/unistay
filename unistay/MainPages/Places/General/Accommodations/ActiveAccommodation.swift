@@ -150,10 +150,11 @@ struct ActiveAccommodation: View {
                                 Button(action: {
                                     Task {
                                         do {
-                                            let res = try await savePublication(pub?._id ?? "", isFav ? true : false)
                                             withAnimation {
                                                 isFav.toggle()
                                             }
+                                            let res = try await savePublication(pub?._id ?? "", isFav)
+                                            
                                         } catch { print(error) }
                                     }
                                 }) {
