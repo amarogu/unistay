@@ -445,6 +445,9 @@
         }
       }
     },
+    "feature" : {
+
+    },
     "Forgot your password" : {
       "localizations" : {
         "pt-BR" : {
@@ -965,6 +968,9 @@
           }
         }
       }
+    },
+    "This is a work-in-progress" : {
+
     },
     "This username is available" : {
       "localizations" : {

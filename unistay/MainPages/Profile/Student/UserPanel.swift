@@ -139,18 +139,12 @@ struct UserPanel: View {
                 
                 //Spacer()
                 ZStack(alignment: .top) {
-                    ScrollView {
-                        Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
-                        Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight)
-                        if selectedView == "Universities" {
-                            Universities(size: width, selectionSize: selectionHeight).padding(.bottom, tabSize)
-                        } else if selectedView == "Location" {
-                            
-                        } else {
-                            
-                        }
-                    }
-                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).background(GeometryReader {
+                    
+                    Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
+                    Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight).blur(radius: 4.5).opacity(0.6)
+                        
+                    
+                    Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).padding(.top, 10).background(GeometryReader {
                         geo in
                         LinearGradient(gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor").opacity(0)]), startPoint: .init(x: 0.5, y: 0.1), endPoint: .bottom).onAppear {
                             selectionHeight = geo.size.height
@@ -159,7 +153,16 @@ struct UserPanel: View {
                         
                     })//.padding(.top, 10)
                     
+                    VStack {
+                        Spacer()
+                        Text("This is a work-in-progress").customStyle(size: 14)
+                        Text("feature").customStyle(size: 14).padding(.bottom, 12)
+                        Image(systemName: "lock.circle")
+                        Spacer()
+                    }.frame(maxHeight: .infinity)
+                    
                 }
+                Spacer()
                 //Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             

@@ -57,6 +57,7 @@
 		A3A23F4A2AE8A4310098A26F /* ActiveProviderAccommodation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */; };
 		A3A23F4C2AE9E5D00098A26F /* NewPublicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */; };
 		A3A617832AC8D28600A91817 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A3A617822AC8D28600A91817 /* Localizable.xcstrings */; };
+		A3C052E82B0590200098FD7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3C052E72B0590200098FD7A /* LaunchScreen.storyboard */; };
 		A3D597E12ADC72F500199C09 /* PublicationRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D597E02ADC72F500199C09 /* PublicationRequests.swift */; };
 		A3D597E32ADD575C00199C09 /* ExtraneousUserPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */; };
 		A3DA35492A8CED3A005EAAC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DA35482A8CED3A005EAAC9 /* MenuView.swift */; };
@@ -126,6 +127,7 @@
 		A3A23F492AE8A4310098A26F /* ActiveProviderAccommodation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProviderAccommodation.swift; sourceTree = "<group>"; };
 		A3A23F4B2AE9E5D00098A26F /* NewPublicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPublicationView.swift; sourceTree = "<group>"; };
 		A3A617822AC8D28600A91817 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		A3C052E72B0590200098FD7A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3D597E02ADC72F500199C09 /* PublicationRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationRequests.swift; sourceTree = "<group>"; };
 		A3D597E22ADD575C00199C09 /* ExtraneousUserPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraneousUserPanel.swift; sourceTree = "<group>"; };
 		A3DA35482A8CED3A005EAAC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				A3A617822AC8D28600A91817 /* Localizable.xcstrings */,
 				A33D12242AC7522D0014B05B /* unistay.entitlements */,
 				A36E80C62A7C4A0500DAC3DD /* Info.plist */,
+				A3C052E72B0590200098FD7A /* LaunchScreen.storyboard */,
 				A349CA172ABDFEF400F5C11A /* Fields */,
 				A3E245A02A93F9A000BC7E37 /* MainPages */,
 				A349CA162ABDFEA200F5C11A /* NormalSignUp */,
@@ -478,6 +481,7 @@
 				A36E80C32A7C49CF00DAC3DD /* eina-03-bold.ttf in Resources */,
 				A3A617832AC8D28600A91817 /* Localizable.xcstrings in Resources */,
 				A36E80962A75AD7800DAC3DD /* Assets.xcassets in Resources */,
+				A3C052E82B0590200098FD7A /* LaunchScreen.storyboard in Resources */,
 				A36E80C52A7C49CF00DAC3DD /* eina-03-semibold.ttf in Resources */,
 				A36E80C42A7C49CF00DAC3DD /* eina-03-regular.ttf in Resources */,
 			);
@@ -681,10 +685,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = unistay/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UniStay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -695,9 +701,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gu.unistay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -716,10 +724,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = unistay/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UniStay;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -730,9 +740,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.gu.unistay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
