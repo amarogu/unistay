@@ -33,6 +33,8 @@ struct Login: View {
     @State var isFullScreen: Bool = false
     @Binding var isLoggedIn: Bool
     
+    @State var isPasswordVisible: Bool = false
+    
     var body: some View {
         NavigationStack {
             GeometryReader {
@@ -45,8 +47,42 @@ struct Login: View {
                                 Spacer()
                                 LoginHeader()
                                 Group {
-                                    TextInputField(input: $email2, placeholderText: "Email", placeholderIcon: "envelope", required: false)
-                                    TextInputField(input: $password2, placeholderText: "Password", placeholderIcon: "key", required: false)
+                                    
+                                    ZStack(alignment: .leading) {
+                                        Image(systemName: "envelope").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                        ZStack(alignment: .topLeading) {
+                                            if email2.isEmpty { HStack {
+                                                Text("Email").customStyle(size: 13).padding(.leading, 28)
+                                                Spacer()
+                                            } }
+                                            TextField(text: $email2, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).padding(.leading, 28).textInputAutocapitalization(.never).autocorrectionDisabled()
+                                        }
+                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                                        isFocused = true
+                                    }
+                                    ZStack(alignment: .leading) {
+                                        Image(systemName: "key").font(.system(size: 14)).foregroundColor(Color("BodyEmphasized"))
+                                        ZStack(alignment: .topLeading) {
+                                            if password2.isEmpty { HStack {
+                                                Text("Password").customStyle(size: 13).padding(.leading, 28)
+                                                Spacer()
+                                            } }
+                                            HStack {
+                                                if isPasswordVisible {
+                                                    TextField(text: $password2, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).padding(.leading, 28).textInputAutocapitalization(.never).autocorrectionDisabled()
+                                                } else {
+                                                    SecureField(text: $password2, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).padding(.leading, 28).textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.password)
+                                                }
+                                                Button(action: {
+                                                    isPasswordVisible.toggle()
+                                                }) {
+                                                    Image(systemName: isPasswordVisible ? "eye" : "eye.slash").font(.system(size: 14))
+                                                }
+                                            }
+                                        }
+                                    }.padding(.vertical, 10).padding(.horizontal, 20).background(Color("SearchBar")).cornerRadius(5).padding(.vertical, 1).frame(maxWidth: .infinity).onTapGesture {
+                                        isFocused = true
+                                    }
                                 }
                                 Button(action: {
                                     //viewModel.signUp(inputs: [email2, password2], isToggled: $isToggled)
@@ -114,7 +150,7 @@ struct Login: View {
                     }
             }.tint(Color("BodyEmphasized")).onAppear{
                 shouldNavigate = false
-            }.removeFocusOnTap()
+            }
         }.navigationBarHidden(true).sheet(isPresented: $isFullScreen, content: {
                 SignUpBasic()
         })

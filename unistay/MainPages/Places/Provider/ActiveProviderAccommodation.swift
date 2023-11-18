@@ -106,13 +106,13 @@ struct ActiveProviderAccommodation: View {
                                 }
                                 Divider()
                                 if lang == "EN" {
-                                    Text(pub.description.en).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.en).customStyle(type: "Regular", size: 14)
                                 }
                                 if lang == "FR" {
-                                    Text(pub.description.fr).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.fr).customStyle(type: "Regular", size: 14)
                                 }
                                 if lang == "PT" {
-                                    Text(pub.description.pt).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.pt).customStyle(type: "Regular", size: 14)
                                 }
                             }
                             

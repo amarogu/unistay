@@ -37,9 +37,9 @@ struct TextInputField: View {
                     if placeholderText == "Password" || placeholderText == "Confirm your password" {
                         HStack {
                             if isPasswordVisible {
-                                TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                                TextField(text: $input, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).padding(.leading, padding).textInputAutocapitalization(.never).autocorrectionDisabled()
                             } else {
-                                SecureField(text: $input, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                                SecureField(text: $input, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).padding(.leading, padding).textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.newPassword)
                             }
                             Button(action: {
                                 isPasswordVisible.toggle()
@@ -48,7 +48,7 @@ struct TextInputField: View {
                             }
                         }
                     } else {
-                        TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never)
+                        TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never).autocorrectionDisabled()
                     }
                     //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
