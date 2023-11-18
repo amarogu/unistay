@@ -76,7 +76,7 @@ struct MenuItem: View {
                             Button(action: {
                                 showingData.toggle()
                             }) {
-                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16).underline()
+                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16)
                                 Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                             }.sheet(isPresented: $showingData) {
                                 MenuItemSheet(showingData: $showingData, titleIcon: menuItemData.descIcon, sheetTitle: menuItemData.sheetTitle ?? "", description: menuItemData.sheetDescription ?? "", action: menuItemData.action ?? "", fields: menuItemData.sheetFields ?? [], states: menuItemData.sheetStates ?? [])
@@ -92,7 +92,7 @@ struct MenuItem: View {
                                     }
                                 }
                             } label: {
-                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16).underline()
+                                Text(menuItemData.options[menuItemData.selectedItem]).customStyle(size: 16)
                                 Image(systemName: menuItemData.descIcon).foregroundColor(Color("Body"))
                             }
                         } else {
@@ -101,7 +101,7 @@ struct MenuItem: View {
                                 SessionManager.shared.isLoggedIn = false
                                 webSocket.disconnect()
                             }) {
-                                Text(menuItemData.options[0]).customStyle(size: 16).underline()
+                                Text(menuItemData.options[0]).customStyle(size: 16)
                             }
                         }
                         Spacer()
