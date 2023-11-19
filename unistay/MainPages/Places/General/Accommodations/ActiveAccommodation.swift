@@ -89,13 +89,13 @@ struct ActiveAccommodation: View {
                                 }
                                 Divider()
                                 if lang == "EN" {
-                                    Text(pub.description.en).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.en).customStyle(size: 14)
                                 }
                                 if lang == "FR" {
-                                    Text(pub.description.fr).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.fr).customStyle(size: 14)
                                 }
                                 if lang == "PT" {
-                                    Text(pub.description.pt).customStyle(type: "Semibold", size: 26)
+                                    Text(pub.description.pt).customStyle(size: 14)
                                 }
                             }
                             

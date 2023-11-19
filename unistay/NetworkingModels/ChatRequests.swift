@@ -149,6 +149,7 @@ func dropChat(_ chatId: String) async throws -> GeneralResponse {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
         NetworkManager.shared.request("\(Global.shared.apiUrl)chat/drop/?id=\(chatId)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
+            print(res)
             switch res.result {
             case .success(let value):
                 continuation.resume(returning: value)
@@ -166,6 +167,7 @@ func leaveChat(_ chatId: String) async throws -> GeneralResponse {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
         NetworkManager.shared.request("\(Global.shared.apiUrl)chat/leave/?id=\(chatId)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
+            print(res)
             switch res.result {
             case .success(let value):
                 continuation.resume(returning: value)

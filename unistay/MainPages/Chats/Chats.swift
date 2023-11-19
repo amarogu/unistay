@@ -14,6 +14,11 @@ struct Chats: View {
     @State var chatsArray: [Chat]? = []
     @State var user: User? = nil
     @EnvironmentObject var webSocket: WebSocketManager
+    
+    @State var title: String = ""
+    @State var msg: String = ""
+    @State var presented: Bool = false
+    
     var body: some View {
         ZStack(alignment: .top) {
                 List {
@@ -65,6 +70,36 @@ struct Chats: View {
                             Button(action: {
                                 print(chat.creator)
                                 print(user?._id)
+                                Task {
+                                    do {
+                                        if chat.creator == user?._id {
+                                            let res = try await dropChat(chat._id)
+                                            if res.message == "Chat deleted successfully" {
+                                                title = "Success"
+                                                msg = "This chat has been deleted and no other users in it can see it anymore"
+                                                presented = true
+                                                chatsArray?.removeAll(where: { $0._id == chat._id })
+                                            } else {
+                                                title = "Error"
+                                                msg = res.message
+                                                presented = true
+                                            }
+                                        } else {
+                                            let res = try await leaveChat(chat._id)
+                                            if res.message == "User removed from chat successfully" {
+                                                title = "Success"
+                                                msg = "You have left this chat and it will no longer show up for you"
+                                                presented = true
+                                            } else {
+                                                title = "Error"
+                                                msg = res.message
+                                                presented = true
+                                            }
+                                        }
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
                             }) {
                                 if chat.creator == user?._id {
                                     Image(systemName: "trash")
@@ -107,7 +142,13 @@ struct Chats: View {
                     chatsArray = fetchedChats
                 }
             }
-        }
+        }.alert(title, isPresented: $presented, actions: {
+            Button(action: {}) {
+                Text("Ok")
+            }
+        }, message: {
+            Text(msg).customStyle(size: 14)
+        })
 
         
     }
