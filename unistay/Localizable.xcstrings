@@ -364,6 +364,9 @@
         }
       }
     },
+    "Delete chat" : {
+
+    },
     "Description" : {
       "localizations" : {
         "pt-BR" : {
@@ -554,6 +557,9 @@
     },
     "Key" : {
       "extractionState" : "manual"
+    },
+    "Leave chat" : {
+
     },
     "Location" : {
       "localizations" : {

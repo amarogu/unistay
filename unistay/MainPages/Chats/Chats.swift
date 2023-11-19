@@ -61,6 +61,19 @@ struct Chats: View {
                                     }
                                 }
                             }.padding(.vertical, 10)
+                        }.contextMenu {
+                            Button(action: {
+                                print(chat.creator)
+                                print(user?._id)
+                            }) {
+                                if chat.creator == user?._id {
+                                    Image(systemName: "trash")
+                                    Text("Delete chat").customStyle(size: 14)
+                                } else {
+                                    Text("Leave chat").customStyle(size: 14)
+                                    Image(systemName: "trash")
+                                }
+                            }
                         }.listRowBackground(Color("BackgroundColor"))
                     }
                 }.padding(.top, 20).listStyle(.plain) // TODO: Check if this does not remove the chat that is being sent to the ActiveChat view
