@@ -143,3 +143,20 @@ func addUser(_ chatId: String, _ username: String) async throws -> GeneralRespon
     
     return res
 }
+
+func dropChat(_ chatId: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)chat/drop/?id=\(chatId)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
+            res in
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
