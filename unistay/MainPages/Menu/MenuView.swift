@@ -87,7 +87,7 @@ struct MenuView: View {
                 }
                 Spacer()
             }.padding(.bottom, tabSize)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor"))
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("BackgroundColor")).scrollIndicators(.hidden)
     }
 }
 

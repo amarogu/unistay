@@ -164,9 +164,9 @@ func postPublication(title: [String: String], description: [String: String], ren
                 multipartFormData.append(params, withName: "publication")
             }
             for img in images {
-                if let img = img.jpegData(compressionQuality: 0.6) {
+                if let img = img.jpegData(compressionQuality: 0.4) {
                     debugPrint(img)
-                    multipartFormData.append(img, withName: "images", fileName: "\(UUID()).jpg", mimeType: "image/png")
+                    multipartFormData.append(img, withName: "images", fileName: "\(UUID()).jpg", mimeType: "image/jpg")
                 }
             }
         }, to: "\(Global.shared.apiUrl)createpublication", method: .post).responseDecodable(of: PubResponse.self) {

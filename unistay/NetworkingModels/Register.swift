@@ -101,8 +101,8 @@ class Register: ObservableObject {
                 multipartFormData.append(publicationData, withName: "publicationData")
                 multipartFormData.append(profilePicture, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
                 for img in images {
-                    if let img = img.pngData() {
-                        multipartFormData.append(img, withName: "images", fileName: "\(UUID()).png", mimeType: "image/png")
+                    if let img = img.jpegData(compressionQuality: 0.4) {
+                        multipartFormData.append(img, withName: "images", fileName: "\(UUID()).jpg", mimeType: "image/jpg")
                     }
                 }
             }
