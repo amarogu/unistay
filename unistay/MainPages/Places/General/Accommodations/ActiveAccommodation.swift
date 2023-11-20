@@ -164,8 +164,10 @@ struct ActiveAccommodation: View {
                                 Button(action: {
                                     Task {
                                         do {
+                                            
+                                            print(connectedUsers.contains(where: { $0._id == user._id }))
                                             if let id = pub?._id {
-                                                if connected {
+                                                if connectedUsers.contains(where: { $0._id == user._id }) == true {
                                                     let res = try await disconnectUser(id)
                                                     DispatchQueue.main.async {
                                                         if res.message != "User disconnected from publication successfully" {
@@ -191,6 +193,7 @@ struct ActiveAccommodation: View {
                                                             responseAlert = "Connected to this publication"
                                                             isAlertOn = true
                                                             connectedUsers.append(Participant(_id: user._id, username: user.username))
+                                                            
                                                         }
                                                     }
                                                 }
@@ -202,6 +205,30 @@ struct ActiveAccommodation: View {
                                     }
                                 }) {
                                     Text(connected ? "Disconnect" : "Connect").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                }
+                                if connected {
+                                    Button(action: {
+                                        Task {
+                                            do {
+                                                let res = try await requestPublication(pub?._id ?? "")
+                                                DispatchQueue.main.async {
+                                                    if res.message == "Request sent successfully" {
+                                                        responseAlert = "You have submitted a request for this place. You should hear back from the landlord soon."
+                                                        responseAlertTitle = "Success"
+                                                        isAlertOn = true
+                                                    } else {
+                                                        responseAlert = "An error occurred while making this request."
+                                                        responseAlertTitle = "Error"
+                                                        isAlertOn = true
+                                                    }
+                                                }
+                                            } catch {
+                                                print(error)
+                                            }
+                                        }
+                                    }) {
+                                        Text("Request").customStyle(size: 14, color: "BodyAccent").padding(.horizontal, 24).padding(.vertical, 14).background(Color("AccentColor")).cornerRadius(5)
+                                    }
                                 }
                             }
                         }
@@ -229,6 +256,9 @@ struct ActiveAccommodation: View {
                         let result = try await fetchConnectedUsers(pub?._id ?? "")
                         for user in result {
                             connectedUsers.append(user)
+                        }
+                        if connectedUsers.contains(where: { $0._id == user._id }) == true {
+                            connected = true
                         }
                     } catch {
                         connectedUsers = []

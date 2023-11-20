@@ -769,6 +769,9 @@
         }
       }
     },
+    "Request" : {
+
+    },
     "Roommates" : {
       "localizations" : {
         "pt-BR" : {
