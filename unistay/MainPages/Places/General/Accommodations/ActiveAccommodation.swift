@@ -31,6 +31,7 @@ struct ActiveAccommodation: View {
     @State var pubOwner: String = ""
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     @State var connected: Bool = false
+    @State var requests: [String] = []
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -134,8 +135,13 @@ struct ActiveAccommodation: View {
                                 Spacer()
                             }.padding(.top, 10)
                         }.padding(.top, 16)
+                        if requests.contains(where: {$0 == user._id}) == true {
+                            HStack {
+                                Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.green)
+                                Text("You have requested this place! You will hear back from the landlord soon.").customStyle(size: 14)
+                            }.padding(.top, 16)
+                        }
                     }.padding(.horizontal, 20).padding(.vertical, 18)
-                    
                     Spacer()
                     Divider()
                     VStack {
@@ -179,6 +185,7 @@ struct ActiveAccommodation: View {
                                                             responseAlert = "Disconnected from this publication"
                                                             isAlertOn = true
                                                             connectedUsers.removeAll(where: { $0._id == user._id })
+                                                            requests.removeAll(where: {$0 == user._id})
                                                         }
                                                     }
                                                 } else {
@@ -216,6 +223,7 @@ struct ActiveAccommodation: View {
                                                         responseAlert = "You have submitted a request for this place. You should hear back from the landlord soon."
                                                         responseAlertTitle = "Success"
                                                         isAlertOn = true
+                                                        requests.append(user._id)
                                                     } else {
                                                         responseAlert = "An error occurred while making this request."
                                                         responseAlertTitle = "Error"
@@ -245,6 +253,7 @@ struct ActiveAccommodation: View {
             Text(responseAlert)
         })
         .onAppear {
+            requests = pub?.requests ?? []
             for saved in user.savedPublications {
                 if pub?._id == saved {
                     isFav = true

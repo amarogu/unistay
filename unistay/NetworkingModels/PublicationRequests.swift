@@ -52,9 +52,12 @@ class AccommodationResponse: Decodable, Hashable {
     let images: [String]
     let location: PubLocation
     let rating: Int
+    let acceptedRequests: [String]
+    let requests: [String]
+    let reviews: [String]
     let __v: Int
     
-    init(_id: String, title: Title, description: Description, rent: Int, currency: String, type: String, postLanguage: String, owner: String, visibility: String, chats: [String], connectedUsers: [String], images: [String], location: PubLocation, rating: Int, __v: Int) {
+    init(_id: String, title: Title, description: Description, rent: Int, currency: String, type: String, postLanguage: String, owner: String, visibility: String, chats: [String], connectedUsers: [String], images: [String], location: PubLocation, rating: Int, acceptedRequests: [String], requests: [String], reviews: [String], __v: Int) {
         self._id = _id
         self.title = title
         self.description = description
@@ -69,11 +72,14 @@ class AccommodationResponse: Decodable, Hashable {
         self.images = images
         self.location = location
         self.rating = rating
+        self.acceptedRequests = acceptedRequests
+        self.requests = requests
+        self.reviews = reviews
         self.__v = __v
     }
     
     enum CodingKeys: String, CodingKey {
-        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, rating, __v
+        case _id, title, description, rent, currency, type, postLanguage, owner, visibility, chats, connectedUsers, images, location, rating, acceptedRequests, requests, reviews, __v
     }
     
     func hash(into hasher: inout Hasher) {
@@ -224,7 +230,7 @@ func getNearestTo(_ lat: Double, _ lng: Double) async throws -> [AccommodationRe
 func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)", method: .put).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
             print("\(Global.shared.apiUrl)publication/save/?id=\(id)&add=\(add)")
             switch res.result {
@@ -242,7 +248,7 @@ func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse 
 func requestPublication(_ id: String) async throws -> GeneralResponse {
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/request/?id=\(id)", method: .put).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/request/?id=\(id)", method: .put, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
             print("\(Global.shared.apiUrl)publication/request/?id=\(id)")
             switch res.result {
