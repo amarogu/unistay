@@ -16,7 +16,6 @@ struct AccomodationsGroup: View {
     @Binding var pub: [AccommodationResponse?]
     @Binding var searchText: String
     @Binding var pickedLocCoordinates: [CLLocationDegrees?]
-    @GestureState var isPressed = false
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -28,15 +27,8 @@ struct AccomodationsGroup: View {
                         VStack {
                             ForEach(pub, id: \.self) { pubItem in
                                 if ((pub.firstIndex(of: pubItem)! + 1) % 2 != 0) {
-                                    Button(action: {
-                                        
-                                    }) {
+                                    
                                         Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
-                                    }.scaleEffect(isPressed ? 0.8 : 1).animation(.easeInOut, value: isPressed).simultaneousGesture(LongPressGesture().updating($isPressed) {
-                                        currentState, gestureState, transaction in
-                                        gestureState = currentState
-                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    })
                                 }
                             }
                         }
@@ -44,15 +36,9 @@ struct AccomodationsGroup: View {
                         VStack {
                             ForEach(pub, id: \.self) { pubItem in
                                 if ((pub.firstIndex(of: pubItem)! + 1) % 2 == 0) {
-                                    Button(action: {
-                                        
-                                    }) {
+                                    
                                         Accomodation(pub: pubItem, size: size, padding: size <= 400 ? 3 : 8)
-                                    }.scaleEffect(isPressed ? 0.8 : 1).animation(.easeInOut, value: isPressed).simultaneousGesture(LongPressGesture().updating($isPressed) {
-                                        currentState, gestureState, transaction in
-                                        gestureState = currentState
-                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    })
+                                    
                                 }
                             }
                         }.padding(.top, 30)

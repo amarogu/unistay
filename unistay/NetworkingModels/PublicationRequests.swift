@@ -238,3 +238,39 @@ func savePublication(_ id: String, _ add: Bool) async throws -> GeneralResponse 
     
     return res
 }
+
+func requestPublication(_ id: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/request/?id=\(id)", method: .put).responseDecodable(of: GeneralResponse.self) {
+            res in
+            print("\(Global.shared.apiUrl)publication/request/?id=\(id)")
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
+
+func acceptRequest(_ id: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/acceptrequest/?id=\(id)", method: .put).responseDecodable(of: GeneralResponse.self) {
+            res in
+            print("\(Global.shared.apiUrl)publication/acceptrequest/?id=\(id)")
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}
