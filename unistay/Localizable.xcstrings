@@ -772,6 +772,9 @@
     "Request" : {
 
     },
+    "Revoke request" : {
+
+    },
     "Roommates" : {
       "localizations" : {
         "pt-BR" : {

@@ -136,9 +136,16 @@ struct ActiveAccommodation: View {
                             }.padding(.top, 10)
                         }.padding(.top, 16)
                         if requests.contains(where: {$0 == user._id}) == true {
-                            HStack {
-                                Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.green)
-                                Text("You have requested this place! You will hear back from the landlord soon.").customStyle(size: 14)
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack(alignment: .top) {
+                                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.green)
+                                    Text("You have requested this place! You will hear back from the landlord soon.").customStyle(size: 14)
+                                }
+                                Button(action: {
+                                    requests.removeAll(where: {$0 == user._id})
+                                }) {
+                                    Text("Revoke request").customStyle(size: 14, color: "Error")
+                                }
                             }.padding(.top, 16)
                         }
                     }.padding(.horizontal, 20).padding(.vertical, 18)
