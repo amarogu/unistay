@@ -280,3 +280,22 @@ func acceptRequest(_ id: String) async throws -> GeneralResponse {
     
     return res
 }
+
+func revokeRequest(_ id: String) async throws -> GeneralResponse {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<GeneralResponse, Error>) in
+        print("\(Global.shared.apiUrl)publication/revokerequest/?id=\(id)")
+        NetworkManager.shared.request("\(Global.shared.apiUrl)publication/revokerequest/?id=\(id)", method: .put).responseDecodable(of: GeneralResponse.self) {
+            res in
+            print(res)
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}

@@ -142,7 +142,27 @@ struct ActiveAccommodation: View {
                                     Text("You have requested this place! You will hear back from the landlord soon.").customStyle(size: 14)
                                 }
                                 Button(action: {
-                                    requests.removeAll(where: {$0 == user._id})
+                                    Task {
+                                        do {
+                                            let res = try await revokeRequest(pub?._id ?? "")
+                                            if res.message == "Request revoked successfully" {
+                                                responseAlertTitle = "Success"
+                                                responseAlert = "You have successfully revoked this request"
+                                                isAlertOn = true
+                                                requests.removeAll(where: {$0 == user._id})
+                                            } else if res.message == "User has not requested this publication" {
+                                                responseAlertTitle = "Error"
+                                                responseAlert = "You have not requested a stay here"
+                                                isAlertOn = true
+                                            } else {
+                                                responseAlertTitle = "Error"
+                                                responseAlert = "An error occurred"
+                                                isAlertOn = true
+                                            }
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
                                 }) {
                                     Text("Revoke request").customStyle(size: 14, color: "Error")
                                 }
