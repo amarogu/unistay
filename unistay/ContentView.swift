@@ -126,6 +126,7 @@ struct ContentView: View {
                             _, _ in
                         }
                         webSocket.receiveNewConnection()
+                        webSocket.receiveRequest()
                     }
                 } else if let error = error {
                     print(error)

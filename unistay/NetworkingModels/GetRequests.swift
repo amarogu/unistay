@@ -121,11 +121,34 @@ class NewConnection: Decodable, Hashable, Identifiable, ObservableObject {
     }
 }
 
+class NewRequest: Decodable, Hashable, Identifiable, ObservableObject {
+    var id: UUID = UUID()
+    let user: User
+    let publication: AccommodationResponse
+    
+    enum CodingKeys: String, CodingKey {
+        case user, publication
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: NewRequest, rhs: NewRequest) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 class WebSocketManager: ObservableObject {
     let manager: SocketManager
+    
     @Published var newConn: Bool = false
     @Published var newConnArray: [NewConnection] = []
+    
     @Published var fetchChat: Bool = false
+    
+    @Published var newReq: Bool = false
+    @Published var newReqArray: [NewRequest] = []
     
     init() {
         let socketURL = URL(string: "http://api.unistay.studio:8080")!
@@ -154,6 +177,27 @@ class WebSocketManager: ObservableObject {
         
     }
     
+    func receiveRequest() {
+        let socket = manager.defaultSocket
+        socket.on("newRequest") {
+            data, _ in
+            guard let reqData = data[0] as? [String: Any] else {
+                print("Unable to convert data to message")
+                return
+            }
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: reqData, options: .prettyPrinted)
+                let decodedReq = try JSONDecoder().decode(NewRequest.self, from: jsonData)
+                DispatchQueue.main.async {
+                    self.newReq = true
+                    self.newReqArray.append(decodedReq)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func receiveNewConnection() {
         let socket = manager.defaultSocket
                 socket.on("newConn") {
@@ -171,7 +215,7 @@ class WebSocketManager: ObservableObject {
                             self.newConnArray.append(decodedNewConn)
                         }
                     } catch {
-                        
+                        print(error)
                     }
                 }
     }
