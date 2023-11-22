@@ -128,6 +128,7 @@ struct ProviderActivity: View {
                             }
                         })
                     }
+                    Divider()
                     ZStack(alignment: .top) {
                         ScrollView {
                             VStack {
