@@ -18,12 +18,18 @@ struct tabItem: View {
     @State var isActive: Bool = false
     
     @State var notified: Bool = false
+    @State var chatNotified: Bool = false
     var body: some View {
         VStack {
             Button(action: {
                 selectedTab = option
                 isActive.toggle()
-                notified = false
+                if option == "Places" {
+                    notified = false
+                } else {
+                    chatNotified = false
+                }
+                
             }) {
                 VStack(spacing: 8) {
                     if (option == "Places") {
@@ -34,21 +40,31 @@ struct tabItem: View {
                             Image(systemName: "house").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                         }
                     } else if (option == "Chats") {
-                        Image(systemName: "bubble.left.and.bubble.right").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
+                        VStack {
+                            if chatNotified {
+                                Circle().frame(width: 8, height: 8).foregroundStyle(Color("Error")).transformEffect(.init(translationX: 14, y: 10))
+                            }
+                            Image(systemName: "bubble.left.and.bubble.right").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
+                        }
                     } else if (option == "Profile") {
                         Image(systemName: "person.crop.circle").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     } else {
                         Image(systemName: "line.3.horizontal").resizable().aspectRatio(contentMode: .fit).frame(width: 22).tint(Color("BodyEmphasized"))
                     }
-                    HStack {
-                        Text(option).customStyle(size: 14)
-                        
-                    }
+                    Text(option).customStyle(size: 14)
                 }
             }.symbolEffect(.bounce.up.byLayer, value: isActive)
         }.frame(maxWidth: .infinity).onChange(of: webSocket.newConnArray) {
             _ in
             notified = true
+        }.onChange(of: webSocket.newReqArray) {
+            _ in
+            notified = true
+        }.onReceive(webSocket.$fetchChat) {
+            fetchChat in
+            if fetchChat {
+                chatNotified = true
+            }
         }
     }
 }

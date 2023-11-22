@@ -630,6 +630,9 @@
         }
       }
     },
+    "New requests" : {
+
+    },
     "New user connected:" : {
       "localizations" : {
         "pt-BR" : {
@@ -639,6 +642,9 @@
           }
         }
       }
+    },
+    "New user request:" : {
+
     },
     "No accommodations found with the selected filters." : {
       "localizations" : {

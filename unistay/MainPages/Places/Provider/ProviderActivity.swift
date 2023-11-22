@@ -131,14 +131,14 @@ struct ProviderActivity: View {
                     ZStack(alignment: .top) {
                         ScrollView {
                             VStack {
-                                ForEach(webSocket.newConnArray) {
+                                ForEach(webSocket.newReqArray) {
                                     newConn in
                                     NavigationLink(destination: ActiveProviderAccommodation(pub: newConn.publication, location: [name, country], user: user), label: {
                                         HStack(spacing: 14) {
                                             VStack(alignment: .leading, spacing: 8) {
                                                 HStack(spacing: 4) {
-                                                    Text("New user connected:").customStyle(size: 14, color: "BodyAccent")
-                                                    Text(newConn.newUser.name).customStyle(size: 14, color: "BodyAccent")
+                                                    Text("New user request:").customStyle(size: 14, color: "BodyAccent")
+                                                    Text(newConn.user.name).customStyle(size: 14, color: "BodyAccent")
                                                 }.padding(.vertical, 2).padding(.horizontal, 8).background(Color("AccentColor")).cornerRadius(5)
                                                 if lang == "EN" {
                                                     Text(newConn.publication.description.en).customStyle(size: 14, color: "Body").lineLimit(2).multilineTextAlignment(.leading)
@@ -183,7 +183,7 @@ struct ProviderActivity: View {
                         }
                         VStack {
                             HStack {
-                                Text("New connections").customStyle(type: "Semibold", size: 14)
+                                Text("New requests").customStyle(type: "Semibold", size: 14)
                                 Spacer()
                             }
                         }.frame(maxWidth: .infinity).background(GeometryReader {
