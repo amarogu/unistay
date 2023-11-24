@@ -365,7 +365,14 @@
       }
     },
     "Delete chat" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar chat"
+          }
+        }
+      }
     },
     "Description" : {
       "localizations" : {
@@ -378,7 +385,14 @@
       }
     },
     "Disconnect" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desconectar"
+          }
+        }
+      }
     },
     "Done" : {
       "localizations" : {
@@ -447,9 +461,6 @@
           }
         }
       }
-    },
-    "feature" : {
-
     },
     "Forgot your password" : {
       "localizations" : {
@@ -559,7 +570,14 @@
       "extractionState" : "manual"
     },
     "Leave chat" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair do chat"
+          }
+        }
+      }
     },
     "Location" : {
       "localizations" : {
@@ -604,6 +622,16 @@
         }
       }
     },
+    "Menu" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        }
+      }
+    },
     "Name" : {
       "localizations" : {
         "fr" : {
@@ -631,7 +659,14 @@
       }
     },
     "New requests" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novas reservas"
+          }
+        }
+      }
     },
     "New user connected:" : {
       "localizations" : {
@@ -644,7 +679,14 @@
       }
     },
     "New user request:" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova reserva:"
+          }
+        }
+      }
     },
     "No accommodations found with the selected filters." : {
       "localizations" : {
@@ -657,7 +699,14 @@
       }
     },
     "Ok" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
     },
     "OK" : {
       "localizations" : {
@@ -692,6 +741,16 @@
         }
       }
     },
+    "Places" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lugares"
+          }
+        }
+      }
+    },
     "Portuguese" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -714,6 +773,9 @@
           }
         }
       }
+    },
+    "Profile" : {
+
     },
     "Profile picture and bio" : {
       "localizations" : {
@@ -776,10 +838,24 @@
       }
     },
     "Request" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reservar"
+          }
+        }
+      }
     },
     "Revoke request" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revogar reserva"
+          }
+        }
+      }
     },
     "Roommates" : {
       "localizations" : {
@@ -990,8 +1066,15 @@
         }
       }
     },
-    "This is a work-in-progress" : {
-
+    "This is a work-in-progress \nfeature" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em desenvolvimento"
+          }
+        }
+      }
     },
     "This username is available" : {
       "localizations" : {
@@ -1175,7 +1258,14 @@
       }
     },
     "You have requested this place! You will hear back from the landlord soon." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você reservou este lugar! Você será contatado pelo locador em breve."
+          }
+        }
+      }
     },
     "You need to provide your location" : {
       "localizations" : {

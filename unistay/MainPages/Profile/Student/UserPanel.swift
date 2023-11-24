@@ -141,7 +141,7 @@ struct UserPanel: View {
                 ZStack(alignment: .top) {
                     
                     Rectangle().frame(maxWidth: .infinity, maxHeight: selectionHeight).foregroundColor(.clear)
-                    Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight).blur(radius: 4.5).opacity(0.6)
+                    Suggestion(width: width).padding(.bottom, 20).padding(.top, selectionHeight + 20).blur(radius: 4.5).opacity(0.6)
                         
                     
                     Selection(viewOptions: viewOptions, selectedView: $selectedView).padding(.bottom, 20).padding(.top, 10).background(GeometryReader {
@@ -155,8 +155,7 @@ struct UserPanel: View {
                     
                     VStack {
                         Spacer()
-                        Text("This is a work-in-progress").customStyle(size: 14)
-                        Text("feature").customStyle(size: 14).padding(.bottom, 12)
+                        Text("This is a work-in-progress \nfeature").customStyle(size: 14).multilineTextAlignment(.center).padding(.bottom, 8)
                         Image(systemName: "lock.circle")
                         Spacer()
                     }.frame(maxHeight: .infinity)

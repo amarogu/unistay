@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct tabItem: View {
-    @Binding private var selectedTab: String
-    var option: String
-    init(selectedTab: Binding<String>, option: String) {
+    @Binding private var selectedTab: LocalizedStringKey
+    var option: LocalizedStringKey
+    init(selectedTab: Binding<LocalizedStringKey>, option: LocalizedStringKey) {
         self._selectedTab = selectedTab
         self.option = option
     }

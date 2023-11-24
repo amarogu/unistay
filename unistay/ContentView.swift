@@ -37,8 +37,8 @@ struct ContentView: View {
     @State private var isMenuOpen = false
     var viewOptions = ["Recommended", "Saved", "Connected"]
     @State private var selectedView: String = "Recommended"
-    var views = ["Places", "Chats", "Profile", "Menu"]
-    @State private var selectedTab = "Places"
+    var views: [LocalizedStringKey] = ["Places", "Chats", "Profile", "Menu"]
+    @State private var selectedTab: LocalizedStringKey = "Places"
     @State private var tabSize: CGFloat = 0
     @Binding var isLoggedIn: Bool
     @StateObject var user: User = User()
@@ -62,9 +62,10 @@ struct ContentView: View {
                         Chats(user: user)
                     }
                     HStack(alignment: .bottom) {
-                        ForEach(views, id:\.self) {
+                        ForEach(views.indices, id:\.self) {
                             option in
-                            unistay.tabItem(selectedTab: $selectedTab, option: option)
+                            let optionString = views[option]
+                            unistay.tabItem(selectedTab: $selectedTab, option: optionString)
                         }
                     }.padding(.bottom, 38).padding(.top, 58).background(GeometryReader {
                         geo in
@@ -85,9 +86,10 @@ struct ContentView: View {
                         Chats(user: user)
                     }
                     HStack(alignment: .bottom) {
-                        ForEach(views, id:\.self) {
+                        ForEach(views.indices, id:\.self) {
                             option in
-                            unistay.tabItem(selectedTab: $selectedTab, option: option)
+                            let optionString = views[option]
+                            unistay.tabItem(selectedTab: $selectedTab, option: optionString)
                         }
                     }.padding(.bottom, 38).padding(.top, 58).background(GeometryReader {
                         geo in

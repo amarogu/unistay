@@ -71,7 +71,10 @@ struct ActiveAccommodation: View {
                                 if let name = location[0], let country = location[1] {
                                     HStack {
                                         Image(systemName: "location.circle").font(.system(size: 14))
-                                        Text("\(name), \(country)").customStyle(size: 14)
+                                        HStack {
+                                            Text("\(name), \(country)").customStyle(size: 14)
+                                            Spacer()
+                                        }.frame(maxWidth: 240).padding(.leading, 10)
                                         Spacer()
                                         NavigationLink(destination: ExtraneousUserPanel(userId: pub.owner, tabSize: size.width, pub: pub), label: {
                                             Text("by \(pubOwner)").customStyle(size: 14).onAppear {
@@ -86,7 +89,7 @@ struct ActiveAccommodation: View {
                                                 }
                                             }
                                         })
-                                    }.padding(.bottom, 8)
+                                    }.padding(.vertical, 8)
                                 }
                                 Divider()
                                 if lang == "EN" {
