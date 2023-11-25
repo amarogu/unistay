@@ -177,6 +177,14 @@ struct ExtraneousUserPanel: View {
                 }.frame(maxWidth: 300)
                 Spacer()
             }.frame(maxWidth: .infinity, maxHeight: .infinity).presentationDetents([user?.bio.count ?? 0 < 110 ? .fraction(0.35) : .medium, .medium, .large])
+        }).alert(responseAlertTitle, isPresented: $isAlertOn, actions: {
+            Button(role: .cancel, action: {
+                
+            }) {
+                Text("OK")
+            }
+        }, message: {
+            Text(responseAlert)
         }).onAppear {
             Task {
                 do {
