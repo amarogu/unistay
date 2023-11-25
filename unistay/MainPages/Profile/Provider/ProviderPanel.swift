@@ -40,8 +40,8 @@ struct ProviderPanel: View {
     @State var description: String = "Hhahahahhahahahhahahhahahahahhahahahahahhahahhahahahhahahahhahahahhahahhahaha"
     @State var rent: String = "1479"
     
-    @State var responseAlert: String = ""
-    @State var responseAlertTitle: String = ""
+    @State var responseAlert: LocalizedStringKey = ""
+    @State var responseAlertTitle: LocalizedStringKey = ""
     @State var isAlertOn: Bool = false
     
     @State var newPubSheet: Bool = false
@@ -290,7 +290,7 @@ struct ProviderPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             isAlertOn = true
                                             self.user.username = title
                                         case .error(let error):
@@ -319,7 +319,7 @@ struct ProviderPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             self.user.name = description
                                             isAlertOn = true
                                         case .error(let error):
@@ -345,7 +345,7 @@ struct ProviderPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             self.user.surname = rent
                                             isAlertOn = true
                                         case .error(let error):
@@ -371,7 +371,7 @@ struct ProviderPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             self.user.bio = updatedBio
                                             isAlertOn = true
                                         case .error(let error):

@@ -15,8 +15,8 @@ struct NewPublicationView: View {
     @Binding var title: String
     @Binding var description: String
     @Binding var rent: String
-    @Binding var responseAlert: String
-    @Binding var responseAlertTitle: String
+    @Binding var responseAlert: LocalizedStringKey
+    @Binding var responseAlertTitle: LocalizedStringKey
     @Binding var isAlertOn: Bool
     @Binding var menuSelection: String
     @Binding var typeSelection: String
@@ -34,8 +34,8 @@ struct NewPublicationView: View {
     var visibility: [String] = ["Visible", "Invisible"]
     @Binding var pub: [AccommodationResponse]
     @State private var showAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var alertTitle: LocalizedStringKey = ""
+    @State private var alertMessage: LocalizedStringKey = ""
     @EnvironmentObject var user: User
     
     @State var isAboutExpanded: Bool = false
@@ -74,7 +74,7 @@ struct NewPublicationView: View {
                                             let res = try await postPublication(title: ["original": title, "en": "", "pt": "", "fr": ""], description: ["original": description, "en": "", "pt": "", "fr": ""], rent: Double(rent) ?? 0, currency: menuSelection, type: typeSelection, postLanguage: "en", visibility: publicationVisibility, pubLoc: pickedLocCoordinates, images: array)
                                             isAlertOn = true
                                             responseAlertTitle = "Success"
-                                            responseAlert = res.message
+                                            responseAlert = LocalizedStringKey(res.message)
                                             pub = []
                                             do {
                                                 let res = try await getYourPubs(user._id)

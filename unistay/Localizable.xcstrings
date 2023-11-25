@@ -164,6 +164,21 @@
         }
       }
     },
+    "An error occurre while reviewing this place." : {
+
+    },
+    "An error occurred" : {
+
+    },
+    "An error occurred while creating this chat" : {
+
+    },
+    "An error occurred while making this request." : {
+
+    },
+    "An error occurred while uploading your accommodation. Please try again." : {
+
+    },
     "Been here? Review this place!" : {
 
     },
@@ -306,6 +321,9 @@
         }
       }
     },
+    "Connected to this publication" : {
+
+    },
     "Connected users" : {
       "localizations" : {
         "pt-BR" : {
@@ -346,6 +364,12 @@
         }
       }
     },
+    "Could not disconnect you from this publication" : {
+
+    },
+    "Could not update your photo" : {
+
+    },
     "Create a publication" : {
       "localizations" : {
         "pt-BR" : {
@@ -376,6 +400,9 @@
         }
       }
     },
+    "Data updated successfully" : {
+
+    },
     "Delete chat" : {
       "localizations" : {
         "pt-BR" : {
@@ -405,6 +432,9 @@
           }
         }
       }
+    },
+    "Disconnected from this publication" : {
+
     },
     "Done" : {
       "localizations" : {
@@ -474,6 +504,12 @@
         }
       }
     },
+    "Error" : {
+
+    },
+    "Error code: %lld" : {
+
+    },
     "Forgot your password" : {
       "localizations" : {
         "pt-BR" : {
@@ -531,6 +567,9 @@
           }
         }
       }
+    },
+    "Go to chats to start chatting with this person" : {
+
     },
     "Group" : {
       "localizations" : {
@@ -763,6 +802,12 @@
         }
       }
     },
+    "Please select a location." : {
+
+    },
+    "Please select at least three pictures." : {
+
+    },
     "Portuguese" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -837,7 +882,14 @@
       }
     },
     "Rating" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avaliação"
+          }
+        }
+      }
     },
     "Recommended" : {
       "localizations" : {
@@ -1007,6 +1059,9 @@
         }
       }
     },
+    "Something went wrong. Please try again." : {
+
+    },
     "Start a chat with this person" : {
       "localizations" : {
         "pt-BR" : {
@@ -1016,6 +1071,9 @@
           }
         }
       }
+    },
+    "Success" : {
+
     },
     "Successfully registered" : {
       "localizations" : {
@@ -1057,6 +1115,9 @@
           }
         }
       }
+    },
+    "The username already exists. Please try a different one" : {
+
     },
     "There are no users connected." : {
       "localizations" : {
@@ -1157,6 +1218,9 @@
           }
         }
       }
+    },
+    "Unknown error" : {
+
     },
     "Update you profile picture" : {
       "localizations" : {
@@ -1279,7 +1343,23 @@
         }
       }
     },
+    "You are already connected to this publication" : {
+
+    },
+    "You have already reviewed this place" : {
+
+    },
     "You have already reviewed this place." : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você já avaliou este lugar"
+          }
+        }
+      }
+    },
+    "You have not requested a stay here" : {
 
     },
     "You have requested this place! You will hear back from the landlord soon." : {
@@ -1292,6 +1372,15 @@
         }
       }
     },
+    "You have reviewed this place!" : {
+
+    },
+    "You have submitted a request for this place. You should hear back from the landlord soon." : {
+
+    },
+    "You have successfully revoked this request" : {
+
+    },
     "You need to provide your location" : {
       "localizations" : {
         "pt-BR" : {
@@ -1302,6 +1391,12 @@
         }
       }
     },
+    "Your bio needs to be at least 10 characters long" : {
+
+    },
+    "Your name needs to be at least 3 characters long" : {
+
+    },
     "Your publications" : {
       "localizations" : {
         "pt-BR" : {
@@ -1311,6 +1406,9 @@
           }
         }
       }
+    },
+    "Your surname needs to be at least 3 characters long" : {
+
     }
   },
   "version" : "1.0"

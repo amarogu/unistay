@@ -38,8 +38,8 @@ struct ExtraneousUserPanel: View {
     @State var updatedName: String = ""
     @State var updatedSurname: String = ""
     
-    @State var responseAlert: String = ""
-    @State var responseAlertTitle: String = ""
+    @State var responseAlert: LocalizedStringKey = ""
+    @State var responseAlertTitle: LocalizedStringKey = ""
     @State var isAlertOn: Bool = false
     
     @State var chatting: Bool = false

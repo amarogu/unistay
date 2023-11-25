@@ -38,8 +38,8 @@ struct UserPanel: View {
     @State var updatedName: String = ""
     @State var updatedSurname: String = ""
     
-    @State var responseAlert: String = ""
-    @State var responseAlertTitle: String = ""
+    @State var responseAlert: LocalizedStringKey = ""
+    @State var responseAlertTitle: LocalizedStringKey = ""
     @State var isAlertOn: Bool = false
     
     var body: some View {
@@ -217,7 +217,7 @@ struct UserPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             getUser {
                                                 userData, _ in
                                                 if let userData = userData {
@@ -251,7 +251,7 @@ struct UserPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             getUser {
                                                 userData, _ in
                                                 if let userData = userData {
@@ -282,7 +282,7 @@ struct UserPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             getUser {
                                                 userData, _ in
                                                 if let userData = userData {
@@ -313,7 +313,7 @@ struct UserPanel: View {
                                         switch result {
                                         case .response(let response):
                                             responseAlertTitle = "Success"
-                                            responseAlert = response.message
+                                            responseAlert = LocalizedStringKey(response.message)
                                             getUser {
                                                 userData, _ in
                                                 if let userData = userData {

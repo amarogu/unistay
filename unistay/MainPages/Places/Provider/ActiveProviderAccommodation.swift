@@ -13,8 +13,8 @@ import PhotosUI
 import MapKit
 
 struct ActiveProviderAccommodation: View {
-    @State var responseAlertTitle: String = ""
-    @State var responseAlert: String = ""
+    @State var responseAlertTitle: LocalizedStringKey = ""
+    @State var responseAlert: LocalizedStringKey = ""
     @State var isAlertOn: Bool = false
     @State private var currentPage: Int = 0
     var pub: AccommodationResponse?
