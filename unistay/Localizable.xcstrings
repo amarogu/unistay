@@ -165,35 +165,84 @@
       }
     },
     "An error occurre while reviewing this place." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro ocorreu ao avaliar este local"
+          }
+        }
+      }
     },
     "An error occurred" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro ocorreu"
+          }
+        }
+      }
     },
     "An error occurred while creating this chat" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro ocorreu ao criar este chat"
+          }
+        }
+      }
     },
     "An error occurred while making this request." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro ocorreu ao fazer essa reserva."
+          }
+        }
+      }
     },
     "An error occurred while uploading your accommodation. Please try again." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro ocorreu ao enviar sua acomodação. Por favor tente novamente."
+          }
+        }
+      }
     },
     "Been here? Review this place!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esteve aqui? Avalie este lugar!"
+          }
+        }
+      }
     },
     "by %@" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "by %@"
+            "value" : "Por %@"
           }
         }
       }
     },
     "By %@" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por %@"
+          }
+        }
+      }
     },
     "Cancel" : {
       "localizations" : {
@@ -256,10 +305,24 @@
       }
     },
     "Comment" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comentário"
+          }
+        }
+      }
     },
     "Comment:" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comentário:"
+          }
+        }
+      }
     },
     "Confirm" : {
       "localizations" : {
@@ -322,7 +385,14 @@
       }
     },
     "Connected to this publication" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você conectou-se a esta publicação"
+          }
+        }
+      }
     },
     "Connected users" : {
       "localizations" : {
@@ -365,10 +435,24 @@
       }
     },
     "Could not disconnect you from this publication" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível te desconectar desta publicação"
+          }
+        }
+      }
     },
     "Could not update your photo" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível atualizar sua foto"
+          }
+        }
+      }
     },
     "Create a publication" : {
       "localizations" : {
@@ -401,7 +485,14 @@
       }
     },
     "Data updated successfully" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dado atualizado com sucesso"
+          }
+        }
+      }
     },
     "Delete chat" : {
       "localizations" : {
@@ -434,7 +525,14 @@
       }
     },
     "Disconnected from this publication" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você desconectou desta publicação"
+          }
+        }
+      }
     },
     "Done" : {
       "localizations" : {
@@ -505,10 +603,24 @@
       }
     },
     "Error" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
+          }
+        }
+      }
     },
     "Error code: %lld" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código do erro: %lld"
+          }
+        }
+      }
     },
     "Forgot your password" : {
       "localizations" : {
@@ -569,7 +681,14 @@
       }
     },
     "Go to chats to start chatting with this person" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vá para chats para começar a conversar com esta pessoa"
+          }
+        }
+      }
     },
     "Group" : {
       "localizations" : {
@@ -803,10 +922,24 @@
       }
     },
     "Please select a location." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor selecione uma localização."
+          }
+        }
+      }
     },
     "Please select at least three pictures." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor selecione ao menos três imagens"
+          }
+        }
+      }
     },
     "Portuguese" : {
       "extractionState" : "manual",
@@ -1117,7 +1250,14 @@
       }
     },
     "The username already exists. Please try a different one" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O nome de usuário já existe. Por favor tente um diferente"
+          }
+        }
+      }
     },
     "There are no users connected." : {
       "localizations" : {
@@ -1220,7 +1360,14 @@
       }
     },
     "Unknown error" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro desconhecido"
+          }
+        }
+      }
     },
     "Update you profile picture" : {
       "localizations" : {
@@ -1344,10 +1491,24 @@
       }
     },
     "You are already connected to this publication" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você já está conectado a esta publicação"
+          }
+        }
+      }
     },
     "You have already reviewed this place" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você já avaliou este local"
+          }
+        }
+      }
     },
     "You have already reviewed this place." : {
       "localizations" : {
@@ -1360,7 +1521,14 @@
       }
     },
     "You have not requested a stay here" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não fez uma reserva aqui"
+          }
+        }
+      }
     },
     "You have requested this place! You will hear back from the landlord soon." : {
       "localizations" : {
@@ -1373,13 +1541,34 @@
       }
     },
     "You have reviewed this place!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você avaliou este local!"
+          }
+        }
+      }
     },
     "You have submitted a request for this place. You should hear back from the landlord soon." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você enviou uma reserva para este local. O locador entrará em contato em breve."
+          }
+        }
+      }
     },
     "You have successfully revoked this request" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você revogou esta reserva com sucesso"
+          }
+        }
+      }
     },
     "You need to provide your location" : {
       "localizations" : {
@@ -1392,10 +1581,24 @@
       }
     },
     "Your bio needs to be at least 10 characters long" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sua bio precisa ter ao menos 10 caracteres"
+          }
+        }
+      }
     },
     "Your name needs to be at least 3 characters long" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu nome precisa ter ao menos 3 caracteres"
+          }
+        }
+      }
     },
     "Your publications" : {
       "localizations" : {
@@ -1408,7 +1611,14 @@
       }
     },
     "Your surname needs to be at least 3 characters long" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu sobrenome precisa ter ao menos 3 caracteres"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
