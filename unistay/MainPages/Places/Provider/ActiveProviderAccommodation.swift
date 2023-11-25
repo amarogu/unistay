@@ -49,6 +49,9 @@ struct ActiveProviderAccommodation: View {
     @State var pubOwner: String = ""
     
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
+    
+    @State var reviews: [Review] = []
+    
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -144,7 +147,22 @@ struct ActiveProviderAccommodation: View {
                                     }
                                 }
                                 Spacer()
-                            }.padding(.top, 10)
+                            }.padding(.vertical, 10)
+                            ForEach(reviews, id:\.self) {
+                                review in
+                                Divider()
+                                VStack(alignment: .leading, spacing: 6) {
+                                    HStack {
+                                        Text("Rating").customStyle(size: 14)
+                                        ForEach(1..<6, id:\.self) {
+                                            index in
+                                            Image(systemName: index <= Int(review.rating) ? "star.fill" : "star").foregroundStyle(Color.yellow)
+                                        }
+                                    }
+                                    Text("Comment:").customStyle(size: 14)
+                                    Text(review.comment).customStyle(size: 14)
+                                }.padding(.vertical, 8)
+                            }
                         }.padding(.top, 16)
                     }.padding(.horizontal, 20).padding(.vertical, 18)
                     
@@ -186,6 +204,20 @@ struct ActiveProviderAccommodation: View {
             Text(responseAlert)
         })
         .onAppear {
+            for review in pub?.reviews ?? [] {
+                print(review)
+                Task {
+                    do {
+                        let res = try await getReview(review)
+                        reviews.append(res)
+                        
+                    } catch {
+                        print(error)
+                    }
+                }
+            
+            }
+            
             for saved in user.savedPublications {
                 if pub?._id == saved {
                     isFav = true

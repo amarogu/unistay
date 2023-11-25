@@ -8,12 +8,20 @@
 import Foundation
 import Alamofire
 
-class Review: Decodable {
+class Review: Decodable, Hashable, Identifiable {
     let _id: String
     let publicationId: String
     let userId: String
     let rating: Double
     let comment: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
+        
+    static func == (lhs: Review, rhs: Review) -> Bool {
+        return lhs._id == rhs._id
+    }
 }
 
 func review(_ id: String, rating: Int, comment: String) async throws -> GeneralResponse {
