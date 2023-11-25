@@ -164,6 +164,9 @@
         }
       }
     },
+    "Been here? Review this place!" : {
+
+    },
     "by %@" : {
       "localizations" : {
         "pt-BR" : {
@@ -233,6 +236,9 @@
           }
         }
       }
+    },
+    "Comment" : {
+
     },
     "Confirm" : {
       "localizations" : {
@@ -775,7 +781,14 @@
       }
     },
     "Profile" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
+          }
+        }
+      }
     },
     "Profile picture and bio" : {
       "localizations" : {
@@ -816,6 +829,9 @@
           }
         }
       }
+    },
+    "Rating" : {
+
     },
     "Recommended" : {
       "localizations" : {

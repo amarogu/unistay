@@ -16,10 +16,15 @@ class Review: Decodable {
     let comment: String
 }
 
-func review(_ id: String) async throws -> GeneralResponse {
+func review(_ id: String, rating: Double, comment: String) async throws -> GeneralResponse {
+    let params = [
+        "rating": rating,
+        "comment": comment
+    ] as [String : Any]
+    
     let res = try await withCheckedThrowingContinuation {
         (continuation: CheckedContinuation<GeneralResponse, Error>) in
-        NetworkManager.shared.request("\(Global.shared.apiUrl)review/?id=\(id)", method: .post).responseDecodable(of: GeneralResponse.self) {
+        NetworkManager.shared.request("\(Global.shared.apiUrl)review/?id=\(id)", method: .post, parameters: params, encoding: JSONEncoding.default).responseDecodable(of: GeneralResponse.self) {
             res in
             print("\(Global.shared.apiUrl)review/?id=\(id)")
             switch res.result {

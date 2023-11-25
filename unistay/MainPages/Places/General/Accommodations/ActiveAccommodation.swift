@@ -32,6 +32,10 @@ struct ActiveAccommodation: View {
     var lang: String = Locale.current.language.languageCode?.identifier.uppercased() ?? ""
     @State var connected: Bool = false
     @State var requests: [String] = []
+    @State var isReviewing: Bool = false
+    @State var comment: String = ""
+    var maxRating: Int = 5
+    @State var currentRating: Int = 0
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -169,6 +173,11 @@ struct ActiveAccommodation: View {
                                 }) {
                                     Text("Revoke request").customStyle(size: 14, color: "Error")
                                 }
+                                Button(action: {
+                                    isReviewing = true
+                                }) {
+                                    Text("Been here? Review this place!").customStyle(size: 14)
+                                }
                             }.padding(.top, 16)
                         }
                     }.padding(.horizontal, 20).padding(.vertical, 18)
@@ -304,6 +313,42 @@ struct ActiveAccommodation: View {
                     }
                 }
             }
+        }.sheet(isPresented: $isReviewing) {
+            ZStack {
+                Color("BackgroundColor").ignoresSafeArea(.all)
+                VStack {
+                    HStack {
+                        Button(action: {
+                            isReviewing = false
+                        }) {
+                            Text("Cancel").customStyle(type: "Semibold", size: 14)
+                        }
+                        Spacer()
+                        Button(action: {
+                            isReviewing = false
+                        }) {
+                            Text("Done").customStyle(type: "Semibold", size: 14)
+                        }
+                    }
+                    Spacer()
+                    HStack {
+                        Text("Rating").customStyle(size: 14)
+                        ForEach(1..<maxRating+1, id:\.self) {
+                            num in
+                            Button(action: {
+                                currentRating = num
+                                print(currentRating)
+                            }) {
+                                Image(systemName: num <= currentRating ? "star.fill" : "star").foregroundStyle(Color.yellow)
+                            }
+                        }
+                        Spacer()
+                    }
+                    TextInputField(input: $comment, placeholderText: "Comment", placeholderIcon: "bubble.circle", required: false)
+                    Spacer()
+                }.padding(.all, 16)
+                
+            }.presentationDetents([.fraction(0.3)]).presentationDragIndicator(.visible)
         }
     }
 }

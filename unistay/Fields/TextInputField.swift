@@ -48,7 +48,7 @@ struct TextInputField: View {
                             }
                         }
                     } else {
-                        TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        TextField(text: $input, axis: placeholderText == "Send a message" || placeholderText == "Update your bio" || placeholderText == "Comment" ? .vertical : .horizontal, label: {}).font(.custom("Eina03-Regular", size: 13)).foregroundColor(Color("BodyEmphasized")).keyboardType(placeholderText == "Rent" ? .numberPad : .default).padding(.leading, padding).textInputAutocapitalization(.never).autocorrectionDisabled()
                     }
                     //styledText(type: "Regular", size: 16, content: "*").foregroundColor(.red).frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
