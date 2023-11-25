@@ -326,6 +326,26 @@ struct ActiveAccommodation: View {
                         Spacer()
                         Button(action: {
                             isReviewing = false
+                            Task {
+                                do {
+                                    let res = try await review(pub?._id ?? "", rating: currentRating, comment: comment)
+                                    if res.message == "Review created successfully" {
+                                        responseAlertTitle = "Success"
+                                        responseAlert = "You have reviewed this place!"
+                                        isAlertOn = true
+                                    } else if res.message == "User has already reviewed this place" {
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "You have already reviewed this place"
+                                        isAlertOn = true
+                                    } else {
+                                        responseAlertTitle = "Error"
+                                        responseAlert = "An error occurre while reviewing this place."
+                                        isAlertOn = true
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         }) {
                             Text("Done").customStyle(type: "Semibold", size: 14)
                         }

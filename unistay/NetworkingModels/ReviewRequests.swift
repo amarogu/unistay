@@ -16,7 +16,7 @@ class Review: Decodable {
     let comment: String
 }
 
-func review(_ id: String, rating: Double, comment: String) async throws -> GeneralResponse {
+func review(_ id: String, rating: Int, comment: String) async throws -> GeneralResponse {
     let params = [
         "rating": rating,
         "comment": comment
