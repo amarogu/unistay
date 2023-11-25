@@ -51,13 +51,13 @@ class AccommodationResponse: Decodable, Hashable {
     let connectedUsers: [String]
     let images: [String]
     let location: PubLocation
-    let rating: Int
+    let rating: Double
     let acceptedRequests: [String]
     let requests: [String]
     let reviews: [String]
     let __v: Int
     
-    init(_id: String, title: Title, description: Description, rent: Int, currency: String, type: String, postLanguage: String, owner: String, visibility: String, chats: [String], connectedUsers: [String], images: [String], location: PubLocation, rating: Int, acceptedRequests: [String], requests: [String], reviews: [String], __v: Int) {
+    init(_id: String, title: Title, description: Description, rent: Int, currency: String, type: String, postLanguage: String, owner: String, visibility: String, chats: [String], connectedUsers: [String], images: [String], location: PubLocation, rating: Double, acceptedRequests: [String], requests: [String], reviews: [String], __v: Int) {
         self._id = _id
         self.title = title
         self.description = description

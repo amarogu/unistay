@@ -50,7 +50,7 @@ struct Accomodation: View {
                     HStack {
                         Image(systemName: "star.fill").resizable().aspectRatio(contentMode: .fit).frame(width: 14)
                         
-                        Text(String(format: "%.1f", pub?.rating ?? 10)).customStyle(size: 14)
+                        Text(String(format: "%.1f", pub?.rating ?? 0)).customStyle(size: 14)
                     }
 
                 }
