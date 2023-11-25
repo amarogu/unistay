@@ -38,3 +38,21 @@ func review(_ id: String, rating: Int, comment: String) async throws -> GeneralR
     
     return res
 }
+
+func getReview(_ id: String) async throws -> Review {
+    let res = try await withCheckedThrowingContinuation {
+        (continuation: CheckedContinuation<Review, Error>) in
+        NetworkManager.shared.request("\(Global.shared.apiUrl)review/?id=\(id)", method: .get, encoding: JSONEncoding.default).responseDecodable(of: Review.self) {
+            res in
+            print("\(Global.shared.apiUrl)review/?id=\(id)")
+            switch res.result {
+            case .success(let value):
+                continuation.resume(returning: value)
+            case .failure(let err):
+                continuation.resume(throwing: err)
+            }
+        }
+    }
+    
+    return res
+}

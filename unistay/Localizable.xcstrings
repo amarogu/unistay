@@ -1273,6 +1273,9 @@
         }
       }
     },
+    "You have already reviewed this place." : {
+
+    },
     "You have requested this place! You will hear back from the landlord soon." : {
       "localizations" : {
         "pt-BR" : {

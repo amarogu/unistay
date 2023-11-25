@@ -36,6 +36,9 @@ struct ActiveAccommodation: View {
     @State var comment: String = ""
     var maxRating: Int = 5
     @State var currentRating: Int = 0
+    
+    @State var hasReviewed: Bool = false
+    
     var body: some View {
         let coordinate = CLLocationCoordinate2D(latitude: pub?.location.latitude ?? 0, longitude: pub?.location.longitude ?? 0)
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
@@ -173,10 +176,14 @@ struct ActiveAccommodation: View {
                                 }) {
                                     Text("Revoke request").customStyle(size: 14, color: "Error")
                                 }
-                                Button(action: {
-                                    isReviewing = true
-                                }) {
-                                    Text("Been here? Review this place!").customStyle(size: 14)
+                                if hasReviewed {
+                                    Text("You have already reviewed this place.").customStyle(size: 14)
+                                } else {
+                                    Button(action: {
+                                        isReviewing = true
+                                    }) {
+                                        Text("Been here? Review this place!").customStyle(size: 14)
+                                    }
                                 }
                             }.padding(.top, 16)
                         }
@@ -313,6 +320,7 @@ struct ActiveAccommodation: View {
                     }
                 }
             }
+            checkIfReviewed()
         }.sheet(isPresented: $isReviewing) {
             ZStack {
                 Color("BackgroundColor").ignoresSafeArea(.all)
@@ -371,6 +379,22 @@ struct ActiveAccommodation: View {
             }.presentationDetents([.fraction(0.3)]).presentationDragIndicator(.visible)
         }
     }
+    
+    func checkIfReviewed() {
+        Task {
+            do {
+                for review in pub?.reviews ?? [] {
+                    let res = try await getReview(review)
+                    if res.userId == user._id {
+                        hasReviewed = true
+                        break
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
 
 class IdentifiablePointAnnotation: MKPointAnnotation, Identifiable {
@@ -382,3 +406,4 @@ func getAnnotation(_ coordinate: CLLocationCoordinate2D) -> IdentifiablePointAnn
         annotation.coordinate = coordinate
         return annotation
     }
+
