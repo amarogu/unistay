@@ -177,6 +177,9 @@
         }
       }
     },
+    "By %@" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "pt-BR" : {
@@ -238,6 +241,9 @@
       }
     },
     "Comment" : {
+
+    },
+    "Comment:" : {
 
     },
     "Confirm" : {

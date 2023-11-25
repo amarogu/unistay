@@ -9,18 +9,24 @@ import Foundation
 import Alamofire
 
 class Review: Decodable, Hashable, Identifiable {
+    let id = UUID()
     let _id: String
     let publicationId: String
     let userId: String
     let rating: Double
     let comment: String
+    let reviewer: String
+    
+    enum CodingKeys: String, CodingKey {
+        case _id, publicationId, userId, rating, comment, reviewer
+    }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(_id)
+        hasher.combine(id)
     }
         
     static func == (lhs: Review, rhs: Review) -> Bool {
-        return lhs._id == rhs._id
+        return lhs.id == rhs.id
     }
 }
 

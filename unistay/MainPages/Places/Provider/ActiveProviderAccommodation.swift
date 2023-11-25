@@ -161,6 +161,7 @@ struct ActiveProviderAccommodation: View {
                                     }
                                     Text("Comment:").customStyle(size: 14)
                                     Text(review.comment).customStyle(size: 14)
+                                    Text("By \(review.reviewer)").customStyle(type: "Semibold", size: 14)
                                 }.padding(.vertical, 8)
                             }
                         }.padding(.top, 16)
