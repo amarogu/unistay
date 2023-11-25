@@ -205,19 +205,15 @@ struct ActiveProviderAccommodation: View {
         })
         .onAppear {
             for review in pub?.reviews ?? [] {
-                print(review)
                 Task {
                     do {
                         let res = try await getReview(review)
                         reviews.append(res)
-                        
                     } catch {
                         print(error)
                     }
                 }
-            
             }
-            
             for saved in user.savedPublications {
                 if pub?._id == saved {
                     isFav = true
