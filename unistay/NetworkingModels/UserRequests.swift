@@ -38,10 +38,11 @@ class User: ObservableObject, Decodable, Identifiable {
     @Published var accountType: String
     @Published var locatedAt: [Location]
     @Published var backgroundImage: String
+    @Published var reviews: [String]
     let __v: Int
 
     enum CodingKeys: String, CodingKey {
-        case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, accountType, locatedAt, __v, backgroundImage
+        case _id, username, name, surname, email, language, password, preferredLocations, currency, savedPublications, connectedPublications, owns, bio, profilePicture, accountType, locatedAt, __v, backgroundImage, reviews
         case isPrivate = "private"
     }
     
@@ -65,6 +66,7 @@ class User: ObservableObject, Decodable, Identifiable {
         self.locatedAt = []
         self.__v = 0
         self.backgroundImage = ""
+        self.reviews = []
     }
 
 
@@ -89,6 +91,7 @@ class User: ObservableObject, Decodable, Identifiable {
         locatedAt = try container.decode([Location].self, forKey: .locatedAt)
         __v = try container.decode(Int.self, forKey: .__v)
         backgroundImage = try container.decode(String.self, forKey: .backgroundImage)
+        reviews = try container.decode([String].self, forKey: .reviews)
     }
 }
 
